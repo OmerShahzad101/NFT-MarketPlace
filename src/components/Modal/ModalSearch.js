@@ -32,7 +32,6 @@ class ModalSearch extends Component {
                                         <div className="col-12 pb-3">
                                             <h2 className="search-title mt-0 mb-3">{this.state.data.heading}</h2>
                                             <p>{this.state.data.content}</p>
-                                            {/* console.log({this.state.data.content}) */}
                                         </div>
                                     </div>
                                     <div className="row">

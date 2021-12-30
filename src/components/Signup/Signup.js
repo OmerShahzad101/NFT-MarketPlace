@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 const initData = {
-  //   pre_heading: "Signup",
+  pre_heading: "Signup",
   heading: "Create an Account",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",

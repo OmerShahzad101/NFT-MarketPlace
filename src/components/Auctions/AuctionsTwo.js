@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 const initData = {
-    // pre_heading: "Auctions",
+    pre_heading: "Auctions",
     heading: "Live Auctions",
     content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
     btnText: "Load More"
@@ -149,7 +149,7 @@ class AuctionsTwo extends Component {
                         <div className="col-12 col-md-8 col-lg-7">
                             {/* Intro */}
                             <div className="intro text-center">
-                                {/* <span>{this.state.initData.pre_heading}</span> */}
+                                <span>{this.state.initData.pre_heading}</span>
                                 <h3 className="mt-3 mb-0">{this.state.initData.heading}</h3>
                                 <p>{this.state.initData.content}</p>
                             </div>

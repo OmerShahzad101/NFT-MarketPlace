@@ -13,7 +13,7 @@ class Signup extends Component {
         return (
             <div className="main">
                 <Header />
-                {/* <Breadcrumb title="Signup" subpage="Pages" page="Signup" /> */}
+                <Breadcrumb title="Signup" subpage="Pages" page="Signup" />
                 <SignupSection />
                 <Footer />
                 <ModalSearch />
