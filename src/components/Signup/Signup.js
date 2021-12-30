@@ -38,14 +38,8 @@ class Signup extends Component {
       email: "",
       password: "",
       re_password: "",
-      first_name_error: "",
-      last_name_error: "",
-      email_error: "",
-      password_error: "",
-      re_password_error: "",
     };
     this.handleChange = this.handleChange.bind(this);
-    // this.Register = this.Register.bind(this);
   }
 
   componentDidMount() {
@@ -63,15 +57,16 @@ class Signup extends Component {
   }
 
   Register = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const { first_name, last_name, email, password, re_password } = this.state;
-    let payload = {first_name, last_name,email,password,re_password,};
+    let payload = { first_name, last_name, email, password, re_password };
     console.log(payload);
-    axios.post("https://nft-marketeplace-fkg7q.ondigitalocean.app/user/auth/users/",payload)
+    axios
+      .post("http://192.168.99.71:8001/user/auth/users/", payload)
       .then((res) => {
-        alert(res);
+        console.log(res);
       });
-  }
+  };
   render() {
     return (
       <section className="author-area">

@@ -37,9 +37,9 @@ class MyRouts extends React.Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/create" component={Create} /> 
       
+            <Route exact path="/collection" component={ExploreTwo} />
             {/* <Route exact path="/" component={ThemeOne} />
             <Route exact path="/explore-1" component={ExploreOne} />
-            <Route exact path="/explore-2" component={ExploreTwo} />
             <Route exact path="/explore-3" component={ExploreThree} />
             <Route exact path="/explore-4" component={ExploreFour} />
             <Route exact path="/auctions" component={Auctions} />

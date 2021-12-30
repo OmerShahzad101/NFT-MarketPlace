@@ -16,7 +16,7 @@ const Header = () => {
                         <li className="nav-item"><a href="/marketplace" className="nav-link">MarketePlace</a></li>
                         <li className="nav-item"><a href="/collection" className="nav-link">Collection</a></li>
                         <li className="nav-item"><a href="/liveAuction" className="nav-link">live Auction</a></li>
-                        <li className="nav-item"><a href="/ranking" className="nav-link">Rnking</a></li>
+                        <li className="nav-item"><a href="/ranking" className="nav-link">Ranking</a></li>
                         <li className="nav-item"><a href="/activity" className="nav-link">Activity</a></li>
 
                         <li className="nav-item dropdown">
