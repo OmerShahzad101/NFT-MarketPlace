@@ -13,7 +13,20 @@ const Header = () => {
                     <div className="ml-auto" />
                     {/* Navbar */}
                     <ul className="navbar-nav items mx-auto">
+                        <li className="nav-item"><a href="/marketplace" className="nav-link">MarketePlace</a></li>
+                        <li className="nav-item"><a href="/collection" className="nav-link">Collection</a></li>
+                        <li className="nav-item"><a href="/liveAuction" className="nav-link">live Auction</a></li>
+                        <li className="nav-item"><a href="/ranking" className="nav-link">Rnking</a></li>
+                        <li className="nav-item"><a href="/activity" className="nav-link">Activity</a></li>
+
                         <li className="nav-item dropdown">
+                            <a className="nav-link" href="#">Pages <i className="fas fa-angle-down ml-1" /></a>
+                            <ul className="dropdown-menu">
+                                <li className="nav-item"><a href="/login" className="nav-link">Login</a></li>
+                                <li className="nav-item"><a href="/signup" className="nav-link">Signup</a></li>
+                            </ul>
+                        </li>
+                        {/* <li className="nav-item dropdown">
                             <a className="nav-link" href="/">Home</a>
                         </li>
                         <li className="nav-item dropdown">
@@ -51,7 +64,7 @@ const Header = () => {
                         </li>
                         <li className="nav-item">
                             <a href="/contact" className="nav-link">Contact</a>
-                        </li>
+                        </li> */}
                     </ul>
                     {/* Navbar Icons */}
                     <ul className="navbar-nav icons">
