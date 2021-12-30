@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Header from '../components/Header/Header';
-import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
+// import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import LoginSection from '../components/Login/Login';
 import Footer from '../components/Footer/Footer';
 import ModalSearch from '../components/Modal/ModalSearch';
@@ -13,7 +13,7 @@ class Login extends Component {
         return (
             <div className="main">
                 <Header />
-                <Breadcrumb title="Login" subpage="Pages" page="Login" />
+                {/* <Breadcrumb title="Login" subpage="Pages" page="Login" /> */}
                 <LoginSection />
                 <Footer />
                 <ModalSearch />

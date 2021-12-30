@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 const initData = {
   //   pre_heading: "Signup",
@@ -31,6 +32,7 @@ class Signup extends Component {
     this.state = {
       initData: {},
       data: [],
+      error: "",
       first_name: "",
       last_name: "",
       email: "",
@@ -43,6 +45,8 @@ class Signup extends Component {
       re_password_error: "",
     };
     this.handleChange = this.handleChange.bind(this);
+    // this.validate = this.validate.bind(this);
+    this.Register = this.Register.bind(this);
     this.Send = this.Send.bind(this);
   }
 
@@ -50,7 +54,6 @@ class Signup extends Component {
     this.setState({
       initData: initData,
       data: socialData,
-    
     });
   }
 
@@ -63,6 +66,53 @@ class Signup extends Component {
   Send(event) {
     event.preventDefault();
     console.log(`Email: ${this.state.email}`);
+  }
+
+  // validate() {
+  //   const { first_name, last_name, email, password, re_password } = this.state;
+  //   let isValid = true;
+
+  //   if (first_name.length == "") {
+  //     this.error.first_name_error = "first_name cannot be empty";
+  //     isValid = false;
+  //   } else if (first_name.length < 3) {
+  //     this.error.first_name_error = "Minimum first_name length is 3 Character";
+  //     isValid = false;
+  //   } else if (first_name.length > 30) {
+  //     this.error.first_name_error = "Maximum first_name length is 30 Character";
+  //     isValid = false;
+  //   } else {
+  //     this.error.first_name_error = "";
+  //   }
+
+  //   if (last_name.length == "") {
+  //     this.error.last_name_error = "last_name cannot be empty";
+  //     isValid = false;
+  //   } else if (last_name.length < 3) {
+  //     this.error.last_name_error = "Minimum last_name length is 3 Character";
+  //     isValid = false;
+  //   } else if (last_name.length > 30) {
+  //     this.error.last_name_error = "Maximum last_name length is 30 Character";
+  //     isValid = false;
+  //   } else {
+  //     this.error.last_name_error = "";
+  //   }
+  //   setState({ ...this.error });
+  //   return isValid ?   Register(isValid) : console.log("isvalide false");
+  // }
+
+  Register(event) {
+    event.preventDefault();
+
+    axios
+      .post(
+        "https://nft-marketeplace-fkg7q.ondigitalocean.app/user/auth/users/",
+        this.state
+      )
+      .then((res) => {
+        alert(res.data.message);
+        alert("hi");
+      });
   }
 
   render() {
@@ -78,7 +128,10 @@ class Signup extends Component {
                 <p>{this.state.initData.content}</p>
               </div>
               {/* Item Form */}
-              <form className="item-form card no-hover" onSubmit={this.Send}>
+              <form
+                className="item-form card no-hover"
+                onSubmit={this.Register}
+              >
                 <div className="row">
                   <div className="col-12">
                     <div className="form-group mt-3">
@@ -169,11 +222,7 @@ class Signup extends Component {
                     </div>
                   </div>
                   <div className="col-12">
-                    <button
-                      className="btn w-100 mt-3 mt-sm-4"
-                      type="submit"
-                      
-                    >
+                    <button className="btn w-100 mt-3 mt-sm-4" type="submit">
                       Sign Up
                     </button>
                   </div>
