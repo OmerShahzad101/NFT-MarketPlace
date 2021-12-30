@@ -13,20 +13,9 @@ const Header = () => {
                     <div className="ml-auto" />
                     {/* Navbar */}
                     <ul className="navbar-nav items mx-auto">
-                         <li className="nav-item dropdown"><a className="nav-link" href="/marketplace">Marketplace</a></li>
-                        <li className="nav-item dropdown"><a className="nav-link" href="/collection">Collection</a></li>
-                        <li className="nav-item dropdown"><a className="nav-link" href="/liveAuction">Live Auction</a></li>
-                        <li className="nav-item dropdown"><a className="nav-link" href="/ranking">Ranking</a></li>
-                        <li className="nav-item dropdown"><a className="nav-link" href="/activity">Activity</a></li> 
                         <li className="nav-item dropdown">
-                            <a className="nav-link" href="#">Pages <i className="fas fa-angle-down ml-1" /></a>
-                            <ul className="dropdown-menu">
-                                <li className="nav-item"><a href="/login" className="nav-link">Login</a></li>
-                                <li className="nav-item"><a href="/signup" className="nav-link">Signup</a></li>
-                            </ul>
+                            <a className="nav-link" href="/">Home</a>
                         </li>
-                        {/* <li className="nav-item dropdown"><a className="nav-link" href="/">Home</a></li>
-
                         <li className="nav-item dropdown">
                             <a className="nav-link" href="#">Explore <i className="fas fa-angle-down ml-1" /></a>
                             <ul className="dropdown-menu">
@@ -36,9 +25,7 @@ const Header = () => {
                                 <li className="nav-item"><a href="/explore-4" className="nav-link">Explore Style 4</a></li>
                                 <li className="nav-item"><a href="/auctions" className="nav-link">Live Auctions</a></li>
                                 <li className="nav-item"><a href="/item-details" className="nav-link">Item Details</a></li>
-                                 <li className="nav-item"><a href="/login" className="nav-link">Login</a></li>
-                                <li className="nav-item"><a href="/signup" className="nav-link">Signup</a></li>
-                                </ul>
+                            </ul>
                         </li>
                         <li className="nav-item">
                             <a href="/activity" className="nav-link">Activity</a>
@@ -64,7 +51,7 @@ const Header = () => {
                         </li>
                         <li className="nav-item">
                             <a href="/contact" className="nav-link">Contact</a>
-                        </li> */}
+                        </li>
                     </ul>
                     {/* Navbar Icons */}
                     <ul className="navbar-nav icons">

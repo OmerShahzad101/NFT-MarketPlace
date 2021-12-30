@@ -13,7 +13,7 @@ class ExploreTwo extends Component {
         return (
             <div className="main">
                 <Header />
-                {/* <Breadcrumb title="Explore" subpage="Explore" page="Explore Style 3" /> */}
+                <Breadcrumb title="Explore" subpage="Explore" page="Explore Style 3" />
                 <Explore />
                 <Footer />
                 <ModalSearch />

@@ -13,7 +13,7 @@ class Activity extends Component {
         return (
             <div className="main">
                 <Header />
-                {/* <Breadcrumb title="Activity" subpage="Pages" page="Activity" /> */}
+                <Breadcrumb title="Activity" subpage="Pages" page="Activity" />
                 <Activities />
                 <Footer />
                 <ModalSearch />
