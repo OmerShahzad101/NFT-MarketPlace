@@ -3299,3 +3299,18 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   display: block;
   cursor: pointer;
 }
+.select-collection select{
+  -webkit-appearance: none!important;
+  -moz-appearance: none!important;
+}
+.select-collection select{
+  height: 50px;
+  padding: 10px 15px!important;
+}
+.select-collection::after {
+  content: "\e604";
+  font-family: "icons";
+  position: absolute;
+  top: 12px;
+  right: 20px;
+}

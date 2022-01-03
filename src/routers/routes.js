@@ -18,7 +18,7 @@ import ExploreThree from "../themes/explore-three";
 // import Authors from "../themes/authors";
 // import Author from "../themes/author";
 // import WalletConnect from "../themes/wallet-connect";
-// import Create from "../themes/create";
+import Create from "../themes/create";
 // import Contact from "../themes/contact";
 
 class MyRouts extends React.Component {
@@ -35,7 +35,7 @@ class MyRouts extends React.Component {
             <Route exact path="/activity" component={Activity} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-      
+            <Route exact path="/create" component={Create} /> 
             {/* <Route exact path="/" component={ThemeOne} />
             <Route exact path="/explore-1" component={ExploreOne} />
             <Route exact path="/explore-2" component={ExploreTwo} />
@@ -51,7 +51,7 @@ class MyRouts extends React.Component {
             <Route exact path="/author" component={Author} />
             <Route exact path="/wallet-connect" component={WalletConnect} />
             <Route exact path="/contact" component={Contact} /> 
-            <Route exact path="/create" component={Create} /> 
+            
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} /> */}
           </Switch>
