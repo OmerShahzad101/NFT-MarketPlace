@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
+import contact from "../../services/contact.service";
+import { ENV } from "../../env";
 
 const initData = {
   heading: "Get In Touch",
@@ -48,8 +49,10 @@ class Contact extends Component {
                   message: "",
                 }}
                 validationSchema={contactSchema}
-                onSubmit={(values) => {
+                onSubmit={async (values) => {
                   console.log(values);
+                  const res = await contact.contacts(`${ENV.API_URL}api/contact_list/`,values);
+                  console.log(res);
                 }}
               >
                 {({ touched, errors, isSubmitting, values }) =>
@@ -136,7 +139,8 @@ class Contact extends Component {
                         </div>
                         <div className="col-12">
                           <div className="form-group mt-3">
-                            <Field as="textarea"
+                            <Field
+                              as="textarea"
                               type="text"
                               className={`form-control
                               ${
