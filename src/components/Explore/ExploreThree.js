@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
 const initData = {
-  pre_heading: "Explore",
-  heading: "Exclusive Digital Assets",
+  heading: "Collections ",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
   filter_1: "All",
@@ -154,7 +153,6 @@ class ExploreThree extends Component {
             <div className="col-12 col-md-8 col-lg-7">
               {/* Intro */}
               <div className="intro text-center mb-4">
-                <span>{this.state.initData.pre_heading}</span>
                 <h3 className="mt-3 mb-0">{this.state.initData.heading}</h3>
                 <p>{this.state.initData.content}</p>
               </div>
@@ -211,8 +209,8 @@ class ExploreThree extends Component {
               </div>
             </div>
           </div>
+
           <div className="row items explore-items">
-            <h1>alksdhalsd</h1>
             {this.state.data.map((item, idx) => {
               return (
                 <div
@@ -226,9 +224,8 @@ class ExploreThree extends Component {
                         <img className="card-img-top" src={item.img} alt="" />
                       </a>
                     </div>
-                    {/* Card Caption */}
+
                     <div className="card-caption col-12 p-0">
-                      {/* Card Body */}
                       <div className="card-body">
                         <a href="/item-details">
                           <h5 className="mb-0">{item.title}</h5>

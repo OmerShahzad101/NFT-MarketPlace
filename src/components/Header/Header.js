@@ -2,71 +2,34 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  return (
-    <header id="header">
-      {/* Navbar */}
-      <nav
-        data-aos="zoom-out"
-        data-aos-delay={800}
-        className="navbar navbar-expand"
-      >
-        <div className="container header">
-          {/* Navbar Brand*/}
-          <Link className="navbar-brand" to="/">
-            <img
-              className="navbar-brand-sticky"
-              src="img/logo.png"
-              alt="sticky brand-logo"
-            />
-          </Link>
-          <div className="ml-auto" />
-          {/* Navbar */}
-          <ul className="navbar-nav items mx-auto">
-            <li className="nav-item">
-              <Link to="/marketplace" className="nav-link">
-                MarketePlace
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/collection" className="nav-link">
-                Collection
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/liveAuction" className="nav-link">
-                live Auction
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/ranking" className="nav-link">
-                Rnking
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/activity" className="nav-link">
-                Activity
-              </Link>
-            </li>
+    return (
+        <header id="header">
+            {/* Navbar */}
+            <nav data-aos="zoom-out" data-aos-delay={800} className="navbar navbar-expand">
+                <div className="container header">
+                    {/* Navbar Brand*/}
+                    <a className="navbar-brand" href="/">
+                        <img className="navbar-brand-sticky" src="img/logo.png" alt="sticky brand-logo" />
+                    </a>
+                    <div className="ml-auto" />
+                    {/* Navbar */}
+                    <ul className="navbar-nav items mx-auto">
+                        <li className="nav-item"><a href="/marketplace" className="nav-link">MarketePlace</a></li>
+                        <li className="nav-item"><a href="/collection" className="nav-link">Collection</a></li>
+                        <li className="nav-item"><a href="/liveAuction" className="nav-link">live Auction</a></li>
+                        <li className="nav-item"><a href="/ranking" className="nav-link">Ranking</a></li>
+                        <li className="nav-item"><a href="/activity" className="nav-link">Activity</a></li>
 
-            <li className="nav-item dropdown">
-              <Link className="nav-link" to="#">
-                Pages <i className="fas fa-angle-down ml-1" />
-              </Link>
-              <ul className="dropdown-menu">
-                <li className="nav-item">
-                  <Link to="/login" className="nav-link">
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/signup" className="nav-link">
-                    Signup
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            {/* <li className="nav-item dropdown">
-                            <Link className="nav-link" to="/">Home</Link>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link" href="#">Pages <i className="fas fa-angle-down ml-1" /></a>
+                            <ul className="dropdown-menu">
+                            <li className="nav-item"><a href="/contact" className="nav-link">Contact</a></li> 
+                                <li className="nav-item"><a href="/login" className="nav-link">Login</a></li>
+                                <li className="nav-item"><a href="/signup" className="nav-link">Signup</a></li>
+                            </ul>
+                        </li>
+                        {/* <li className="nav-item dropdown">
+                            <a className="nav-link" href="/">Home</a>
                         </li>
                         <li className="nav-item dropdown">
                             <Link className="nav-link" to="#">Explore <i className="fas fa-angle-down ml-1" /></Link>
@@ -100,53 +63,35 @@ const Header = () => {
                                 <li className="nav-item"><Link to="/login" className="nav-link">Login</Link></li>
                                 <li className="nav-item"><Link to="/signup" className="nav-link">Signup</Link></li>
                             </ul>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/contact" className="nav-link">Contact</Link>
                         </li> */}
-          </ul>
-          {/* Navbar Icons */}
-          <ul className="navbar-nav icons">
-            <li className="nav-item">
-              <Link
-                to="#"
-                className="nav-link"
-                data-toggle="modal"
-                data-target="#search"
-              >
-                <i className="fas fa-search" />
-              </Link>
-            </li>
-          </ul>
-          {/* Navbar Toggler */}
-          <ul className="navbar-nav toggle">
-            <li className="nav-item">
-              <Link
-                to="#"
-                className="nav-link"
-                data-toggle="modal"
-                data-target="#menu"
-              >
-                <i className="fas fa-bars toggle-icon m-0" />
-              </Link>
-            </li>
-          </ul>
-          {/* Navbar Action Button */}
-          <ul className="navbar-nav action">
-            <li className="nav-item ml-3">
-              <Link
-                to="/wallet-connect"
-                className="btn ml-lg-auto btn-bordered-white"
-              >
-                <i className="icon-wallet mr-md-2" />
-                Wallet Connect
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-  );
+                       
+                    </ul>
+                    {/* Navbar Icons */}
+                    <ul className="navbar-nav icons">
+                        <li className="nav-item">
+                            <a href="#" className="nav-link" data-toggle="modal" data-target="#search">
+                                <i className="fas fa-search" />
+                            </a>
+                        </li>
+                    </ul>
+                    {/* Navbar Toggler */}
+                    <ul className="navbar-nav toggle">
+                        <li className="nav-item">
+                            <a href="#" className="nav-link" data-toggle="modal" data-target="#menu">
+                                <i className="fas fa-bars toggle-icon m-0" />
+                            </a>
+                        </li>
+                    </ul>
+                    {/* Navbar Action Button */}
+                    <ul className="navbar-nav action">
+                        <li className="nav-item ml-3">
+                            <a href="/wallet-connect" className="btn ml-lg-auto btn-bordered-white"><i className="icon-wallet mr-md-2" />Wallet Connect</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    );
 };
 
 export default Header;

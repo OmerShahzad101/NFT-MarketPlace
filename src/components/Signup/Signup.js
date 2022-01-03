@@ -8,7 +8,7 @@ const initData = {
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
 };
 
-const socialData = [
+const socialIcons = [
   {
     id: "1",
     link: "facebook",
@@ -30,31 +30,23 @@ class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initData: {},
-      data: [],
+      initData: initData,
+      data: socialIcons,
       error: "",
       first_name: "",
       last_name: "",
       email: "",
       password: "",
       re_password: "",
-      first_name_error: "",
-      last_name_error: "",
-      email_error: "",
-      password_error: "",
-      re_password_error: "",
     };
     this.handleChange = this.handleChange.bind(this);
-    // this.validate = this.validate.bind(this);
-    this.Register = this.Register.bind(this);
-    this.Send = this.Send.bind(this);
   }
 
   componentDidMount() {
-    this.setState({
-      initData: initData,
-      data: socialData,
-    });
+    // this.setState({
+    //   initData: initData,
+    //   data: socialData,
+    // });
   }
 
   handleChange(e) {
@@ -63,71 +55,28 @@ class Signup extends Component {
       [name]: value,
     });
   }
-  Send(event) {
+
+  Register = (event) => {
     event.preventDefault();
-    console.log(`Email: ${this.state.email}`);
-  }
-
-  // validate() {
-  //   const { first_name, last_name, email, password, re_password } = this.state;
-  //   let isValid = true;
-
-  //   if (first_name.length == "") {
-  //     this.error.first_name_error = "first_name cannot be empty";
-  //     isValid = false;
-  //   } else if (first_name.length < 3) {
-  //     this.error.first_name_error = "Minimum first_name length is 3 Character";
-  //     isValid = false;
-  //   } else if (first_name.length > 30) {
-  //     this.error.first_name_error = "Maximum first_name length is 30 Character";
-  //     isValid = false;
-  //   } else {
-  //     this.error.first_name_error = "";
-  //   }
-
-  //   if (last_name.length == "") {
-  //     this.error.last_name_error = "last_name cannot be empty";
-  //     isValid = false;
-  //   } else if (last_name.length < 3) {
-  //     this.error.last_name_error = "Minimum last_name length is 3 Character";
-  //     isValid = false;
-  //   } else if (last_name.length > 30) {
-  //     this.error.last_name_error = "Maximum last_name length is 30 Character";
-  //     isValid = false;
-  //   } else {
-  //     this.error.last_name_error = "";
-  //   }
-  //   setState({ ...this.error });
-  //   return isValid ?   Register(isValid) : console.log("isvalide false");
-  // }
-
-  Register(event) {
-    event.preventDefault();
-
+    const { first_name, last_name, email, password, re_password } = this.state;
+    let payload = { first_name, last_name, email, password, re_password };
+    console.log(payload);
     axios
-      .post(
-        "https://nft-marketeplace-fkg7q.ondigitalocean.app/user/auth/users/",
-        this.state
-      )
+      .post("http://192.168.99.163:8000/auth/users/", payload)
       .then((res) => {
-        alert(res.data.message);
-        alert("hi");
+        console.log(res);
       });
-  }
-
+  };
   render() {
     return (
       <section className="author-area">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-lg-7">
-              {/* Intro */}
               <div className="intro text-center">
-                {/* <span>{this.state.initData.pre_heading}</span> */}
                 <h3 className="mt-3 mb-0">{this.state.initData.heading}</h3>
                 <p>{this.state.initData.content}</p>
               </div>
-              {/* Item Form */}
               <form
                 className="item-form card no-hover"
                 onSubmit={this.Register}
@@ -140,10 +89,12 @@ class Signup extends Component {
                         className="form-control"
                         name="first_name"
                         placeholder="First Name"
-                        required="required"
                         value={this.state.first_name}
                         onChange={this.handleChange}
                       />
+                      <span style={{ color: "red" }}>
+                        {this.state.first_name_error}
+                      </span>
                     </div>
                   </div>
 
@@ -155,7 +106,6 @@ class Signup extends Component {
                         name="last_name"
                         placeholder="Last Name"
                         value={this.state.last_name}
-                        required="required"
                         onChange={this.handleChange}
                       />
                     </div>
@@ -169,7 +119,6 @@ class Signup extends Component {
                         name="email"
                         value={this.state.email}
                         placeholder="Email"
-                        required="required"
                         onChange={this.handleChange}
                       />
                     </div>
@@ -181,7 +130,6 @@ class Signup extends Component {
                         className="form-control"
                         name="password"
                         placeholder="Password"
-                        required="required"
                         onChange={this.handleChange}
                         value={this.state.password}
                       />
@@ -195,13 +143,11 @@ class Signup extends Component {
                         className="form-control"
                         name="re_password"
                         placeholder="Confirm Password"
-                        required="required"
                         onChange={this.handleChange}
                         value={this.state.re_password}
                       />
                     </div>
                   </div>
-
                   <div className="col-12">
                     <div className="form-group mt-3">
                       <div className="form-check form-check-inline">
@@ -235,7 +181,6 @@ class Signup extends Component {
                     <hr />
                     <div className="other-option">
                       <span className="d-block text-center mb-4">Or</span>
-                      {/* Social Icons */}
                       <div className="social-icons d-flex justify-content-center">
                         {this.state.data.map((item, idx) => {
                           return (

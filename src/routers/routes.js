@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // importing all the themes
 import Login from "../themes/login";
+import Create from "../themes/create";
 import Signup from "../themes/signup";
 import Auctions from "../themes/auctions";
 import Activity from "../themes/activity";
 import ThemeOne from "../themes/theme-one";
 import ExploreTwo from "../themes/explore-two";
 import ExploreThree from "../themes/explore-three";
+import Contact from "../themes/contact";
 // import ExploreOne from "../themes/explore-one";
 // import ExploreFour from "../themes/explore-four";
 // import ItemDetails from "../themes/item-details";
@@ -18,8 +20,6 @@ import ExploreThree from "../themes/explore-three";
 // import Authors from "../themes/authors";
 // import Author from "../themes/author";
 // import WalletConnect from "../themes/wallet-connect";
-import Create from "../themes/create";
-// import Contact from "../themes/contact";
 
 class MyRouts extends React.Component {
   render() {
@@ -36,9 +36,10 @@ class MyRouts extends React.Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/create" component={Create} /> 
-            {/* <Route exact path="/" component={ThemeOne} />
+            <Route exact path="/collection" component={ExploreTwo} />
+            <Route exact path="/contact" component={Contact} /> 
+             {/* <Route exact path="/" component={ThemeOne} />
             <Route exact path="/explore-1" component={ExploreOne} />
-            <Route exact path="/explore-2" component={ExploreTwo} />
             <Route exact path="/explore-3" component={ExploreThree} />
             <Route exact path="/explore-4" component={ExploreFour} />
             <Route exact path="/auctions" component={Auctions} />
@@ -50,11 +51,9 @@ class MyRouts extends React.Component {
             <Route exact path="/authors" component={Authors} />
             <Route exact path="/author" component={Author} />
             <Route exact path="/wallet-connect" component={WalletConnect} />
-            <Route exact path="/contact" component={Contact} /> 
-            
             <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} /> */}
-          </Switch>
+            <Route exact path="/signup" component={Signup} />   */} 
+          </Switch> 
         </Router>
       </div>
     );
