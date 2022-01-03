@@ -8,7 +8,7 @@ const initData = {
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
 };
 
-const socialData = [
+const socialIcons = [
   {
     id: "1",
     link: "facebook",
@@ -30,8 +30,8 @@ class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initData: {},
-      data: [],
+      initData: initData,
+      data: socialIcons,
       error: "",
       first_name: "",
       last_name: "",
@@ -43,10 +43,10 @@ class Signup extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      initData: initData,
-      data: socialData,
-    });
+    // this.setState({
+    //   initData: initData,
+    //   data: socialData,
+    // });
   }
 
   handleChange(e) {
