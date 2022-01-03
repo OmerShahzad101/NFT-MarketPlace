@@ -209,7 +209,8 @@ class ExploreThree extends Component {
               </div>
             </div>
           </div>
-          <div className="row items explore-items">
+
+          {/* <div className="row items explore-items">
             {this.state.data.map((item, idx) => {
               return (
                 <div
@@ -223,9 +224,9 @@ class ExploreThree extends Component {
                         <img className="card-img-top" src={item.img} alt="" />
                       </a>
                     </div>
-                    {/* Card Caption */}
+                    {/* Card Caption 
                     <div className="card-caption col-12 p-0">
-                      {/* Card Body */}
+                      {/* Card Body 
                       <div className="card-body">
                         <a href="/item-details">
                           <h5 className="mb-0">{item.title}</h5>
@@ -253,7 +254,7 @@ class ExploreThree extends Component {
                 </div>
               );
             })}
-          </div>
+          </div> */}
         </div>
       </section>
     );

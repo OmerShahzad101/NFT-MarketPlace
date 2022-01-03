@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 
 const BASE_URL =
-  "http://192.168.99.71:8001/nft/collection_list/";
-
+  // "http://192.168.99.71:8001/collection_list/";
+ " http://192.168.99.163:8000/api"
 class Collections extends Component {
   state = {
     data: {},
@@ -11,11 +11,11 @@ class Collections extends Component {
   };
   componentDidMount() {
     axios
-      .get(`${BASE_URL}`)
+      .get(`${BASE_URL}/collection_list/`)
       .then((res) => {
         this.setState({
           data: res.data,
-          collectionData: res.data.collectionData,
+          collectionData: res.data,
         });
         // console.log(this.state.data)
       })
@@ -42,7 +42,7 @@ class Collections extends Component {
             </div>
           </div>
           <div className="row items">
-            {this.state.collectionData.map((item, idx) => {
+            {this.state.collectionData ? this.state.collectionData.map((item, idx) => {
               return (
                 <div
                   key={`cd_${idx}`}
@@ -51,14 +51,14 @@ class Collections extends Component {
                   <div className="card no-hover text-center">
                     <div className="image-over">
                       <a href="/item-details">
-                        <img className="card-img-top" src={item.img} alt="" />
+                        <img className="card-img-top" src={item.banner_image} alt="" />
                       </a>
                       {/* Seller */}
                       <a className="seller" href="/item-details">
                         <div className="seller-thumb avatar-lg">
                           <img
                             className="rounded-circle"
-                            src={item.avatar}
+                            src={item.logo_image}
                             alt=""
                           />
                         </div>
@@ -69,15 +69,15 @@ class Collections extends Component {
                       {/* Card Body */}
                       <div className="card-body mt-4">
                         <a href="/item-details">
-                          <h5 className="mb-2">{item.title}</h5>
+                          <h5 className="mb-2">{item.name}</h5>
                         </a>
-                        <span>{item.content}</span>
+                        <span>{item.description}</span>
                       </div>
                     </div>
                   </div>
                 </div>
               );
-            })}
+            }):""}
           </div>
         </div>
       </section>

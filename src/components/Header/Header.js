@@ -22,6 +22,7 @@ const Header = () => {
                         <li className="nav-item dropdown">
                             <a className="nav-link" href="#">Pages <i className="fas fa-angle-down ml-1" /></a>
                             <ul className="dropdown-menu">
+                            <li className="nav-item"><a href="/contact" className="nav-link">Contact</a></li> 
                                 <li className="nav-item"><a href="/login" className="nav-link">Login</a></li>
                                 <li className="nav-item"><a href="/signup" className="nav-link">Signup</a></li>
                             </ul>
@@ -61,10 +62,8 @@ const Header = () => {
                                 <li className="nav-item"><a href="/login" className="nav-link">Login</a></li>
                                 <li className="nav-item"><a href="/signup" className="nav-link">Signup</a></li>
                             </ul>
-                        </li>
-                        <li className="nav-item">
-                            <a href="/contact" className="nav-link">Contact</a>
                         </li> */}
+                       
                     </ul>
                     {/* Navbar Icons */}
                     <ul className="navbar-nav icons">

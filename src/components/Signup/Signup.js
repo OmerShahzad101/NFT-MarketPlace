@@ -62,7 +62,7 @@ class Signup extends Component {
     let payload = { first_name, last_name, email, password, re_password };
     console.log(payload);
     axios
-      .post("http://192.168.99.71:8001/user/auth/users/", payload)
+      .post("http://192.168.99.163:8000/auth/users/", payload)
       .then((res) => {
         console.log(res);
       });

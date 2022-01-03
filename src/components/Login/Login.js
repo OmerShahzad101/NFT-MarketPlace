@@ -1,9 +1,9 @@
 import React, { Component } from "react";
+import { ENV } from "../../env"
 
 import axios from "axios";
 
 const initData = {
-  pre_heading: "Login",
   heading: "Login to your Account",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
@@ -59,7 +59,7 @@ class Login extends Component {
     let payload = { email, password };
     console.log(payload);
     axios
-      .post("http://192.168.99.71:8001user/auth/jwt/create/", payload)
+      .post("http://192.168.99.71:8001/user/auth/jwt/create/", payload)
       .then((res) => {
         alert(res);
       });
@@ -70,13 +70,10 @@ class Login extends Component {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-lg-7">
-              {/* Intro */}
               <div className="intro text-center">
-                <span>{this.state.initData.pre_heading}</span>
                 <h3 className="mt-3 mb-0">{this.state.initData.heading}</h3>
                 <p>{this.state.initData.content}</p>
               </div>
-              {/* Item Form */}
               <form className="item-form card no-hover">
                 <div className="row">
                   <div className="col-12">
