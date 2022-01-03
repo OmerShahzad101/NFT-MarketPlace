@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Header from '../components/Header/Header';
-import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import ItemDetail from '../components/ItemDetails/ItemDetails';
 import LiveAuctions from '../components/Auctions/AuctionsThree';
 import Footer from '../components/Footer/Footer';
@@ -14,7 +13,6 @@ class ItemDetails extends Component {
         return (
             <div className="main">
                 <Header />
-                <Breadcrumb title="Item Details" subpage="Explore" page="Item Details" />
                 <ItemDetail />
                 <LiveAuctions />
                 <Footer />

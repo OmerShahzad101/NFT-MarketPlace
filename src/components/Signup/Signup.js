@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
-
+import { ENV } from "../../env";
+import auth from "../../services/auth.service";
 const initData = {
   pre_heading: "Signup",
   heading: "Create an Account",
@@ -42,13 +42,6 @@ class Signup extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    // this.setState({
-    //   initData: initData,
-    //   data: socialData,
-    // });
-  }
-
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({
@@ -56,16 +49,14 @@ class Signup extends Component {
     });
   }
 
-  Register = (event) => {
+  signUp = async (event) => {
     event.preventDefault();
     const { first_name, last_name, email, password, re_password } = this.state;
     let payload = { first_name, last_name, email, password, re_password };
     console.log(payload);
-    axios
-      .post("http://192.168.99.163:8000/auth/users/", payload)
-      .then((res) => {
-        console.log(res);
-      });
+    const res = await auth.register(`${ENV.API_URL}api/auth/users/`, payload);
+    console.log(res);
+    // axios.post("https://nft-marketeplace-fkg7q.ondigitalocean.app/user/auth/jwt/create", payload)
   };
   render() {
     return (
@@ -79,7 +70,7 @@ class Signup extends Component {
               </div>
               <form
                 className="item-form card no-hover"
-                onSubmit={this.Register}
+                onSubmit={this.signUp}
               >
                 <div className="row">
                   <div className="col-12">
@@ -92,9 +83,6 @@ class Signup extends Component {
                         value={this.state.first_name}
                         onChange={this.handleChange}
                       />
-                      <span style={{ color: "red" }}>
-                        {this.state.first_name_error}
-                      </span>
                     </div>
                   </div>
 

@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { Component } from "react";
 import AuthorProfile from "../AuthorProfile/AuthorProfile";
-
+import NFT from "../../services/nft.service";
+import { ENV } from "../../env";
 class Create extends Component {
   constructor(props) {
     super(props);
@@ -24,14 +24,13 @@ class Create extends Component {
       [name]: value,
     });
   };
-  createNFT = (e) => {
+  createNFT = async (e) => {
     e.preventDefault();
     const { name, description, size, no_of_copies, price, collection } = this.state;
     const payload = { name, description, size, no_of_copies, price, collection };
     console.log(payload);
-    axios
-      .post("http://192.168.99.71:8001/nft/create_nft/", payload)
-      .then((res) => {});
+    const res = await NFT.nft(`${ENV.API_URL}api/create_nft/` , payload)
+
   };
   render() {
     return (

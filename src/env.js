@@ -1,5 +1,7 @@
 module.exports = {
     ENV :{
-        API_URL: 'http://192.168.99.71:8001/'
+        API_URL: 'https://nft-marketeplace-fkg7q.ondigitalocean.app/'
+        // API_URL: 'http://192.168.99.163:8000/'
+       
     }
 }
