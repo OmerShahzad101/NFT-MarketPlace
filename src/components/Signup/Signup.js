@@ -62,11 +62,11 @@ class Signup extends Component {
     this.state = {
       initData: initData,
       data: socialIcons,
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-      re_password: "",
+      // first_name: "",
+      // last_name: "",
+      // email: "",
+      // password: "",
+      // re_password: "",
     };
     this.handleChange = this.handleChange.bind(this);
   }

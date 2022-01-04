@@ -2,36 +2,25 @@ import React, { Component } from "react";
 import AuthorProfile from "../AuthorProfile/AuthorProfile";
 import NFT from "../../services/nft.service";
 import { ENV } from "../../env";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+
+import * as yup from "yup";
+
+const createNftSchema = yup.object().shape({
+  name: yup
+    .string()
+    .required("Please provide first name")
+    .matches(
+      /^([aA-zZ\s]{4,15})$/,
+      "Only alphabets are allowed for this field, atleast 4 alphabets"
+    ),
+});
+
 class Create extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: "",
-      description: "",
-      royalty: "",
-      size: "",
-      no_of_copies: "",
-      sale_type: "",
-      total_views: "",
-      price: "",
-      collection: "",
-      owner: "",
-    };
+    this.state = {};
   }
-  handleInputChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-  createNFT = async (e) => {
-    e.preventDefault();
-    const { name, description, size, no_of_copies, price, collection } = this.state;
-    const payload = { name, description, size, no_of_copies, price, collection };
-    console.log(payload);
-    const res = await NFT.nft(`${ENV.API_URL}api/create_nft/` , payload)
-
-  };
   render() {
     return (
       <section className="author-area">
@@ -42,7 +31,6 @@ class Create extends Component {
               <AuthorProfile createNFT_data={this.state} />
             </div>
             <div className="col-12 col-md-7">
-              {/* Intro */}
               <div className="intro mt-5 mt-lg-0 mb-4 mb-lg-5">
                 <div className="intro-content">
                   <span>Get Started</span>
@@ -50,113 +38,176 @@ class Create extends Component {
                 </div>
               </div>
               {/* Item Form */}
-              <form
-                className="item-form card no-hover"
-                onSubmit={this.createNFT}
+              <Formik
+                initialValues={{
+                  name: "",
+                  description: "",
+                  royalty: "",
+                  size: "",
+                  no_of_copies: "",
+                  sale_type: "put_on_sale",
+                  total_views: "",
+                  price: "",
+                  collection: "",
+                  owner: "1",
+                }}
+                validationSchema={createNftSchema}
+                onSubmit={(values) => {
+                  console.log(values);
+                }}
               >
-                <div className="row">
-                  <div className="col-12">
-                    <div className="input-group form-group">
-                      <div className="custom-file">
-                        <input
-                          type="file"
-                          className="custom-file-input"
-                          id="inputGroupFile01"
-                        />
-                        <label
-                          className="custom-file-label"
-                          htmlFor="inputGroupFile01"
-                        >
-                          Choose file
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-12">
-                    <div className="form-group mt-3">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="name"
-                        placeholder="Item Name"
-                        required="required"
-                        value={this.state.name}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12">
-                    <div className="form-group">
-                      <textarea
-                        className="form-control"
-                        name="description"
-                        placeholder="Description"
-                        cols={30}
-                        rows={3}
-                        defaultValue={""}
-                        value={this.state.description}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-6">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="price"
-                        placeholder="Item Price"
-                        required="required"
-                        value={this.state.price}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-6">
-                    <div class="form-group select-collection position-relative">
-                      <select
-                      name="collection"
-                        value={this.state.collection}
-                        onChange={this.handleInputChange}
-                        class="form-control "
-                      >
-                        <option value="" hidden disabled selected>
-                          Select Collection
-                        </option>
-                        <option name="a" value="a">a</option>
-                        <option name="ab" value="ab">ab</option>
-                        <option name="av" value="av">av</option>
-                        <option name="ad" value="ad">ad</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-6">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        name="size"
-                        className="form-control"
-                        placeholder="Size"
-                        required="required"
-                        value={this.state.size}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-6">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="no_of_copies"
-                        placeholder="No of Copies"
-                        required="required"
-                        value={this.state.no_of_copies}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  {/* <div className="col-12">
+                {({ touched, errors, isSubmitting }) =>
+                  !isSubmitting ? (
+                    <Form className="item-form card no-hover">
+                      <div className="row">
+                        <div className="col-12">
+                          <div className="input-group form-group">
+                            <div className="custom-file">
+                              <input
+                                type="file"
+                                className="custom-file-input"
+                                id="inputGroupFile01"
+                              />
+                              <label
+                                className="custom-file-label"
+                                htmlFor="inputGroupFile01"
+                              >
+                                Choose file
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <div className="form-group mt-3">
+                            <Field
+                              type="text"
+                              name="name"
+                              placeholder="Item Name"
+                              className={`form-control
+                              ${
+                                touched.name && errors.name ? "is-invalid" : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              component="div"
+                              name="name"
+                              className="invalid-feedback"
+                            />
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <div className="form-group">
+                            <Field
+                              as="textarea"
+                              name="description"
+                              placeholder="Description"
+                              className={`form-control
+                        ${
+                          touched.description && errors.description
+                            ? "is-invalid"
+                            : ""
+                        }`}
+                            />
+                            <ErrorMessage
+                              component="div"
+                              name="description"
+                              className="invalid-feedback"
+                            />
+                          </div>
+                        </div>
+                        <div className="col-12 col-md-6">
+                          <div className="form-group">
+                            <Field
+                              type="text"
+                              name="price"
+                              placeholder="Item Price"
+                              className={`form-control
+                              ${
+                                touched.price && errors.price
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              component="div"
+                              name="price"
+                              className="invalid-feedback"
+                            />
+                          </div>
+                        </div>
+                        <div className="col-12 col-md-6">
+                          <div class="form-group select-collection position-relative">
+                            <Field
+                              as="select"
+                              name="collection"
+                              className={`form-control
+                              ${
+                                touched.collection && errors.collection
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                            >
+                              <ErrorMessage
+                                component="div"
+                                name="collection"
+                                className="invalid-feedback"
+                              />
+
+                              <option value="" hidden disabled selected>
+                                Select Collection
+                              </option>
+                              <option name="a" value="a">
+                                a
+                              </option>
+                              <option name="ab" value="ab">
+                                ab
+                              </option>
+                              <option name="av" value="av">
+                                av
+                              </option>
+                              <option name="ad" value="ad">
+                                ad
+                              </option>
+                            </Field>
+                          </div>
+                        </div>
+                        <div className="col-12 col-md-6">
+                          <div className="form-group">
+                            <Field
+                              type="text"
+                              name="size"
+                              placeholder="Size"
+                              className={`form-control
+                              ${
+                                touched.size && errors.size ? "is-invalid" : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              component="div"
+                              name="size"
+                              className="invalid-feedback"
+                            />
+                          </div>
+                        </div>
+                        <div className="col-12 col-md-6">
+                          <div className="form-group">
+                            <Field
+                              type="text"
+                              name="no_of_copies"
+                              placeholder="No of Copies"
+                              className={`form-control
+                              ${
+                                touched.no_of_copies && errors.no_of_copies ? "is-invalid" : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              component="div"
+                              name="no_of_copies"
+                              className="invalid-feedback"
+                            />
+                          </div>
+                        </div>
+                        {/* <div className="col-12">
                     <div className="form-group mt-3">
                       <div className="form-check form-check-inline">
                         <input
@@ -206,13 +257,24 @@ class Create extends Component {
                       </div>
                     </div>
                   </div> */}
-                  <div className="col-12">
-                    <button className="btn w-100 mt-3 mt-sm-4" type="submit">
-                      Create Item
-                    </button>
-                  </div>
-                </div>
-              </form>
+
+                        <div className="col-12">
+                          <button
+                            className="btn w-100 mt-3 mt-sm-4"
+                            type="submit"
+                          >
+                            Create Item{" "}
+                          </button>
+                        </div>
+                      </div>
+                    </Form>
+                  ) : (
+                    <div>
+                      <h1 className="p-3 mt-5">Form Submitted</h1>
+                    </div>
+                  )
+                }
+              </Formik>
             </div>
           </div>
         </div>
