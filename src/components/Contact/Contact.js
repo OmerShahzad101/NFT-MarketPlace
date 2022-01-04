@@ -3,8 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import contact from "../../services/contact.service";
 import { ENV } from "../../env";
-// import { ENV } from "../../env";
-// import { ENV } from "../../env";
+
 
 const initData = {
   heading: "Get In Touch",
