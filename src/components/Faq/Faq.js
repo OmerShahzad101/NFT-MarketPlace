@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import faqs from "../../services/faq.service";
+import { ENV } from "../../env";
 const initData = {
   pre_heading: "FAQ",
   heading: "Frequently Asked Questions",
@@ -62,15 +63,16 @@ const data = [
 
 class Faq extends Component {
   state = {
-    initData: {},
-    data: [],
+    initData: initData,
+    faqdata: [],
   };
-  componentDidMount() {
-    this.setState({
-      initData: initData,
-      data: data,
-    });
-  }
+  componentDidMount = async () => {
+    const res = await faqs.faq(
+      `${ENV.API_URL}api/faq_list/`
+    );
+    console.log(res);
+    this.setState({ faqdata: res.data });
+  };
   render() {
     return (
       <section className="faq-area pt-0">
@@ -94,33 +96,34 @@ class Faq extends Component {
                   <div className="row justify-content-center">
                     <div className="col-12 col-md-10">
                       {/* Single Accordion Item */}
-                      {this.state.data.map((item, idx) => {
+                      {this.state.faqdata.map((item, idx) => {
                         return (
                           <div
                             key={`fd_${idx}`}
                             className="single-accordion-item p-3"
                           >
                             {/* Card Header */}
+                            {console.log(idx)}
                             <div className="card-header bg-inherit border-0 p-0">
                               <h2 className="m-0">
                                 <button
-                                  className={item.btnClass}
+                                  className="btn d-block text-left w-100 py-4 collapsed"
                                   type="button"
                                   data-toggle="collapse"
-                                  data-target={item.target}
+                                  data-target={`#faq_${idx}`}
                                 >
-                                  {item.quote}
+                                  {item.title}
                                 </button>
                               </h2>
                             </div>
                             <div
-                              id={item.contentId}
-                              className={item.contentClass}
+                              id={`faq_${idx}`}
+                              className="collapse"
                               data-parent="#netstorm-accordion"
                             >
                               {/* Card Body */}
                               <div className="card-body py-3">
-                                {item.content}
+                                {item.description}
                               </div>
                             </div>
                           </div>

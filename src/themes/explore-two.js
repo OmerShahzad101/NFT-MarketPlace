@@ -13,7 +13,7 @@ class ExploreTwo extends Component {
         return (
             <div className="main">
                 <Header />
-                <Explore />
+                {/* <Explore /> */}
                 <Collections/>
                 <Footer />
                 <ModalSearch />

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { ENV } from "../../env"
-
-import axios from "axios";
+import { ENV } from "../../env";
+import auth from "../../services/auth.service";
 
 const initData = {
   heading: "Login to your Account",
@@ -9,7 +8,7 @@ const initData = {
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
 };
 
-const socialData = [
+const socialIcons = [
   {
     id: "1",
     link: "facebook",
@@ -31,21 +30,13 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initData: {},
-      data: [],
+      initData: initData,
+      data: socialIcons,
       email: "",
       password: "",
     };
     this.handleChange = this.handleChange.bind(this);
   }
-
-  componentDidMount() {
-    this.setState({
-      initData: initData,
-      data: socialData,
-    });
-  }
-
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({
@@ -53,16 +44,13 @@ class Login extends Component {
     });
   }
 
-  Register = (event) => {
+  loginCall = async (event) => {
     event.preventDefault();
     const { email, password } = this.state;
     let payload = { email, password };
     console.log(payload);
-    axios
-      .post("http://192.168.99.71:8001/user/auth/jwt/create/", payload)
-      .then((res) => {
-        alert(res);
-      });
+    const res = await auth.login(`${ENV.API_URL}api/auth/jwt/create/`, payload);
+    console.log(res);
   };
   render() {
     return (
@@ -74,7 +62,10 @@ class Login extends Component {
                 <h3 className="mt-3 mb-0">{this.state.initData.heading}</h3>
                 <p>{this.state.initData.content}</p>
               </div>
-              <form className="item-form card no-hover">
+              <form
+                className="item-form card no-hover"
+                onSubmit={this.loginCall}
+              >
                 <div className="row">
                   <div className="col-12">
                     <div className="form-group mt-3">
@@ -84,6 +75,8 @@ class Login extends Component {
                         name="email"
                         placeholder="Enter your Email"
                         required="required"
+                        value={this.state.email}
+                        onChange={this.handleChange}
                       />
                     </div>
                   </div>
@@ -95,6 +88,8 @@ class Login extends Component {
                         name="password"
                         placeholder="Enter your Password"
                         required="required"
+                        value={this.state.password}
+                        onChange={this.handleChange}
                       />
                     </div>
                   </div>
