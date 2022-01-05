@@ -73,6 +73,11 @@ const Header = () => {
                     Help Center
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/Create-Collection" className="nav-link">
+                  CreateCollection
+                  </Link>
+                </li>
               </ul>
             </li>
             {/* <li className="nav-item dropdown">

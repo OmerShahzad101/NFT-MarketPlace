@@ -5,5 +5,9 @@ const NFT = {
     console.log(data);
     return axios.post(url, data);
   },
+
+  nftget: (url, data) => {
+    return axios.get(url, data);
+  },
 };
 export default NFT;

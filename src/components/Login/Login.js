@@ -52,6 +52,7 @@ class Login extends Component {
     const res = await auth.login(`${ENV.API_URL}api/auth/jwt/create/`, payload);
     console.log(res);
   };
+  
   render() {
     return (
       <section className="author-area">

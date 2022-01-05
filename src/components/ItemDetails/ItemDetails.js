@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { ENV } from "../../env";
+import NFT from "../../services/nft.service";
 
 const initData = {
   itemImg: "/img/auction_2.jpg",
@@ -84,22 +86,25 @@ const sellerData = [
     post: "Collection",
   },
 ];
-
+const arr = window.location.href.split("?");
+const id = arr[1];
+console.log(id);
 class ItemDetails extends Component {
   state = {
-    initData: {},
-    tabData_1: [],
-    tabData_2: [],
-    sellerData: [],
+    initData: initData,
+    tabData_1: tabData_1,
+    tabData_2: tabData_2,
+    sellerData: sellerData,
+    nftData: [],
   };
-  componentDidMount() {
-    this.setState({
-      initData: initData,
-      tabData_1: tabData_1,
-      tabData_2: tabData_2,
-      sellerData: sellerData,
-    });
-  }
+
+  componentDidMount = async () => {
+    const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
+    console.log(res.data);
+    console.log(res.data.id)
+    this.setState({ nftData: res.data });
+  };
+
   render() {
     return (
       <section className="item-details-area">
@@ -223,10 +228,11 @@ class ItemDetails extends Component {
               </div>
             </div>
             <div className="col-12 col-lg-6">
-              {/* Content */}
+             
+             
               <div className="content mt-5 mt-lg-0">
                 <h3 className="m-0">{this.state.initData.title}</h3>
-                <p>{this.state.initData.content}</p>
+                <p>{this.state.initData.description}</p>
                 {/* Owner */}
                 <div className="owner d-flex align-items-center">
                   <span>Owned By</span>
@@ -305,6 +311,7 @@ class ItemDetails extends Component {
                   {this.state.initData.btnText}
                 </a>
               </div>
+             
             </div>
           </div>
         </div>
