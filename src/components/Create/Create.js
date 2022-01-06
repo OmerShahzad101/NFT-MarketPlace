@@ -49,7 +49,7 @@ class Create extends Component {
                   total_views: "",
                   price: "",
                   collection: "",
-                  owner: "1",
+                  owner: "15",
                 }}
                 validationSchema={createNftSchema}
                 onSubmit={(values) => {

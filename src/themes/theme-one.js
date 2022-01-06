@@ -4,7 +4,7 @@ import Header from '../components/Header/Header';
 import Hero from '../components/Hero/Hero';
 import Auctions from '../components/Auctions/AuctionsOne';
 import TopSeller from '../components/TopSeller/TopSellerOne';
-import Collections from '../components/Collections/Collections';
+import HomeCollection from '../components/HomeCollection/HomeCollection';
 import Explore from '../components/Explore/ExploreOne';
 import Work from '../components/Work/Work';
 import Footer from '../components/Footer/Footer';
@@ -20,7 +20,7 @@ class ThemeOne extends Component {
                 <Hero />
                 <Auctions />
                 <TopSeller />
-                <Collections />
+                <HomeCollection />
                 <Explore />
                 <Work />
                 <Footer />
