@@ -1,4 +1,4 @@
-import React, { useEffect , useState } from "react";
+import React, { useEffect, useState } from "react";
 import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import Category from "../../services/category.service";
@@ -13,14 +13,16 @@ const Collections = () => {
   const [initData, setInitData] = useState(initialData);
   const [collectionData, setCollectionData] = useState();
   const [categories, setCategories] = useState([]);
-  const [data , setData]= useState({})
+  const [data, setData] = useState({});
 
   useEffect(async () => {
-    const res = await Collection.collection(`${ENV.API_URL}api/collection_list/`);
+    const res = await Collection.collection(
+      `${ENV.API_URL}api/collection_list/`
+    );
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCollectionData(res.data);
-    setCategories(result.data)
-  },[]);
+    setCategories(result.data);
+  }, []);
 
   return (
     <>
@@ -38,15 +40,22 @@ const Collections = () => {
             <div className="col-12">
               <div
                 className="explore-menu btn-group btn-group-toggle flex-wrap justify-content-center text-center mb-4"
-                data-toggle="buttons">
-                {categories ? categories.map(function (category, i) {
-                  return (
-                    <label className="btn d-table text-uppercase p-2">
-                      <input type="radio" defaultValue={category.name} className="explore-btn"/>
-                      <span>{category.name}</span>
-                    </label>
-                  )
-                }): ""}
+                data-toggle="buttons"
+              >
+                {categories
+                  ? categories.map(function (category, i) {
+                      return (
+                        <label className="btn d-table text-uppercase p-2">
+                          <input
+                            type="radio"
+                            defaultValue={category.name}
+                            className="explore-btn"
+                          />
+                          <span>{category.name}</span>
+                        </label>
+                      );
+                    })
+                  : ""}
               </div>
             </div>
           </div>
@@ -79,24 +88,24 @@ const Collections = () => {
                         <div className="card no-hover text-center">
                           <div className="image-over">
                             <a href={`/item-details?${item.id}`}>
-                              <img
-                                className="card-img-top"
-                                src={
-                                  "https://images.unsplash.com/photo-1638913976381-5b8ed66c36d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                                }
-                                // src={item.banner_image}
-                                alt=""
-                              />
+                              <div className="">
+                                <img
+                                  className="card-img-top image-container"
+                                  src={`${ENV.API_URL_image}${item.banner_image}`}
+                                  alt="Banner Image"
+                                />
+                              </div>
                             </a>
                             {/* Seller */}
-                            <a className="seller" href={`/item-details?${item.id}`}>
+                            <a
+                              className="seller"
+                              href={`/item-details?${item.id}`}
+                            >
                               <div className="seller-thumb avatar-lg">
-                                <img className="rounded-circle"
-                                  // src={item.logo_image}
-                                  src={
-                                    "https://images.unsplash.com/photo-1638913976381-5b8ed66c36d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                                  }
-                                  alt=""
+                                <img
+                                  className="rounded-circle "
+                                  src={`${ENV.API_URL_image}${item.logo_image}`}
+                                  alt="Logo Image"
                                 />
                               </div>
                             </a>

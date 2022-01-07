@@ -84,23 +84,20 @@ const initialsellerData = [
   },
 ];
 const ItemDetails = () => {
-
   const arr = window.location.href.split("?");
   const id = arr[1];
 
-  const [initData , setInitData] = useState(initialData)
-  const [tabData_1 , settabData_1] = useState(initialtabData_1)
-  const [tabData_2 , settabData_2] = useState(initialtabData_2)
-  const [ sellerData , setSellerData ] =useState(initialsellerData)
-  const [ nftData , setNftData ] =useState([])
-  
+  const [initData, setInitData] = useState(initialData);
+  const [tabData_1, settabData_1] = useState(initialtabData_1);
+  const [tabData_2, settabData_2] = useState(initialtabData_2);
+  const [sellerData, setSellerData] = useState(initialsellerData);
+  const [nftData, setNftData] = useState([]);
 
   useEffect(async () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
     console.log(res.data);
     setNftData(res.data);
-    
-  },[]);
+  }, []);
   return (
     <section className="item-details-area">
       <div className="container">
@@ -108,7 +105,10 @@ const ItemDetails = () => {
           <div className="col-12 col-lg-5">
             <div className="item-info">
               <div className="item-thumb text-center">
-                <img src={initData.itemImg} alt="" />
+                <img
+                  src={`${ENV.API_URL_image}${nftData.image}`}
+                  alt="nft image"
+                />
               </div>
               <div className="card no-hover countdown-times my-4">
                 <div
@@ -213,9 +213,7 @@ const ItemDetails = () => {
                       <h6 className="ml-2">{initData.itemOwner}</h6>
                     </a>
                   </div>
-                  <p className="mt-2">
-                    Created : {nftData.created_at}
-                  </p>
+                  <p className="mt-2">Created : {nftData.created_at}</p>
                 </div>
               </div>
             </div>

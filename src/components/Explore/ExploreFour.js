@@ -4,8 +4,7 @@ import NFT from "../../services/nft.service";
 
 const ExploreFour = () => {
   const initialData = {
-    // heading: "Exclusive Digital Assets",
-    heading: "MARKET PLACE",
+    heading: "Exclusive Digital Assets",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
     btnText: "Load More",
@@ -13,12 +12,14 @@ const ExploreFour = () => {
 
   const [initData, setInitData] = useState(initialData);
   const [nftData, setNftData] = useState();
-
+  const [togglePassword, setTogglePassword] = useState(true);
+  const onToggle = (e) => {
+    setTogglePassword(!togglePassword);
+  };
   useEffect(async () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
-    console.log(res.data);
     setNftData(res.data);
-  });
+  }, []);
   return (
     <section className="explore-area load-more">
       <div className="container">
@@ -122,8 +123,10 @@ const ExploreFour = () => {
             </div>
           </div>
         </div>
+
         <div className="row items">
-          { nftData ? nftData.map((item, id) => {
+          {nftData
+            ? nftData.map((item, id) => {
                 return (
                   <div
                     key={`exf_${id}`}
@@ -131,27 +134,26 @@ const ExploreFour = () => {
                   >
                     <div className="card">
                       <div className="image-over">
-                        <a href={`/item-details?${item.id}`}>
+                        <a href={`/nft-details?${item.id}`}>
                           <img
-                            className="card-img-top"
-                            src={
-                              "https://images.unsplash.com/photo-1638913976381-5b8ed66c36d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                            }
+                            className="card-img-top image-container-nft"
+                            src={`${ENV.API_URL_image}${item.image}`}
                             alt=""
                           />
                         </a>
                       </div>
-                      {/* Card Caption */}
                       <div className="card-caption col-12 p-0">
-                        {/* Card Body */}
                         <div className="card-body">
-                          <a href={`/item-details?${item.id}`}>
-                            <h5 className="mb-0">{item.name}</h5>
-                          </a>
+                          <div className="d-flex justify-content-between">
+                            <a href={`/nft-details?${item.id}`}>
+                              <h5 className="mb-0">{item.name}</h5>
+                            </a>
+                            <i class="far fa-heart"></i>
+                          </div>
                           <div className="seller d-flex align-items-center my-3">
                             <span>Owned By</span>
                             <a href="/author">
-                              <h6 className="ml-2 mb-0">{"@"+item.owner}</h6>
+                              <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
                             </a>
                           </div>
                           <div className="card-bottom d-flex justify-content-between">

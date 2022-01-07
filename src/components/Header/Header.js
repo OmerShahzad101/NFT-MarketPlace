@@ -78,6 +78,11 @@ const Header = () => {
                   CreateCollection
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/favourite-nft" className="nav-link">
+                  Favourite Nft
+                  </Link>
+                </li>
               </ul>
             </li>
             {/* <li className="nav-item dropdown">

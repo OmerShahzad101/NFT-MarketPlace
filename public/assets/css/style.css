@@ -3314,3 +3314,15 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   top: 12px;
   right: 20px;
 }
+.image-container
+{
+  /* width: 214.5px !important; */
+  height: 143px !important;
+  object-fit: fill;
+}
+.image-container-nft
+{
+  /* width: 214.5px !important; */
+  height: 200px !important;
+  object-fit: fill;
+}

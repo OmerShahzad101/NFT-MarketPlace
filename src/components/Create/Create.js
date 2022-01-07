@@ -19,7 +19,18 @@ const createNftSchema = yup.object().shape({
 class Create extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      name: "",
+      description: "",
+      royalty: "",
+      size: "",
+      no_of_copies: "",
+      sale_type: "put_on_sale",
+      total_views: "",
+      price: "",
+      collection: "",
+      owner: "15",
+    };
   }
   render() {
     return (
@@ -39,24 +50,13 @@ class Create extends Component {
               </div>
               {/* Item Form */}
               <Formik
-                initialValues={{
-                  name: "",
-                  description: "",
-                  royalty: "",
-                  size: "",
-                  no_of_copies: "",
-                  sale_type: "put_on_sale",
-                  total_views: "",
-                  price: "",
-                  collection: "",
-                  owner: "15",
-                }}
+                initialValues={this.state}
                 validationSchema={createNftSchema}
                 onSubmit={(values) => {
+                  this.setState(values)
                   console.log(values);
                 }}
               >
-                
                 {({ touched, errors, isSubmitting }) =>
                   !isSubmitting ? (
                     <Form className="item-form card no-hover">
@@ -198,7 +198,9 @@ class Create extends Component {
                               placeholder="No of Copies"
                               className={`form-control
                               ${
-                                touched.no_of_copies && errors.no_of_copies ? "is-invalid" : ""
+                                touched.no_of_copies && errors.no_of_copies
+                                  ? "is-invalid"
+                                  : ""
                               }`}
                             />
                             <ErrorMessage
@@ -275,7 +277,6 @@ class Create extends Component {
                     </div>
                   )
                 }
-
               </Formik>
             </div>
           </div>

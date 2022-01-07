@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import Category from "../../services/category.service";
+import axios from "axios";
+
 
 
 const initialState = {
@@ -11,19 +13,25 @@ const initialState = {
 };
 
 const CreateCollection = () => {
-  const [file1, setFile1] = useState({});
+  const [file1, setFile1] = useState();
+  
   const [categories, setCategories] = useState([]);
   const [collectionData, setCollectionData] = useState(initialState);
-  useEffect(() => {getCategories(); }, []);
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   // ------------------
-const onImageChange = (e) => {
-  e.preventDefault();
-  let file1 = e.target.files[0];
-  setFile1(file1);
-  console.log(file1.name);
-};
-// -------------------------
+  // const onImageChange = async(e) => {
+  //   if (e.target.files && e.target.files[0]) {
+  //     let img = e.target.files[0];
+  //     let immg= (URL.createObjectURL(img)).replace("blob:", "");
+  //     setFile1({
+  //       file1: immg
+  //     });
+  //   }
+  // };
+  // -------------------------
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,14 +40,17 @@ const onImageChange = (e) => {
       [name]: value,
     });
   };
-  const getCategories = async() => {
+  const getCategories = async () => {
     const res = await Category.category(`${ENV.API_URL}api/category_list/`);
-    setCategories(res.data)
+    setCategories(res.data);
   };
   const createCollection = async (e) => {
     e.preventDefault();
-    console.log(collectionData)
-    const res = await Collection.collectionPost(`${ENV.API_URL}api/create_collection/`,collectionData);
+    console.log(collectionData);
+    const res = await Collection.collectionPost(
+      `${ENV.API_URL}api/create_collection/`,
+      collectionData
+    );
   };
 
   return (
@@ -53,32 +64,44 @@ const onImageChange = (e) => {
                 <h3 className="mt-3 mb-0">Create Collection</h3>
               </div>
             </div>
-            <form className="item-form card no-hover" onSubmit={createCollection}>
+            <form
+              className="item-form card no-hover"
+              onSubmit={createCollection}
+            >
               <div className="row ">
-              <div className="col-12">
-                <div className="input-group form-group">
-                  <div className="custom-file">
-                    <input type="file"  className="custom-file-input" onChange={onImageChange}/>
-                    {console.log(file1.name)}
-                    <label className="custom-file-label">Logo Image * </label>
+                <div className="col-12">
+                  <div className="input-group form-group">
+                    <div className="custom-file">
+                    {/* <img alt="not found" width={"250px"} src={file1.file1} /> */}
+                      <input
+                        type="file"
+                        className="custom-file-input"
+                        // onChange={onImageChange}
+                        name="logoImage"
+                      />
+                      
+                      <label className="custom-file-label">Logo Image * </label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              {/* ------------------------ */}
-              <div className="col-12">
-                <div className="input-group form-group mt-3">
-                  <div className="custom-file">
-                    <input
-                      type="file"
-                      className="custom-file-input"
-                      onChange={onImageChange}
-                    />
-                    <label className="custom-file-label">Banner Image *</label>
-                  </div>
-                </div>
-              </div>
-              {/* ------------------------------- */}
+                {/* ------------------------ */}
+                <div className="col-12">
+                  <div className="input-group form-group mt-3">
+                    <div className="custom-file">
+                      <input
+                        type="file"
+                        className="custom-file-input"
+                        // onChange={onImageChange}
+                        name="bannerImage"
 
+                      />
+                      <label className="custom-file-label">
+                        Banner Image *
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                {/* ------------------------------- */}
 
                 <div className="col-12">
                   <div className="form-group mt-3">
@@ -100,10 +123,23 @@ const onImageChange = (e) => {
                       onChange={handleChange}
                       required
                     >
-                      <option value="" selected="selected" hidden="hidden" required>Choose Category *</option>
-                      {categories? categories.map(function (category, i) {
-                        return (<option value={category.id}>{category.name}</option>);
-                      }): ""}
+                      <option
+                        value=""
+                        selected="selected"
+                        hidden="hidden"
+                        required
+                      >
+                        Choose Category *
+                      </option>
+                      {categories
+                        ? categories.map(function (category, i) {
+                            return (
+                              <option value={category.id}>
+                                {category.name}
+                              </option>
+                            );
+                          })
+                        : ""}
                     </select>
                   </div>
                 </div>
@@ -118,7 +154,7 @@ const onImageChange = (e) => {
                     />
                   </div>
                 </div>
-
+                         {/* {console.log(file1.file1)} */}
                 <div className="col-12">
                   <button className="btn w-100 mt-3 mt-sm-4" type="submit">
                     Create Collection{" "}
