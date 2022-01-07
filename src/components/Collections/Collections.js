@@ -17,17 +17,11 @@ const Collections = () => {
   const [data, setData] = useState({});
 
   useEffect(async () => {
-    const res = await Collection.collection(
-      `${ENV.API_URL}api/collection_list/`
-    );
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCategories(result.data);
     $("#myElement label:first").addClass("active");
-    const res = await Collection.collection(
-      `${ENV.API_URL}api/collection_list/`
-    );
+    const res = await Collection.collection( `${ENV.API_URL}api/collection_list/`);
     setCollectionData(res.data);
-    setCategories(result.data);
   }, []);
 
   return (
@@ -67,7 +61,7 @@ const Collections = () => {
               </div>
             </div>
           </div>
-          <div className="row items explore-items">
+          <div className="row items explore-items popular-collections-area">
             {console.log(collectionData)}
             {collectionData
               ? collectionData.map((item, idx) => {
@@ -78,7 +72,7 @@ const Collections = () => {
                       data-groups={`["${item.category}"]`}
                     >
                       {console.log([item.category])}
-                      <div className="card">
+                      <div className="card text-center">
                         <div className="image-over">
                           <a href={`/item-details?${item.id}`}>
                             <img
