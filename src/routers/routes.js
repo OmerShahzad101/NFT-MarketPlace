@@ -14,6 +14,7 @@ import Contact from "../themes/contact";
 import ItemDetails from "../themes/item-details";
 import HelpCenter from "../themes/help-center";
 import CreateCollection from "../themes/createCollection";
+import CollectionDetail from "../themes/collectionDetail";
 // import ExploreOne from "../themes/explore-one";
 // import ExploreFour from "../themes/explore-four";
 // import Blog from "../themes/blog";
@@ -42,6 +43,8 @@ class MyRouts extends React.Component {
             <Route exact path="/item-details" component={ItemDetails} />
             <Route exact path="/help-center" component={HelpCenter} />
             <Route exact path="/create-collection" component={CreateCollection} />
+            <Route exact path="/collectionDetail" component={CollectionDetail} />
+            
              {/* <Route exact path="/" component={ThemeOne} />
             <Route exact path="/explore-1" component={ExploreOne} />
             <Route exact path="/explore-3" component={ExploreThree} />

@@ -18,7 +18,7 @@ const ExploreFour = () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
     console.log(res.data);
     setNftData(res.data);
-  });
+  },[]);
   return (
     <section className="explore-area load-more">
       <div className="container">
@@ -31,7 +31,7 @@ const ExploreFour = () => {
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row ">
           <div className="col-xl-3 col-sm-6 text-right order-sm-last">
             <div class="form-group filter-select position-relative m-0">
               <select class="form-control ">
@@ -181,7 +181,9 @@ const ExploreFour = () => {
           </div>
         </div>
       </div>
+      
     </section>
+   
   );
 };
 

@@ -78,6 +78,11 @@ const Header = () => {
                   CreateCollection
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/collectionDetail" className="nav-link">
+                  Collection Detail
+                  </Link>
+                </li>
               </ul>
             </li>
             {/* <li className="nav-item dropdown">
