@@ -3326,3 +3326,6 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   height: 200px !important;
   object-fit: fill;
 }
+.collection-logo {
+  margin: auto;
+}
