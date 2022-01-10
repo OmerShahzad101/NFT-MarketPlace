@@ -1,21 +1,39 @@
 import React from "react";
+import { useEffect, useState } from "react/cjs/react.development";
+import { ENV } from "../../env";
+import Collection from "../../services/collections.service";
+import NFT from "../../services/nft.service";
+
 
 const CollectionDetail = () => {
+  const arr = window.location.href.split("?");
+  const id = arr[1];
+  
+const [collectionData, setcollectionData] = useState([]);
+const [nftData, setNftData] = useState();
+useEffect(async () => {
+  const res = await Collection.collection(`${ENV.API_URL}api/specific_collection/${id}/`);
+  console.log(res.data);
+  setcollectionData(res.data);
+  const res_nft = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
+    setNftData(res_nft.data);
+}, []);
+
   return (
     <>
-      <section className="breadcrumb-area overlay-dark d-flex align-items-center"></section>
+      <section className="breadcrumb-area overlay-dark d-flex align-items-center" style={{backgroundImage : `url(${ENV.API_URL_image}${collectionData.banner_image})`}}></section>
       <div className="container">
         <div className="collection-detail-logo text-center mt-n5 position-relative mb-5">
           <div className="collection-logo avatar-lg">
             <img
               className="rounded-circle collection-logo"
-              src="https://gateway.ipfs.io/ipfs/QmXkVaik6NTDb7Am37tNLD95mwfpteCJJLHWV8iYrYGHdM"
+              src={`${ENV.API_URL_image}${collectionData.logo_image}`}
               alt="Collection Logo"
             />
           </div>
           <div className="collection-description">
-            <h3>Collection Name</h3>
-            <p>Collection Description</p>
+            <h3>{collectionData.name}</h3>
+            <p>{collectionData.description}</p>
           </div>
         </div>
         <div className="row mb-5">
@@ -25,7 +43,7 @@ const CollectionDetail = () => {
                 <img src="hello.jpg" />
               </div>
               <div>
-                <h6 className="mt-0 mb-3">Name</h6>
+                <h6 className="mt-0 mb-3">{collectionData.category}</h6>
                 <p className="m-0">Category</p>
               </div>
             </div>
@@ -36,8 +54,19 @@ const CollectionDetail = () => {
                 <img src="hello.jpg" />
               </div>
               <div>
-                <h6 className="mt-0 mb-3">Name</h6>
-                <p className="m-0">Category</p>
+                <h6 className="mt-0 mb-3">AuthorAPI</h6>
+                <p className="m-0">Creater</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-3 col-md-6">
+            <div className="card d-flex flex-row justify-content-between">
+              <div>
+                <img src="hello.jpg" />
+              </div>
+              <div>
+                <h6 className="mt-0 mb-3">Collection Items</h6>
+                <p className="m-0">Items</p>
               </div>
             </div>
           </div>
@@ -48,18 +77,7 @@ const CollectionDetail = () => {
               </div>
               <div>
                 <h6 className="mt-0 mb-3">Name</h6>
-                <p className="m-0">Category</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3 col-md-6">
-            <div className="card d-flex flex-row justify-content-between">
-              <div>
-                <img src="hello.jpg" />
-              </div>
-              <div>
-                <h6 className="mt-0 mb-3">Name</h6>
-                <p className="m-0">Category</p>
+                <p className="m-0">Owners</p>
               </div>
             </div>
           </div>

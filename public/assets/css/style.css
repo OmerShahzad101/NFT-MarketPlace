@@ -3328,4 +3328,6 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 }
 .collection-logo {
   margin: auto;
+  width: 5rem;
+  height: 5rem;
 }
