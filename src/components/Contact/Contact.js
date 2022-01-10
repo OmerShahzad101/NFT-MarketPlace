@@ -19,10 +19,10 @@ const contactSchema = yup.object().shape({
       "Only alphabets are allowed for this field, atleast 4 alphabets"
     ),
   email: yup.string().email().required("Please provide email"),
-  phone: yup
-    .string()
-    .required("Please provide phone number")
-    .matches(phoneRegExp, "Phone number is not valid"),
+  // phone: yup
+  //   .string()
+  //   .required("Please provide phone number")
+  //   .matches(phoneRegExp, "Phone number is not valid"),
   message: yup.string().required("Please write your message"),
   subject: yup.string().required("Please provied subject"),
 });
@@ -95,7 +95,7 @@ const Contact = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-12">
+                      {/* <div className="col-12">
                         <div className="form-group mt-3">
                           <Field
                             type="phone"
@@ -114,7 +114,7 @@ const Contact = () => {
                             className="invalid-feedback"
                           />
                         </div>
-                      </div>
+                      </div> */}
                       <div className="col-12">
                         <div className="form-group mt-3">
                           <Field

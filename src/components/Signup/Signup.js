@@ -219,6 +219,7 @@ class Signup extends Component {
                                 type="radio"
                                 name="inlineRadioOptions"
                                 id="inlineRadio1"
+                                checked
                                 defaultValue="option1"
                               />
                               <label

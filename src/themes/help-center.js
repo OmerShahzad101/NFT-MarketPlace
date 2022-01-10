@@ -15,7 +15,7 @@ class HelpCenter extends Component {
             <div className="main">
                 <Header />
                 {/* <Breadcrumb title="Help Center" subpage="Community" page="Help Center" /> */}
-                <Help />
+                {/* <Help /> */}
                 <Faq />
                 <Footer />
                 <ModalSearch />

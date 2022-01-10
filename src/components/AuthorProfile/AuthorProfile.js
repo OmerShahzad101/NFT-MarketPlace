@@ -34,8 +34,8 @@ const AuthorProfile = (props) => {
       <div className="card-caption col-12 p-0">
         {/* Card Body */}
         <div className="card-body mt-4">
-          <h5 className="mb-3">{props.createNFT_data.name}</h5>
-          <p className="my-3">{props.createNFT_data.description}</p>
+          {/* <h5 className="mb-3">{props.createNFT_data.name}</h5>
+          <p className="my-3">{props.createNFT_data.description}</p> */}
           <div className="input-group">
             <input
               type="text"

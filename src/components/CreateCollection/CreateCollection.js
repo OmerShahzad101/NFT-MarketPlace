@@ -23,12 +23,27 @@ const CreateCollection = () => {
 
   // ------------------
   // const onImageChange = async(e) => {
+  //   e.preventDefault();
   //   if (e.target.files && e.target.files[0]) {
   //     let img = e.target.files[0];
+  //     console.log(img);
   //     let immg= (URL.createObjectURL(img)).replace("blob:", "");
+  //     console.log(immg);
   //     setFile1({
   //       file1: immg
   //     });
+  //     const Upload = async() => {
+  //       console.log('entered upload');
+  //       await fetch(`${ENV.API_URL}api/create_collection/`, {
+  //         method: 'POST',
+  //         body: img
+  //       }).then(resp => {
+
+  //         resp.json().then(data => {console.log(data)})
+  //       })
+  //     }
+  //     Upload();
+  //   }
   //   }
   // };
   // -------------------------

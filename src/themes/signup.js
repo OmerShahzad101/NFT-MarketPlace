@@ -11,12 +11,12 @@ class Signup extends Component {
     render() {
         return (
             <div className="main">
-                <Header />
+                {/* <Header /> */}
                 <SignupSection />
-                <Footer />
-                <ModalSearch />
-                <ModalMenu />
-                <Scrollup />
+                {/* <Footer /> */}
+                {/* <ModalSearch /> */}
+                {/* <ModalMenu /> */}
+                {/* <Scrollup /> */}
             </div>
         );
     }
