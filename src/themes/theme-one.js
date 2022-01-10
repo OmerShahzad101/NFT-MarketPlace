@@ -11,6 +11,7 @@ import Footer from '../components/Footer/Footer';
 import ModalSearch from '../components/Modal/ModalSearch';
 import ModalMenu from '../components/Modal/ModalMenu';
 import Scrollup from '../components/Scrollup/Scrollup';
+import HomeNft from '../components/HomeNft/HomeNft';
 
 class ThemeOne extends Component {
     render() {
@@ -21,7 +22,7 @@ class ThemeOne extends Component {
                 <Auctions />
                 <TopSeller />
                 <HomeCollection />
-                <Explore />
+                <HomeNft />
                 <Work />
                 <Footer />
                 <ModalSearch />

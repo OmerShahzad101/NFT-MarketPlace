@@ -13,13 +13,32 @@ const ExploreFour = () => {
   const [initData, setInitData] = useState(initialData);
   const [nftData, setNftData] = useState();
   const [togglePassword, setTogglePassword] = useState(true);
+  const [order, setOrder] = useState("ASC");
+
   const onToggle = (e) => {
     setTogglePassword(!togglePassword);
   };
+
+  const sort = (col) => {
+    console.log(col);
+    if (order === "ASC") {
+      const sorted = [...nftData].sort((a, b) => (a[col] > b[col] ? 1 : -1));
+      setNftData(sorted);
+      console.log(order);
+      setOrder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = [...nftData].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+      setNftData(sorted);
+      console.log(order);
+      setOrder("ASC");
+    }
+  };
+
   useEffect(async () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
     setNftData(res.data);
-  },[]);
+  }, []);
   return (
     <section className="explore-area load-more">
       <div className="container">
@@ -35,12 +54,13 @@ const ExploreFour = () => {
         <div className="row ">
           <div className="col-xl-3 col-sm-6 text-right order-sm-last">
             <div class="form-group filter-select position-relative m-0">
-              <select class="form-control ">
-                <option>Recently Listed</option>
-                <option>Ending Soon</option>
+              <select class="form-control " onChange={(e) => sort("price")}>
+                <option disabled selected hidden>Select price. </option>
+                {/* <option>Recently Listed</option> */}
+                {/* <option>Ending Soon</option> */}
                 <option>Price Low - High</option>
                 <option>Price High - Low</option>
-                <option>Most Favourite</option>
+                {/* <option>Most Favourite</option> */}
               </select>
             </div>
           </div>
@@ -183,9 +203,7 @@ const ExploreFour = () => {
           </div>
         </div>
       </div>
-      
     </section>
-   
   );
 };
 

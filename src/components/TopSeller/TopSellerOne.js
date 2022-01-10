@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const BASE_URL = "https://my-json-server.typicode.com/themeland/netstorm-json/seller";
+const BASE_URL = "http://192.168.99.163:8000/api/top_seller";
 
 class TopSeller extends Component {
     state = {
@@ -15,7 +15,7 @@ class TopSeller extends Component {
                     data: res.data,
                     sellerData: res.data.sellerData
                 })
-                // console.log(this.state.data)
+                console.log(res)
             })
         .catch(err => console.log(err))
     }

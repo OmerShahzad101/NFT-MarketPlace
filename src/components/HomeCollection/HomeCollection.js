@@ -4,6 +4,7 @@ import { ENV } from "../../env";
 import Category from "../../services/category.service";
 
 const initialData = {
+  preHeading: "Exclusive Collecton",
   heading: "Collections ",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
@@ -33,8 +34,8 @@ const HomeCollection = () => {
               <div className="col-12">
                 <div className="intro d-flex justify-content-between align-items-end m-0">
                   <div className="intro-content">
-                    <span>{data.preHeading}</span>
-                    <h3 className="mt-3 mb-0">{data.heading}</h3>
+                    <span>{initData.preHeading}</span>
+                    <h3 className="mt-3 mb-0">{initData.heading}</h3>
                   </div>
                   <div className="intro-btn">
                     <a className="btn content-btn text-left" href="collection">

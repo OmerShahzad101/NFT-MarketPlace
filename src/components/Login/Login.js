@@ -46,8 +46,17 @@ const Login = () => {
     event.preventDefault();
     console.log(user.email);
     console.log(user.password);
-
     const res = await auth.login(`${ENV.API_URL}api/auth/jwt/create/`, user);
+    if (res.data) {
+      localStorage.setItem("access", JSON.stringify(res.data.access));
+      localStorage.setItem("refresh", JSON.stringify(res.data.refresh));
+      alert(res.data.status);
+      alert("sucess");
+    } else {
+      alert(res.data.status);
+      console.log(res);
+      alert("error");
+    }
     console.log(res);
   };
 
