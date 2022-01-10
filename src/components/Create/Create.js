@@ -24,11 +24,10 @@ class Create extends Component {
         copies: "",
         sale_type: "is_put_on_sale",
         collection: "2",
-        owner:"8"
+        owner: "",
         // status: 1, // 1 = put on sale, 2 = instant sale price, 3 = unlock purchased
       },
     };
-   
   }
 
   onFileChange(e) {
@@ -62,10 +61,6 @@ class Create extends Component {
 
   onChange(e, status = null) {
     let { name, value } = e.target;
-
-    // if status is provided
-    // if (status) value = status;
-
     let { nft } = this.state;
     nft = { ...nft, [name]: value };
     this.setState({ nft }, () => {});
@@ -82,7 +77,6 @@ class Create extends Component {
       copies: "",
       sale_type: "is_put_on_sale",
       collection: "2",
-      // status: 1, // 1 = put on sale, 2 = instant sale price, 3 = unlock purchased
     };
     this.setState({ nft });
   };
@@ -101,7 +95,7 @@ class Create extends Component {
           var formData = new FormData();
           for (const key in nft) if (nft[key]) formData.append(key, nft[key]);
 
-          const res = NFT.nft(`${ENV.API_URL}api/create_nft/`, formData);
+          const res = await NFT.nft(`${ENV.API_URL}api/create_nft/`, formData);
 
           console.log(res);
           if (res.success) {
@@ -166,7 +160,6 @@ class Create extends Component {
                           Choose file *
                         </label>
                       </div>
-                     
                     </div>
                   </div>
                   <div className="col-12">
@@ -180,7 +173,6 @@ class Create extends Component {
                         onChange={(e) => this.onChange(e)}
                         defaultValue={nft.name}
                       />
-                     
                     </div>
                   </div>
                   <div className="col-12">
@@ -194,7 +186,6 @@ class Create extends Component {
                         onChange={(e) => this.onChange(e)}
                         defaultValue={nft.description}
                       />
-                     
                     </div>
                   </div>
                   <div className="col-12 col-md-6">
@@ -208,7 +199,6 @@ class Create extends Component {
                         onChange={(e) => this.onChange(e)}
                         defaultValue={nft.price}
                       />
-                      
                     </div>
                   </div>
                   <div className="col-12 col-md-6">
@@ -222,7 +212,6 @@ class Create extends Component {
                         onChange={(e) => this.onChange(e)}
                         defaultValue={nft.royalty}
                       />
-                     
                     </div>
                   </div>
                   <div className="col-12 col-md-6">
@@ -249,10 +238,9 @@ class Create extends Component {
                         onChange={(e) => this.onChange(e)}
                         defaultValue={nft.copies}
                       />
-                     
                     </div>
                   </div>
-                  
+
                   <div className="col-12">
                     <button
                       disabled={loader}
