@@ -1,4 +1,4 @@
-import React, { useEffect , useState } from "react";
+import React, { useEffect, useState } from "react";
 import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import Category from "../../services/category.service";
@@ -13,14 +13,16 @@ const HomeCollection = () => {
   const [initData, setInitData] = useState(initialData);
   const [collectionData, setCollectionData] = useState();
   const [categories, setCategories] = useState([]);
-  const [data , setData]= useState({})
+  const [data, setData] = useState({});
 
   useEffect(async () => {
-    const res = await Collection.collection(`${ENV.API_URL}api/collection_list/`);
+    const res = await Collection.collection(
+      `${ENV.API_URL}api/collection_list/`
+    );
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCollectionData(res.data);
-    setCategories(result.data)
-  },[]);
+    setCategories(result.data);
+  }, []);
 
   return (
     <>
@@ -54,22 +56,20 @@ const HomeCollection = () => {
                           <div className="image-over">
                             <a href={`/item-details?${item.id}`}>
                               <img
-                                className="card-img-top"
-                                src={
-                                  "https://images.unsplash.com/photo-1638913976381-5b8ed66c36d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                                }
-                                // src={item.banner_image}
+                                className="card-img-top image-container"
+                                src={`${ENV.API_URL_image}${item.banner_image}`}
                                 alt=""
                               />
                             </a>
                             {/* Seller */}
-                            <a className="seller" href={`/item-details?${item.id}`}>
+                            <a
+                              className="seller"
+                              href={`/item-details?${item.id}`}
+                            >
                               <div className="seller-thumb avatar-lg">
-                                <img className="rounded-circle"
-                                  // src={item.logo_image}
-                                  src={
-                                    "https://images.unsplash.com/photo-1638913976381-5b8ed66c36d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                                  }
+                                <img
+                                  className="rounded-circle"
+                                  src={`${ENV.API_URL_image}${item.logo_image}`}
                                   alt=""
                                 />
                               </div>

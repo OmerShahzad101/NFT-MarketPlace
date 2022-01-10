@@ -4,7 +4,7 @@ import { ENV } from "../../env";
 
 const Faq = () => {
   const initialData = {
-    pre_heading: "FAQ",
+    // pre_heading: "FAQ",
     heading: "Frequently Asked Questions",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
@@ -20,13 +20,13 @@ const Faq = () => {
   });
 
   return (
-    <section className="faq-area pt-0">
+    <section className="faq-area pt-130 mt-10 ">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 col-lg-7">
             {/* Intro */}
             <div className="intro text-center">
-              <span>{initData.pre_heading}</span>
+              {/* <span>{initData.pre_heading}</span> */}
               <h3 className="mt-3 mb-0">{initData.heading}</h3>
               <p>{initData.content}</p>
             </div>
