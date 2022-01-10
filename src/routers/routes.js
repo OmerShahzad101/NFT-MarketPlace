@@ -20,8 +20,8 @@ import CollectionDetail from "../themes/collectionDetail";
 // import ExploreFour from "../themes/explore-four";
 // import Blog from "../themes/blog";
 // import BlogSingle from "../themes/blog-single";
-// import Authors from "../themes/authors";
-// import Author from "../themes/author";
+import Authors from "../themes/authors";
+import Author from "../themes/author";
 // import WalletConnect from "../themes/wallet-connect";
 
 class MyRouts extends React.Component {
@@ -46,7 +46,8 @@ class MyRouts extends React.Component {
             <Route exact path="/create-collection" component={CreateCollection} />
             <Route exact path="/favourite-nft" component={FavouriteNft} />
             <Route exact path="/collectionDetail" component={CollectionDetail} />
-            
+            <Route exact path="/authors" component={Authors} />
+            <Route exact path="/author" component={Author} />
              {/* <Route exact path="/" component={ThemeOne} />
             <Route exact path="/explore-1" component={ExploreOne} />
             <Route exact path="/explore-3" component={ExploreThree} />
@@ -55,8 +56,7 @@ class MyRouts extends React.Component {
             <Route exact path="/activity" component={Activity} />
             <Route exact path="/blog" component={Blog} />
             <Route exact path="/blog-single" component={BlogSingle} />
-            <Route exact path="/authors" component={Authors} />
-            <Route exact path="/author" component={Author} />
+          
             <Route exact path="/wallet-connect" component={WalletConnect} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />   */} 

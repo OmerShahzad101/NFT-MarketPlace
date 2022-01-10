@@ -24,7 +24,7 @@ const Header = () => {
           <ul className="navbar-nav items mx-auto">
             <li className="nav-item">
               <Link to="/marketplace" className="nav-link">
-                MarketePlace
+                Marketplace
               </Link>
             </li>
             <li className="nav-item">
@@ -83,9 +83,14 @@ const Header = () => {
                     Favourite Nft
                   </Link>
                 </li>
-                <li>
-                  <Link to="/collectionDetail" className="nav-link">
-                    Collection Detail
+                <li className="nav-item">
+                  <Link to="/authors" className="nav-link">
+                    Authors
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/author" className="nav-link">
+                    Author
                   </Link>
                 </li>
               </ul>

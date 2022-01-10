@@ -3331,3 +3331,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   width: 5rem;
   height: 5rem;
 }
+.auhtor-nfts .item{
+  margin-top: 0;
+  margin-bottom: 30px;
+}

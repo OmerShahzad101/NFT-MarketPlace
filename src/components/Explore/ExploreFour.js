@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 
@@ -134,20 +135,20 @@ const ExploreFour = () => {
                   >
                     <div className="card">
                       <div className="image-over">
-                        <a href={`/nft-details?${item.id}`}>
+                        <Link to={`/nft-details?${item.id}`}>
                           <img
                             className="card-img-top image-container-nft"
                             src={`${ENV.API_URL_image}${item.image}`}
                             alt=""
                           />
-                        </a>
+                        </Link>
                       </div>
                       <div className="card-caption col-12 p-0">
                         <div className="card-body">
                           <div className="d-flex justify-content-between">
-                            <a href={`/nft-details?${item.id}`}>
+                            <Link to={`/nft-details?${item.id}`}>
                               <h5 className="mb-0">{item.name}</h5>
-                            </a>
+                            </Link>
                             <i class="far fa-heart"></i>
                           </div>
                           <div className="seller d-flex align-items-center my-3">

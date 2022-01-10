@@ -4,24 +4,30 @@ import { ENV } from "../../env";
 import Collection from "../../services/collections.service";
 import NFT from "../../services/nft.service";
 
-
 const CollectionDetail = () => {
   const arr = window.location.href.split("?");
   const id = arr[1];
-  
-const [collectionData, setcollectionData] = useState([]);
-const [nftData, setNftData] = useState();
-useEffect(async () => {
-  const res = await Collection.collection(`${ENV.API_URL}api/specific_collection/${id}/`);
-  console.log(res.data);
-  setcollectionData(res.data);
-  const res_nft = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
+
+  const [collectionData, setcollectionData] = useState([]);
+  const [nftData, setNftData] = useState();
+  useEffect(async () => {
+    const res = await Collection.collection(
+      `${ENV.API_URL}api/specific_collection/${id}/`
+    );
+    console.log(res.data);
+    setcollectionData(res.data);
+    const res_nft = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
     setNftData(res_nft.data);
-}, []);
+  }, []);
 
   return (
     <>
-      <section className="breadcrumb-area overlay-dark d-flex align-items-center" style={{backgroundImage : `url(${ENV.API_URL_image}${collectionData.banner_image})`}}></section>
+      <section
+        className="breadcrumb-area overlay-dark d-flex align-items-center"
+        style={{
+          backgroundImage: `url(${ENV.API_URL_image}${collectionData.banner_image})`,
+        }}
+      ></section>
       <div className="container">
         <div className="collection-detail-logo text-center mt-n5 position-relative mb-5">
           <div className="collection-logo avatar-lg">
@@ -76,7 +82,10 @@ useEffect(async () => {
                 <img src="hello.jpg" />
               </div>
               <div>
-                <h6 className="mt-0 mb-3">Name</h6>
+                <a href={`/authors`}>
+                  <h6 className="mt-0 mb-3">Name</h6>
+                </a>
+
                 <p className="m-0">Owners</p>
               </div>
             </div>
