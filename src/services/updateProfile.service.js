@@ -4,9 +4,9 @@ const updateProfile = {
     updateProfileUser: (url) => {
     return axios.put(url);
   },
-//   updateProfileUserGet: (url) => {
-//     return axios.get(url);
-//   },
+  // updateProfileUserGet: (url) => {
+  //   return axios.get(url);
+  // },
 
   updateProfileUserGet: (url, data) => {
     var _token = JSON.parse(localStorage.getItem("access"));
