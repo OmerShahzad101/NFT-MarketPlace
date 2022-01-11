@@ -92,12 +92,16 @@ const ItemDetails = () => {
   const [tabData_2, settabData_2] = useState(initialtabData_2);
   const [sellerData, setSellerData] = useState(initialsellerData);
   const [nftData, setNftData] = useState([]);
+  const [report_nft, setReport_nft] = useState(false);
 
   useEffect(async () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
     console.log(res.data);
     setNftData(res.data);
   }, []);
+  const report_nft_function = () => {
+    setReport_nft(!report_nft);
+  };
   return (
     <section className="item-details-area">
       <div className="container">
@@ -220,7 +224,13 @@ const ItemDetails = () => {
           </div>
           <div className="col-12 col-lg-6">
             <div className="content mt-5 mt-lg-0">
-              <h3 className="m-0">{nftData.name}</h3>
+              <div className="d-flex justify-content-between">
+                <h3 className="m-0">{nftData.name}</h3>
+                <i
+                  className="fas fa-ellipsis-v "
+                  onClick={(e) => report_nft_function()}
+                ></i>
+              </div>
               <p>{nftData.description}</p>
               {/* Owner */}
               <div className="owner d-flex align-items-center">
