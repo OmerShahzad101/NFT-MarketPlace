@@ -33,8 +33,8 @@ const Contact = () => {
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 col-lg-7">
             <div className="intro text-center">
-              <h3 className="mt-3 mb-0">{initData.heading}</h3>
-              <p>{initData.content}</p>
+              {/* <h3 className="mt-3 mb-0">{initData.heading}</h3>
+              <p>{initData.content}</p> */}
             </div>
             <Formik
               initialValues={{
