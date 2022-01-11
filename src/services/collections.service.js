@@ -19,6 +19,7 @@ const Collection = {
     console.log(requestOptions);
     const _data = fetch(`${url}`, requestOptions).then((res) => res.json());
     console.log(data);
+    console.log(data)
     return _data;
   },
 };
