@@ -3342,3 +3342,11 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   margin-left: auto;
   margin-right: auto;  
 }
+.report_nft_dropdown {
+  background: transparent;
+  cursor: pointer;
+  color: white;
+  border: none;
+  transition: all .3s ease;
+  
+}

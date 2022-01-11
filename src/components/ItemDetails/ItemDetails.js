@@ -226,10 +226,17 @@ const ItemDetails = () => {
             <div className="content mt-5 mt-lg-0">
               <div className="d-flex justify-content-between">
                 <h3 className="m-0">{nftData.name}</h3>
-                <i
-                  className="fas fa-ellipsis-v "
-                  onClick={(e) => report_nft_function()}
-                ></i>
+                <div class="dropdown">
+                  <button className="report_nft_dropdown" type="button" onClick={(e) => report_nft_function()} id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                  </div>
+                
               </div>
               <p>{nftData.description}</p>
               {/* Owner */}
