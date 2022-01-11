@@ -93,6 +93,11 @@ const Header = () => {
                     Author
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/updateprofile" className="nav-link">
+                    My Profile
+                  </Link>
+                </li>
               </ul>
             </li>
             {/* <li className="nav-item dropdown">

@@ -14,7 +14,7 @@ const TopSeller = () => {
 
   useEffect(async () => {
     const result = await topSellers.topSellersList(
-      `${ENV.API_URL}api/top_sellers/`
+      `http://192.168.99.229:8000/api/top_sellers/`
     );
     setSellerData(result.data.top_sellers);
     console.log(result.data.top_sellers);
@@ -48,14 +48,14 @@ const TopSeller = () => {
                         <a href="/author">
                           <img
                             className="avatar-md rounded-circle"
-                            src={item.img}
+                            src={item.profile_image}
                             alt=""
                           />
                         </a>
                         {/* Seller Info */}
                         <div className="seller-info ml-3">
                           <Link className="seller mb-2"  to={`/author?${item.id}`}>
-                            {item.owner__first_name}
+                            {item.user_name}
                           </Link>
                           <span>{item.price}</span>
                         </div>

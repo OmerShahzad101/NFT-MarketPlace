@@ -22,6 +22,7 @@ import CollectionDetail from "../themes/collectionDetail";
 // import BlogSingle from "../themes/blog-single";
 import Authors from "../themes/authors";
 import Author from "../themes/author";
+import UpdateProfile from "../themes/updateProfile";
 // import WalletConnect from "../themes/wallet-connect";
 
 class MyRouts extends React.Component {
@@ -48,6 +49,7 @@ class MyRouts extends React.Component {
             <Route exact path="/collectionDetail" component={CollectionDetail} />
             <Route exact path="/authors" component={Authors} />
             <Route exact path="/author" component={Author} />
+            <Route exact path="/updateprofile" component={UpdateProfile} />
              {/* <Route exact path="/" component={ThemeOne} />
             <Route exact path="/explore-1" component={ExploreOne} />
             <Route exact path="/explore-3" component={ExploreThree} />

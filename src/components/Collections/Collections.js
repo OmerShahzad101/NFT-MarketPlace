@@ -97,7 +97,7 @@ const Collections = () => {
                         </div>
                         <div className="card-caption col-12 p-0">
                           <div className="card-body mt-4">
-                            <a href={`/item-details?${item.id}`}>
+                            <a href={`/collectionDetail?${item.id}`}>
                               <h5 className="mb-2">{item.name}</h5>
                             </a>
                             <span>{item.description}</span>
