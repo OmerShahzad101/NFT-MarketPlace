@@ -1,12 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const Header = () => {
   const logout = () => {
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
   };
+
   const token = JSON.parse(localStorage.getItem("access"));
+  var decoded = jwt_decode(token);
+  const id = decoded.user_id;
+
   return (
     <header id="header">
       {/* Navbar */}
@@ -90,7 +95,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/updateprofile" className="nav-link">
+                  <Link to={`/updateprofile?${id}`} className="nav-link">
                     My Profile
                   </Link>
                 </li>
