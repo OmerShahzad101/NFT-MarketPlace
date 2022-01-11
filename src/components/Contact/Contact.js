@@ -9,7 +9,6 @@ const initData = {
   content:
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
 };
-const phoneRegExp = /^((\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$/;
 const contactSchema = yup.object().shape({
   name: yup
     .string()
@@ -19,10 +18,7 @@ const contactSchema = yup.object().shape({
       "Only alphabets are allowed for this field, atleast 4 alphabets"
     ),
   email: yup.string().email().required("Please provide email"),
-  // phone: yup
-  //   .string()
-  //   .required("Please provide phone number")
-  //   .matches(phoneRegExp, "Phone number is not valid"),
+
   message: yup.string().required("Please write your message"),
   subject: yup.string().required("Please provied subject"),
 });
@@ -47,7 +43,8 @@ const Contact = () => {
               onSubmit={async (values) => {
                 console.log(values);
                 const res = await contact.contacts(
-                  `${ENV.API_URL}api/contact_list/`,
+                  // `${ENV.API_URL}api/contact_list/`,
+                  // `http://192.168.99.229:8000/api/contact_list/`,
                   values
                 );
                 console.log(res);

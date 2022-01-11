@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const logout = () => {
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+  };
+  const token = JSON.parse(localStorage.getItem("access"));
   return (
     <header id="header">
       {/* Navbar */}
@@ -21,7 +26,7 @@ const Header = () => {
           </a>
           <div className="ml-auto" />
           {/* Navbar */}
-          <ul className="navbar-nav items mx-auto">
+          <ul className="navbar-nav items ">
             <li className="nav-item">
               <Link to="/marketplace" className="nav-link">
                 Marketplace
@@ -58,16 +63,7 @@ const Header = () => {
                     Contact
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link to="/login" className="nav-link">
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/signup" className="nav-link">
-                    Signup
-                  </Link>
-                </li>
+
                 <li className="nav-item">
                   <Link to="/help-center" className="nav-link">
                     Help Center
@@ -95,45 +91,23 @@ const Header = () => {
                 </li>
               </ul>
             </li>
-            {/* <li className="nav-item dropdown">
-                            <a className="nav-link" href="/">Home</a>
-                        </li>
-                        <li className="nav-item dropdown">
-                            <Link className="nav-link" to="#">Explore <i className="fas fa-angle-down ml-1" /></Link>
-                            <ul className="dropdown-menu">
-                                <li className="nav-item"><Link to="/explore-1" className="nav-link">Explore Style 1</Link></li>
-                                <li className="nav-item"><Link to="/explore-2" className="nav-link">Explore Style 2</Link></li>
-                                <li className="nav-item"><Link to="/explore-3" className="nav-link">Explore Style 3</Link></li>
-                                <li className="nav-item"><Link to="/explore-4" className="nav-link">Explore Style 4</Link></li>
-                                <li className="nav-item"><Link to="/auctions" className="nav-link">Live Auctions</Link></li>
-                                <li className="nav-item"><Link to="/item-details" className="nav-link">Item Details</Link></li>
-                            </ul>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/activity" className="nav-link">Activity</Link>
-                        </li>
-                        <li className="nav-item dropdown">
-                            <Link className="nav-link" to="#">Community <i className="fas fa-angle-down ml-1" /></Link>
-                            <ul className="dropdown-menu">
-                                <li className="nav-item"><Link to="/blog" className="nav-link">Blog</Link></li>
-                                <li className="nav-item"><Link to="/blog-single" className="nav-link">Blog Single</Link></li>
-                                <li className="nav-item"><Link to="/help-center" className="nav-link">Help Center</Link></li>
-                            </ul>
-                        </li>
-                        <li className="nav-item dropdown">
-                            <Link className="nav-link" to="#">Pages <i className="fas fa-angle-down ml-1" /></Link>
-                            <ul className="dropdown-menu">
-                                <li className="nav-item"><Link to="/authors" className="nav-link">Authors</Link></li>
-                                <li className="nav-item"><Link to="/author" className="nav-link">Author</Link></li>
-                                <li className="nav-item"><Link to="/wallet-connect" className="nav-link">Wallet Connect</Link></li>
-                                <li className="nav-item"><Link to="/create" className="nav-link">Create</Link></li>
-                                <li className="nav-item"><Link to="/login" className="nav-link">Login</Link></li>
-                                <li className="nav-item"><Link to="/signup" className="nav-link">Signup</Link></li>
-                            </ul>
-                        </li> */}
+
+            <li className="nav-item">
+              {token ? (
+                <Link to="/" className="nav-link" onClick={logout}>
+                  Logout
+                </Link>
+              ) : (
+                <li>
+                  <Link to="/login" className="nav-link">
+                    Login
+                  </Link>
+                </li>
+              )}
+            </li>
           </ul>
-          {/* Navbar Icons */}
-          <ul className="navbar-nav icons">
+
+          {/* <ul className="navbar-nav icons">
             <li className="nav-item">
               <a
                 href="#"
@@ -144,7 +118,7 @@ const Header = () => {
                 <i className="fas fa-search" />
               </a>
             </li>
-          </ul>
+          </ul> */}
           {/* Navbar Toggler */}
           <ul className="navbar-nav toggle">
             <li className="nav-item">
@@ -159,7 +133,7 @@ const Header = () => {
             </li>
           </ul>
           {/* Navbar Action Button */}
-          <ul className="navbar-nav action">
+          {/* <ul className="navbar-nav action">
             <li className="nav-item ml-3">
               <a
                 href="/wallet-connect"
@@ -169,7 +143,7 @@ const Header = () => {
                 Wallet Connect
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </nav>
     </header>
@@ -177,3 +151,42 @@ const Header = () => {
 };
 
 export default Header;
+
+{
+  /* <li className="nav-item dropdown">
+                <a className="nav-link" href="/">Home</a>
+            </li>
+            <li className="nav-item dropdown">
+                <Link className="nav-link" to="#">Explore <i className="fas fa-angle-down ml-1" /></Link>
+                <ul className="dropdown-menu">
+                    <li className="nav-item"><Link to="/explore-1" className="nav-link">Explore Style 1</Link></li>
+                    <li className="nav-item"><Link to="/explore-2" className="nav-link">Explore Style 2</Link></li>
+                    <li className="nav-item"><Link to="/explore-3" className="nav-link">Explore Style 3</Link></li>
+                    <li className="nav-item"><Link to="/explore-4" className="nav-link">Explore Style 4</Link></li>
+                    <li className="nav-item"><Link to="/auctions" className="nav-link">Live Auctions</Link></li>
+                    <li className="nav-item"><Link to="/item-details" className="nav-link">Item Details</Link></li>
+                </ul>
+            </li>
+            <li className="nav-item">
+                <Link to="/activity" className="nav-link">Activity</Link>
+            </li>
+            <li className="nav-item dropdown">
+                <Link className="nav-link" to="#">Community <i className="fas fa-angle-down ml-1" /></Link>
+                <ul className="dropdown-menu">
+                    <li className="nav-item"><Link to="/blog" className="nav-link">Blog</Link></li>
+                    <li className="nav-item"><Link to="/blog-single" className="nav-link">Blog Single</Link></li>
+                    <li className="nav-item"><Link to="/help-center" className="nav-link">Help Center</Link></li>
+                </ul>
+            </li>
+            <li className="nav-item dropdown">
+                <Link className="nav-link" to="#">Pages <i className="fas fa-angle-down ml-1" /></Link>
+                <ul className="dropdown-menu">
+                    <li className="nav-item"><Link to="/authors" className="nav-link">Authors</Link></li>
+                    <li className="nav-item"><Link to="/author" className="nav-link">Author</Link></li>
+                    <li className="nav-item"><Link to="/wallet-connect" className="nav-link">Wallet Connect</Link></li>
+                    <li className="nav-item"><Link to="/create" className="nav-link">Create</Link></li>
+                    <li className="nav-item"><Link to="/login" className="nav-link">Login</Link></li>
+                    <li className="nav-item"><Link to="/signup" className="nav-link">Signup</Link></li>
+                </ul>
+            </li> */
+}

@@ -56,11 +56,11 @@ const ExploreFour = () => {
           <div className="col-xl-3 col-sm-6 text-right order-sm-last">
             <div class="form-group filter-select position-relative m-0">
               <select class="form-control " onChange={(e) => sort("price")}>
-                <option disabled selected hidden>Select price. </option>
-                {/* <option>Recently Listed</option> */}
-                {/* <option>Ending Soon</option> */}
+                <option disabled selected hidden>Select price</option>
                 <option>Price Low - High</option>
                 <option>Price High - Low</option>
+                {/* <option>Recently Listed</option> */}
+                {/* <option>Ending Soon</option> */}
                 {/* <option>Most Favourite</option> */}
               </select>
             </div>
