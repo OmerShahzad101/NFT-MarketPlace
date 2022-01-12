@@ -16,7 +16,7 @@ class Authors extends Component {
                 <Header />
                 {/* <Breadcrumb title="Authors" subpage="Pages" page="Authors" /> */}
                 <Author />
-                <TopSeller />
+                {/* <TopSeller /> */}
                 <Footer />
                 <ModalSearch />
                 <ModalMenu />

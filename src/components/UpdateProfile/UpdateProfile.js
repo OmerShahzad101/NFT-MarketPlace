@@ -41,7 +41,8 @@ const UpdateProfile = () => {
 
   useEffect(async () => {
     const result = await updateProfile.updateProfileUserGet(
-      `${ENV.API_URL}api/profile/crud/${id}`
+      // `${ENV.API_URL}api/profile/crud/${id}`
+      `http://192.168.99.229:8000/api/profile/crud/${id}`
     );
     console.log(result);
     setUpdateUser(result.data);

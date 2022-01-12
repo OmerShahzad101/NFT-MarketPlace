@@ -17,7 +17,7 @@ const HomeNft = () => {
     setNftData(res.data);
   }, []);
   return (
-    <section className="explore-area load-more">
+    <section className="explore-area ">
       <div className="container">
         <div className="row">
           <div className="col-12">
