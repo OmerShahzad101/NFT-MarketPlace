@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
+import reportNft from "../../services/reportNf.service";
 
 const initialData = {
   itemImg: "/img/auction_2.jpg",
@@ -92,16 +93,19 @@ const ItemDetails = () => {
   const [tabData_2, settabData_2] = useState(initialtabData_2);
   const [sellerData, setSellerData] = useState(initialsellerData);
   const [nftData, setNftData] = useState([]);
-  const [report_nft, setReport_nft] = useState(false);
 
   useEffect(async () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
     console.log(res.data);
     setNftData(res.data);
   }, []);
-  const report_nft_function = () => {
-    setReport_nft(!report_nft);
+  const report = async () => {
+    const result = await reportNft.reportNftItem(
+      `${ENV.API_URL}api/reported_nft/${id}/`
+    );
+    console.log(result);
   };
+
   return (
     <section className="item-details-area">
       <div className="container">
@@ -120,7 +124,6 @@ const ItemDetails = () => {
                   data-date={initData.date}
                 />
               </div>
-              {/* Netstorm Tab */}
               <ul className="netstorm-tab nav nav-tabs" id="nav-tab">
                 <li>
                   <a
@@ -155,7 +158,6 @@ const ItemDetails = () => {
               <div className="tab-content" id="nav-tabContent">
                 <div className="tab-pane fade show active" id="nav-home">
                   <ul className="list-unstyled">
-                    {/* Single Tab List */}
                     {tabData_1.map((item, idx) => {
                       return (
                         <li
@@ -179,7 +181,6 @@ const ItemDetails = () => {
                 </div>
                 <div className="tab-pane fade" id="nav-profile">
                   <ul className="list-unstyled">
-                    {/* Single Tab List */}
                     {tabData_2.map((item, idx) => {
                       return (
                         <li
@@ -202,7 +203,6 @@ const ItemDetails = () => {
                   </ul>
                 </div>
                 <div className="tab-pane fade" id="nav-contact">
-                  {/* Single Tab List */}
                   <div className="owner-meta d-flex align-items-center mt-3">
                     <span>Owner</span>
                     <a
@@ -227,14 +227,28 @@ const ItemDetails = () => {
               <div className="d-flex justify-content-between">
                 <h3 className="m-0">{nftData.name}</h3>
                 <div class="btn-group  dropleft">
-                  <button className="report_nft_dropdown " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-ellipsis-v"></i>
+                  <button
+                    className="report_nft_dropdown "
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i class="fas fa-ellipsis-v"></i>
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item report_nft_dropdown_item" href="#"><i class="fa fa-flag mr-2"></i> Report</a>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a
+                      class="dropdown-item report_nft_dropdown_item"
+                      onClick={report}
+                    >
+                      <i class="fa fa-flag mr-2"></i> Report
+                    </a>
                   </div>
-                  </div>
-                
+                </div>
               </div>
               <p>{nftData.description}</p>
               {/* Owner */}
