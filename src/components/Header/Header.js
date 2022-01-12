@@ -7,21 +7,18 @@ const Header = () => {
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
   };
-
   const token = JSON.parse(localStorage.getItem("access"));
-  var decoded = jwt_decode(token);
-  const id = decoded.user_id;
+  let id = null;
+  let decoded = null;
 
   return (
     <header id="header">
-      {/* Navbar */}
       <nav
         data-aos="zoom-out"
         data-aos-delay={800}
         className="navbar navbar-expand"
       >
         <div className="container header">
-          {/* Navbar Brand*/}
           <a className="navbar-brand" href="/">
             <img
               className="navbar-brand-sticky"
@@ -94,10 +91,17 @@ const Header = () => {
                     Author
                   </Link>
                 </li>
+
                 <li className="nav-item">
-                  <Link to={`/updateprofile?${id}`} className="nav-link">
-                    My Profile
-                  </Link>
+                  {token
+                    ? ((decoded = jwt_decode(token)),
+                      (id = decoded.user_id),
+                      (
+                        <Link to={`/updateprofile?${id}`} className="nav-link">
+                          My Profile
+                        </Link>
+                      ))
+                    : ""}
                 </li>
               </ul>
             </li>

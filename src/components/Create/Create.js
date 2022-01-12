@@ -25,7 +25,6 @@ class Create extends Component {
         sale_type: "is_put_on_sale",
         collection: "2",
         owner: "",
-        // status: 1, // 1 = put on sale, 2 = instant sale price, 3 = unlock purchased
       },
     };
   }
@@ -109,7 +108,7 @@ class Create extends Component {
     }
   };
   render() {
-    const { nft, errors, loader, isSubmitted } = this.state;
+    const { nft,  loader,  } = this.state;
 
     return (
       <section className="author-area">
@@ -128,16 +127,7 @@ class Create extends Component {
                     <h3 className="mt-3 mb-0">Create Item</h3>
                   </div>
                 </div>
-                {/* Form Error */}
-                {isSubmitted && errors && (
-                  <div className="row">
-                    <div className="col-12">
-                      <span id="create-nft-err" className="text-danger">
-                        {errors}
-                      </span>
-                    </div>
-                  </div>
-                )}
+             
               </div>
               <form id="create-nft" className="item-form card no-hover">
                 <div className="row">

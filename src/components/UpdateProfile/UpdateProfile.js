@@ -2,16 +2,13 @@ import React from "react";
 import { useEffect, useState } from "react/cjs/react.development";
 import { ENV } from "../../env";
 import updateProfile from "../../services/updateProfile.service";
-import jwt_decode from "jwt-decode";
 
 const UpdateProfile = () => {
   const [updateUser, setUpdateUser] = useState();
   const arr = window.location.href.split("?");
   const id = arr[1];
   useEffect(async () => {
-    // const token = JSON.parse(localStorage.getItem("access"));
-    // var decoded = jwt_decode(token);
-    // const id = decoded.user_id;
+  
     const result = await updateProfile.updateProfileUserGet(
       `${ENV.API_URL}api/profile/crud/${id}`
     );
