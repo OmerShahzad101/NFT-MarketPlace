@@ -12,8 +12,8 @@ const Authors = () => {
 
   useEffect(async () => {
 
-    const result = await authors.authorsList(`${ENV.API_URL}api/profile/get-list/`);
-    // const result = await authors.authorsList("http://192.168.99.229:8000/api/profile/get-list/");
+    // const result = await authors.authorsList(`${ENV.API_URL}api/profile/get-list/`);
+    const result = await authors.authorsList("http://192.168.99.229:8000/api/profile/get-list/");
     setAuthorData(result.data);
     console.log(result);
   },[]);

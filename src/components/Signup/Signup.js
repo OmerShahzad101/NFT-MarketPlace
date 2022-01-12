@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import auth from "../../services/auth.service";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const initialData = {
   heading: "Create an Account",
@@ -46,6 +47,8 @@ const initialValues = {
 };
 
 const Signup = () => {
+  let history = useHistory();
+
   const [initData, setInitData] = useState(initialData);
 
   return (
@@ -211,16 +214,18 @@ const Signup = () => {
                         <div className="other-option">
                           <span className="d-block text-center mb-4">Or</span>
                           <strong className="signup_link d-block text-center">
-                            Already have an account? <Link to="/login">Login</Link>
+                            Already have an account?{" "}
+                            <Link to="/login">Login</Link>
                           </strong>
                         </div>
                       </div>
                     </div>
                   </Form>
                 ) : (
-                  <div>
-                    <h1 className="p-3 mt-5">Form Submitted</h1>
-                  </div>
+                  // <div>
+                  //   <h1 className="p-3 mt-5">Form Submitted</h1>
+                  // </div>
+                  history.push("/login")
                 )
               }
             </Formik>
