@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const authors = {
-  authorsList: (url) => {
-    return axios.get(url);
+  authorsList: (url , data) => {
+    return axios.get(url , data);
   },
 };
 

@@ -43,7 +43,7 @@ const Contact = () => {
               onSubmit={async (values) => {
                 console.log(values);
                 const res = await contact.contacts(
-                  // `${ENV.API_URL}api/contact_list/`,
+                  `${ENV.API_URL}api/contact_list/`,
                   // `http://192.168.99.229:8000/api/contact_list/`,
                   values
                 );
@@ -92,26 +92,7 @@ const Contact = () => {
                           />
                         </div>
                       </div>
-                      {/* <div className="col-12">
-                        <div className="form-group mt-3">
-                          <Field
-                            type="phone"
-                            className={`form-control
-                              ${
-                                touched.phone && errors.phone
-                                  ? "is-invalid"
-                                  : ""
-                              }`}
-                            name="phone"
-                            placeholder="Phone"
-                          />
-                          <ErrorMessage
-                            component="div"
-                            name="phone"
-                            className="invalid-feedback"
-                          />
-                        </div>
-                      </div> */}
+                    
                       <div className="col-12">
                         <div className="form-group mt-3">
                           <Field

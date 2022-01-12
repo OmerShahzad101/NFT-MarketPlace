@@ -14,7 +14,8 @@ const TopSeller = () => {
 
   useEffect(async () => {
     const result = await topSellers.topSellersList(
-      `http://192.168.99.229:8000/api/top_sellers/`
+      // `http://192.168.99.229:8000/api/top_sellers/`
+      `${ENV.API_URL}api/top_sellers/`
     );
     setSellerData(result.data.top_sellers);
     console.log(result.data.top_sellers);
