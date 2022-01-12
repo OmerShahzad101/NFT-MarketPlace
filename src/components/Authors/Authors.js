@@ -15,7 +15,8 @@ const Authors = () => {
     // const result = await authors.authorsList(`${ENV.API_URL}api/profile/get-list/`);
     const result = await authors.authorsList("http://192.168.99.229:8000/api/profile/get-list/");
     setAuthorData(result.data);
-    console.log(result);
+    console.log(result.data);
+    
   },[]);
 
   return (
@@ -25,9 +26,9 @@ const Authors = () => {
           <div className="col-12 col-md-8 col-lg-7">
             {/* Intro */}
             <div className="intro text-center">
-              <span>{data.preHeading}</span>
-              <h3 className="mt-3 mb-0">{data.heading}</h3>
-              <p>{data.content}</p>
+              <span>Authors</span>
+              <h3 className="mt-3 mb-0">Our Creators</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
             </div>
           </div>
         </div>
@@ -38,14 +39,16 @@ const Authors = () => {
                 <div className="card no-hover text-center">
                   <div className="image-over">
                     <a href="/author">
-                      <img className="card-img-top" src={item.img} alt="" />
+                      <img className="card-img-top image-container" src={`http://192.168.99.229:8000${item.banner_image}`} alt="" />
+                      {/* <img className="card-img-top" src={`${ENV.API_URL_image}${item.banner_image}`} alt="" /> */}
                     </a>
                     {/* Seller */}
                     <a className="seller" href="/author">
                       <div className="seller-thumb avatar-lg">
                         <img
                           className="rounded-circle"
-                          src={item.avatar}
+                          src={`http://192.168.99.229:8000${item.profile_image}`}
+                          // src={`${ENV.API_URL_image}${item.profile_image}`}
                           alt=""
                         />
                       </div>
@@ -56,14 +59,9 @@ const Authors = () => {
                     {/* Card Body */}
                     <div className="card-body mt-4">
                       <a href="/author">
-                        <h5>{item.author}</h5>
+                        <h5>{item.user.first_name} {item.user.last_name}</h5>
                       </a>
-                      <a
-                        className="btn btn-bordered-white btn-smaller"
-                        href="#"
-                      >
-                        {item.btnText}
-                      </a>
+                      <p>{item.about}</p>
                     </div>
                   </div>
                 </div>
