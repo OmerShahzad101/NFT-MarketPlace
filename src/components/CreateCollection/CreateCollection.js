@@ -60,7 +60,6 @@ const CreateCollection = () => {
                       <input
                         type="file"
                         className="custom-file-input"
-                        onChange={(e) => onFileChange(e)}
                         name="logoImage"
                       />
 
