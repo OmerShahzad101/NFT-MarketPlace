@@ -3364,7 +3364,36 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 }
 .report_nft_dropdown_item{
   color: #09080d!important;
+  cursor: pointer;
 }
 .report_nft_dropdown_item:active{
   background-color: #e5e5e5;
+}
+.reportnft-modal{
+  box-shadow: 0px 0px 15px #8e8e8e;
+  background: #16151a;
+}
+.reportnft-modal .close{
+  color: #8e8e8e;
+  text-shadow: none;
+}
+.reportnft-modal .form-group{
+  width: 100%;
+  position: relative;
+}
+.reportnft-modal .form-group .form-control{
+  background-color: #000;
+  padding: 12px 15px;
+  border-radius: 0px;
+  color: #8e8e8e;
+  border-color: #000;
+  height: 50px;
+}
+.reportnft-modal .form-group::after
+{
+  content: "\e604";
+    font-family: "icons";
+    position: absolute;
+    top: 41px;
+    right: 20px;
 }
