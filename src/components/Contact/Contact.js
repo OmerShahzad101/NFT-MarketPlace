@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage  } from "formik";
 import * as yup from "yup";
 import contact from "../../services/contact.service";
 import { ENV } from "../../env";
+import Notifications, {notify} from 'react-notify-toast';
 
 const initData = {
   heading: "Get In Touch",
@@ -40,22 +41,29 @@ const Contact = () => {
                 message: "",
               }}
               validationSchema={contactSchema}
-              onSubmit={async (values) => {
+              onSubmit={async (values , {resetForm}) => {
                 console.log(values);
                 const res = await contact.contacts(
                   `${ENV.API_URL}api/contact_list/`,
                   // `http://192.168.99.229:8000/api/contact_list/`,
                   values
                 );
+                resetForm({values: ''})
                 console.log(res);
+                notify.show('Your Form Submitted!' ,"success" , 3000);
+
+                // alert("Your Form Submitted")
               }}
             >
               {({ touched, errors, isSubmitting, values }) =>
-                !isSubmitting ? (
+                // !isSubmitting ? (
                   <Form id="contact-form" className="item-form card no-hover">
                     <div className="row">
                       <div className="col-12">
+                      <Notifications />
+
                         <div className="form-group mt-3">
+
                           <Field
                             type="text"
                             className={`form-control
@@ -92,7 +100,7 @@ const Contact = () => {
                           />
                         </div>
                       </div>
-                    
+
                       <div className="col-12">
                         <div className="form-group mt-3">
                           <Field
@@ -145,24 +153,24 @@ const Contact = () => {
                       </div>
                     </div>
                   </Form>
-                ) : (
-                  <div>
-                    <h1 className="p-3 mt-5">Form Submitted</h1>
+                // ) : (
+                //   <div>
+                //     <h1 className="p-3 mt-5">Form Submitted</h1>
 
-                    <div className="alert alert-success mt-3">
-                      Thank for your connecting with us. Here's what we got from
-                      you !
-                    </div>
-                    <ul className="list-group">
-                      <li className="list-group-item">Name: {values.name}</li>
-                      <li className="list-group-item">Email: {values.email}</li>
-                      <li className="list-group-item">Phone: {values.phone}</li>
-                      <li className="list-group-item">
-                        Message: {values.message}
-                      </li>
-                    </ul>
-                  </div>
-                )
+                //     <div className="alert alert-success mt-3">
+                //       Thank for your connecting with us. Here's what we got from
+                //       you !
+                //     </div>
+                //     <ul className="list-group">
+                //       <li className="list-group-item">Name: {values.name}</li>
+                //       <li className="list-group-item">Email: {values.email}</li>
+                //       <li className="list-group-item">Phone: {values.phone}</li>
+                //       <li className="list-group-item">
+                //         Message: {values.message}
+                //       </li>
+                //     </ul>
+                //   </div>
+                // )
               }
             </Formik>
           </div>

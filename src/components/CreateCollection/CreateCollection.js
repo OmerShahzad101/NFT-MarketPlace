@@ -3,9 +3,7 @@ import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import Category from "../../services/category.service";
 import axios from "axios";
-
-
-
+import S from "jquery";
 const initialState = {
   name: "",
   description: "",
@@ -13,40 +11,11 @@ const initialState = {
 };
 
 const CreateCollection = () => {
-  const [file1, setFile1] = useState();
-  
   const [categories, setCategories] = useState([]);
   const [collectionData, setCollectionData] = useState(initialState);
   useEffect(() => {
     getCategories();
   }, []);
-
-  // ------------------
-  // const onImageChange = async(e) => {
-  //   e.preventDefault();
-  //   if (e.target.files && e.target.files[0]) {
-  //     let img = e.target.files[0];
-  //     console.log(img);
-  //     let immg= (URL.createObjectURL(img)).replace("blob:", "");
-  //     console.log(immg);
-  //     setFile1({
-  //       file1: immg
-  //     });
-  //     const Upload = async() => {
-  //       console.log('entered upload');
-  //       await fetch(`${ENV.API_URL}api/create_collection/`, {
-  //         method: 'POST',
-  //         body: img
-  //       }).then(resp => {
-
-  //         resp.json().then(data => {console.log(data)})
-  //       })
-  //     }
-  //     Upload();
-  //   }
-  //   }
-  // };
-  // -------------------------
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +28,7 @@ const CreateCollection = () => {
     const res = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCategories(res.data);
   };
-  const createCollection = async (e) => {
+  const CreateCollection = async (e) => {
     e.preventDefault();
     console.log(collectionData);
     const res = await Collection.collectionPost(
@@ -81,20 +50,19 @@ const CreateCollection = () => {
             </div>
             <form
               className="item-form card no-hover"
-              onSubmit={createCollection}
+              onSubmit={CreateCollection}
             >
               <div className="row ">
                 <div className="col-12">
                   <div className="input-group form-group">
                     <div className="custom-file">
-                    {/* <img alt="not found" width={"250px"} src={file1.file1} /> */}
+                      {/* <img alt="not found" width={"250px"} src={file1.file1} /> */}
                       <input
                         type="file"
                         className="custom-file-input"
-                        // onChange={onImageChange}
                         name="logoImage"
                       />
-                      
+
                       <label className="custom-file-label">Logo Image * </label>
                     </div>
                   </div>
@@ -108,7 +76,6 @@ const CreateCollection = () => {
                         className="custom-file-input"
                         // onChange={onImageChange}
                         name="bannerImage"
-
                       />
                       <label className="custom-file-label">
                         Banner Image *
@@ -169,7 +136,7 @@ const CreateCollection = () => {
                     />
                   </div>
                 </div>
-                         {/* {console.log(file1.file1)} */}
+                {/* {console.log(file1.file1)} */}
                 <div className="col-12">
                   <button className="btn w-100 mt-3 mt-sm-4" type="submit">
                     Create Collection{" "}

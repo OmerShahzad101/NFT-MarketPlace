@@ -41,7 +41,8 @@ const ExploreFour = () => {
     setNftData(res.data);
   }, []);
   return (
-    <section className="explore-area load-more">
+    <section className="explore-area">
+    {/* <section className="explore-area load-more"> */}
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 col-lg-7">
@@ -198,7 +199,7 @@ const ExploreFour = () => {
         </div>
         <div className="row">
           <div className="col-12 text-center">
-            <a id="load-btn" className="btn btn-bordered-white mt-5" href="#">
+            <a id="load-btn" className="btn btn-bordered-white mt-5" href="">
               Load More
             </a>
           </div>
