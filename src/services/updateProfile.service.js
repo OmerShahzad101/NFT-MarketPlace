@@ -1,13 +1,8 @@
 import axios from "axios";
-
 const updateProfile = {
     updateProfileUser: (url) => {
     return axios.put(url);
   },
-  // updateProfileUserGet: (url) => {
-  //   return axios.get(url);
-  // },
-
   updateProfileUserGet: (url, data) => {
     var _token = JSON.parse(localStorage.getItem("access"));
     console.log(data);
@@ -21,9 +16,8 @@ const updateProfile = {
     };
     console.log(requestOptions);
     const _data = fetch(`${url}`, requestOptions).then((res) => res.json());
-    console.log(data);
+    //console.log(data);
     return _data;
   },
 };
-
 export default updateProfile;

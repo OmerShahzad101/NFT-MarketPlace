@@ -16,13 +16,13 @@ import HelpCenter from "../themes/help-center";
 import CreateCollection from "../themes/createCollection";
 import FavouriteNft from "../themes/favouriteNft";
 import CollectionDetail from "../themes/collectionDetail";
+import Authors from "../themes/authors";
+import Author from "../themes/author";
+import UpdateProfile from "../themes/updateProfile";
 // import ExploreOne from "../themes/explore-one";
 // import ExploreFour from "../themes/explore-four";
 // import Blog from "../themes/blog";
 // import BlogSingle from "../themes/blog-single";
-import Authors from "../themes/authors";
-import Author from "../themes/author";
-import UpdateProfile from "../themes/updateProfile";
 // import WalletConnect from "../themes/wallet-connect";
 
 class MyRouts extends React.Component {
