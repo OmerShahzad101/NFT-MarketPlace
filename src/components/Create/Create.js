@@ -25,6 +25,7 @@ class Create extends Component {
         sale_type: "is_put_on_sale",
         collection: "2",
         owner: "",
+        // status: 1, // 1 = put on sale, 2 = instant sale price, 3 = unlock purchased
       },
     };
   }
@@ -108,7 +109,7 @@ class Create extends Component {
     }
   };
   render() {
-    const { nft,  loader,  } = this.state;
+    const { nft, errors, loader, isSubmitted } = this.state;
 
     return (
       <section className="author-area">
@@ -127,7 +128,16 @@ class Create extends Component {
                     <h3 className="mt-3 mb-0">Create Item</h3>
                   </div>
                 </div>
-             
+                {/* Form Error */}
+                {isSubmitted && errors && (
+                  <div className="row">
+                    <div className="col-12">
+                      <span id="create-nft-err" className="text-danger">
+                        {errors}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
               <form id="create-nft" className="item-form card no-hover">
                 <div className="row">
@@ -283,7 +293,8 @@ export default Create;
 //   collection: yup.string().required("Please select collection"),
 //   no_of_copies: yup.number().min(1).required("Please select collection"),
 //   size: yup.string().required("Please define size of NFT"),
-//   file: yup.mixed().required("A file is required"),
+//  file: yup.mixed().required("A file is required"),
+
 // });
 
 // const Create = () => {
@@ -298,11 +309,11 @@ export default Create;
 //     price: "",
 //     collection: "",
 //     owner: "15",
-//     file: "",
+//     file: null,
 //     fileName: "",
 //     thumb: undefined,
 //   };
-//   const [nftItem, setNftItem] = useState(nftInitialStates);
+//   const [ nftItem, setNftItem ] = useState(nftInitialStates)
 
 //   return (
 //     <section className="author-area">
@@ -347,7 +358,6 @@ export default Create;
 //                                   "file",
 //                                   event.currentTarget.files[0]
 //                                 );
-
 //                                 setNftItem({
 //                                   fileName: event.target.files[0].name,
 //                                 });
@@ -374,6 +384,7 @@ export default Create;
 //                               ${
 //                                 touched.name && errors.name ? "is-invalid" : ""
 //                               }`}
+
 //                           />
 //                           <ErrorMessage
 //                             component="div"

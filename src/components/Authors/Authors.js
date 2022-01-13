@@ -12,8 +12,8 @@ const Authors = () => {
 
   useEffect(async () => {
 
-    // const result = await authors.authorsList(`${ENV.API_URL}api/profile/get-list/`);
-    const result = await authors.authorsList("http://192.168.99.229:8000/api/profile/get-list/");
+    const result = await authors.authorsList(`${ENV.API_URL}api/profile/get-list/`);
+    // const result = await authors.authorsList("http://192.168.99.229:8000/api/profile/get-list/");
     setAuthorData(result.data);
     console.log(result.data);
     
@@ -39,16 +39,16 @@ const Authors = () => {
                 <div className="card no-hover text-center">
                   <div className="image-over">
                     <a href="/author">
-                      <img className="card-img-top image-container" src={`http://192.168.99.229:8000${item.banner_image}`} alt="" />
-                      {/* <img className="card-img-top" src={`${ENV.API_URL_image}${item.banner_image}`} alt="" /> */}
+                      {/* <img className="card-img-top image-container" src={`http://192.168.99.229:8000${item.banner_image}`} alt="" /> */}
+                      <img className="card-img-top" src={`${ENV.API_URL_image}${item.banner_image}`} alt="" />
                     </a>
                     {/* Seller */}
                     <a className="seller" href="/author">
                       <div className="seller-thumb avatar-lg">
                         <img
                           className="rounded-circle"
-                          src={`http://192.168.99.229:8000${item.profile_image}`}
-                          // src={`${ENV.API_URL_image}${item.profile_image}`}
+                          // src={`http://192.168.99.229:8000${item.profile_image}`}
+                          src={`${ENV.API_URL_image}${item.profile_image}`}
                           alt=""
                         />
                       </div>
