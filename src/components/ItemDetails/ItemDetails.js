@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 import reportNft from "../../services/reportNf.service";
-
+import $ from "jquery";
 const initialData = {
   itemImg: "/img/auction_2.jpg",
   date: "2022-03-30",
@@ -88,11 +88,18 @@ const ItemDetails = () => {
   const arr = window.location.href.split("?");
   const id = arr[1];
 
+  const initialstates = {
+    report_type: " ",
+    nft: "",
+  };
+
   const [initData, setInitData] = useState(initialData);
   const [tabData_1, settabData_1] = useState(initialtabData_1);
   const [tabData_2, settabData_2] = useState(initialtabData_2);
   const [sellerData, setSellerData] = useState(initialsellerData);
   const [nftData, setNftData] = useState([]);
+  const [nftReport, setNftReport] = useState(initialstates);
+  nftReport.nft = id;
 
   useEffect(async () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
@@ -100,12 +107,20 @@ const ItemDetails = () => {
     setNftData(res.data);
   }, []);
   const report = async () => {
+    console.log(nftReport);
     const result = await reportNft.reportNftItem(
-      `${ENV.API_URL}api/reported_nft/${id}/`
+      `${ENV.API_URL}api/create_reported_nft/`,
+      nftReport
     );
     console.log(result);
   };
-
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNftReport({
+      ...nftReport,
+      [name]: value,
+    });
+  };
   return (
     <section className="item-details-area">
       <div className="container">
@@ -243,10 +258,88 @@ const ItemDetails = () => {
                   >
                     <a
                       class="dropdown-item report_nft_dropdown_item"
-                      onClick={report}
+                      data-toggle="modal"
+                      data-target="#reportnft_modal"
                     >
                       <i class="fa fa-flag mr-2"></i> Report
                     </a>
+                  </div>
+                </div>
+              </div>
+              {/* report nft modal */}
+              <div
+                class="modal fade"
+                id="reportnft_modal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content reportnft-modal">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        {nftData.name}
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1" className="mb-1">
+                          Select Report Type:
+                        </label>
+                        <select
+                          name="report_type"
+                          value={nftReport.report_type}
+                          onChange={handleChange}
+                          class="form-control"
+                          id="exampleFormControlSelect1"
+                        >
+                          <option value="" selected="selected" hidden="hidden">
+                            Choose here
+                          </option>
+                          <option name="fake" value="fake">
+                            Fake
+                          </option>
+                          <option name="explicit" value="explicit">
+                            Explicit
+                          </option>
+                          <option
+                            name="might_be_stolen"
+                            value="might_be_stolen"
+                          >
+                            Stolen
+                          </option>
+                          <option name="other" value="other">
+                            Other{" "}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        onClick={report}
+                      >
+                        Save changes
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
