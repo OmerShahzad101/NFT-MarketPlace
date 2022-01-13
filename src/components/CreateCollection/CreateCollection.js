@@ -8,6 +8,7 @@ const initialState = {
   name: "",
   description: "",
   category: "",
+  image: ""
 };
 
 const CreateCollection = () => {
@@ -24,6 +25,11 @@ const CreateCollection = () => {
       [name]: value,
     });
   };
+  const onImageChange = (e) => {
+    // collectionData.image = e.target.files[0]
+    // const fd = FormData()
+    // fd.append ("image" , collectionData.image, collectionData.image.name)
+  };
   const getCategories = async () => {
     const res = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCategories(res.data);
@@ -31,9 +37,13 @@ const CreateCollection = () => {
   const CreateCollection = async (e) => {
     e.preventDefault();
     console.log(collectionData);
+    collectionData.image = e.target.files
+    const fd = new FormData()
+    fd.append ("image" , collectionData.image)
+    fd.append("alldata" , collectionData)
     const res = await Collection.collectionPost(
       `${ENV.API_URL}api/create_collection/`,
-      collectionData
+      fd
     );
   };
 
@@ -52,16 +62,17 @@ const CreateCollection = () => {
               className="item-form card no-hover"
               onSubmit={CreateCollection}
             >
+              <input type="file" onChange={onImageChange} />
               <div className="row ">
                 <div className="col-12">
                   <div className="input-group form-group">
                     <div className="custom-file">
-                      {/* <img alt="not found" width={"250px"} src={file1.file1} /> */}
-                      <input
+                      {/* <input
                         type="file"
-                        className="custom-file-input"
-                        name="logoImage"
-                      />
+                        // className="custom-file-input"
+                        // name="logoImage"
+                        onChange={onImageChange}
+                      /> */}
 
                       <label className="custom-file-label">Logo Image * </label>
                     </div>

@@ -57,7 +57,7 @@ const Header = () => {
 
             <li className="nav-item dropdown">
               <Link className="nav-link" to="#">
-                Pages <i className="fas fa-angle-down ml-1" />
+                <i class="far fa-user-circle "></i>
               </Link>
               <ul className="dropdown-menu">
                 <li className="nav-item">
@@ -65,7 +65,7 @@ const Header = () => {
                     Contact
                   </Link>
                 </li>
-              
+
                 <li className="nav-item">
                   <Link to="/help-center" className="nav-link">
                     Help Center
@@ -91,6 +91,17 @@ const Header = () => {
                     Author
                   </Link>
                 </li>
+                <li className="nav-item">
+                  {token ? (
+                    <Link to="/" className="nav-link" onClick={logout}>
+                      Logout
+                    </Link>
+                  ) : (
+                    <Link to="/login" className="nav-link">
+                      Login
+                    </Link>
+                  )}
+                </li>
 
                 <li className="nav-item">
                   {token
@@ -105,17 +116,6 @@ const Header = () => {
                 </li>
               </ul>
             </li>
-            <li className="nav-item">
-                  {token ? (
-                    <Link to="/" className="nav-link" onClick={logout}>
-                      Logout
-                    </Link>
-                  ) : (
-                    <Link to="/login" className="nav-link">
-                      Login
-                    </Link>
-                  )}
-                </li>
           </ul>
           {/* Navbar Icons */}
           {/* <ul className="navbar-nav icons">
