@@ -8,7 +8,6 @@ const initialState = {
   name: "",
   description: "",
   category: "",
-  image: ""
 };
 
 const CreateCollection = () => {
@@ -25,28 +24,32 @@ const CreateCollection = () => {
       [name]: value,
     });
   };
-  const onImageChange = (e) => {
-    // collectionData.image = e.target.files[0]
-    // const fd = FormData()
-    // fd.append ("image" , collectionData.image, collectionData.image.name)
-  };
+
   const getCategories = async () => {
     const res = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCategories(res.data);
   };
   const CreateCollection = async (e) => {
     e.preventDefault();
-    console.log(collectionData);
-    collectionData.image = e.target.files
-    const fd = new FormData()
-    fd.append ("image" , collectionData.image)
-    fd.append("alldata" , collectionData)
+
     const res = await Collection.collectionPost(
       `${ENV.API_URL}api/create_collection/`,
-      fd
+      collectionData
     );
   };
 
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const uploadImage = (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("logo_image", files[0]);
+    data.append("banner_image", files[1]);
+    data.append("name", collectionData.name);
+    data.append("description", collectionData.description);
+    data.append("category", collectionData.category);
+  };
   return (
     <section className="author-area">
       <div className="container">
@@ -62,17 +65,17 @@ const CreateCollection = () => {
               className="item-form card no-hover"
               onSubmit={CreateCollection}
             >
-              <input type="file" onChange={onImageChange} />
+              {/* <input type="file" name="logo_image" onChange={uploadImage} /> */}
               <div className="row ">
                 <div className="col-12">
                   <div className="input-group form-group">
                     <div className="custom-file">
-                      {/* <input
+                      <input
                         type="file"
-                        // className="custom-file-input"
-                        // name="logoImage"
-                        onChange={onImageChange}
-                      /> */}
+                        className="custom-file-input"
+                        name="logo_image"
+                        onChange={uploadImage}
+                      />
 
                       <label className="custom-file-label">Logo Image * </label>
                     </div>
@@ -85,8 +88,8 @@ const CreateCollection = () => {
                       <input
                         type="file"
                         className="custom-file-input"
-                        // onChange={onImageChange}
-                        name="bannerImage"
+                        onChange={uploadImage}
+                        name="banner_image"
                       />
                       <label className="custom-file-label">
                         Banner Image *
