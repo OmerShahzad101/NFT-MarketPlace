@@ -17,7 +17,7 @@ const Faq = () => {
     const res = await faqs.faq(`${ENV.API_URL}api/faq_list/`);
     console.log(res);
     setfaqdata(res.data);
-  });
+  }, []);
 
   return (
     <section className="faq-area pt-130 mt-10 ">
