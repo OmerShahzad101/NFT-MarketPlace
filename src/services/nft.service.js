@@ -6,15 +6,15 @@ const NFT = {
     console.log(data);
     const requestOptions = {
       method: "POST",
-      body: JSON.stringify(data),
+      body: data,
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${_token}`,
       },
     };
-    console.log(requestOptions);
+    // console.log(requestOptions);
     const _data = fetch(`${url}`, requestOptions).then((res) => res.json());
-    console.log(data);
+    console.log("datatat", data);
     return _data;
   },
 

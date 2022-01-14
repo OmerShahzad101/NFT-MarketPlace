@@ -31,7 +31,6 @@ const updateProfileSchema = yup.object().shape({
   email: yup.string().email().required("Please provide email"),
   about: yup.string().required("Please write about yourself"),
   facebook: yup.string().url(),
-
 });
 
 const UpdateProfile = () => {
@@ -41,8 +40,7 @@ const UpdateProfile = () => {
 
   useEffect(async () => {
     const result = await updateProfile.updateProfileUserGet(
-      // `${ENV.API_URL}api/profile/crud/${id}`
-      `http://192.168.99.229:8000/api/profile/crud/${id}`
+      `${ENV.API_URL}api/auth/users/me`
     );
     console.log(result);
     setUpdateUser(result.data);
@@ -213,6 +211,46 @@ const UpdateProfile = () => {
                     <div className="col-12">
                       <div className="form-group mt-3">
                         <Field
+                          type="text"
+                          className={`form-control
+                              ${
+                                touched.first_name && errors.first_name
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                          name="first_name"
+                          placeholder="First Name"
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name="first_name"
+                          className="invalid-feedback"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-12">
+                      <div className="form-group mt-3">
+                        <Field
+                          type="text"
+                          className={`form-control
+                              ${
+                                touched.last_name && errors.last_name
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                          name="last_name"
+                          placeholder="Last Name"
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name="last_name"
+                          className="invalid-feedback"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-12">
+                      <div className="form-group mt-3">
+                        <Field
                           as="textarea"
                           type="text"
                           className={`form-control
@@ -237,20 +275,82 @@ const UpdateProfile = () => {
                           type="text"
                           className={`form-control
                               ${
-                                touched.facebook && errors.facebook
+                                touched.facebook_link && errors.facebook_link
                                   ? "is-invalid"
                                   : ""
                               }`}
-                          name="facebook"
-                          placeholder="Facebook"
+                          name="facebook_link"
+                          placeholder="facebook_link"
                         />
                         <ErrorMessage
                           component="div"
-                          name="facebook"
+                          name="facebook_link"
                           className="invalid-feedback"
                         />
                       </div>
                     </div>
+
+                    <div className="col-12">
+                      <div className="form-group mt-3">
+                        <Field
+                          type="text"
+                          className={`form-control
+                              ${
+                                touched.twitter_link && errors.twitter_link
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                          name="twitter_link"
+                          placeholder="twitter_link"
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name="twitter_link"
+                          className="invalid-feedback"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-12">
+                      <div className="form-group mt-3">
+                        <Field
+                          type="text"
+                          className={`form-control
+                              ${
+                                touched.vine_link && errors.vine_link ? "is-invalid" : ""
+                              }`}
+                          name="vine_link"
+                          placeholder="vine_link"
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name="vine_link"
+                          className="invalid-feedback"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-12">
+                      <div className="form-group mt-3">
+                        <Field
+                          type="text"
+                          className={`form-control
+                              ${
+                                touched.google_plus_link && errors.google_plus_link
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                          name="google_plus_link"
+                          placeholder="google_plus_link"
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name="google_plus_link"
+                          className="invalid-feedback"
+                        />
+                      </div>
+                    </div>
+
                     <div className="col-12">
                       <button className="btn w-100 mt-3 mt-sm-4" type="submit">
                         Update Profile

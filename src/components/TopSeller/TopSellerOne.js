@@ -5,16 +5,15 @@ import { ENV } from "../../env";
 import topSellers from "../../services/topSellers.service";
 
 const TopSeller = () => {
-    const initData = {
-        preHeading: "Creative Artists",
-        heading: "Top Sellers"
-    }
+  const initData = {
+    preHeading: "Creative Artists",
+    heading: "Top Sellers",
+  };
   const [data, setData] = useState({});
   const [sellerData, setSellerData] = useState();
 
   useEffect(async () => {
     const result = await topSellers.topSellersList(
-      // `http://192.168.99.229:8000/api/top_sellers/`
       `${ENV.API_URL}api/top_sellers/`
     );
     setSellerData(result.data.top_sellers);
@@ -55,7 +54,10 @@ const TopSeller = () => {
                         </a>
                         {/* Seller Info */}
                         <div className="seller-info ml-3">
-                          <Link className="seller mb-2"  to={`/author?${item.id}`}>
+                          <Link
+                            className="seller mb-2"
+                            to={`/author?${item.id}`}
+                          >
                             {item.user_name}
                           </Link>
                           <span>{item.price}</span>

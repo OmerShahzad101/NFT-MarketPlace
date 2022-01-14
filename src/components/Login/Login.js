@@ -28,7 +28,6 @@ const Login = () => {
     console.log(user.email);
     console.log(user.password);
     const res = await auth.login(`${ENV.API_URL}api/auth/jwt/create/`, user);
-    // const res = await auth.login(`http://192.168.99.229:8000/api/auth/jwt/create/`, user);
     if (res.data) {
       localStorage.setItem("access", JSON.stringify(res.data.access));
       localStorage.setItem("refresh", JSON.stringify(res.data.refresh));
