@@ -106,13 +106,15 @@ const ItemDetails = () => {
     console.log(res.data);
     setNftData(res.data);
   }, []);
-  const report = async () => {
+  const report = async (e) => {
+    e.preventDefault();
     console.log(nftReport);
     const result = await reportNft.reportNftItem(
       `${ENV.API_URL}api/create_reported_nft/`,
       nftReport
     );
     console.log(result);
+      
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -290,56 +292,64 @@ const ItemDetails = () => {
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div class="modal-body">
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1" className="mb-1">
-                          Select Report Type:
-                        </label>
-                        <select
-                          name="report_type"
-                          value={nftReport.report_type}
-                          onChange={handleChange}
-                          class="form-control"
-                          id="exampleFormControlSelect1"
-                        >
-                          <option value="" selected="selected" hidden="hidden">
-                            Choose here
-                          </option>
-                          <option name="fake" value="fake">
-                            Fake
-                          </option>
-                          <option name="explicit" value="explicit">
-                            Explicit
-                          </option>
-                          <option
-                            name="might_be_stolen"
-                            value="might_be_stolen"
+                    <form onSubmit={report}>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label
+                            for="exampleFormControlSelect1"
+                            className="mb-1"
                           >
-                            Stolen
-                          </option>
-                          <option name="other" value="other">
-                            Other{" "}
-                          </option>
-                        </select>
+                            Select Report Type:
+                          </label>
+                          <select
+                            name="report_type"
+                            value={nftReport.report_type}
+                            onChange={handleChange}
+                            class="form-control"
+                            id="exampleFormControlSelect1"
+                            required
+                          >
+                            <option
+                              value=""
+                              selected="selected"
+                              hidden="hidden"
+                            >
+                              Choose here
+                            </option>
+                            <option name="fake" value="fake">
+                              Fake
+                            </option>
+                            <option name="explicit" value="explicit">
+                              Explicit
+                            </option>
+                            <option
+                              name="might_be_stolen"
+                              value="might_be_stolen"
+                            >
+                              Stolen
+                            </option>
+                            <option name="other" value="other">
+                              Other{" "}
+                            </option>
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-primary"
-                        data-dismiss="modal"
-                        onClick={report}
-                      >
-                        Save changes
-                      </button>
-                    </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="sumbit"
+                          class="btn btn-primary"
+                        >
+                          Save changes
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>

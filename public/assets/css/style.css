@@ -3397,3 +3397,10 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
     top: 41px;
     right: 20px;
 }
+.container.header .nav-item.dropdown svg{
+  font-size: 24px;
+}
+.container.header .nav-item.dropdown .dropdown-menu{
+   left: auto;
+   right: 0;
+}
