@@ -33,10 +33,8 @@ const Login = () => {
       localStorage.setItem("refresh", JSON.stringify(res.data.refresh));
       history.push("/");
     } else {
-      alert(res.data.status);
       console.log(res);
     }
-    console.log(res);
   };
 
   return (

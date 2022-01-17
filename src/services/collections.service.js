@@ -9,9 +9,9 @@ const Collection = {
     var _token = JSON.parse(localStorage.getItem("access"));
     const requestOptions = {
       method: "POST",
-      body: JSON.stringify(data),
+      body: data,
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${_token}`,
       },
     };

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 import reportNft from "../../services/reportNf.service";
-import $ from "jquery";
 const initialData = {
   itemImg: "/img/auction_2.jpg",
   date: "2022-03-30",

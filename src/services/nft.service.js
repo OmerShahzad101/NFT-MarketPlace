@@ -24,7 +24,3 @@ const NFT = {
 };
 export default NFT;
 
-// nft: (url, data) => {
-//   console.log(data);
-//   return axios.post(url, data);
-// },

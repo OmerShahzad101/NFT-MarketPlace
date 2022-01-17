@@ -24,12 +24,11 @@ import UpdateProfile from "../themes/updateProfile";
 // import Blog from "../themes/blog";
 // import BlogSingle from "../themes/blog-single";
 // import WalletConnect from "../themes/wallet-connect";
-
 class MyRouts extends React.Component {
   render() {
     return (
       <div>
-        <Router>
+        <Router >
           <Switch>
           <Route exact path="/" component={ThemeOne} />
           <Route exact path="/marketplace" component={ExploreThree} />

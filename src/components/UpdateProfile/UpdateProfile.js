@@ -1,11 +1,10 @@
 import React from "react";
-import { useEffect, useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import updateProfile from "../../services/updateProfile.service";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import axios from "axios";
 
 const updateProfileSchema = yup.object().shape({
   username: yup
@@ -13,21 +12,6 @@ const updateProfileSchema = yup.object().shape({
     .min(8, "Must be at least 8 characters")
     .max(20, "Must be less  than 20 characters")
     .required("Email is required"),
-  // .test('Unique username', 'username already in use',
-  //     function (value) {
-  //         return new Promise((resolve, reject) => {
-  //             axios.get(`http://localhost:8003/api/u/user/${value}/available`)
-  //                 .then((res) => {
-  //                     resolve(true)
-  //                 })
-  //                 .catch((error) => {
-  //                     if (error.response.data.content === "The email has already been taken.") {
-  //                         resolve(false);
-  //                     }
-  //                 })
-  //         })
-  //     }
-  // ),
   email: yup.string().email().required("Please provide email"),
   about: yup.string().required("Please write about yourself"),
   facebook: yup.string().url(),
@@ -86,16 +70,6 @@ const UpdateProfile = () => {
                     </div>
                   </div>
                   <p>Username</p>
-                  <div className="social-icons d-flex justify-content-center my-3">
-                    {/* {socialData.map((item, idx) => {
-                    return (
-                      <a key={`asd_${idx}`} className={item.link} href="#">
-                        <i className={item.icon} />
-                        <i className={item.icon} />
-                      </a>
-                    );
-                  })} */}
-                  </div>
                 </div>
               </div>
             </div>
@@ -104,7 +78,6 @@ const UpdateProfile = () => {
             <div className="intro mt-5 mt-lg-0 mb-4 mb-lg-4">
               <div className="intro-content">
                 <span>Update Profile</span>
-                {/* <h3 className="mt-3 mb-0">Update Profile</h3> */}
               </div>
             </div>
             <Formik
@@ -317,7 +290,9 @@ const UpdateProfile = () => {
                           type="text"
                           className={`form-control
                               ${
-                                touched.vine_link && errors.vine_link ? "is-invalid" : ""
+                                touched.vine_link && errors.vine_link
+                                  ? "is-invalid"
+                                  : ""
                               }`}
                           name="vine_link"
                           placeholder="vine_link"
@@ -336,7 +311,8 @@ const UpdateProfile = () => {
                           type="text"
                           className={`form-control
                               ${
-                                touched.google_plus_link && errors.google_plus_link
+                                touched.google_plus_link &&
+                                errors.google_plus_link
                                   ? "is-invalid"
                                   : ""
                               }`}

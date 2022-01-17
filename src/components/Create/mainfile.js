@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import $ from "jquery";
-import Collection from "../../services/collections.service";
+import NFT from "../../services/nft.service";
 import { ENV } from "../../env";
 import AuthorProfile from "../AuthorProfile/AuthorProfile";
-import Category from "../../services/category.service";
 const placeholderImg = "";
-class CreateCollection extends Component {
+
+class Create extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,16 +13,19 @@ class CreateCollection extends Component {
         image: "",
         name: "",
         description: "",
-        categories: "",
+        price: "",
+        collection: "",
+        size: "",
+        copies: "",
       },
     };
   }
-
   onFileChange(e) {
     let file = e.target.files[0];
     let fileId = e.target.id;
     if (file)
-      if (file.type.includes("image")) {
+      if (file.type.includes("image")) 
+      {
         let { nft } = this.state;
         nft = { ...nft, [e.target.name]: file };
         this.setState({ nft }, () => {
@@ -35,7 +38,9 @@ class CreateCollection extends Component {
             reader.readAsDataURL(file);
           }
         });
-      } else {
+      } 
+      else 
+      {
         $(`#nft-${fileId}`).attr("src", placeholderImg);
         file = {};
       }
@@ -47,17 +52,6 @@ class CreateCollection extends Component {
     nft = { ...nft, [name]: value };
     this.setState({ nft }, () => {});
   }
-  componentDidMount() {
-    this.getCategories();
-  }
-  getCategories = async () => {
-    const res = await Category.category(`${ENV.API_URL}api/category_list/`);
-    var nft = { ...this.state.nft };
-    nft.categories = res.data;
-    this.setState({ nft });
-    console.log(res.data);
-  };
-
 
   submit = async (e) => {
     e.preventDefault();
@@ -68,12 +62,10 @@ class CreateCollection extends Component {
         formData.append(key, nft[key]);
       }
     }
-    const res = await Collection.collectionPost(
-      `${ENV.API_URL}api/create_collection/`,
-      formData
-    );
+    const res = await NFT.nft(`${ENV.API_URL}api/create_nft/`, formData);
     console.log(res);
   };
+
   render() {
     const { nft } = this.state;
 
@@ -104,29 +96,7 @@ class CreateCollection extends Component {
                           id="image"
                           accept=".png,.jpeg,.jpg"
                           onChange={(e) => this.onFileChange(e)}
-                          name="logo_image"
-                        />
-                        <label
-                          id="nft-image-label"
-                          className="custom-file-label"
-                          htmlFor="image"
-                        >
-                          Choose file *
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-12">
-                    <div className="input-group form-group mt-3">
-                      <div className="custom-file">
-                        <input
-                          type="file"
-                          className="custom-file-input"
-                          id="image"
-                          accept=".png,.jpeg,.jpg"
-                          onChange={(e) => this.onFileChange(e)}
-                          name="banner_image"
+                          name="image"
                         />
                         <label
                           id="nft-image-label"
@@ -151,35 +121,6 @@ class CreateCollection extends Component {
                       />
                     </div>
                   </div>
-
-                  <div className="col-12 col-md-12">
-                    <div class="form-group select-collection position-relative">
-                      <select
-                        className="form-control"
-                        name="category"
-                        onChange={(e) => this.onChange(e)}
-                        required
-                      >
-                        <option
-                          value=""
-                          selected="selected"
-                          hidden="hidden"
-                          required
-                        >
-                          Choose Category *
-                        </option>
-                        {nft.categories
-                          ? nft.categories.map(function (category, i) {
-                              return (
-                                <option value={category.id}>
-                                  {category.name}
-                                </option>
-                              );
-                            })
-                          : ""}
-                      </select>
-                    </div>
-                  </div>
                   <div className="col-12">
                     <div className="form-group">
                       <textarea
@@ -193,7 +134,58 @@ class CreateCollection extends Component {
                       />
                     </div>
                   </div>
-
+                  <div className="col-12 col-md-6">
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="price"
+                        placeholder="Item Price *"
+                        required="required"
+                        onChange={(e) => this.onChange(e)}
+                        defaultValue={nft.price}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="collection"
+                        placeholder="Collection *"
+                        required="required"
+                        onChange={(e) => this.onChange(e)}
+                        defaultValue={nft.collection}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Size (1024x1024)"
+                        required="required"
+                        name="size"
+                        onChange={(e) => this.onChange(e)}
+                        defaultValue={nft.size}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="copies"
+                        placeholder="No. of Copies *"
+                        required="required"
+                        onChange={(e) => this.onChange(e)}
+                        defaultValue={nft.copies}
+                      />
+                    </div>
+                  </div>
                   <div className="col-12">
                     <button
                       className="btn w-100 mt-3 mt-sm-4"
@@ -213,4 +205,4 @@ class CreateCollection extends Component {
   }
 }
 
-export default CreateCollection;
+export default Create;
