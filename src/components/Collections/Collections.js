@@ -74,8 +74,8 @@ const Collections = () => {
                           <div className="image-over">
                             <a href={`/collectionDetail?${item.id}`}>
                               <img
-                                className="card-img-top image-container"
-                                src={`${ENV.API_URL_image}${item.banner_image}`}
+                                className="rounded-circle"
+                                src={`${ENV.API_URL_image}${item.logo_image}`}
                                 alt=""
                               />
                             </a>
@@ -100,12 +100,14 @@ const Collections = () => {
                               </a>
                               <span>{item.description}</span>
                             </div>
-                          </div>
+                          
                         </div>
+                        
                       </div>
-                    );
-                  })
-                : ""}
+                    </div>
+                  );
+                })
+              : ""}
           </div>
         </div>
       </section>

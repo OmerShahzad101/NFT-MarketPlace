@@ -235,7 +235,7 @@ class CreateCollection extends Component {
                 <div className="intro">
                   <div className="intro-content">
                     <span>Get Started</span>
-                    <h3 className="mt-3 mb-0">Create Item</h3>
+                    <h3 className="mt-3 mb-0">Create Collection</h3>
                   </div>
                 </div>
               </div>
@@ -386,7 +386,7 @@ class CreateCollection extends Component {
                       type="button"
                       onClick={(e) => this.submit(e)}
                     >
-                      Create Item
+                      Create collection
                     </button>
                   </div>
                 </div>

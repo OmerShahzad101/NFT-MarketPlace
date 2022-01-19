@@ -113,7 +113,6 @@ const ItemDetails = () => {
       nftReport
     );
     console.log(result);
-      
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -341,10 +340,7 @@ const ItemDetails = () => {
                         >
                           Close
                         </button>
-                        <button
-                          type="sumbit"
-                          class="btn btn-primary"
-                        >
+                        <button type="sumbit" class="btn btn-primary">
                           Save changes
                         </button>
                       </div>
@@ -353,7 +349,6 @@ const ItemDetails = () => {
                 </div>
               </div>
               <p>{nftData.description}</p>
-              {/* Owner */}
               <div className="owner d-flex align-items-center">
                 <span>Owned By</span>
                 <a
@@ -368,7 +363,6 @@ const ItemDetails = () => {
                   <h6 className="ml-2">{nftData.owner}</h6>
                 </a>
               </div>
-              {/* Item Info List */}
               <div className="item-info-list mt-4">
                 <ul className="list-unstyled">
                   <li className="price d-flex justify-content-between">
@@ -387,33 +381,49 @@ const ItemDetails = () => {
                 </ul>
               </div>
               <div className="row items">
-                {sellerData.map((item, idx) => {
-                  return (
-                    <div
-                      key={`sd_${idx}`}
-                      className="col-12 col-md-6 item px-lg-2"
-                    >
-                      <div className="card no-hover">
-                        <div className="single-seller d-flex align-items-center">
-                          <a href="/author">
-                            <img
-                              className="avatar-md rounded-circle"
-                              src={item.img}
-                              alt=""
-                            />
-                          </a>
-                          {/* Seller Info */}
-                          <div className="seller-info ml-3">
-                            <a className="seller mb-2" href="/author">
-                              {"@" + nftData.owner}
-                            </a>
-                            <span>{item.post}</span>
-                          </div>
-                        </div>
+                <div className="col-12 col-md-6 item px-lg-2">
+                  <div className="card no-hover">
+                    <div className="single-seller d-flex align-items-center">
+                      <a href="/author">
+                        <img
+                          className="avatar-md rounded-circle"
+                          src={`${ENV.API_URL_image}${nftData.profile_image}`}
+                          alt=""
+                        />
+                      </a>
+                      <div className="seller-info ml-3">
+                        <a className="seller mb-2" href="/author">
+                          {"@" + nftData.owner}
+                        </a>
+                        <span>Creator</span>
                       </div>
                     </div>
-                  );
-                })}
+                  </div>
+                </div>
+
+                <div className="col-12 col-md-6 item px-lg-2">
+                  <div className="card no-hover">
+                    <div className="single-seller d-flex align-items-center">
+                      <a href="/author">
+                        <img
+                          className="avatar-md rounded-circle"
+                          src={`${ENV.API_URL_image_media}${nftData.banner_image}`}
+                          alt=""
+                        />
+                      </a>
+                      <div className="seller-info ml-3">
+                        <a
+                          className="seller mb-2"
+                          href={`/collectionDetail?${nftData.id}`}
+                        >
+                          {nftData.collection}
+                        </a>
+                        <span>Collection</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="col-12 item px-lg-2">
                   <div className="card no-hover">
                     <h4 className="mt-0 mb-2">Highest Bid</h4>

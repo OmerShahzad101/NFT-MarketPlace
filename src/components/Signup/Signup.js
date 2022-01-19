@@ -5,6 +5,7 @@ import * as yup from "yup";
 import auth from "../../services/auth.service";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { data } from "jquery";
 
 const initialData = {
   heading: "Create an Account",
@@ -69,8 +70,15 @@ const Signup = () => {
                   `${ENV.API_URL}api/auth/users/`,
                   values
                 );
+                if(res.status == 201)
+                {
+                  history.push("/login")
+                }
+                else{
+                  alert("fail")
+                }
 
-                console.log(res);
+                console.log(res.email);
               }}
             >
               {({ touched, errors, isSubmitting, values }) =>
@@ -225,7 +233,7 @@ const Signup = () => {
                   // <div>
                   //   <h1 className="p-3 mt-5">Form Submitted</h1>
                   // </div>
-                  history.push("/login")
+                  ""
                 )
               }
             </Formik>
