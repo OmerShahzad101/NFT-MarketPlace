@@ -13,7 +13,7 @@ const Authors = () => {
   useEffect(async () => {
 
     const result = await authors.authorsList(`${ENV.API_URL}api/profile/get-list/`);
-    // const result = await authors.authorsList("http://192.168.99.229:8000/api/profile/get-list/");
+    // const result = await authors.authorsList(`${ENV.API_URL}/api/auth/users/me/`);
     setAuthorData(result.data);
     console.log(result.data);
     
@@ -47,7 +47,6 @@ const Authors = () => {
                       <div className="seller-thumb avatar-lg">
                         <img
                           className="rounded-circle"
-                          // src={`http://192.168.99.229:8000${item.profile_image}`}
                           src={`${ENV.API_URL_image}${item.profile_image}`}
                           alt=""
                         />

@@ -64,48 +64,50 @@ const Collections = () => {
           <div className="row items explore-items popular-collections-area">
             {console.log(collectionData)}
             {collectionData
-                ? collectionData.map((item, idx) => {
-                    return (
-                      <div
-                        key={`cd_${idx}`}
-                        className="col-12 col-sm-6 col-lg-3 item"
-                      >
-                        <div className="card no-hover text-center">
-                          <div className="image-over">
-                            <a href={`/item-details?${item.id}`}>
+              ? collectionData.map((item, idx) => {
+                  return (
+                    <div
+                      key={`cd_${idx}`}
+                      className="col-12 col-sm-6 col-lg-3 item explore-item "
+                      data-groups={`["${item.category}"]`}
+                    >
+                      {console.log([item.category])}
+                      <div className="card text-center">
+                        <div className="image-over">
+                          <a href={`/collectionDetail?${item.id}`}>
+                            <img
+                              className="card-img-top image-container"
+                              src={`${ENV.API_URL_image}${item.banner_image}`}
+                              alt=""
+                            />
+                          </a>
+                          {/* Seller */}
+                          <a
+                            className="seller"
+                            href={`/collectionDetail?${item.id}`}
+                          >
+                            <div className="seller-thumb avatar-lg">
                               <img
-                                className="card-img-top image-container"
-                                src={`${ENV.API_URL_image}${item.banner_image}`}
+                                className="rounded-circle"
+                                src={`${ENV.API_URL_image}${item.logo_image}`}
                                 alt=""
                               />
-                            </a>
-                            {/* Seller */}
-                            <a
-                              className="seller"
-                              href={`/item-details?${item.id}`}
-                            >
-                              <div className="seller-thumb avatar-lg">
-                                <img
-                                  className="rounded-circle"
-                                  src={`${ENV.API_URL_image}${item.logo_image}`}
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                          </div>
-                          <div className="card-caption col-12 p-0">
-                            <div className="card-body mt-4">
-                              <a href={`/item-details?${item.id}`}>
-                                <h5 className="mb-2">{item.name}</h5>
-                              </a>
-                              <span>{item.description}</span>
                             </div>
+                          </a>
+                        </div>
+                        <div className="card-caption col-12 p-0">
+                          <div className="card-body mt-4">
+                            <a href={`/collectionDetail?${item.id}`}>
+                              <h5 className="mb-2">{item.name}</h5>
+                            </a>
+                            <span>{item.description}</span>
                           </div>
                         </div>
                       </div>
-                    );
-                  })
-                : ""}
+                    </div>
+                  );
+                })
+              : ""}
           </div>
         </div>
       </section>

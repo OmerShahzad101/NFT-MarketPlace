@@ -55,7 +55,7 @@ const HomeCollection = () => {
                       >
                         <div className="card no-hover text-center">
                           <div className="image-over">
-                            <a href={`/item-details?${item.id}`}>
+                            <a href={`/collectionDetail?${item.id}`}>
                               <img
                                 className="card-img-top image-container"
                                 src={`${ENV.API_URL_image}${item.banner_image}`}
@@ -65,7 +65,7 @@ const HomeCollection = () => {
                             {/* Seller */}
                             <a
                               className="seller"
-                              href={`/item-details?${item.id}`}
+                              href={`/collectionDetail?${item.id}`}
                             >
                               <div className="seller-thumb avatar-lg">
                                 <img
@@ -78,7 +78,7 @@ const HomeCollection = () => {
                           </div>
                           <div className="card-caption col-12 p-0">
                             <div className="card-body mt-4">
-                              <a href={`/item-details?${item.id}`}>
+                              <a href={`/collectionDetail?${item.id}`}>
                                 <h5 className="mb-2">{item.name}</h5>
                               </a>
                               <span>{item.description}</span>
