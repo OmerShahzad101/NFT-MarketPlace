@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Header from '../components/Header/Header';
-// import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import Activities from '../components/Activity/Activity';
 import Footer from '../components/Footer/Footer';
 import ModalSearch from '../components/Modal/ModalSearch';
@@ -13,7 +12,6 @@ class Activity extends Component {
         return (
             <div className="main">
                 <Header />
-                {/* <Breadcrumb title="Activity" subpage="Pages" page="Activity" /> */}
                 <Activities />
                 <Footer />
                 <ModalSearch />

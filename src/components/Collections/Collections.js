@@ -73,9 +73,9 @@ const Collections = () => {
                         <div className="card no-hover text-center">
                           <div className="image-over">
                             <a href={`/collectionDetail?${item.id}`}>
-                              <img
-                                className="rounded-circle"
-                                src={`${ENV.API_URL_image}${item.logo_image}`}
+                            <img
+                                className="card-img-top image-container"
+                                src={`${ENV.API_URL_image}${item.banner_image}`}
                                 alt=""
                               />
                             </a>

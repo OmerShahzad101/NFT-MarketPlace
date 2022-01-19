@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import liveAuction from "../../services/liveAuction.service";
 import { ENV } from "../../env";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const initailData = {
   heading: "Live Auctions",
@@ -62,9 +63,13 @@ const AuctionsOne = () => {
                           <div className="card-caption col-12 p-0">
                             <div className="card-body">
                               <div className="countdown-times mb-3">
+                                {moment(item.expiry_date).format("YYYY-MM-DD")}
+
                                 <div
                                   className="countdown d-flex justify-content-center"
-                                  data-date={item.expiry_date}
+                                  data-date={moment(item.expiry_date).format(
+                                    "YYYY-MM-DD"
+                                  )}
                                 />
                               </div>
                               <Link to={`/nft-details?${item.id}`}>
