@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react/cjs/react.development";
 import { ENV } from "../../env";
 import Collection from "../../services/collections.service";
@@ -9,16 +10,31 @@ const CollectionDetail = () => {
   const id = arr[1];
 
   const [collectionData, setcollectionData] = useState([]);
-  const [nftData, setNftData] = useState();
+  const [order, setOrder] = useState("ASC");
+
   useEffect(async () => {
     const res = await Collection.collection(
       `${ENV.API_URL}api/specific_collection/${id}/`
     );
     console.log(res.data);
     setcollectionData(res.data);
-    const res_nft = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
-    setNftData(res_nft.data);
   }, []);
+
+  const sort = (col) => {
+    console.log(col);
+    if (order === "ASC") {
+      const sorted = [...collectionData.nft_collection].sort((a, b) => (a[col] > b[col] ? 1 : -1));
+      setcollectionData(sorted);
+      console.log(order);
+      setOrder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = [...collectionData.nft_collection].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+      setcollectionData(sorted);
+      console.log(order);
+      setOrder("ASC");
+    }
+  };
 
   return (
     <>
@@ -60,7 +76,7 @@ const CollectionDetail = () => {
                 <img src="hello.jpg" />
               </div>
               <div>
-                <h6 className="mt-0 mb-3">AuthorAPI</h6>
+                <h6 className="mt-0 mb-3">{collectionData.user}</h6>
                 <p className="m-0">Creater</p>
               </div>
             </div>
@@ -94,12 +110,13 @@ const CollectionDetail = () => {
         <div className="row ">
           <div className="col-xl-3 col-sm-6 text-right order-sm-last">
             <div class="form-group filter-select position-relative m-0">
-              <select class="form-control ">
-                <option>Recently Listed</option>
-                <option>Ending Soon</option>
+            <select class="form-control " onChange={(e) => sort("price")}>
+                <option disabled selected hidden>Select price</option>
                 <option>Price Low - High</option>
                 <option>Price High - Low</option>
-                <option>Most Favourite</option>
+                {/* <option>Recently Listed</option> */}
+                {/* <option>Ending Soon</option> */}
+                {/* <option>Most Favourite</option> */}
               </select>
             </div>
           </div>
@@ -182,48 +199,52 @@ const CollectionDetail = () => {
             </div>
           </div>
         </div>
+
         <div className="row my-5">
-          <div className="col-lg-3 col-md-6">
-            <div className="card">
-              <div className="image-over">
-                <a href="">
-                  <img
-                    className="card-img-top"
-                    src={
-                      "https://images.unsplash.com/photo-1638913976381-5b8ed66c36d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                    }
-                    alt=""
-                  />
-                </a>
-              </div>
-              {/* Card Caption */}
-              <div className="card-caption col-12 p-0">
-                {/* Card Body */}
-                <div className="card-body">
-                  <a href="">
-                    <h5 className="mb-0">item.name</h5>
-                  </a>
-                  <div className="seller d-flex align-items-center my-3">
-                    <span>Owned By</span>
-                    <a href="/author">
-                      <h6 className="ml-2 mb-0">"@" + item.owner</h6>
+          {collectionData.nft_collection
+            ? collectionData.nft_collection.map((item, id) => {
+              return(
+                <div className="col-lg-3 col-md-6 p-3">
+                <div className="card">
+                  <div className="image-over">
+                  <a href={`/nft-details?${item.id}`}>
+                      <img className="card-img-top" src={item.image} alt="" />
                     </a>
+                    
                   </div>
-                  <div className="card-bottom d-flex justify-content-between">
-                    <span>"$" + item.price</span>
-                    <span>item.size</span>
+
+                  <div className="card-caption col-12 p-0">
+                    <div className="card-body">
+                    <a href={`/nft-details?${item.id}`}>
+                        <h5 className="mb-0">{item.name}</h5>
+                      </a>
+                      <div className="seller d-flex align-items-center my-3">
+                        <span>Owned By</span>
+                        <a href="/author">
+                          <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
+                        </a>
+                      </div>
+                      <div className="card-bottom d-flex justify-content-between">
+                        <span>{"$" + item.price}</span>
+                        <span>{item.size}</span>
+                      </div>
+                      <a
+                        className="btn btn-bordered-white btn-smaller mt-3"
+                        href="#"
+                      >
+                        <i className="icon-handbag mr-2" />
+                        place a bid
+                      </a>
+                    </div>
                   </div>
-                  <a
-                    className="btn btn-bordered-white btn-smaller mt-3"
-                    href="/login"
-                  >
-                    <i className="icon-handbag mr-2" />
-                    place a bid
-                  </a>
                 </div>
               </div>
-            </div>
-          </div>
+              )
+     
+            
+                
+              })
+            : ""}
         </div>
       </div>
     </>

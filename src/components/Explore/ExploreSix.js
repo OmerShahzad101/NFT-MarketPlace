@@ -90,33 +90,6 @@ class ExploreSix extends Component {
   render() {
     return (
       <div>
-        {/* <div className="row justify-content-center text-center mt-5 mt-lg-0">
-                    <div className="col-12">
-                       
-                        <div className="explore-menu btn-group btn-group-toggle flex-wrap justify-content-center text-center mb-4" data-toggle="buttons">
-                            <label className="btn active d-table text-uppercase p-2">
-                                <input type="radio" defaultValue="all" defaultChecked className="explore-btn" />
-                                <span>{this.state.initData.filter_1}</span>
-                            </label>
-                            <label className="btn d-table text-uppercase p-2">
-                                <input type="radio" defaultValue="art" className="explore-btn" />
-                                <span>{this.state.initData.filter_2}</span>
-                            </label>
-                            <label className="btn d-table text-uppercase p-2">
-                                <input type="radio" defaultValue="music" className="explore-btn" />
-                                <span>{this.state.initData.filter_3}</span>
-                            </label>
-                            <label className="btn d-table text-uppercase p-2">
-                                <input type="radio" defaultValue="collectibles" className="explore-btn" />
-                                <span>{this.state.initData.filter_4}</span>
-                            </label>
-                            <label className="btn d-table text-uppercase p-2">
-                                <input type="radio" defaultValue="sports" className="explore-btn" />
-                                <span>{this.state.initData.filter_5}</span>
-                            </label>
-                        </div>
-                    </div>
-                </div> */}
         <div className="row items explore-items auhtor-nfts">
           {this.state.data.map((item, idx) => {
             return (

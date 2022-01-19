@@ -48,7 +48,7 @@ const TopSeller = () => {
                         <a href="/author">
                           <img
                             className="avatar-md rounded-circle"
-                            src={`${ENV.API_URL}${item.profile_image}`}
+                            src={`${ENV.API_URL_image_media}${item.profile_image}`}
                             alt=""
                           />
                         </a>

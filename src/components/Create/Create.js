@@ -3,205 +3,235 @@ import $ from "jquery";
 import NFT from "../../services/nft.service";
 import { ENV } from "../../env";
 import AuthorProfile from "../AuthorProfile/AuthorProfile";
+import SimpleReactValidator from 'simple-react-validator'
 const placeholderImg = "";
 
 class Create extends Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      nft: {
-        image: "",
-        name: "",
-        description: "",
-        price: "",
-        collection: "",
-        size: "",
-        no_of_copies: "",
-      },
-    };
-  }
-  onFileChange(e) {
-    let file = e.target.files[0];
-    let fileId = e.target.id;
-    if (file)
-      if (file.type.includes("image")) 
-      {
-        let { nft } = this.state;
-        nft = { ...nft, [e.target.name]: file };
-        this.setState({ nft }, () => {
-          if (file) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-              $(`#nft-${fileId}`).attr("src", e.target.result);
-              $("#nft-image-label").html("File selected");
-            };
-            reader.readAsDataURL(file);
+      super(props)
+      this.state = {
+          isSubmitted: false,
+          formValid: true,
+          loader: false,
+          errors: '',
+          nft: {
+              image: '',
+              name: '',
+              description: '',
+              price: '',
+              collection: '',
+              size: '',
+              no_of_copies: '',
+              // status: 1 // 1 = put on sale, 2 = instant sale price, 3 = unlock purchased
           }
-        });
-      } 
-      else 
-      {
-        $(`#nft-${fileId}`).attr("src", placeholderImg);
-        file = {};
       }
+      this.validator = new SimpleReactValidator({
+          autoForceUpdate: this,
+          messages: {
+              required: 'This field is required.'  // will override all messages
+          },
+      })
   }
 
-  onChange(e) {
-    let { name, value } = e.target;
-    let { nft } = this.state;
-    nft = { ...nft, [name]: value };
-    this.setState({ nft }, () => {});
+  onFileChange(e) {
+      let file = e.target.files[0]
+      let fileId = e.target.id
+      if (file)
+          if (file.type.includes('image')) {
+              let { nft } = this.state
+              nft = { ...nft, [e.target.name]: file }
+              this.setState({
+                  nft
+              }, () => {
+                  if (file) {
+                      var reader = new FileReader()
+
+                      reader.onload = function (e) {
+                          $(`#nft-${fileId}`).attr('src', e.target.result)
+                          $('#nft-image-label').html('File selected')
+                      }
+                      reader.readAsDataURL(file)
+                  }
+              })
+          } else {
+              $(`#nft-${fileId}`).attr('src', placeholderImg)
+              file = {}
+          }
   }
 
-  submit = async (e) => {
-    e.preventDefault();
-    const { nft } = this.state;
-    var formData = new FormData();
-    for (const key in nft) {
-      if (nft[key]) {
-        formData.append(key, nft[key]);
+  onChange(e, status = null) {
+      let { name, value } = e.target
+
+      // if status is provided
+      if (status)
+          value = status
+
+      let { nft } = this.state
+      nft = { ...nft, [name]: value }
+      this.setState({ nft }, () => {
+      })
+  }
+
+  reset = () => {
+      const nft = {
+          image: '',
+          name: '',
+          description: '',
+          price: '',
+          collection: '',
+          size: '',
+          no_of_copies: '',
+          // status: 1 // 1 = put on sale, 2 = instant sale price, 3 = unlock purchased
       }
-    }
-    const res = await NFT.nft(`${ENV.API_URL}api/create_nft/`, formData);
-    console.log(res);
-  };
+      this.setState({ nft })
+  }
+
+  submit = (e) => {
+      e.preventDefault()
+
+      console.log('this.validator.allValid(): ', this.validator.allValid(), this.state.nft)
+
+      this.setState({ isSubmitted: true, formValid: this.validator.allValid() ? true : false }, () => {
+          const { formValid } = this.state
+          if (formValid) {
+              this.setState({
+                  loader: true,
+              }, async () => {
+                  const { nft } = this.state
+                  var formData = new FormData()
+                  for (const key in nft)
+                      if (nft[key])
+                          formData.append(key, nft[key])
+
+                  // this.props.createNFT(nft)
+                  const res = await NFT.nft(`${ENV.API_URL}api/create_nft/`, formData);
+                  // if (res.success) {
+                  //     this.reset()
+                  //     toast.success(`Success! ${res.message}`)
+                  //     this.setState({ loader: false }, () => {
+                  //         // this.props.history.push('/')
+                  //         window.location = '/'
+                  //     })
+                  // }
+                  // else
+                  //     this.setState({ errors: res.message, loader: false })
+              })
+          } else {
+              this.validator.showMessages()
+              this.setState({
+                  errors: 'Please fill all required fields in valid format.',
+                  formValid: false
+              }, () => {
+                  $('#create-nft').scrollTop(0, 0)
+              })
+          }
+      })
+  }
 
   render() {
-    const { nft } = this.state;
+      const { nft, errors, loader, isSubmitted } = this.state
 
-    return (
-      <section className="author-area">
-        <div className="container">
-          <div className="row justify-content-between">
-            <div className="col-12 col-md-4">
-              <AuthorProfile />
-            </div>
-            <div className="col-12 col-md-7">
-              <div className="mt-5 mt-lg-0 mb-4 mb-lg-5">
-                <div className="intro">
-                  <div className="intro-content">
-                    <span>Get Started</span>
-                    <h3 className="mt-3 mb-0">Create Item</h3>
-                  </div>
-                </div>
-              </div>
-              <form id="create-nft" className="item-form card no-hover">
-                <div className="row">
-                  <div className="col-12">
-                    <div className="input-group form-group">
-                      <div className="custom-file">
-                        <input
-                          type="file"
-                          className="custom-file-input"
-                          id="image"
-                          accept=".png,.jpeg,.jpg"
-                          onChange={(e) => this.onFileChange(e)}
-                          name="image"
-                        />
-                        <label
-                          id="nft-image-label"
-                          className="custom-file-label"
-                          htmlFor="image"
-                        >
-                          Choose file *
-                        </label>
+      return (
+          <section className="author-area">
+              <div className="container">
+                  <div className="row justify-content-between">
+                      <div className="col-12 col-md-4">
+                          {/* Author Profile */}
+                          <AuthorProfile createNFT_data={nft}/>
                       </div>
-                    </div>
+                      <div className="col-12 col-md-7">
+                          <div className="mt-5 mt-lg-0 mb-4 mb-lg-5">
+                              {/* Intro */}
+                              <div className="intro">
+                                  <div className="intro-content">
+                                      <span>Get Started</span>
+                                      <h3 className="mt-3 mb-0">Create Item</h3>
+                                  </div>
+                              </div>
+                              {/* Form Error */}
+                              {
+                                  isSubmitted && errors &&
+                                  <div className="row">
+                                      <div className="col-12">
+                                          <span id="create-nft-err" className="text-danger">{errors}</span>
+                                      </div>
+                                  </div>
+                              }
+                          </div>
+                          {/* Item Form */}
+                          <form id="create-nft" className="item-form card no-hover">
+                              {/* onClick={(e) => this.submit(e)} */}
+                              <div className="row">
+                                  <div className="col-12">
+                                      <div className="input-group form-group">
+                                          <div className="custom-file">
+                                              <input type="file" className="custom-file-input" id="image" accept=".png,.jpeg,.jpg" onChange={(e) => this.onFileChange(e)} name="image" />
+                                              <label id="nft-image-label" className="custom-file-label" htmlFor="image">Choose file *</label>
+                                          </div>
+                                      </div>
+                                      <span className="text-danger">{this.validator.message('image', nft.image, 'required')}</span>
+                                  </div>
+                                  <div className="col-12">
+                                      <div className="form-group mt-3">
+                                          <input type="text" className="form-control" name="name" placeholder="Item Name *" required="required" onChange={(e) => this.onChange(e)} defaultValue={nft.name} />
+                                          <span className="text-danger">{this.validator.message('name', nft.name, 'required')}</span>
+                                      </div>
+                                  </div>
+                                  <div className="col-12">
+                                      <div className="form-group">
+                                          <textarea className="form-control" name="description" placeholder="Description *" cols={30} rows={3} onChange={(e) => this.onChange(e)} defaultValue={nft.description} />
+                                          <span className="text-danger">{this.validator.message('description', nft.description, 'required')}</span>
+                                      </div>
+                                  </div>
+                                  <div className="col-12 col-md-6">
+                                      <div className="form-group">
+                                          <input type="text" className="form-control" name="price" placeholder="Item Price *" required="required" onChange={(e) => this.onChange(e)} defaultValue={nft.price} />
+                                          <span className="text-danger">{this.validator.message('price', nft.price, 'required')}</span>
+                                      </div>
+                                  </div>
+                                  <div className="col-12 col-md-6">
+                                      <div className="form-group">
+                                          <input type="text" className="form-control" name="collection" placeholder="Collection *" required="required" onChange={(e) => this.onChange(e)} defaultValue={nft.collection} />
+                                          <span className="text-danger">{this.validator.message('collection', nft.collection, 'required')}</span>
+                                      </div>
+                                  </div>
+                                  <div className="col-12 col-md-6">
+                                      <div className="form-group">
+                                          <input type="text" className="form-control" placeholder="Size" required="required" name="size" onChange={(e) => this.onChange(e)} defaultValue={nft.size} />
+                                      </div>
+                                  </div>
+                                  <div className="col-12 col-md-6">
+                                      <div className="form-group">
+                                          <input type="text" className="form-control" name="copies" placeholder="No. of Copies *" required="required" onChange={(e) => this.onChange(e)} defaultValue={nft.copies} />
+                                          <span className="text-danger">{this.validator.message('copies', nft.copies, 'required')}</span>
+                                      </div>
+                                  </div>
+                                  {/* <div className="col-12">
+                                      <div className="form-group mt-3">
+                                          <div className="form-check form-check-inline">
+                                              <input className="form-check-input" type="radio" name="status" id="putOnSale" defaultValue={1} checked={nft.status === 1 ? true : false} value={nft.status} onChange={(e) => this.onChange(e, 1)} />
+                                              <label onChange={(e) => this.onChange(e, 1)} className="form-check-label" htmlFor="putOnSale">Put on Sale</label>
+                                          </div>
+                                          <div className="form-check form-check-inline">
+                                              <input className="form-check-input" type="radio" name="status" id="instantSalePrice" defaultValue={2} checked={nft.status === 2 ? true : false} value={nft.status} onChange={(e) => this.onChange(e, 2)} />
+                                              <label onChange={(e) => this.onChange(e, 2)} className="form-check-label" htmlFor="instantSalePrice">Instant Sale Price</label>
+                                          </div>
+                                          <div className="form-check form-check-inline">
+                                              <input className="form-check-input" type="radio" name="status" id="unlockPurchased" defaultValue={3} checked={nft.status === 3 ? true : false} value={nft.status} onChange={(e) => this.onChange(e, 3)} />
+                                              <label onChange={(e) => this.onChange(e, 3)} className="form-check-label" htmlFor="unlockPurchased">Unlock Purchased</label>
+                                          </div>
+                                      </div>
+                                  </div> */}
+                                  <div className="col-12">
+                                      <button disabled={loader} className="btn w-100 mt-3 mt-sm-4" type="button" onClick={(e) => this.submit(e)}>Create Item</button>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
                   </div>
-                  <div className="col-12">
-                    <div className="form-group mt-3">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="name"
-                        placeholder="Item Name *"
-                        required="required"
-                        onChange={(e) => this.onChange(e)}
-                        defaultValue={nft.name}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12">
-                    <div className="form-group">
-                      <textarea
-                        className="form-control"
-                        name="description"
-                        placeholder="Description *"
-                        cols={30}
-                        rows={3}
-                        onChange={(e) => this.onChange(e)}
-                        defaultValue={nft.description}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-6">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="price"
-                        placeholder="Item Price *"
-                        required="required"
-                        onChange={(e) => this.onChange(e)}
-                        defaultValue={nft.price}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-6">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="collection"
-                        placeholder="Collection *"
-                        required="required"
-                        onChange={(e) => this.onChange(e)}
-                        defaultValue={nft.collection}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-6">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Size (1024x1024)"
-                        required="required"
-                        name="size"
-                        onChange={(e) => this.onChange(e)}
-                        defaultValue={nft.size}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-6">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="no_of_copies"
-                        placeholder="No. of Copies *"
-                        required="required"
-                        onChange={(e) => this.onChange(e)}
-                        defaultValue={nft.no_of_copies}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12">
-                    <button
-                      className="btn w-100 mt-3 mt-sm-4"
-                      type="button"
-                      onClick={(e) => this.submit(e)}
-                    >
-                      Create Item
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
+              </div>
+          </section>
+      )
   }
 }
 

@@ -4,40 +4,65 @@ import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import AuthorProfile from "../AuthorProfile/AuthorProfile";
 import Category from "../../services/category.service";
+import SimpleReactValidator from "simple-react-validator";
 const placeholderImg = "";
+
 class CreateCollection extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       nft: {
-        image: "",
+        banner_image: "",
+        logo_image: "",
         name: "",
         description: "",
         categories: "",
       },
     };
+    this.validator = new SimpleReactValidator({
+      autoForceUpdate: this,
+      messages: {
+        required: "This field is required.", // will override all messages
+      },
+    });
   }
+
+  // onFileChange(e) {
+  //   let file = e.target.files[0];
+  //   let fileId = e.target.id;
+
+  //   if (file)
+  //     if (file.type.includes("image")) {
+  //       let { nft } = this.state;
+  //       nft = { ...nft, [e.target.name]: file };
+  //       this.setState({ nft }, () => {
+  //         if (file) {
+  //           var reader = new FileReader();
+  //           reader.onload = function (e) {
+  //             $(`#nft-${fileId}`).attr("src", e.target.result);
+  //             $("#nft-image-label").html("Banner selected");
+  //           };
+  //           reader.readAsDataURL(file);
+  //         }
+  //       });
+  //     } else {
+  //       $(`#nft-${fileId}`).attr("src", placeholderImg);
+  //       file = {};
+  //     }
+  // }
 
   onFileChange(e) {
     let file = e.target.files[0];
-    let fileId = e.target.id;
     if (file)
       if (file.type.includes("image")) {
         let { nft } = this.state;
         nft = { ...nft, [e.target.name]: file };
-        this.setState({ nft }, () => {
-          if (file) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-              $(`#nft-${fileId}`).attr("src", e.target.result);
-              $("#nft-image-label").html("File selected");
-            };
-            reader.readAsDataURL(file);
-          }
-        });
-      } else {
-        $(`#nft-${fileId}`).attr("src", placeholderImg);
-        file = {};
+        if (e.target.name) {
+          nft[`${e.target.name}Url`] = URL.createObjectURL(e.target.files[0]);
+          $(`#nft-${e.target.name}-label`).html("File selected");
+        }
+        this.setState({ nft });
       }
   }
 
@@ -58,31 +83,152 @@ class CreateCollection extends Component {
     console.log(res.data);
   };
 
+  reset = () => {
+    const nft = {
+      image: "",
+      name: "",
+      description: "",
+      categories: "",
+    };
+    this.setState({ nft });
+  };
 
   submit = async (e) => {
     e.preventDefault();
-    const { nft } = this.state;
-    var formData = new FormData();
-    for (const key in nft) {
-      if (nft[key]) {
-        formData.append(key, nft[key]);
-      }
-    }
-    const res = await Collection.collectionPost(
-      `${ENV.API_URL}api/create_collection/`,
-      formData
-    );
-    console.log(res);
-  };
-  render() {
-    const { nft } = this.state;
 
+    console.log(
+      "this.validator.allValid(): ",
+      this.validator.allValid(),
+      this.state.nft
+    );
+
+    this.setState(
+      {
+        isSubmitted: true,
+        formValid: this.validator.allValid() ? true : false,
+      },
+      () => {
+        const { formValid } = this.state;
+        if (formValid) {
+          this.setState(
+            {
+              loader: true,
+            },
+            async () => {
+              const { nft } = this.state;
+              var formData = new FormData();
+              for (const key in nft)
+                if (nft[key]) formData.append(key, nft[key]);
+
+              // this.props.createNFT(nft)
+              const res = await Collection.collectionPost(
+                `${ENV.API_URL}api/create_collection/`,
+                formData
+              );
+              // if (res.success) {
+              //     this.reset()
+              //     toast.success(`Success! ${res.message}`)
+              //     this.setState({ loader: false }, () => {
+              //         // this.props.history.push('/')
+              //         window.location = '/'
+              //     })
+              // }
+              // else
+              //     this.setState({ errors: res.message, loader: false })
+            }
+          );
+
+        } else {
+          this.validator.showMessages();
+          this.setState(
+            {
+              errors: "Please fill all required fields in valid format.",
+              formValid: false,
+            },
+            () => {
+              $("#create-nft").scrollTop(0, 0);
+            }
+          );
+        }
+      }
+    );
+  };
+
+  // submit = async (e) => {
+  //   e.preventDefault();
+  //   const { nft } = this.state;
+  //   var formData = new FormData();
+  //   for (const key in nft) {
+  //     if (nft[key]) {
+  //       formData.append(key, nft[key]);
+  //     }
+  //   }
+  //   const res = await Collection.collectionPost(
+  //     `${ENV.API_URL}api/create_collection/`,
+  //     formData
+  //   );
+  //   console.log(res);
+  // };
+  render() {
+    const { nft, errors, loader, isSubmitted } = this.state;
     return (
       <section className="author-area">
         <div className="container">
           <div className="row justify-content-between">
             <div className="col-12 col-md-4">
-              <AuthorProfile />
+              {/* <AuthorProfile createNFT_data={nft} /> */}
+              <div className="card no-hover text-center">
+                <div className="image-over">
+                  <img
+                    id="banner-placeholder"
+                    className={
+                      nft.banner_imageUrl
+                        ? "card-img-top"
+                        : "card-img-top create-nft-placeholder"
+                    }
+                    src={
+                      nft.banner_imageUrl
+                        ? nft.banner_imageUrl
+                        : "/img/auction_2.jpg"
+                    }
+                    alt=""
+                  />
+
+                  <div className="author">
+                    <div className="author-thumb avatar-lg">
+                      <img
+                        id="logo-placeholder"
+                        className={
+                          nft.logo_imageUrl
+                            ? "rounded-circle"
+                            : "rounded-circle create-nft-placeholder"
+                        }
+                        src={
+                          nft.logo_imageUrl
+                            ? nft.logo_imageUrl
+                            : "/img/auction_2.jpg"
+                        }
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="card-caption col-12 p-0">
+                  <div className="card-body mt-4">
+                    <h5 className="mb-3">
+                      {this.state.nft.name === ""
+                        ? "Collection name"
+                        : this.state.nft.name}
+                    </h5>
+                    <p className="my-3">
+                      {this.state.nft.description === ""
+                        ? "Description"
+                        : this.state.nft.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="col-12 col-md-7">
               <div className="mt-5 mt-lg-0 mb-4 mb-lg-5">
@@ -93,6 +239,15 @@ class CreateCollection extends Component {
                   </div>
                 </div>
               </div>
+              {isSubmitted && errors && (
+                <div className="row">
+                  <div className="col-12">
+                    <span id="create-nft-err" className="text-danger">
+                      {errors}
+                    </span>
+                  </div>
+                </div>
+              )}
               <form id="create-nft" className="item-form card no-hover">
                 <div className="row">
                   <div className="col-12">
@@ -101,20 +256,27 @@ class CreateCollection extends Component {
                         <input
                           type="file"
                           className="custom-file-input"
-                          id="image"
+                          id="banner_image"
                           accept=".png,.jpeg,.jpg"
                           onChange={(e) => this.onFileChange(e)}
-                          name="logo_image"
+                          name="banner_image"
                         />
                         <label
-                          id="nft-image-label"
+                          id="nft-banner_image-label"
                           className="custom-file-label"
-                          htmlFor="image"
+                          htmlFor="banner_image"
                         >
-                          Choose file *
+                          Choose Banner File *
                         </label>
                       </div>
                     </div>
+                    <span className="text-danger">
+                      {this.validator.message(
+                        "image",
+                        nft.banner_image,
+                        "required"
+                      )}
+                    </span>
                   </div>
 
                   <div className="col-12">
@@ -123,20 +285,27 @@ class CreateCollection extends Component {
                         <input
                           type="file"
                           className="custom-file-input"
-                          id="image"
+                          id="logo_image"
                           accept=".png,.jpeg,.jpg"
                           onChange={(e) => this.onFileChange(e)}
-                          name="banner_image"
+                          name="logo_image"
                         />
                         <label
-                          id="nft-image-label"
+                          id="nft-logo_image-label"
                           className="custom-file-label"
-                          htmlFor="image"
+                          htmlFor="logo_image"
                         >
-                          Choose file *
+                          Choose Logo File *
                         </label>
                       </div>
                     </div>
+                    <span className="text-danger">
+                      {this.validator.message(
+                        "image",
+                        nft.logo_image,
+                        "required"
+                      )}
+                    </span>
                   </div>
                   <div className="col-12">
                     <div className="form-group mt-3">
@@ -144,11 +313,14 @@ class CreateCollection extends Component {
                         type="text"
                         className="form-control"
                         name="name"
-                        placeholder="Item Name *"
+                        placeholder="Collection Name *"
                         required="required"
                         onChange={(e) => this.onChange(e)}
                         defaultValue={nft.name}
                       />
+                      <span className="text-danger">
+                        {this.validator.message("name", nft.name, "required")}
+                      </span>
                     </div>
                   </div>
 
@@ -178,6 +350,13 @@ class CreateCollection extends Component {
                             })
                           : ""}
                       </select>
+                      <span className="text-danger">
+                        {this.validator.message(
+                          "name",
+                          nft.category,
+                          "required"
+                        )}
+                      </span>
                     </div>
                   </div>
                   <div className="col-12">
@@ -191,6 +370,13 @@ class CreateCollection extends Component {
                         onChange={(e) => this.onChange(e)}
                         defaultValue={nft.description}
                       />
+                      <span className="text-danger">
+                        {this.validator.message(
+                          "description",
+                          nft.description,
+                          "required"
+                        )}
+                      </span>
                     </div>
                   </div>
 
