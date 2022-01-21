@@ -87,7 +87,7 @@ const CollectionDetail = () => {
                 <img src="hello.jpg" />
               </div>
               <div>
-                <h6 className="mt-0 mb-3">Collection Items</h6>
+                <h6 className="mt-0 mb-3">{collectionData.nft_collection ? collectionData.nft_collection.length : ""}</h6>
                 <p className="m-0">Items</p>
               </div>
             </div>

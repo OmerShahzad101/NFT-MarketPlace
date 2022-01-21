@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
+import $ from "jquery";
 
 const ExploreFour = () => {
   const initialData = {
@@ -39,10 +40,24 @@ const ExploreFour = () => {
   useEffect(async () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
     setNftData(res.data);
+    loadMore();
   }, []);
+
+  const loadMore = () => {
+    $(".load-more .item").slice(0, 4).show();
+
+    $("#load-btn").on("click", function (e) {
+      e.preventDefault();
+      $(".load-more .item:hidden").slice(0, 4).slideDown();
+      if ($(".load-more .item:hidden").length == 0) {
+        $("#load-btn").fadeOut("slow");
+      }
+    });
+  };
+  
   return (
     <section className="explore-area">
-    {/* <section className="explore-area load-more"> */}
+      {/* <section className="explore-area load-more"> */}
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 col-lg-7">
@@ -57,7 +72,9 @@ const ExploreFour = () => {
           <div className="col-xl-3 col-sm-6 text-right order-sm-last">
             <div class="form-group filter-select position-relative m-0">
               <select class="form-control " onChange={(e) => sort("price")}>
-                <option disabled selected hidden>Select price</option>
+                <option disabled selected hidden>
+                  Select price
+                </option>
                 <option>Price Low - High</option>
                 <option>Price High - Low</option>
               </select>
@@ -143,7 +160,7 @@ const ExploreFour = () => {
           </div>
         </div>
 
-        <div className="row items">
+        <div className="row items load-more">
           {nftData
             ? nftData.map((item, id) => {
                 return (
@@ -196,7 +213,7 @@ const ExploreFour = () => {
         </div>
         <div className="row">
           <div className="col-12 text-center">
-            <a id="load-btn" className="btn btn-bordered-white mt-5" href="">
+            <a id="load-btn" className="btn btn-bordered-white mt-5" href="#">
               Load More
             </a>
           </div>
