@@ -114,9 +114,7 @@ const CollectionDetail = () => {
                 <option disabled selected hidden>Select price</option>
                 <option>Price Low - High</option>
                 <option>Price High - Low</option>
-                {/* <option>Recently Listed</option> */}
-                {/* <option>Ending Soon</option> */}
-                {/* <option>Most Favourite</option> */}
+            
               </select>
             </div>
           </div>

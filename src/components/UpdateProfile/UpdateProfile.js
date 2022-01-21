@@ -4,21 +4,18 @@ import { ENV } from "../../env";
 import updateProfile from "../../services/updateProfile.service";
 
 const UpdateProfile = () => {
-
-
-  const initialdata ={
-    email: "",
+  const initialdata = {
     first_name: "",
     last_name: "",
-    user_profile:{
+    user_profile: {
       about: "",
       facebook_link: "",
       twitter_link: "",
       vine_link: "",
-      google_plus_link: ""
+      google_plus_link: "",
+    },
+  };
 
-    }
-  }
   const [updateUser, setUpdateUser] = useState(initialdata);
   const arr = window.location.href.split("?");
   const id = arr[1];
@@ -27,7 +24,7 @@ const UpdateProfile = () => {
     const res = await updateProfile.updateProfileUserGet(
       `${ENV.API_URL}api/auth/users/me`
     );
-    console.log(res)
+    console.log(res);
     setUpdateUser(res);
   }, []);
 
@@ -38,6 +35,16 @@ const UpdateProfile = () => {
       [name]: value,
     });
   };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   let obj = updateUser.user_profile;
+  //   obj[name] = value
+    
+  //   setUpdateUser({
+  //     ...user_profile,
+  //     user_profile
+  //   });
+  // }
   const update_data = async () => {
     const result = await updateProfile.updateProfileUser(
       `${ENV.API_URL}api/auth/users/me`,
@@ -51,7 +58,7 @@ const UpdateProfile = () => {
       {console.log}
       <section
         className="breadcrumb-area overlay-dark d-flex align-items-center"
-        
+
         // style={{
         //   backgroundImage: `${updateUser.user_profile[0].banner_image} ? url(${ENV.API_URL_image}${updateUser.user_profile[0].banner_image}) : "banner image "`,
 
@@ -197,7 +204,7 @@ const UpdateProfile = () => {
                       type="text"
                       className="form-control"
                       name="about"
-                      value={updateUser ? updateUser.user_profile.about : ""}
+                      value={updateUser ? updateUser.user_profile[0].about : ""}
                       placeholder="About"
                       onChange={handleChange}
                     />

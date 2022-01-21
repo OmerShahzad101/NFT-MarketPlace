@@ -54,7 +54,7 @@ const ExploreFour = () => {
       }
     });
   };
-  
+
   return (
     <section className="explore-area">
       {/* <section className="explore-area load-more"> */}
