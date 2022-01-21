@@ -33,6 +33,7 @@ const HomeNft = () => {
 
   return (
     <section className="explore-area ">
+{/* a;lsdk */}
       <div className="container">
         <div className="row">
           <div className="col-12">
