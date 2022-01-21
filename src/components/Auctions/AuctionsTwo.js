@@ -21,12 +21,17 @@ const AuctionsTwo = () => {
     );
     console.log(res);
     setData(res.data);
+    const script = document.createElement("script");
 
+    script.src = "/assets/js/vendor/countdown.min.js";
+    script.async = true;
+
+    document.body.appendChild(script);
 
   }, []);
 
   return (
-    <section className="live-auctions-area load-more">
+    <section className="live-auctions-area">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 col-lg-7">
@@ -62,7 +67,7 @@ const AuctionsTwo = () => {
                             }
                             <div
                               className="countdown d-flex justify-content-center"
-                              data-date={item.expiry_date}
+                              data-date="2022-01-25"
                             />
                           </div>
                           <Link to={`/nft-details?${item.id}`}>
@@ -90,13 +95,13 @@ const AuctionsTwo = () => {
               })
             : " "}
         </div>
-        <div className="row">
+        {/* <div className="row">
           <div className="col-12 text-center">
             <a id="load-btn" className="btn btn-bordered-white mt-5" href="#">
               {initData.btnText}
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

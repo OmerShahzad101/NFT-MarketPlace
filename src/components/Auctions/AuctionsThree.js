@@ -20,6 +20,18 @@ const AuctionThree = () => {
     );
     console.log(res);
     setData(res.data);
+
+
+    
+    const script = document.createElement("script");
+    script.src = "/assets/js/vendor/countdown.min.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    const scriptSlider = document.createElement("script");
+    scriptSlider.src = "/assets/js/main.js";
+    scriptSlider.async = true;
+    document.body.appendChild(scriptSlider);
   }, []);
 
   return (
@@ -63,7 +75,7 @@ const AuctionThree = () => {
                               <div className="countdown-times mb-3">
                                 <div
                                   className="countdown d-flex justify-content-center"
-                                  data-date={item.expiry_date}
+                                  data-date="2022-5-25"
                                 />
                               </div>
                               <Link to={`/nft-details?${item.id}`}>

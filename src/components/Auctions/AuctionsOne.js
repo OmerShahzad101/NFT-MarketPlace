@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 const initailData = {
-  heading: "Live Auctions",
+  heading: "Live Auctions Home",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
   btnText: "Load More",
@@ -16,11 +16,25 @@ const AuctionsOne = () => {
   const [data, setData] = useState("");
 
   useEffect(async () => {
+    
+
     const res = await liveAuction.auction(
       `${ENV.API_URL}api/live-auction-nfts/`
     );
     console.log(res);
     setData(res.data);
+
+    const scriptCounter = document.createElement("script");
+    scriptCounter.src = "/assets/js/vendor/countdown.min.js";
+    scriptCounter.async = true;
+    document.body.appendChild(scriptCounter);
+
+    
+    const scriptSlider = document.createElement("script");
+    scriptSlider.src = "/assets/js/main.js";
+    scriptSlider.async = true;
+    document.body.appendChild(scriptSlider);
+
   }, []);
 
   return (
@@ -63,13 +77,11 @@ const AuctionsOne = () => {
                           <div className="card-caption col-12 p-0">
                             <div className="card-body">
                               <div className="countdown-times mb-3">
-                                {moment(item.expiry_date).format("YYYY-MM-DD")}
+                                {/* {moment(item.expiry_date).format("YYYY-MM-DD")} */}
 
                                 <div
                                   className="countdown d-flex justify-content-center"
-                                  data-date={moment(item.expiry_date).format(
-                                    "YYYY-MM-DD"
-                                  )}
+                                  data-date="2022-01-25"
                                 />
                               </div>
                               <Link to={`/nft-details?${item.id}`}>

@@ -104,6 +104,7 @@ const ItemDetails = () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
     console.log(res.data);
     setNftData(res.data);
+
   }, []);
   const report = async (e) => {
     e.preventDefault();
@@ -136,7 +137,7 @@ const ItemDetails = () => {
               <div className="card no-hover countdown-times my-4">
                 <div
                   className="countdown d-flex justify-content-center"
-                  data-date={initData.date}
+                  data-date="2022-2-2"
                 />
               </div>
               <ul className="netstorm-tab nav nav-tabs" id="nav-tab">
