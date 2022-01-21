@@ -114,6 +114,17 @@ const Header = () => {
                       ))
                     : ""}
                 </li>
+                <li className="nav-item">
+                  {token
+                    ? ((decoded = jwt_decode(token)),
+                      (id = decoded.user_id),
+                      (
+                        <Link to={`/mycollections?${id}`} className="nav-link">
+                          My Collections
+                        </Link>
+                      ))
+                    : ""}
+                </li>
               </ul>
             </li>
           </ul>

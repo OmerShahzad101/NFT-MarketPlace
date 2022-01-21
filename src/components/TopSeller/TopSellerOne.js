@@ -19,20 +19,8 @@ const TopSeller = () => {
     );
     setSellerData(result.data.top_sellers);
     console.log(result.data.top_sellers);
-    loadMoreTopSellers();
   }, []);
 
-  const loadMoreTopSellers = () => {
-    $(".load-more-topSellers .item").slice(0, 3).show();
-
-    $("#load-btn-topSellers").on("click", function (e) {
-      e.preventDefault();
-      $(".load-more-topSellers .item:hidden").slice(0, 3).slideDown();
-      if ($(".load-more-topSellers .item:hidden").length == 0) {
-        $("#load-btn-topSellers").fadeOut("slow");
-      }
-    });
-  };
 
   return (
     <section className="top-seller-area p-0">

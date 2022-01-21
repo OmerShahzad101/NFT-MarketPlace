@@ -337,6 +337,20 @@ $(document).ready(function () {
   //   });
   // })(jQuery);
 
+  // (function ($) {
+  //   "use strict";
+
+  //   $(".load-more-topSellers .item").slice(0, 6).show();
+
+  //   $("#load-btn-topSellers").on("click", function (e) {
+  //     e.preventDefault();
+  //     $(".load-more-topSellers .item:hidden").slice(0, 6).slideDown();
+  //     if ($(".load-more-topSellers .item:hidden").length == 0) {
+  //       $("#load-btn-topSellers").fadeOut("slow");
+  //     }
+  //   });
+  // })(jQuery);
+
   /*----------------------------------------------
     6. Shuffle
     ----------------------------------------------*/

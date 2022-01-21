@@ -34,8 +34,11 @@ const AuctionsOne = () => {
     scriptSlider.src = "/assets/js/main.js";
     scriptSlider.async = true;
     document.body.appendChild(scriptSlider);
+      
 
   }, []);
+
+
 
   return (
     <section className="live-auctions-area">
