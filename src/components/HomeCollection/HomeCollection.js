@@ -21,8 +21,8 @@ const HomeCollection = () => {
       `${ENV.API_URL}api/collection_list/`
     );
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
-    setCollectionData(res.data);
-    setCategories(result.data);
+    setCollectionData(res.data.data.results);
+    setCategories(result.data.data.results);
   }, []);
 
   return (

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 import reportNft from "../../services/reportNf.service";
+import moment from "moment";
+
 const initialData = {
   itemImg: "/img/auction_2.jpg",
   date: "2022-03-30",
-  tab_1: "Bids",
-  tab_2: "History",
-  tab_3: "Details",
   ownerImg: "/img/avatar_1.jpg",
   created: "15 Jul 2021",
 
@@ -69,20 +68,6 @@ const initialtabData_2 = [
   },
 ];
 
-const initialsellerData = [
-  {
-    id: "1",
-    img: "/img/avatar_1.jpg",
-    seller: "@ArtNoxStudio",
-    post: "Creator",
-  },
-  {
-    id: "2",
-    img: "/img/avatar_2.jpg",
-    seller: "Virtual Worlds",
-    post: "Collection",
-  },
-];
 const ItemDetails = () => {
   const arr = window.location.href.split("?");
   const id = arr[1];
@@ -93,9 +78,8 @@ const ItemDetails = () => {
   };
 
   const [initData, setInitData] = useState(initialData);
-  const [tabData_1, settabData_1] = useState(initialtabData_1);
+  const [nftbiddingHistory, setNftbiddingHistory] = useState();
   const [tabData_2, settabData_2] = useState(initialtabData_2);
-  const [sellerData, setSellerData] = useState(initialsellerData);
   const [nftData, setNftData] = useState([]);
   const [nftReport, setNftReport] = useState(initialstates);
   nftReport.nft = id;
@@ -105,6 +89,11 @@ const ItemDetails = () => {
     console.log(res.data);
     setNftData(res.data);
 
+    const result = await NFT.nftBiddingList(
+      `${ENV.API_URL}api/specific_bidding_nft/${id}/`
+    );
+    console.log(result.data.bidding_data);
+    setNftbiddingHistory(result.data.bidding_data);
   }, []);
   const report = async (e) => {
     e.preventDefault();
@@ -148,7 +137,7 @@ const ItemDetails = () => {
                     data-toggle="pill"
                     href="#nav-home"
                   >
-                    <h5 className="m-0">{initData.tab_1}</h5>
+                    <h5 className="m-0">Bids</h5>
                   </a>
                 </li>
                 <li>
@@ -157,7 +146,7 @@ const ItemDetails = () => {
                     data-toggle="pill"
                     href="#nav-profile"
                   >
-                    <h5 className="m-0">{initData.tab_2}</h5>
+                    <h5 className="m-0">History</h5>
                   </a>
                 </li>
                 <li>
@@ -166,7 +155,7 @@ const ItemDetails = () => {
                     data-toggle="pill"
                     href="#nav-contact"
                   >
-                    <h5 className="m-0">{initData.tab_3}</h5>
+                    <h5 className="m-0">Details</h5>
                   </a>
                 </li>
               </ul>
@@ -174,48 +163,60 @@ const ItemDetails = () => {
               <div className="tab-content" id="nav-tabContent">
                 <div className="tab-pane fade show active" id="nav-home">
                   <ul className="list-unstyled">
-                    {tabData_1.map((item, idx) => {
-                      return (
-                        <li
-                          key={`tdo_${idx}`}
-                          className="single-tab-list d-flex align-items-center"
-                        >
-                          <img
-                            className="avatar-sm rounded-circle mr-3"
-                            src={item.img}
-                            alt=""
-                          />
-                          <p className="m-0">
-                            Bid listed for <strong>{item.price}</strong>{" "}
-                            {item.time} <br />
-                            by <a href="/author">{item.author}</a>
-                          </p>
-                        </li>
-                      );
-                    })}
+                    {nftbiddingHistory
+                      ? nftbiddingHistory.map((item, idx) => {
+                          return item.offer_by ? (
+                            <li
+                              key={`tdo_${idx}`}
+                              className="single-tab-list d-flex align-items-center"
+                            >
+                              <img
+                                className="avatar-sm rounded-circle mr-3"
+                                // src={`${ENV.API_URL_image}${nftData.image}`}
+                                alt=""
+                              />
+                              <p className="m-0">
+                                Bid listed for{" "}
+                                <strong>${item.bidding_price}</strong>{" "}
+                                {moment(item.bidding_date).fromNow()} {"  "}
+                                <br />
+                                by <a href="/author">@{item.offer_by}</a>
+                              </p>
+                            </li>
+                          ) : (
+                            "  No Bidding List"
+                          );
+                        })
+                      : " No Bidding List"}
                   </ul>
                 </div>
                 <div className="tab-pane fade" id="nav-profile">
                   <ul className="list-unstyled">
-                    {tabData_2.map((item, idx) => {
-                      return (
-                        <li
-                          key={`tdt_${idx}`}
-                          className="single-tab-list d-flex align-items-center"
-                        >
-                          <img
-                            className="avatar-sm rounded-circle mr-3"
-                            src={item.img}
-                            alt=""
-                          />
-                          <p className="m-0">
-                            Bid listed for <strong>{item.price}</strong>{" "}
-                            {item.time} <br />
-                            by <a href="/author">{item.author}</a>
-                          </p>
-                        </li>
-                      );
-                    })}
+                    {nftbiddingHistory
+                      ? nftbiddingHistory.map((item, idx) => {
+                          return item.offer_by ? (
+                            <li
+                              key={`tdo_${idx}`}
+                              className="single-tab-list d-flex align-items-center"
+                            >
+                              <img
+                                className="avatar-sm rounded-circle mr-3"
+                                // src={`${ENV.API_URL_image}${nftData.image}`}
+                                alt=""
+                              />
+                              <p className="m-0">
+                                Bid listed for{" "}
+                                <strong>${item.bidding_price}</strong>{" "}
+                                {moment(item.bidding_date).fromNow()} {"  "}
+                                <br />
+                                by <a href="/author">@{item.offer_by}</a>
+                              </p>
+                            </li>
+                          ) : (
+                            "No History Found "
+                          );
+                        })
+                      : " No History Found"}
                   </ul>
                 </div>
                 <div className="tab-pane fade" id="nav-contact">
@@ -227,13 +228,15 @@ const ItemDetails = () => {
                     >
                       <img
                         className="avatar-sm rounded-circle"
-                        src={initData.ownerImg}
+                        src={`${ENV.API_URL_image}${nftData.profile_image}`}
                         alt=""
                       />
-                      <h6 className="ml-2">{initData.itemOwner}</h6>
+                      <h6 className="ml-2">{nftData.owner}</h6>
                     </a>
-                  </div>
-                  <p className="mt-2">Created : {nftData.created_at}</p>
+                  </div>{" "}
+                  <p className="mt-2">
+                    Created : {moment(nftData.created_at).format("DD-MM-YYYY")}
+                  </p>
                 </div>
               </div>
             </div>
@@ -276,11 +279,11 @@ const ItemDetails = () => {
                 aria-labelledby="exampleModalLabel"
                 aria-hidden="true"
               >
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content reportnft-modal">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content reportnft-modal ">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">
-                        {nftData.name}
+                      <h5 class="modal-title  m-0" id="exampleModalLabel">
+                        Report this item
                       </h5>
                       <button
                         type="button"
@@ -292,13 +295,13 @@ const ItemDetails = () => {
                       </button>
                     </div>
                     <form onSubmit={report}>
-                      <div class="modal-body">
+                      <div class="modal-body py-3">
                         <div class="form-group">
                           <label
                             for="exampleFormControlSelect1"
                             className="mb-1"
                           >
-                            Select Report Type:
+                            I think this item is...
                           </label>
                           <select
                             name="report_type"
@@ -313,7 +316,7 @@ const ItemDetails = () => {
                               selected="selected"
                               hidden="hidden"
                             >
-                              Choose here
+                              Select a reason
                             </option>
                             <option name="fake" value="fake">
                               Fake
@@ -333,16 +336,9 @@ const ItemDetails = () => {
                           </select>
                         </div>
                       </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-dismiss="modal"
-                        >
-                          Close
-                        </button>
+                      <div class="modal-footer mr-3">
                         <button type="sumbit" class="btn btn-primary">
-                          Save changes
+                          Report
                         </button>
                       </div>
                     </form>

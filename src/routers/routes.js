@@ -26,7 +26,7 @@ import myCollections from "../themes/myCollections";
 // import ExploreFour from "../themes/explore-four";
 // import Blog from "../themes/blog";
 // import BlogSingle from "../themes/blog-single";
-// import WalletConnect from "../themes/wallet-connect";
+import WalletConnect from "../themes/wallet-connect";
 class MyRouts extends React.Component {
   render() {
     return (
@@ -63,7 +63,6 @@ class MyRouts extends React.Component {
             <Route exact path="/blog" component={Blog} />
             <Route exact path="/blog-single" component={BlogSingle} />
           
-            <Route exact path="/wallet-connect" component={WalletConnect} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />   */} 
           </Switch> 

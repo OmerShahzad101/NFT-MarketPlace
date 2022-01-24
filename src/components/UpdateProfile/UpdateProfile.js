@@ -22,7 +22,7 @@ const UpdateProfile = () => {
 
   useEffect(async () => {
     const res = await updateProfile.updateProfileUserGet(
-      `${ENV.API_URL}api/auth/users/me`
+      `${ENV.API_URL}api/auth/users/me/`
     );
     console.log(res);
     setUpdateUser(res);
@@ -47,7 +47,7 @@ const UpdateProfile = () => {
   // }
   const update_data = async () => {
     const result = await updateProfile.updateProfileUser(
-      `${ENV.API_URL}api/auth/users/me`,
+      `${ENV.API_URL}api/auth/users/me/`,
       updateUser
     );
     console.log(result);
@@ -108,7 +108,7 @@ const UpdateProfile = () => {
                 <span>Update Profile</span>
               </div>
             </div>
-            <form id="contact-form" className="item-form card no-hover">
+           {updateUser ?  (<form id="contact-form" className="item-form card no-hover">
               <div className="row">
                 <div className="col-12">
                   <div className="input-group form-group">
@@ -204,7 +204,7 @@ const UpdateProfile = () => {
                       type="text"
                       className="form-control"
                       name="about"
-                      value={updateUser ? updateUser.user_profile[0].about : ""}
+                      value={updateUser ? updateUser.user_profile.about : ""}
                       placeholder="About"
                       onChange={handleChange}
                     />
@@ -218,7 +218,7 @@ const UpdateProfile = () => {
                       name="facebook_link"
                       value={
                         updateUser
-                          ? updateUser.user_profile[0].facebook_link
+                          ? updateUser.user_profile.facebook_link
                           : ""
                       }
                       placeholder="Facebook Link"
@@ -234,7 +234,7 @@ const UpdateProfile = () => {
                       className="form-control"
                       value={
                         updateUser
-                          ? updateUser.user_profile[0].twitter_link
+                          ? updateUser.user_profile.twitter_link
                           : ""
                       }
                       name="twitter_link"
@@ -249,7 +249,7 @@ const UpdateProfile = () => {
                     <input
                       type="text"
                       value={
-                        updateUser ? updateUser.user_profile[0].vine_link : ""
+                        updateUser ? updateUser.user_profile.vine_link : ""
                       }
                       className="form-control"
                       name="vine_link"
@@ -265,7 +265,7 @@ const UpdateProfile = () => {
                       type="text"
                       value={
                         updateUser
-                          ? updateUser.user_profile[0].google_plus_link
+                          ? updateUser.user_profile.google_plus_link
                           : ""
                       }
                       onChange={handleChange}
@@ -286,7 +286,9 @@ const UpdateProfile = () => {
                   </button>
                 </div>
               </div>
+           
             </form>
+           ):" serching"}
           </div>
         </div>
       </div>

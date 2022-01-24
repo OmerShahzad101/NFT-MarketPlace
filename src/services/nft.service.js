@@ -8,11 +8,9 @@ const NFT = {
       method: "POST",
       body: data,
       headers: {
-        // "Content-Type": "application/json",
         Authorization: `Bearer ${_token}`,
       },
     };
-    // console.log(requestOptions);
     const _data = fetch(`${url}`, requestOptions).then((res) => res.json());
     console.log("datatat", data);
     return _data;
@@ -21,6 +19,9 @@ const NFT = {
   nftget: (url, data) => {
     return axios.get(url, data);
   },
+
+  nftBiddingList: (url, data) => {
+    return axios.get(url, data);
+  }
 };
 export default NFT;
-
