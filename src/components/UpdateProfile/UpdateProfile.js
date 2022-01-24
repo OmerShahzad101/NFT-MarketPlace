@@ -35,16 +35,18 @@ const UpdateProfile = () => {
       [name]: value,
     });
   };
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   let obj = updateUser.user_profile;
-  //   obj[name] = value
-    
-  //   setUpdateUser({
-  //     ...user_profile,
-  //     user_profile
-  //   });
-  // }
+
+
+  const handleChange2 = (e) => {
+    const { name, value } = e.target;
+    let obj = updateUser.user_profile;
+    obj[0][name] = value;
+
+    setUpdateUser({
+      ...updateUser,
+      user_profile: obj
+    });
+  }
   const update_data = async () => {
     const result = await updateProfile.updateProfileUser(
       `${ENV.API_URL}api/auth/users/me/`,
@@ -55,7 +57,7 @@ const UpdateProfile = () => {
 
   return (
     <div>
-      {console.log}
+      {console.log(updateUser.user_profile[0] ? updateUser.user_profile[0].twitter_link: "" , "updateUserupdateUserupdateUserupdateUserupdateUser")}
       <section
         className="breadcrumb-area overlay-dark d-flex align-items-center"
 
@@ -222,7 +224,7 @@ const UpdateProfile = () => {
                           : ""
                       }
                       placeholder="Facebook Link"
-                      onChange={handleChange}
+                      onChange={handleChange2}
                     />
                   </div>
                 </div>
@@ -232,11 +234,7 @@ const UpdateProfile = () => {
                     <input
                       type="text"
                       className="form-control"
-                      value={
-                        updateUser
-                          ? updateUser.user_profile.twitter_link
-                          : ""
-                      }
+                      value={updateUser.user_profile[0] ? updateUser.user_profile[0].twitter_link: ""}
                       name="twitter_link"
                       placeholder="Twitter Link"
                       onChange={handleChange}
@@ -248,12 +246,10 @@ const UpdateProfile = () => {
                   <div className="form-group mt-3">
                     <input
                       type="text"
-                      value={
-                        updateUser ? updateUser.user_profile.vine_link : ""
-                      }
+                      value={updateUser.user_profile[0] ? updateUser.user_profile[0].vine_link: ""}
                       className="form-control"
                       name="vine_link"
-                      onChange={handleChange}
+                      onChange={handleChange2}
                       placeholder="Vine Link"
                     />
                   </div>
