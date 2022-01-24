@@ -81,17 +81,16 @@ const AuctionThree = () => {
                               <Link to={`/nft-details?${item.id}`}>
                                 <h5 className="mb-0">{item.name}</h5>
                               </Link>
-                              <a
+                              <Link
                                 className="seller d-flex align-items-center my-3"
-                                href="/item-details"
-                              >
+                                to={`/nft-details?${item.id}`}>
                                 <img
                                   className="avatar-sm rounded-circle"
                                   src={`${ENV.API_URL_image}${item.profile_image}`}
                                   alt=""
                                 />
                                 <span className="ml-2">@{item.owner}</span>
-                              </a>
+                              </Link>
                               <div className="card-bottom d-flex justify-content-between">
                                 <span>${item.price}</span>
                               </div>

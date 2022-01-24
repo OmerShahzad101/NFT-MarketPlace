@@ -17,8 +17,8 @@ const TopSeller = () => {
     const result = await topSellers.topSellersList(
       `${ENV.API_URL}api/top_sellers/`
     );
-    setSellerData(result.data.top_sellers);
-    console.log(result.data.top_sellers);
+    setSellerData(result.data.data.top_sellers);
+    console.log(result.data.data.top_sellers);
   }, []);
 
 

@@ -15,17 +15,14 @@ const Author = () => {
     const result = await authors.specificAuthor(
       `${ENV.API_URL}api/profile/crud/${id}`
     );
-    setAuthorData(result);
-    console.log(result);
-
+    console.log(result.data);
+    setAuthorData(result.data);
     const res = await authors.specificAuthorNft(
       `${ENV.API_URL}api/specific_user_nft_data/${id}`
     );
-    
-    setAuthorNft(res.user_data);
-    
-    console.log( res.user_data);
-    console.log(authorNft)
+
+    console.log(res.data.user_data);
+    setAuthorNft(res.data.user_data);
   }, []);
 
   return (
@@ -131,7 +128,10 @@ const Author = () => {
                             />
                           </Link>
 
-                          <a className="author" href={`/collectionDetail?${item.id}`}>
+                          <a
+                            className="author"
+                            href={`/collectionDetail?${item.id}`}
+                          >
                             <div className="author-thumb avatar-lg">
                               <img
                                 className="rounded-circle"

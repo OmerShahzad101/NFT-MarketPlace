@@ -4,7 +4,7 @@ const updateProfile = {
     var _token = JSON.parse(localStorage.getItem("access"));
     const requestOptions = {
       method: "PUT",
-      body:(data),
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${_token}`,

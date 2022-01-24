@@ -19,15 +19,16 @@ const AuctionsTwo = () => {
     const res = await liveAuction.auction(
       `${ENV.API_URL}api/live-auction-nfts/`
     );
-    console.log(res);
-    setData(res.data);
+    console.log(res.data.data);
+    setData(res.data.data);
     const script = document.createElement("script");
 
     script.src = "/assets/js/vendor/countdown.min.js";
     script.async = true;
 
-    document.body.appendChild(script);
+    
 
+    document.body.appendChild(script);
   }, []);
 
   return (
@@ -51,7 +52,6 @@ const AuctionsTwo = () => {
                   >
                     <div className="card">
                       <div className="image-over">
-                        
                         <Link to={`/nft-details?${item.id}`}>
                           <img
                             className="card-img-top"
@@ -63,8 +63,7 @@ const AuctionsTwo = () => {
                       <div className="card-caption col-12 p-0">
                         <div className="card-body">
                           <div className="countdown-times mb-3">
-                            {console.log()
-                            }
+                            {console.log()}
                             <div
                               className="countdown d-flex justify-content-center"
                               data-date="2022-01-25"

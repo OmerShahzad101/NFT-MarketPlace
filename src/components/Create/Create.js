@@ -68,7 +68,6 @@ class Create extends Component {
   }
 
   onChange(e, sale_type = "") {
-  
     let { name, value } = e.target;
     if (sale_type) value = sale_type;
 
@@ -76,7 +75,6 @@ class Create extends Component {
     nft = { ...nft, [name]: value };
     this.setState({ nft }, () => {});
     console.log(nft);
-    
   }
 
   reset = () => {
@@ -171,7 +169,7 @@ class Create extends Component {
     var nft = { ...this.state.nft };
 
     nft.collections = res.data.data.user_collection;
-console.log(nft);
+    console.log(nft);
     this.setState({ nft });
   };
 
@@ -179,7 +177,7 @@ console.log(nft);
     const { nft, errors, loader, isSubmitted } = this.state;
 
     return (
-      <section className="author-area">
+      <section>
         <div className="container">
           <div className="row justify-content-between">
             <div className="col-12 col-md-4">
@@ -302,7 +300,7 @@ console.log(nft);
                         >
                           Choose Collection *
                         </option>
-                
+
                         {nft.collections
                           ? nft.collections.map(function (collections, i) {
                               return (

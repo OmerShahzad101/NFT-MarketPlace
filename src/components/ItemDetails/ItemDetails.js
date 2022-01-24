@@ -92,7 +92,9 @@ const ItemDetails = () => {
     const result = await NFT.nftBiddingList(
       `${ENV.API_URL}api/specific_bidding_nft/${id}/`
     );
-    console.log(result.data.bidding_data);
+    console.log(result);
+ 
+
     setNftbiddingHistory(result.data.bidding_data);
   }, []);
   const report = async (e) => {

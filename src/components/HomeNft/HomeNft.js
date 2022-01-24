@@ -15,7 +15,7 @@ const HomeNft = () => {
 
   useEffect(async () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
-    // console.log(res.data.data.results)
+    console.log(res.data.data.results);
     setNftData(res.data.data.results);
     loadMore();
   }, []);
