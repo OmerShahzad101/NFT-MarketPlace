@@ -2,9 +2,13 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import updateProfile from "../../services/updateProfile.service";
+import $ from "jquery";
+
+const placeholderImg = "";
 
 const UpdateProfile = () => {
   const initialdata = {
+    file: "",
     first_name: "",
     last_name: "",
     user_profile: {
@@ -36,28 +40,76 @@ const UpdateProfile = () => {
     });
   };
 
-
   const handleChange2 = (e) => {
     const { name, value } = e.target;
     let obj = updateUser.user_profile;
     obj[0][name] = value;
-
     setUpdateUser({
       ...updateUser,
-      user_profile: obj
+      user_profile: obj,
     });
-  }
-  const update_data = async () => {
-    const result = await updateProfile.updateProfileUser(
-      `${ENV.API_URL}api/auth/users/me/`,
-      updateUser
-    );
-    console.log(result);
+    console.log(updateUser);
   };
+
+  const onFileChange = (e) => {
+    let file = e.target.files[0];
+    let fileId = e.target.id;
+    console.log(file);
+
+    if (file)
+      if (file.type.includes("image")) {
+        updateUser = { ...updateUser, [e.target.name]: file };
+        setUpdateUser(
+          {
+            updateUser,
+          },
+          () => {
+            if (file) {
+              console.log(file);
+              var reader = new FileReader();
+
+              reader.onload = function (e) {
+                $(`#nft-${fileId}`).attr("src", e.target.result);
+                $("#nft-image-label").html("File selected");
+              };
+              reader.readAsDataURL(file);
+            }
+          }
+        );
+      } else {
+        $(`#nft-${fileId}`).attr("src", placeholderImg);
+        file = {};
+      }
+  };
+
+  const update_data = async () => {
+    var formData = new FormData();
+    for (const key in updateUser)
+      if (updateUser[key]) formData.append(key, updateUser[key]);
+    console.log(formData);
+    const res = await updateProfile.updateProfileUser(
+      `${ENV.API_URL}api/auth/users/me/`,
+      formData
+    );
+    console.log(res);
+  };
+
+  // const update_data = async () => {
+  //   const result = await updateProfile.updateProfileUser(
+  //     `${ENV.API_URL}api/auth/users/me/`,
+  //     updateUser
+  //   );
+  //   console.log(result);
+  // };
 
   return (
     <div>
-      {console.log(updateUser.user_profile[0] ? updateUser.user_profile[0].twitter_link: "" , "updateUserupdateUserupdateUserupdateUserupdateUser")}
+      {/* {console.log(
+        updateUser.user_profile[0]
+          ? updateUser.user_profile[0].twitter_link
+          : "",
+        "updateUserupdateUserupdateUserupdateUserupdateUser"
+      )} */}
       <section
         className="breadcrumb-area overlay-dark d-flex align-items-center"
 
@@ -110,178 +162,195 @@ const UpdateProfile = () => {
                 <span>Update Profile</span>
               </div>
             </div>
-           {updateUser ?  (<form id="contact-form" className="item-form card no-hover">
-              <div className="row">
-                <div className="col-12">
-                  <div className="input-group form-group">
-                    <div className="custom-file">
-                      <input
-                        type="file"
-                        className="custom-file-input"
-                        id="inputGroupFile01"
-                        name="file"
-                        onChange={(event) => {}}
-                      />
-                      <label
-                        className="custom-file-label"
-                        htmlFor="inputGroupFile01"
-                      >
-                        Banner Image
-                      </label>
+            {updateUser ? (
+              <form id="contact-form" className="item-form card no-hover">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="input-group form-group">
+                      <div className="custom-file">
+                        <input
+                          type="file"
+                          className="custom-file-input"
+                          id="inputGroupFile01"
+                          name="file"
+                          onChange={() => onFileChange}
+                        />
+                        <label
+                          className="custom-file-label"
+                          htmlFor="inputGroupFile01"
+                        >
+                          Banner Image
+                        </label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-12">
-                  <div className="input-group form-group my-4">
-                    <div className="custom-file">
-                      <input
-                        type="file"
-                        className="custom-file-input"
-                        id="inputGroupFile01"
-                        name="file"
-                        onChange={(event) => {}}
-                      />
-                      <label
-                        className="custom-file-label"
-                        htmlFor="inputGroupFile01"
-                      >
-                        Profile Image
-                      </label>
+                  <div className="col-12">
+                    <div className="input-group form-group my-4">
+                      <div className="custom-file">
+                        <input
+                          type="file"
+                          className="custom-file-input"
+                          id="inputGroupFile01"
+                          name="file"
+                          onChange={() => onFileChange}
+                        />
+                        <label
+                          className="custom-file-label"
+                          htmlFor="inputGroupFile01"
+                        >
+                          Profile Image
+                        </label>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="col-12">
-                  <div className="form-group mt-3">
-                    <input
-                      type="email"
-                      className="form-control"
-                      name="email"
-                      disabled
-                      value={updateUser ? updateUser.email : ""}
-                      placeholder="Email"
-                      onChange={handleChange}
-                    />
+                  <div className="col-12">
+                    <div className="form-group mt-3">
+                      <input
+                        type="email"
+                        className="form-control"
+                        name="email"
+                        disabled
+                        value={updateUser ? updateUser.email : ""}
+                        placeholder="Email"
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="col-12">
-                  <div className="form-group mt-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="username"
-                      value={updateUser ? updateUser.username : ""}
-                      placeholder="Username"
-                      onChange={handleChange}
-                    />
+                  <div className="col-12">
+                    <div className="form-group mt-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="username"
+                        value={updateUser ? updateUser.username : ""}
+                        placeholder="Username"
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="col-12">
-                  <div className="form-group mt-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="first_name"
-                      value={updateUser ? updateUser.first_name : ""}
-                      placeholder="First Name"
-                      onChange={handleChange}
-                    />
+                  <div className="col-12">
+                    <div className="form-group mt-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="first_name"
+                        value={updateUser ? updateUser.first_name : ""}
+                        placeholder="First Name"
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="col-12">
-                  <div className="form-group mt-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="last_name"
-                      value={updateUser ? updateUser.last_name : ""}
-                      placeholder="Last Name"
-                      onChange={handleChange}
-                    />
+                  <div className="col-12">
+                    <div className="form-group mt-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="last_name"
+                        value={updateUser ? updateUser.last_name : ""}
+                        placeholder="Last Name"
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="col-12">
-                  <div className="form-group mt-3">
-                    <textarea
-                      type="text"
-                      className="form-control"
-                      name="about"
-                      value={updateUser ? updateUser.user_profile.about : ""}
-                      placeholder="About"
-                      onChange={handleChange}
-                    />
+                  <div className="col-12">
+                    <div className="form-group mt-3">
+                      <textarea
+                        type="text"
+                        className="form-control"
+                        name="about"
+                        value={
+                          updateUser.user_profile[0]
+                            ? updateUser.user_profile[0].about
+                            : ""
+                        }
+                        placeholder="About"
+                        onChange={handleChange2}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="col-12">
-                  <div className="form-group mt-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="facebook_link"
-                      value={updateUser.user_profile[0] ? updateUser.user_profile[0].facebook_link: ""}
+                  <div className="col-12">
+                    <div className="form-group mt-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="facebook_link"
+                        value={
+                          updateUser.user_profile[0]
+                            ? updateUser.user_profile[0].facebook_link
+                            : ""
+                        }
+                        placeholder="Facebook Link"
+                        onChange={handleChange2}
+                      />
+                    </div>
+                  </div>
 
-                      placeholder="Facebook Link"
-                      onChange={handleChange2}
-                    />
+                  <div className="col-12">
+                    <div className="form-group mt-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={
+                          updateUser.user_profile[0]
+                            ? updateUser.user_profile[0].twitter_link
+                            : ""
+                        }
+                        name="twitter_link"
+                        placeholder="Twitter Link"
+                        onChange={handleChange2}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-12">
+                    <div className="form-group mt-3">
+                      <input
+                        type="text"
+                        value={
+                          updateUser.user_profile[0]
+                            ? updateUser.user_profile[0].vine_link
+                            : ""
+                        }
+                        className="form-control"
+                        name="vine_link"
+                        onChange={handleChange2}
+                        placeholder="Vine Link"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-12">
+                    <div className="form-group mt-3">
+                      <input
+                        type="text"
+                        value={
+                          updateUser.user_profile[0]
+                            ? updateUser.user_profile[0].google_plus_link
+                            : ""
+                        }
+                        onChange={handleChange2}
+                        className="form-control"
+                        name="google_plus_link"
+                        placeholder="Google + Link"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-12">
+                    <button
+                      className="btn w-100 mt-3 mt-sm-4"
+                      type="submit"
+                      onClick={() => update_data()}
+                    >
+                      Update Profile
+                    </button>
                   </div>
                 </div>
-
-                <div className="col-12">
-                  <div className="form-group mt-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={updateUser.user_profile[0] ? updateUser.user_profile[0].twitter_link: ""}
-                      name="twitter_link"
-                      placeholder="Twitter Link"
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="col-12">
-                  <div className="form-group mt-3">
-                    <input
-                      type="text"
-                      value={updateUser.user_profile[0] ? updateUser.user_profile[0].vine_link: ""}
-                      className="form-control"
-                      name="vine_link"
-                      onChange={handleChange2}
-                      placeholder="Vine Link"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-12">
-                  <div className="form-group mt-3">
-                    <input
-                      type="text"
-                      value={
-                        updateUser
-                          ? updateUser.user_profile.google_plus_link
-                          : ""
-                      }
-                      onChange={handleChange}
-                      className="form-control"
-                      name="google_plus_link"
-                      placeholder="Google + Link"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-12">
-                  <button
-                    className="btn w-100 mt-3 mt-sm-4"
-                    type="submit"
-                    onClick={() => update_data()}
-                  >
-                    Update Profile
-                  </button>
-                </div>
-              </div>
-           
-            </form>
-           ):" serching"}
+              </form>
+            ) : (
+              " serching"
+            )}
           </div>
         </div>
       </div>

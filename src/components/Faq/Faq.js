@@ -16,7 +16,7 @@ const Faq = () => {
   useEffect(async () => {
     const res = await faqs.faq(`${ENV.API_URL}api/faq_list/`);
     console.log(res);
-    setfaqdata(res.data);
+    setfaqdata(res.data.data.results);
   }, []);
 
   return (

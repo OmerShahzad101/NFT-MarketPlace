@@ -8,9 +8,8 @@ const Activity = () => {
   useEffect(async () => {
     const res = await activity.activityGet(`${ENV.API_URL}api/bidding/`);
     console.log(res);
-    setData(res.data);
+    setData(res.data.data.results);
   }, []);
-
   return (
     <section className="activity-area load-more">
       <div className="container">
