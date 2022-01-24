@@ -27,7 +27,7 @@ class Create extends Component {
         no_of_copies: "",
         expiry_date: "",
         // status: 1 // 1 = put on sale, 2 = instant sale price, 3 = unlock purchased
-        sale_type: "is_put_on_sale",
+        sale_type: "is_instant_sale_price",
       },
     };
     this.validator = new SimpleReactValidator({
@@ -70,7 +70,7 @@ class Create extends Component {
   onChange(e, sale_type = "") {
     let { name, value } = e.target;
     if (sale_type) value = sale_type;
-
+   
     let { nft } = this.state;
     nft = { ...nft, [name]: value };
     this.setState({ nft }, () => {});
@@ -423,7 +423,7 @@ class Create extends Component {
                       </div>
                     </div>
                   </div>
-                  {$("#instantSalePrice").is(":checked") ? (
+                  {$("#putOnSale").is(":checked") ? (
                     <div className="col-12">
                       <div className="form-group mt-2">
                         <input
