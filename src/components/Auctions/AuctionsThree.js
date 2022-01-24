@@ -19,7 +19,7 @@ const AuctionThree = () => {
       `${ENV.API_URL}api/live-auction-nfts/`
     );
     console.log(res);
-    setData(res.data);
+    setData(res.data.data);
 
 
     
