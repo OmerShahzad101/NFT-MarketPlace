@@ -18,6 +18,7 @@ class Hero extends Component {
       data: initData,
       token: JSON.parse(localStorage.getItem("access")),
     });
+    
   }
 
   render() {

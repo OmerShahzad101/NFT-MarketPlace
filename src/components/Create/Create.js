@@ -5,6 +5,7 @@ import { ENV } from "../../env";
 import AuthorProfile from "../AuthorProfile/AuthorProfile";
 import SimpleReactValidator from "simple-react-validator";
 import Collection from "../../services/collections.service";
+import jwt_decode from "jwt-decode";
 const placeholderImg = "";
 
 class Create extends Component {
@@ -86,6 +87,7 @@ class Create extends Component {
       size: "",
       no_of_copies: "",
       sale_type: "1",
+      expiry_date: "0",
     };
     this.setState({ nft });
   };
@@ -156,14 +158,21 @@ class Create extends Component {
     this.getCollections();
   }
   getCollections = async () => {
+    const token = JSON.parse(localStorage.getItem("access"));
+    const decoded = jwt_decode(token);
+    const id = decoded.user_id;
+    
     const res = await Collection.collection(
-      `${ENV.API_URL}api/collection_list/`
+      `${ENV.API_URL}api/specific-user-collection/${id}`
     );
+
     var nft = { ...this.state.nft };
-    nft.collections = res.data;
+    console.log("ress"+res);
+    nft.collections = res;
+    console.log("res"+res);
     this.setState({ nft });
-    // console.log(res.data);
-    // console.log(nft);
+    console.log("asda"+res);
+    console.log(nft);
   };
 
   render() {
@@ -278,7 +287,7 @@ class Create extends Component {
                     </div>
                   </div>
                   <div className="col-12 col-md-6">
-                    <div class="form-group select-collection position-relative">
+                    {/* <div class="form-group select-collection position-relative">
                       <select
                         className="form-control"
                         name="collection"
@@ -293,8 +302,8 @@ class Create extends Component {
                         >
                           Choose Collection *
                         </option>
-                        {nft.collections
-                          ? nft.collections.map(function (collections, i) {
+                        {nft.collections.data.user_collection
+                          ? nft.collections.data.user_collection.map(function (collections, i) {
                               return (
                                 <option value={collections.id}>
                                   {collections.name}
@@ -310,7 +319,7 @@ class Create extends Component {
                           "required"
                         )}
                       </span>
-                    </div>
+                    </div> */}
                     {/* <div className="form-group">
                       <input
                         type="text"
@@ -356,7 +365,7 @@ class Create extends Component {
                       />
                       <span className="text-danger">
                         {this.validator.message(
-                          "copies",
+                          "no_of_copies",
                           nft.no_of_copies,
                           "required"
                         )}
@@ -415,7 +424,6 @@ class Create extends Component {
                       </div>
                     </div>
                   </div>
-
                   {$("#instantSalePrice").is(":checked") ? (
                     <div className="col-12">
                       <div className="form-group mt-2">

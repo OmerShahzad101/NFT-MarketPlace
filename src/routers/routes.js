@@ -19,6 +19,9 @@ import CollectionDetail from "../themes/collectionDetail";
 import Authors from "../themes/authors";
 import Author from "../themes/author";
 import UpdateProfile from "../themes/updateProfile";
+import myCollections from "../themes/myCollections";
+
+
 // import ExploreOne from "../themes/explore-one";
 // import ExploreFour from "../themes/explore-four";
 // import Blog from "../themes/blog";
@@ -49,7 +52,11 @@ class MyRouts extends React.Component {
             <Route exact path="/authors" component={Authors} />
             <Route exact path="/author" component={Author} />
             <Route exact path="/updateprofile" component={UpdateProfile} />
+<<<<<<< HEAD
             <Route exact path="/wallet-connect" component={WalletConnect} />
+=======
+            <Route exact path="/mycollections" component={myCollections} />
+>>>>>>> a9be660709508cfc4f5d9d6ddebc99a20af9303c
             
              {/* <Route exact path="/" component={ThemeOne} />
             <Route exact path="/explore-1" component={ExploreOne} />

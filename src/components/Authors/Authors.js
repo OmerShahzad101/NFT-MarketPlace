@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { useEffect, useState } from "react/cjs/react.development";
 import { ENV } from "../../env";
 import authors from "../../services/authors.service";
+import $ from "jquery";
 
 const Authors = () => {
   const [data, setData] = useState({});
@@ -15,8 +16,21 @@ const Authors = () => {
 
     setAuthorData(result.data);
     console.log(result.data);
+    
+    loadMore();
   }, []);
+  
+  const loadMore = () => {
+    $(".load-more .item").slice(0, 4).show();
 
+    $("#load-btn").on("click", function (e) {
+      e.preventDefault();
+      $(".load-more .item:hidden").slice(0, 4).slideDown();
+      if ($(".load-more .item:hidden").length == 0) {
+        $("#load-btn").fadeOut("slow");
+      }
+    });
+  };
   return (
     <section className="popular-collections-area">
       <div className="container">
@@ -34,7 +48,7 @@ const Authors = () => {
             </div>
           </div>
         </div>
-        <div className="row items">
+        <div className="row items load-more">
           {authorData.map((item, idx) => {
             return (
               <div key={`ad_${idx}`} className="col-12 col-sm-6 col-lg-3 item">
@@ -131,6 +145,13 @@ const Authors = () => {
               </div>
             );
           })}
+        </div>
+        <div className="row">
+          <div className="col-12 text-center">
+            <a id="load-btn" className="btn btn-bordered-white mt-5" href="#">
+              Load More
+            </a>
+          </div>
         </div>
       </div>
     </section>
