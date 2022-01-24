@@ -52,7 +52,7 @@ const HomeNft = () => {
             </div>
           </div>
         </div>
-        {/* <div className="row items load-more">
+        <div className="row items load-more">
           {nftData
             ? nftData.map((item, id) => {
                 return (
@@ -102,7 +102,7 @@ const HomeNft = () => {
                 );
               })
             : " "}
-        </div> */}
+        </div>
         <div className="row">
           <div className="col-12 text-center">
             <a id="load-btn" className="btn btn-bordered-white mt-5" href="#">

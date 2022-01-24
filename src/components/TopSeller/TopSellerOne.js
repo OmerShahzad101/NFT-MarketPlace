@@ -36,7 +36,7 @@ const TopSeller = () => {
             </div>
           </div>
         </div>
-        <div className="row items load-more-topSellers">
+        <div className="row items">
           {sellerData
             ? sellerData.map((item, idx) => {
                 return (
@@ -71,13 +71,13 @@ const TopSeller = () => {
               })
             : ""}
         </div>
-        <div className="row">
+        {/* <div className="row">
           <div className="col-12 text-center">
             <a id="load-btn-topSellers" className="btn btn-bordered-white mt-5" href="#">
               Load More
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
