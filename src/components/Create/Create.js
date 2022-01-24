@@ -68,6 +68,7 @@ class Create extends Component {
   }
 
   onChange(e, sale_type = "") {
+  
     let { name, value } = e.target;
     if (sale_type) value = sale_type;
 
@@ -75,6 +76,7 @@ class Create extends Component {
     nft = { ...nft, [name]: value };
     this.setState({ nft }, () => {});
     console.log(nft);
+    
   }
 
   reset = () => {
@@ -161,18 +163,16 @@ class Create extends Component {
     const token = JSON.parse(localStorage.getItem("access"));
     const decoded = jwt_decode(token);
     const id = decoded.user_id;
-    
+
     const res = await Collection.collection(
       `${ENV.API_URL}api/specific-user-collection/${id}`
     );
-
+    console.log(res);
     var nft = { ...this.state.nft };
-    console.log("ress"+res);
-    nft.collections = res;
-    console.log("res"+res);
+
+    nft.collections = res.data.data.user_collection;
+console.log(nft);
     this.setState({ nft });
-    console.log("asda"+res);
-    console.log(nft);
   };
 
   render() {
@@ -287,7 +287,7 @@ class Create extends Component {
                     </div>
                   </div>
                   <div className="col-12 col-md-6">
-                    {/* <div class="form-group select-collection position-relative">
+                    <div class="form-group select-collection position-relative">
                       <select
                         className="form-control"
                         name="collection"
@@ -302,11 +302,12 @@ class Create extends Component {
                         >
                           Choose Collection *
                         </option>
-                        {nft.collections.data.user_collection
-                          ? nft.collections.data.user_collection.map(function (collections, i) {
+                
+                        {nft.collections
+                          ? nft.collections.map(function (collections, i) {
                               return (
                                 <option value={collections.id}>
-                                  {collections.name}
+                                  {collections.collection_name}
                                 </option>
                               );
                             })
@@ -319,7 +320,7 @@ class Create extends Component {
                           "required"
                         )}
                       </span>
-                    </div> */}
+                    </div>
                     {/* <div className="form-group">
                       <input
                         type="text"

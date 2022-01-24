@@ -62,7 +62,7 @@ const AuctionsOne = () => {
         <div className="auctions-slides">
           <div className="swiper-container slider-mid items">
             <div className="swiper-wrapper">
-              {/* Single Slide */}
+           
               {data
                 ? data.map((item, idx) => {
                     return (

@@ -24,7 +24,7 @@ const Author = () => {
     
     setAuthorNft(res.user_data);
     
-    console.log(res.user_data);
+    console.log( res.user_data);
     console.log(authorNft)
   }, []);
 
