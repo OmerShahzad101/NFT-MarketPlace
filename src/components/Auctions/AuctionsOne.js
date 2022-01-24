@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 const initailData = {
-  heading: "Live Auctions Home",
+  heading: "Live Auctions",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
   btnText: "Load More",
@@ -52,9 +52,9 @@ const AuctionsOne = () => {
                 <h3 className="mt-3 mb-0">{initData.heading}</h3>
               </div>
               <div className="intro-btn">
-                <a className="btn content-btn" href="/auctions">
+                <Link className="btn content-btn" to="/liveAuction">
                   {initData.btnText}
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -90,9 +90,9 @@ const AuctionsOne = () => {
                               <Link to={`/nft-details?${item.id}`}>
                                 <h5 className="mb-0">{item.name}</h5>
                               </Link>
-                              <a
+                              <Link
                                 className="seller d-flex align-items-center my-3"
-                                href="/item-details"
+                                to={`/nft-details?${item.id}`}
                               >
                                 <img
                                   className="avatar-sm rounded-circle"
@@ -100,7 +100,7 @@ const AuctionsOne = () => {
                                   alt=""
                                 />
                                 <span className="ml-2">@{item.owner}</span>
-                              </a>
+                              </Link>
                               <div className="card-bottom d-flex justify-content-between">
                                 <span>${item.price}</span>
                               </div>

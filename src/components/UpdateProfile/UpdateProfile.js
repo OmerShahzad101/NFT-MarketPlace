@@ -218,11 +218,8 @@ const UpdateProfile = () => {
                       type="text"
                       className="form-control"
                       name="facebook_link"
-                      value={
-                        updateUser
-                          ? updateUser.user_profile.facebook_link
-                          : ""
-                      }
+                      value={updateUser.user_profile[0] ? updateUser.user_profile[0].facebook_link: ""}
+
                       placeholder="Facebook Link"
                       onChange={handleChange2}
                     />
