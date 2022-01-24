@@ -78,9 +78,9 @@ class CreateCollection extends Component {
   getCategories = async () => {
     const res = await Category.category(`${ENV.API_URL}api/category_list/`);
     var nft = { ...this.state.nft };
-    nft.categories = res.data;
+    nft.categories = res.data.data.results;
     this.setState({ nft });
-    console.log("fr" +res.data);
+    console.log(res.data.data.results);
   };
 
   reset = () => {
@@ -125,6 +125,7 @@ class CreateCollection extends Component {
                 `${ENV.API_URL}api/create_collection/`,
                 formData
               );
+              console.log(res);
               // if (res.success) {
               //     this.reset()
               //     toast.success(`Success! ${res.message}`)

@@ -86,13 +86,15 @@ const ItemDetails = () => {
 
   useEffect(async () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
-    console.log(res.data);
-    setNftData(res.data);
+    
+    console.log(res.data.data);
+    setNftData(res.data.data);
 
     const result = await NFT.nftBiddingList(
       `${ENV.API_URL}api/specific_bidding_nft/${id}/`
     );
-    console.log(result.data.bidding_data);
+    console.log("nft  ")
+    console.log(result);
     setNftbiddingHistory(result.data.bidding_data);
   }, []);
   const report = async (e) => {
@@ -102,6 +104,7 @@ const ItemDetails = () => {
       `${ENV.API_URL}api/create_reported_nft/`,
       nftReport
     );
+  
     console.log(result);
   };
   const handleChange = (e) => {
