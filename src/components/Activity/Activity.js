@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import activity from "../../services/activity.service";
 import { ENV } from "../../env";
+import moment from "moment";
 const Activity = () => {
   const [data, setData] = useState();
 
   useEffect(async () => {
     const res = await activity.activityGet(`${ENV.API_URL}api/bidding/`);
     console.log(res);
-    setData(res.data)
+    setData(res.data);
   }, []);
 
   return (
@@ -15,7 +16,6 @@ const Activity = () => {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            {/* Intro */}
             <div className="intro mb-4">
               <div className="intro-content">
                 <span>CREATIVE</span>
@@ -26,7 +26,6 @@ const Activity = () => {
         </div>
         <div className="row items">
           <div className="col-12 col-md-6 col-lg-8">
-            {/* Netstorm Tab */}
             <ul className="netstorm-tab nav nav-tabs" id="nav-tab">
               <li>
                 <a
@@ -66,15 +65,15 @@ const Activity = () => {
                                 alt=""
                               />
                             </a>
-                            {/* Activity Content */}
                             <div className="activity-content display-inline ml-4">
                               <a href="/item-details">
                                 <h5 className="mt-0 mb-2">{item.nft}</h5>
                               </a>
                               <p className="m-0">
                                 Bid listed for <strong>${item.price}</strong>{" "}
-                                {item.time} <br />
-                                by <a href="/author">@{item.offer_by}</a>
+                                {moment(item.bidding_date).fromNow()}
+                                {item.time} by{" "}
+                                <a href="/author">@{item.offer_by}</a>
                               </p>
                             </div>
                           </li>
@@ -90,31 +89,31 @@ const Activity = () => {
                     ? data.map((item, idx) => {
                         return (
                           <li
-                            key={`att_${idx}`}
+                            key={`ato_${idx}`}
                             className="single-tab-list d-flex align-items-center"
                           >
                             <a href="/item-details">
                               <img
                                 className="avatar-lg"
-                                src={item.img}
+                                src={`${ENV.API_URL_image_media}${item.nft_image}`}
                                 alt=""
                               />
                             </a>
-                            {/* Activity Content */}
-                            <div className="activity-content ml-4">
+                            <div className="activity-content display-inline ml-4">
                               <a href="/item-details">
-                                <h5 className="mt-0 mb-2">{item.title}</h5>
+                                <h5 className="mt-0 mb-2">{item.nft}</h5>
                               </a>
                               <p className="m-0">
-                                Bid listed for <strong>{item.price}</strong>{" "}
-                                {item.time} <br />
-                                by <a href="/author">{item.seller}</a>
+                                Bid listed for <strong>${item.price}</strong>{" "}
+                                {moment(item.bidding_date).fromNow()}
+                                {item.time} by{" "}
+                                <a href="/author">@{item.offer_by}</a>
                               </p>
                             </div>
                           </li>
                         );
                       })
-                    : ""}
+                    : " "}
                 </ul>
               </div>
               <div className="tab-pane fade" id="nav-contact">
@@ -123,29 +122,31 @@ const Activity = () => {
                   {data
                     ? data.map((item, idx) => {
                         return (
+                          item.offer_by ? 
                           <li
-                            key={`atth_${idx}`}
+                            key={`ato_${idx}`}
                             className="single-tab-list d-flex align-items-center"
                           >
                             <a href="/item-details">
                               <img
                                 className="avatar-lg"
-                                src={item.img}
+                                src={`${ENV.API_URL_image_media}${item.nft_image}`}
                                 alt=""
                               />
                             </a>
-                            {/* Activity Content */}
-                            <div className="activity-content ml-4">
+                            <div className="activity-content display-inline ml-4">
                               <a href="/item-details">
-                                <h5 className="mt-0 mb-2">{item.title}</h5>
+                                <h5 className="mt-0 mb-2">{item.nft}</h5>
                               </a>
                               <p className="m-0">
-                                Bid listed for <strong>{item.price}</strong>{" "}
-                                {item.time} <br />
-                                by <a href="/author">{item.seller}</a>
+                                Bid listed for <strong>${item.price}</strong>{" "}
+                                {moment(item.bidding_date).fromNow()}
+                                {item.time} by{" "}
+                                <a href="/author">@{item.offer_by}</a>
                               </p>
                             </div>
                           </li>
+                          : " No Bidding List"
                         );
                       })
                     : " "}

@@ -80,7 +80,7 @@ class CreateCollection extends Component {
     var nft = { ...this.state.nft };
     nft.categories = res.data;
     this.setState({ nft });
-    console.log(res.data);
+    console.log("fr" +res.data);
   };
 
   reset = () => {

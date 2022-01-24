@@ -3370,12 +3370,18 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   background-color: #e5e5e5;
 }
 .reportnft-modal{
-  box-shadow: 0px 0px 15px #8e8e8e;
+  /* box-shadow: 0px 0px 15px #8e8e8e; */
   background: #16151a;
 }
 .reportnft-modal .close{
   color: #8e8e8e;
   text-shadow: none;
+}
+.modal-backdrop.show {
+opacity: 0.8;
+}
+.reportnft-modal .modal-footer{
+  border: 0;
 }
 .reportnft-modal .form-group{
   width: 100%;

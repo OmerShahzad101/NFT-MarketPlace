@@ -23,7 +23,7 @@ import UpdateProfile from "../themes/updateProfile";
 // import ExploreFour from "../themes/explore-four";
 // import Blog from "../themes/blog";
 // import BlogSingle from "../themes/blog-single";
-// import WalletConnect from "../themes/wallet-connect";
+import WalletConnect from "../themes/wallet-connect";
 class MyRouts extends React.Component {
   render() {
     return (
@@ -49,6 +49,7 @@ class MyRouts extends React.Component {
             <Route exact path="/authors" component={Authors} />
             <Route exact path="/author" component={Author} />
             <Route exact path="/updateprofile" component={UpdateProfile} />
+            <Route exact path="/wallet-connect" component={WalletConnect} />
             
              {/* <Route exact path="/" component={ThemeOne} />
             <Route exact path="/explore-1" component={ExploreOne} />
@@ -59,7 +60,6 @@ class MyRouts extends React.Component {
             <Route exact path="/blog" component={Blog} />
             <Route exact path="/blog-single" component={BlogSingle} />
           
-            <Route exact path="/wallet-connect" component={WalletConnect} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />   */} 
           </Switch> 

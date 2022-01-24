@@ -24,6 +24,7 @@ class Create extends Component {
         collection: "",
         size: "",
         no_of_copies: "",
+        expiry_date: "",
         // status: 1 // 1 = put on sale, 2 = instant sale price, 3 = unlock purchased
         sale_type: "is_put_on_sale",
       },
@@ -371,7 +372,9 @@ class Create extends Component {
                           name="sale_type"
                           id="putOnSale"
                           defaultValue="is_put_on_sale"
-                          checked={nft.sale_type === "is_put_on_sale" ? true : false}
+                          checked={
+                            nft.sale_type === "is_put_on_sale" ? true : false
+                          }
                           value={nft.sale_type}
                           onChange={(e) => this.onChange(e, "is_put_on_sale")}
                         />
@@ -390,12 +393,20 @@ class Create extends Component {
                           name="sale_type"
                           id="instantSalePrice"
                           defaultValue="is_instant_sale_price"
-                          checked={nft.sale_type === "is_instant_sale_price" ? true : false}
+                          checked={
+                            nft.sale_type === "is_instant_sale_price"
+                              ? true
+                              : false
+                          }
                           value={nft.sale_type}
-                          onChange={(e) => this.onChange(e, "is_instant_sale_price")}
+                          onChange={(e) =>
+                            this.onChange(e, "is_instant_sale_price")
+                          }
                         />
                         <label
-                          onChange={(e) => this.onChange(e, "is_instant_sale_price")}
+                          onChange={(e) =>
+                            this.onChange(e, "is_instant_sale_price")
+                          }
                           className="form-check-label"
                           htmlFor="instantSalePrice"
                         >
@@ -404,6 +415,31 @@ class Create extends Component {
                       </div>
                     </div>
                   </div>
+
+                  {$("#instantSalePrice").is(":checked") ? (
+                    <div className="col-12">
+                      <div className="form-group mt-2">
+                        <input
+                          type="date"
+                          className="form-control expiry_date"
+                          name="expiry_date"
+                          placeholder="Expiry Date *"
+                          required="required"
+                          onChange={(e) => this.onChange(e)}
+                          defaultValue={nft.expiry_date}
+                        />
+                        <span className="text-danger">
+                          {this.validator.message(
+                            "expiry_date",
+                            nft.expiry_date,
+                            "required"
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <div className="col-12">
                     <button
                       disabled={loader}
