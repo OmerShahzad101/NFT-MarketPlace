@@ -18,10 +18,10 @@ const Collections = () => {
 
   useEffect(async () => {
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
-    setCategories(result.data);
+    setCategories(result.data.data.results);
     $("#myElement label:first").addClass("active");
     const res = await Collection.collection( `${ENV.API_URL}api/collection_list/`);
-    setCollectionData(res.data);
+    setCollectionData(res.data.data.results);
   }, []);
 
   return (

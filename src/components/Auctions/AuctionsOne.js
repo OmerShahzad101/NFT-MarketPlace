@@ -21,8 +21,8 @@ const AuctionsOne = () => {
     const res = await liveAuction.auction(
       `${ENV.API_URL}api/live-auction-nfts/`
     );
-    console.log(res);
-    setData(res.data);
+    console.log(res.data.data);
+    setData(res.data.data);
 
     const scriptCounter = document.createElement("script");
     scriptCounter.src = "/assets/js/vendor/countdown.min.js";
