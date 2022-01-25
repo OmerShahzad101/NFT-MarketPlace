@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 import $ from "jquery";
+let page = 1;
+let limit = 4;
+
 
 const ExploreFour = () => {
   const initialData = {
@@ -13,9 +16,10 @@ const ExploreFour = () => {
   };
 
   const [initData, setInitData] = useState(initialData);
-  const [nftData, setNftData] = useState();
+  const [nftData, setNftData] = useState([]);
   const [togglePassword, setTogglePassword] = useState(true);
   const [order, setOrder] = useState("ASC");
+  const [isFetching, setIsFetching] = useState(false);
 
   const onToggle = (e) => {
     setTogglePassword(!togglePassword);
@@ -36,24 +40,43 @@ const ExploreFour = () => {
       setOrder("ASC");
     }
   };
-
   useEffect(async () => {
-    const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
-    setNftData(res.data.data.results);
-    loadMore();
+    const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/?page=${page}&limit=${limit}`);
+    console.log(res);
+    setNftData([...nftData, ...res.data.data.results]);
+    console.log(nftData);
+     console.log(nftData.length);
+page++
   }, []);
 
-  const loadMore = () => {
-    $(".load-more .item").slice(0, 4).show();
-
-    $("#load-btn").on("click", function (e) {
-      e.preventDefault();
-      $(".load-more .item:hidden").slice(0, 4).slideDown();
-      if ($(".load-more .item:hidden").length == 0) {
-        $("#load-btn").fadeOut("slow");
-      }
-    });
+  const pagination = async () => {
+    console.log("pagination")
+    const res = await NFT.nftget(
+      `${ENV.API_URL}api/nft_list/?page=${page}&limit=${limit}`
+    );
+    page++;
+   setNftData([...nftData, ...res.data.data.results]);
+   console.log(nftData)
+    console.log(nftData.length);
+    
+    
+    if (res.data.data.count === nftData.length){
+      $("#loadmorebtn").fadeOut("slow");
+    }
+    console.log(res.data.data.count);
   };
+
+  // const loadMore = () => {
+  //   $(".load-more .item").slice(0, 4).show();
+
+  //   $("#load-btn").on("click", function (e) {
+  //     e.preventDefault();
+  //     $(".load-more .item:hidden").slice(0, 4).slideDown();
+  //     // if ($(".load-more .item:hidden").length == 0) {
+  //     //   $("#load-btn").fadeOut("slow");
+  //     // }
+  //   });
+  // };
 
   return (
     <section className="explore-area">
@@ -160,7 +183,7 @@ const ExploreFour = () => {
           </div>
         </div>
 
-        <div className="row items load-more">
+        <div className="row items">
           {nftData
             ? nftData.map((item, id) => {
                 return (
@@ -213,9 +236,13 @@ const ExploreFour = () => {
         </div>
         <div className="row">
           <div className="col-12 text-center">
-            <a id="load-btn" className="btn btn-bordered-white mt-5" href="#">
+            <button
+              onClick={() => pagination()}
+              className="btn btn-bordered-white mt-5"
+              id="loadmorebtn"
+            >
               Load More
-            </a>
+            </button>
           </div>
         </div>
       </div>

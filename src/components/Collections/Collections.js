@@ -3,6 +3,7 @@ import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import Category from "../../services/category.service";
 import $ from "jquery";
+var count = 2;
 
 const initialData = {
   heading: "Collections ",
@@ -20,9 +21,22 @@ const Collections = () => {
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCategories(result.data.data.results);
     $("#myElement label:first").addClass("active");
-    const res = await Collection.collection( `${ENV.API_URL}api/collection_list/`);
+    const res = await Collection.collection(
+      `${ENV.API_URL}api/collection_list/`
+    );
     setCollectionData(res.data.data.results);
   }, []);
+
+  const pagination = async () => {
+    const paginationRes = await Collection.collection(
+      `${ENV.API_URL}api/collection_list/?page=${count}`
+    );
+    count++;
+
+    var newArray = collectionData.concat(paginationRes.data.data.results);
+    setCollectionData(newArray);
+    console.log(paginationRes.data.data.count);
+  };
 
   return (
     <>
@@ -64,50 +78,59 @@ const Collections = () => {
           <div className="row items explore-items popular-collections-area">
             {console.log(collectionData)}
             {collectionData
-                ? collectionData.map((item, idx) => {
-                    return (
-                      <div
-                        key={`cd_${idx}`}
-                        className="col-12 col-sm-6 col-lg-3 item"
-                      >
-                        <div className="card no-hover text-center">
-                          <div className="image-over">
-                            <a href={`/collectionDetail?${item.id}`}>
+              ? collectionData.map((item, idx) => {
+                  return (
+                    <div
+                      key={`cd_${idx}`}
+                      className="col-12 col-sm-6 col-lg-3 item"
+                    >
+                      <div className="card no-hover text-center">
+                        <div className="image-over">
+                          <a href={`/collectionDetail?${item.id}`}>
                             <img
-                                className="card-img-top image-container"
-                                src={`${ENV.API_URL_image}${item.banner_image}`}
+                              className="card-img-top image-container"
+                              src={`${ENV.API_URL_image}${item.banner_image}`}
+                              alt=""
+                            />
+                          </a>
+                          {/* Seller */}
+                          <a
+                            className="seller"
+                            href={`/collectionDetail?${item.id}`}
+                          >
+                            <div className="seller-thumb avatar-lg">
+                              <img
+                                className="rounded-circle"
+                                src={`${ENV.API_URL_image}${item.logo_image}`}
                                 alt=""
                               />
-                            </a>
-                            {/* Seller */}
-                            <a
-                              className="seller"
-                              href={`/collectionDetail?${item.id}`}
-                            >
-                              <div className="seller-thumb avatar-lg">
-                                <img
-                                  className="rounded-circle"
-                                  src={`${ENV.API_URL_image}${item.logo_image}`}
-                                  alt=""
-                                />
-                              </div>
-                            </a>
-                          </div>
-                          <div className="card-caption col-12 p-0">
-                            <div className="card-body mt-4">
-                              <a href={`/collectionDetail?${item.id}`}>
-                                <h5 className="mb-2">{item.name}</h5>
-                              </a>
-                              <span>{item.description}</span>
                             </div>
-                          
+                          </a>
                         </div>
-                        
+                        <div className="card-caption col-12 p-0">
+                          <div className="card-body mt-4">
+                            <a href={`/collectionDetail?${item.id}`}>
+                              <h5 className="mb-2">{item.name}</h5>
+                            </a>
+                            <span>{item.description}</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   );
                 })
               : ""}
+          </div>
+          <div className="row">
+            <div className="col-12 text-center">
+              <button
+                onClick={() => pagination()}
+                className="btn btn-bordered-white mt-5"
+                href="#"
+              >
+                Load More
+              </button>
+            </div>
           </div>
         </div>
       </section>
