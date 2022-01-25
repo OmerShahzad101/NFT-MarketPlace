@@ -8,10 +8,10 @@ const placeholderImg = "";
 
 const UpdateProfile = () => {
   const initialdata = {
-    file: "",
     first_name: "",
     last_name: "",
     user_profile: {
+      file: "",
       about: "",
       facebook_link: "",
       twitter_link: "",
@@ -27,6 +27,7 @@ const UpdateProfile = () => {
   useEffect(async () => {
     const res = await updateProfile.updateProfileUserGet(
       `${ENV.API_URL}api/auth/users/me/`
+      // `http://192.168.99.138:8000/api/auth/users/me/`
     );
     console.log(res);
     setUpdateUser(res);
@@ -58,7 +59,10 @@ const UpdateProfile = () => {
 
     if (file)
       if (file.type.includes("image")) {
-        updateUser = { ...updateUser, [e.target.name]: file };
+        updateUser.user_profile = {
+          ...updateUser.user_profile,
+          [e.target.name]: file,
+        };
         setUpdateUser(
           {
             updateUser,
@@ -86,12 +90,36 @@ const UpdateProfile = () => {
     var formData = new FormData();
     for (const key in updateUser)
       if (updateUser[key]) formData.append(key, updateUser[key]);
-    console.log(formData);
+
+    console.log(updateUser);
+    // formData.append("profile_image", "download.png");
+    // formData.append("profile_image","download.png");
+    // formData.append("about", "xsdsd");
+    // formData.append("facebook_link", "hhtp://xcbjsdkbf");
+    // formData.append("vine_link", "http://xcbhbe");
+    // formData.append("google_plus_link", "http://xjcbdbv");
+    // formData.append("twitter_link", "http://xcjhvjhdvf");
+    // formData.append("user_profile.profile_image", updateUser.user_profile.file);
+    // formData.append("banner_image", updateUser.user_profile.file);
+    // formData.append("about", updateUser.user_profile.about);
+    // formData.append("facebook_link", updateUser.user_profile.facebook_link);
+    // formData.append("vine_link", updateUser.user_profile.vine_link);
+    // formData.append("twitter_link", updateUser.user_profile.twitter_link);
+    // formData.append(
+    //   "google_plus_link",
+    //   updateUser.user_profile.google_plus_link
+    // );
+    // // formData.append("user_profile" , updateUser.user_profile.about)
+
+    for (let val of formData.entries()) {
+      console.log(val[0] + ", " + val[1]);
+    }
     const res = await updateProfile.updateProfileUser(
       `${ENV.API_URL}api/auth/users/me/`,
       formData
     );
     console.log(res);
+    console.log(updateUser);
   };
 
   // const update_data = async () => {
@@ -144,6 +172,8 @@ const UpdateProfile = () => {
                       type="text"
                       className="form-control"
                       placeholder="Email"
+                      disabled
+                      value={updateUser ? updateUser.email : ""}
                     />
                     <div className="input-group-append">
                       <button>
