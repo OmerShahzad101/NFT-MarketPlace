@@ -70,7 +70,6 @@ class Create extends Component {
   onChange(e, sale_type = "") {
     let { name, value } = e.target;
     if (sale_type) value = sale_type;
-
     let { nft } = this.state;
     nft = { ...nft, [name]: value };
     this.setState({ nft }, () => {});
@@ -287,7 +286,7 @@ class Create extends Component {
                         {nft.collections
                           ? nft.collections.map(function (collections, i) {
                               return (
-                                <option value={collections.id}>
+                                <option value={collections.collection_id}>
                                   {collections.collection_name}
                                 </option>
                               );
@@ -297,7 +296,7 @@ class Create extends Component {
                       <span className="text-danger">
                         {this.validator.message(
                           "name",
-                          nft.collections,
+                          nft.collection,
                           "required"
                         )}
                       </span>
@@ -333,6 +332,13 @@ class Create extends Component {
                         defaultValue={nft.size}
                       />
                     </div>
+                    <span className="text-danger">
+                        {this.validator.message(
+                          "name",
+                          nft.size,
+                          "required"
+                        )}
+                      </span>
                   </div>
                   <div className="col-12 col-md-6">
                     <div className="form-group">
@@ -418,7 +424,7 @@ class Create extends Component {
                           onChange={(e) => this.onChange(e)}
                           defaultValue={nft.expiry_date}
                         />
-                        <span className="text-danger">
+                       <span className="text-danger">
                           {this.validator.message(
                             "expiry_date",
                             nft.expiry_date,
@@ -430,7 +436,7 @@ class Create extends Component {
                   ) : (
                     ""
                   )}
-                  <div className="col-12">
+                  {/* <div className="col-12">
                     <button
                       disabled={loader}
                       className="btn w-100 mt-3 mt-sm-4"
@@ -439,7 +445,7 @@ class Create extends Component {
                     >
                       Create Item
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </form>
             </div>
