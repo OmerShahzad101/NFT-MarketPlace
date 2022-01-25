@@ -6,6 +6,7 @@ import AuthorProfile from "../AuthorProfile/AuthorProfile";
 import SimpleReactValidator from "simple-react-validator";
 import Collection from "../../services/collections.service";
 import jwt_decode from "jwt-decode";
+import Notifications, { notify } from "react-notify-toast";
 const placeholderImg = "";
 
 class Create extends Component {
@@ -26,7 +27,6 @@ class Create extends Component {
         size: "",
         no_of_copies: "",
         expiry_date: "",
-        // status: 1 // 1 = put on sale, 2 = instant sale price, 3 = unlock purchased
         sale_type: "is_instant_sale_price",
       },
     };
@@ -70,27 +70,12 @@ class Create extends Component {
   onChange(e, sale_type = "") {
     let { name, value } = e.target;
     if (sale_type) value = sale_type;
-   
+
     let { nft } = this.state;
     nft = { ...nft, [name]: value };
     this.setState({ nft }, () => {});
     console.log(nft);
   }
-
-  reset = () => {
-    const nft = {
-      image: "",
-      name: "",
-      description: "",
-      price: "",
-      collection: "",
-      size: "",
-      no_of_copies: "",
-      sale_type: "1",
-      expiry_date: "0",
-    };
-    this.setState({ nft });
-  };
 
   submit = (e) => {
     e.preventDefault();
@@ -119,23 +104,18 @@ class Create extends Component {
               for (const key in nft)
                 if (nft[key]) formData.append(key, nft[key]);
 
-              // this.props.createNFT(nft)
               const res = await NFT.nft(
                 `${ENV.API_URL}api/create_nft/`,
                 formData
               );
-              // if (res.success) {
-              //     this.reset()
-              //     toast.success(`Success! ${res.message}`)
-              //     this.setState({ loader: false }, () => {
-              //         // this.props.history.push('/')
-              //         window.location = '/'
-              //     })
-              // }
-              // else
-              //     this.setState({ errors: res.message, loader: false })
-              console.log(nft);
               console.log(res);
+              if (res.status === true) {
+                notify.show("Created Succesfully!", "success", 3000);
+                window.location = "/marketplace";
+              } else {
+                notify.show("Failed to create!", "error", 3000);
+                this.setState({ loader: false });
+              }
             }
           );
         } else {
@@ -165,6 +145,8 @@ class Create extends Component {
     const res = await Collection.collection(
       `${ENV.API_URL}api/specific-user-collection/${id}`
     );
+
+    console.log("speciguc");
     console.log(res);
     var nft = { ...this.state.nft };
 
@@ -177,7 +159,8 @@ class Create extends Component {
     const { nft, errors, loader, isSubmitted } = this.state;
 
     return (
-      <section>
+      <section className="author-area">
+        <Notifications />
         <div className="container">
           <div className="row justify-content-between">
             <div className="col-12 col-md-4">
