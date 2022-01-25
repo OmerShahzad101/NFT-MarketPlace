@@ -110,7 +110,7 @@ const Author = () => {
             )}
           </div>
           <div className="col-12 col-md-8">
-            {authorNft ? (
+            {authorNft.collection_name ? (
               <div className="row items explore-items auhtor-nfts">
                 {authorNft.map((item, idx) => {
                   return (
@@ -157,7 +157,7 @@ const Author = () => {
                 })}
               </div>
             ) : (
-              "Loading..."
+              "No Data to Show"
             )}
           </div>
         </div>

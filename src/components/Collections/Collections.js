@@ -3,6 +3,7 @@ import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import Category from "../../services/category.service";
 import $ from "jquery";
+import { Link } from "react-router-dom";
 
 const initialData = {
   heading: "Collections ",
@@ -72,13 +73,13 @@ const Collections = () => {
                       >
                         <div className="card no-hover text-center">
                           <div className="image-over">
-                            <a href={`/collectionDetail?${item.id}`}>
+                            <Link to={`/collectionDetail?${item.id}`}>
                             <img
                                 className="card-img-top image-container"
                                 src={`${ENV.API_URL_image}${item.banner_image}`}
                                 alt=""
                               />
-                            </a>
+                            </Link>
                             {/* Seller */}
                             <a
                               className="seller"

@@ -23,13 +23,17 @@ const CollectionDetail = () => {
   const sort = (col) => {
     console.log(col);
     if (order === "ASC") {
-      const sorted = [...collectionData.nft_collection].sort((a, b) => (a[col] > b[col] ? 1 : -1));
+      const sorted = [...collectionData.nft_collection].sort((a, b) =>
+        a[col] > b[col] ? 1 : -1
+      );
       setcollectionData(sorted);
       console.log(order);
       setOrder("DSC");
     }
     if (order === "DSC") {
-      const sorted = [...collectionData.nft_collection].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+      const sorted = [...collectionData.nft_collection].sort((a, b) =>
+        a[col] < b[col] ? 1 : -1
+      );
       setcollectionData(sorted);
       console.log(order);
       setOrder("ASC");
@@ -87,7 +91,11 @@ const CollectionDetail = () => {
                 <img src="hello.jpg" />
               </div>
               <div>
-                <h6 className="mt-0 mb-3">{collectionData.nft_collection ? collectionData.nft_collection.length : ""}</h6>
+                <h6 className="mt-0 mb-3">
+                  {collectionData.nft_collection
+                    ? collectionData.nft_collection.length
+                    : ""}
+                </h6>
                 <p className="m-0">Items</p>
               </div>
             </div>
@@ -110,11 +118,12 @@ const CollectionDetail = () => {
         <div className="row ">
           <div className="col-xl-3 col-sm-6 text-right order-sm-last">
             <div class="form-group filter-select position-relative m-0">
-            <select class="form-control " onChange={(e) => sort("price")}>
-                <option disabled selected hidden>Select price</option>
+              <select class="form-control " onChange={(e) => sort("price")}>
+                <option disabled selected hidden>
+                  Select price
+                </option>
                 <option>Price Low - High</option>
                 <option>Price High - Low</option>
-            
               </select>
             </div>
           </div>
@@ -201,46 +210,46 @@ const CollectionDetail = () => {
         <div className="row my-5">
           {collectionData.nft_collection
             ? collectionData.nft_collection.map((item, id) => {
-              return(
-                <div className="col-lg-3 col-md-6 p-3">
-                <div className="card">
-                  <div className="image-over">
-                  <a href={`/nft-details?${item.id}`}>
-                      <img className="card-img-top" src={item.image} alt="" />
-                    </a>
-                    
-                  </div>
-
-                  <div className="card-caption col-12 p-0">
-                    <div className="card-body">
-                    <a href={`/nft-details?${item.id}`}>
-                        <h5 className="mb-0">{item.name}</h5>
-                      </a>
-                      <div className="seller d-flex align-items-center my-3">
-                        <span>Owned By</span>
-                        <a href="/author">
-                          <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
+                return (
+                  <div className="col-lg-3 col-md-6 p-3">
+                    <div className="card">
+                      <div className="image-over">
+                        <a href={`/nft-details?${item.id}`}>
+                          <img
+                            className="card-img-top"
+                            src={item.image}
+                            alt=""
+                          />
                         </a>
                       </div>
-                      <div className="card-bottom d-flex justify-content-between">
-                        <span>{"$" + item.price}</span>
-                        <span>{item.size}</span>
+
+                      <div className="card-caption col-12 p-0">
+                        <div className="card-body">
+                          <a href={`/nft-details?${item.id}`}>
+                            <h5 className="mb-0">{item.name}</h5>
+                          </a>
+                          <div className="seller d-flex align-items-center my-3">
+                            <span>Owned By</span>
+                            <a href="/author">
+                              <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
+                            </a>
+                          </div>
+                          <div className="card-bottom d-flex justify-content-between">
+                            <span>{"$" + item.price}</span>
+                            <span>{item.size}</span>
+                          </div>
+                          <a
+                            className="btn btn-bordered-white btn-smaller mt-3"
+                            href="#"
+                          >
+                            <i className="icon-handbag mr-2" />
+                            place a bid
+                          </a>
+                        </div>
                       </div>
-                      <a
-                        className="btn btn-bordered-white btn-smaller mt-3"
-                        href="#"
-                      >
-                        <i className="icon-handbag mr-2" />
-                        place a bid
-                      </a>
                     </div>
                   </div>
-                </div>
-              </div>
-              )
-     
-            
-                
+                );
               })
             : ""}
         </div>
