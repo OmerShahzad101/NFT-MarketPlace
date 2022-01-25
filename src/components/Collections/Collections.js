@@ -35,7 +35,7 @@ const Collections = () => {
 
     var newArray = collectionData.concat(paginationRes.data.data.results);
     setCollectionData(newArray);
-    console.log(paginationRes.data.data.count);
+    console.log(paginationRes.data.data.count); 
   };
 
   return (
