@@ -32,15 +32,14 @@ const Collections = () => {
   }, []);
 
   const specificCategory = async (id) => {
-    // alert(id);
     const res = await Category.category(
       `${ENV.API_URL}api/specific_catgory_collection-data/${id}/`
     );
-    console.log(res);
     setCollectionData(res.data.data.category_data);
   };
 
   const all =  async() => {
+
     setPage(page * 0 + 1);
     setCollectionData([]);
     // pagination();

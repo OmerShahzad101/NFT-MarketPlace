@@ -7,6 +7,8 @@ import $ from "jquery";
 const placeholderImg = "";
 
 const UpdateProfile = () => {
+
+  // __ __ initial state __ __ //
   const initialdata = {
     file: "",
     first_name: "",
@@ -22,6 +24,7 @@ const UpdateProfile = () => {
     },
   };
 
+  //__ __ Hook functions __ __ //
   const [updateUser, setUpdateUser] = useState(initialdata);
   const arr = window.location.href.split("?");
   const id = arr[1];
@@ -29,7 +32,6 @@ const UpdateProfile = () => {
   useEffect(async () => {
     const res = await updateProfile.updateProfileUserGet(
       `${ENV.API_URL}api/auth/users/me/`
-      // `http://192.168.99.138:8000/api/auth/users/me/`
     );
     console.log(res);
     setUpdateUser(res);
@@ -43,6 +45,10 @@ const UpdateProfile = () => {
     });
   };
 
+  /**
+   * 
+   * @param {eventObject} e 
+   */
   const handleChange2 = (e) => {
     const { name, value } = e.target;
     let obj = updateUser.user_profile;
@@ -54,67 +60,77 @@ const UpdateProfile = () => {
     console.log(updateUser);
   };
 
+  /**
+   * 
+   * @param {eventObject} e 
+   */
   const onFileChange = (e) => {
-    //   let file = e.target.files[0];
-    //   let fileId = e.target.id;
-    //   if (file)
-    //     if (file.type.includes("image")) {
-    //       let { nft } = this.state;
-    //       nft = { ...nft, [e.target.name]: file };
-    //       this.setState(
-    //         {
-    //           nft,
-    //         },
-    //         () => {
-    //           if (file) {
-    //             var reader = new FileReader();
-    //             reader.onload = function (e) {
-    //               $(`#nft-${fileId}`).attr("src", e.target.result);
-    //               $("#nft-image-label").html("File selected");
-    //             };
-    //             reader.readAsDataURL(file);
-    //           }
-    //         }
-    //       );
-    //     } else {
-    //       $(`#nft-${fileId}`).attr("src", placeholderImg);
-    //       file = {};
-    //     }
+      let { name } = e.target ;
+      let file = e.target.files[0];
+      let fileId = e.target.id;
+      if (file)
+        if (file.type.includes("image")) {
+          let _obj = updateUser;
+          _obj.user_profile[0][name] = file;
+          
+          setUpdateUser(_obj);
+
+          // __ redner __ //
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $(`.rounded-circle`).attr("src", e.target.result);
+            $("#nft-image-label").html("File selected");
+          };
+          reader.readAsDataURL(file);
+        } else {
+          $(`#nft-${fileId}`).attr("src", placeholderImg);
+          file = {};
+        }
   };
 
   const update_data = async () => {
+    
     var formData = new FormData();
-    console.log(updateUser);
-    console.log(updateUser.user_profile);
-    console.log(updateUser.user_profile[0].about);
+    // console.log(updateUser);
+    // console.log(updateUser.user_profile);
+    // console.log(updateUser.user_profile[0].about);
 
     // for (const key in updateUser)
     //   if (updateUser[key]) formData.append(key, updateUser[key]);
-    // formData.append("updateProfile.updateProfile.about",updateUser.user_profile[0].about);
-    // formData.append("updateProfile[facebook_link]",updateUser.user_profile[0].facebook_link);
-    // formData.append("updateProfile[vine_link]",updateUser.user_profile[0].vine_link);
-    // formData.append("updateProfile[twitter_link]",updateUser.user_profile[0].twitter_link);
-    // formData.append("updateProfile[google_plus_link]",updateUser.user_profile[0].google_plus_link);
-    // const res = await updateProfile.updateProfileUser(
-    //   `${ENV.API_URL}api/auth/users/me/`,
-    //   formData
-    // );
+    // formData.append("about",updateUser.user_profile[0].about);
+    // formData.append("facebook_link",updateUser.user_profile[0].facebook_link);
+    // formData.append("vine_link",updateUser.user_profile[0].vine_link);
+    // formData.append("twitter_link",updateUser.user_profile[0].twitter_link);
+    // formData.append("google_plus_link",updateUser.user_profile[0].google_plus_link);
+
+
     // console.log(res);
     // console.log(updateUser);
     // Display the key/value pairs
 
-  //   for (let key in updateUser) {
-  //     if (typeof updateUser[key] === "object") {
-  //       for (let subKey in updateUser[key]) {
-  //         formData.append(`${key}.${subKey}`, updateUser[key][subKey]);
-  //       }
-  //     } else {
-  //       formData.append(key, updateUser[key]);
-  //     }
-  //   }
-  //   for (var pair of formData.entries()) {
-  //     console.log(pair[0] + ", " + pair[1]);
-  //   }
+    for (let key in updateUser) {
+      if (typeof updateUser[key] === "object") {
+
+        let arr = [];
+        arr.push(updateUser[key][0]);
+        formData.append(`user_profile`, JSON.stringify(arr))
+        // for (let subKey in updateUser[key][0]) {
+
+        //   formData.append(`${key}.${subKey}`, updateUser[key][0][subKey]);
+        // }
+      } else {
+        formData.append(key, updateUser[key]);
+      }
+    }
+    for (var pair of formData.entries()) {
+      
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    const res = await updateProfile.updateProfileUser(
+      `${ENV.API_URL}api/auth/users/me/`,
+      formData
+    );
   };
 
   return (
@@ -183,7 +199,7 @@ const UpdateProfile = () => {
                           type="file"
                           className="custom-file-input"
                           id="inputGroupFile01"
-                          name="file"
+                          name="banner_image"
                           onChange={onFileChange}
                         />
                         <label
@@ -202,7 +218,7 @@ const UpdateProfile = () => {
                           type="file"
                           className="custom-file-input"
                           id="inputGroupFile01"
-                          name="file"
+                          name="profile_image"
                           onChange={onFileChange}
                         />
                         <label
