@@ -34,15 +34,15 @@ const MyCollections = () => {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 col-lg-7">
-            <div className="intro text-center mb-4">
+            <div className="intro text-center mb-5">
               <h3 className="mt-3 mb-0">{initData.heading}</h3>
               <p>{initData.content}</p>
             </div>
           </div>
         </div>
-        <div>
-          <Link to={"/create-collection"}>
-            <button>add collection</button>
+        <div className="intro-btn text-right mr-4">
+          <Link className="btn content-btn"  to={"/create-collection"}>
+            Add Collection
           </Link>
         </div>
         {/* <div className="row justify-content-center text-center">

@@ -86,11 +86,11 @@ const Header = () => {
                     Authors
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/author" className="nav-link">
                     Author
                   </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   {token ? (
                     <Link to="/" className="nav-link" onClick={logout}>
