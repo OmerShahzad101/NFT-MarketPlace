@@ -16,8 +16,6 @@ const AuctionsOne = () => {
   const [data, setData] = useState("");
 
   useEffect(async () => {
-    
-
     const res = await liveAuction.auction(
       `${ENV.API_URL}api/live-auction-nfts/`
     );
@@ -29,16 +27,11 @@ const AuctionsOne = () => {
     scriptCounter.async = true;
     document.body.appendChild(scriptCounter);
 
-    
     const scriptSlider = document.createElement("script");
     scriptSlider.src = "/assets/js/main.js";
     scriptSlider.async = true;
     document.body.appendChild(scriptSlider);
-      
-
   }, []);
-
-
 
   return (
     <section className="live-auctions-area">
@@ -62,7 +55,6 @@ const AuctionsOne = () => {
         <div className="auctions-slides">
           <div className="swiper-container slider-mid items">
             <div className="swiper-wrapper">
-           
               {data
                 ? data.map((item, idx) => {
                     return (
@@ -84,7 +76,9 @@ const AuctionsOne = () => {
 
                                 <div
                                   className="countdown d-flex justify-content-center"
-                                  data-date="2022-02-14"
+                                  data-date={moment(item.expiry_date).format(
+                                    "YYYY-MM-DD"
+                                  )}
                                 />
                               </div>
                               <Link to={`/nft-details?${item.id}`}>

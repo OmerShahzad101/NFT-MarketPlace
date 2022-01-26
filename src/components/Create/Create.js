@@ -424,13 +424,13 @@ class Create extends Component {
                           onChange={(e) => this.onChange(e)}
                           defaultValue={nft.expiry_date}
                         />
-                       <span className="text-danger">
+                       {/* <span className="text-danger">
                           {this.validator.message(
                             "expiry_date",
                             nft.expiry_date,
                             "required"
                           )}
-                        </span>
+                        </span> */}
                       </div>
                     </div>
                   ) : (

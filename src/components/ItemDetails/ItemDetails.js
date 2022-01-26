@@ -175,7 +175,7 @@ const ItemDetails = () => {
                             >
                               <img
                                 className="avatar-sm rounded-circle mr-3"
-                                // src={`${ENV.API_URL_image}${nftData.image}`}
+                                src={`${ENV.API_URL_image}${nftData.profile_image}`}
                                 alt=""
                               />
                               <p className="m-0">
@@ -204,7 +204,7 @@ const ItemDetails = () => {
                             >
                               <img
                                 className="avatar-sm rounded-circle mr-3"
-                                // src={`${ENV.API_URL_image}${nftData.image}`}
+                                src={`${ENV.API_URL_image}${nftData.profile_image}`}
                                 alt=""
                               />
                               <p className="m-0">
@@ -414,7 +414,7 @@ const ItemDetails = () => {
                       <div className="seller-info ml-3">
                         <a
                           className="seller mb-2"
-                          href={`/collectionDetail?${nftData.id}`}
+                          href={`/collectionDetail?${nftData.collection_id}`}
                         >
                           {nftData.collection}
                         </a>
