@@ -38,15 +38,20 @@ const TopSeller = () => {
         <div className="row">
           <div className="col-12">
             {/* Intro */}
-            <div className="intro m-0">
+            <div className="intro d-flex justify-content-between align-items-end m-0">
               <div className="intro-content">
-                <span>{initData.preHeading}</span>
+                <span>{initData.pre_heading}</span>
                 <h3 className="mt-3 mb-0">{initData.heading}</h3>
+              </div>
+              <div className="intro-btn">
+                <a className="btn content-btn" href="/marketplace">
+                  View All
+                </a>
               </div>
             </div>
           </div>
         </div>
-        <div className="row items">
+        <div className="row items load-more">
           {sellerData
             ? sellerData.map((item, idx) => {
                 return (

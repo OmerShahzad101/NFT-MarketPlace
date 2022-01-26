@@ -17,6 +17,7 @@ const Collections = () => {
   const [categories, setCategories] = useState([]);
   const [allData, setAllData] = useState([]);
   const [page, setPage] = useState(1);
+  const [payload, setpayload] = useState(0);
 
   useEffect(async () => {
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
@@ -28,51 +29,57 @@ const Collections = () => {
     //   `${ENV.API_URL}api/collection_list/`
     // );
     // setCollectionData(res.data.data.results);
-    pagination();
+    // pagination();
+    const res = await Category.category(
+      `${ENV.API_URL}api/specific_catgory_collection-data/`,
+      payload
+    );
+    setCollectionData(res.data.data.category_data);
+    
+    console.log(res.data.data.category_data)
   }, []);
 
   const specificCategory = async (id) => {
     // alert(id);
     const res = await Category.category(
-      `${ENV.API_URL}api/specific_catgory_collection-data/${id}/`
+      `${ENV.API_URL}api/specific_catgory_collection-data/` , id
     );
     console.log(res);
     setCollectionData(res.data.data.category_data);
   };
 
-  const all =  async() => {
-    setPage(page * 0 + 1);
-    setCollectionData([]);
-    // pagination();
-    const resu = await Collection.collection(
-      `${ENV.API_URL}api/collection_list/?page=${page}&limit=${limit}`
-    );
-    let newArr = [...collectionData, resu.data.data.results];
-    setCollectionData(newArr);
-    // console.log("hi");
-    // console.log(resu);
-    // console.log(newArr);
+  // const all =  async() => {
+  //   setPage(page * 0 + 1);
+  //   setCollectionData([]);
+  //   // pagination();
+  //   const resu = await Collection.collection(
+  //     `${ENV.API_URL}api/collection_list/?page=${page}&limit=${limit}`);
+  //   let newArr = [...collectionData, resu.data.data.results];
+  //   setCollectionData(newArr);
+  //   // console.log("hi");
+  //   // console.log(resu);
+  //   // console.log(newArr);
 
-    if (resu.data.data.count === newArr.length) {
-      $("#loadmorebtn").fadeOut("slow");
-    }
-  };
+  //   if (resu.data.data.count === newArr.length) {
+  //     $("#loadmorebtn").fadeOut("slow");
+  //   }
+  // };
 
-  const pagination = async () => {
-    const res = await Collection.collection(
-      `${ENV.API_URL}api/collection_list/?page=${page}&limit=${limit}`
-    );
-    let newArr = [...collectionData, ...res.data.data.results];
-    setCollectionData(newArr);
-    console.log("hi");
-    console.log(res);
-    console.log(newArr);
+  // const pagination = async () => {
+  //   const res = await Collection.collection(
+  //     `${ENV.API_URL}api/collection_list/?page=${page}&limit=${limit}`
+  //   );
+  //   let newArr = [...collectionData, ...res.data.data.results];
+  //   setCollectionData(newArr);
+  //   console.log("hi");
+  //   console.log(res);
+  //   console.log(newArr);
 
-    if (res.data.data.count === newArr.length) {
-      $("#loadmorebtn").fadeOut("slow");
-    }
-    setPage(page + 1);
-  };
+  //   if (res.data.data.count === newArr.length) {
+  //     $("#loadmorebtn").fadeOut("slow");
+  //   }
+  //   setPage(page + 1);
+  // };
 
   return (
     <>
@@ -95,7 +102,7 @@ const Collections = () => {
               >
                 {console.log(categories)}
                 <label
-                  onClick={() => all()}
+                  onClick={() => specificCategory(0)}
                   className="btn d-table text-uppercase p-2"
                 >
                   <input
@@ -178,7 +185,7 @@ const Collections = () => {
                 })
               : ""}
           </div>
-          <div className="row">
+          {/* <div className="row">
             <div className="col-12 text-center">
               <button
                 onClick={() => pagination()}
@@ -188,7 +195,7 @@ const Collections = () => {
                 Load More
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
     </>

@@ -27,6 +27,7 @@ const MyCollections = () => {
     );
     console.log(res.data.data.user_collection);
     setCollectionData(res.data.data.user_collection);
+
   }, []);
 
   return (

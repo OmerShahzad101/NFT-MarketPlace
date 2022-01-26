@@ -5,6 +5,7 @@ import { ENV } from "../../env";
 import AuthorProfile from "../AuthorProfile/AuthorProfile";
 import Category from "../../services/category.service";
 import SimpleReactValidator from "simple-react-validator";
+import Notifications, { notify } from "react-notify-toast";
 const placeholderImg = "";
 
 class CreateCollection extends Component {
@@ -27,30 +28,6 @@ class CreateCollection extends Component {
       },
     });
   }
-
-  // onFileChange(e) {
-  //   let file = e.target.files[0];
-  //   let fileId = e.target.id;
-
-  //   if (file)
-  //     if (file.type.includes("image")) {
-  //       let { nft } = this.state;
-  //       nft = { ...nft, [e.target.name]: file };
-  //       this.setState({ nft }, () => {
-  //         if (file) {
-  //           var reader = new FileReader();
-  //           reader.onload = function (e) {
-  //             $(`#nft-${fileId}`).attr("src", e.target.result);
-  //             $("#nft-image-label").html("Banner selected");
-  //           };
-  //           reader.readAsDataURL(file);
-  //         }
-  //       });
-  //     } else {
-  //       $(`#nft-${fileId}`).attr("src", placeholderImg);
-  //       file = {};
-  //     }
-  // }
 
   onFileChange(e) {
     let file = e.target.files[0];
@@ -126,16 +103,14 @@ class CreateCollection extends Component {
                 formData
               );
               console.log(res);
-              // if (res.success) {
-              //     this.reset()
-              //     toast.success(`Success! ${res.message}`)
-              //     this.setState({ loader: false }, () => {
-              //         // this.props.history.push('/')
-              //         window.location = '/'
-              //     })
-              // }
-              // else
-              //     this.setState({ errors: res.message, loader: false })
+          
+              if (res.status === true) {
+                notify.show("Created Succesfully!", "success", 3000);
+                window.location = "/mycollections";
+              } else {
+                notify.show("Failed to create!", "error", 3000);
+                this.setState({ loader: false });
+              }
             }
           );
 
@@ -155,25 +130,12 @@ class CreateCollection extends Component {
     );
   };
 
-  // submit = async (e) => {
-  //   e.preventDefault();
-  //   const { nft } = this.state;
-  //   var formData = new FormData();
-  //   for (const key in nft) {
-  //     if (nft[key]) {
-  //       formData.append(key, nft[key]);
-  //     }
-  //   }
-  //   const res = await Collection.collectionPost(
-  //     `${ENV.API_URL}api/create_collection/`,
-  //     formData
-  //   );
-  //   console.log(res);
-  // };
   render() {
     const { nft, errors, loader, isSubmitted } = this.state;
     return (
+      
       <section className="author-area">
+         <Notifications />
         <div className="container">
           <div className="row justify-content-between">
             <div className="col-12 col-md-4">

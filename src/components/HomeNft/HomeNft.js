@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 import $ from "jquery";
+import { Link } from "react-router-dom";
 let page = 1;
 let limit = 4;
 const HomeNft = () => {
@@ -46,9 +47,9 @@ const HomeNft = () => {
                 <h3 className="mt-3 mb-0">{initData.heading}</h3>
               </div>
               <div className="intro-btn">
-                <a className="btn content-btn" href="/marketplace">
+                <Link className="btn content-btn" to="/ranking">
                   {initData.btnText}
-                </a>
+                </Link>
               </div>
             </div>
           </div>
