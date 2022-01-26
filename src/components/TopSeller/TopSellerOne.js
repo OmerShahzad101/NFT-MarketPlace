@@ -19,8 +19,19 @@ const TopSeller = () => {
     );
     setSellerData(result.data.data.top_sellers);
     console.log(result.data.data.top_sellers);
+    loadMore();
   }, []);
+  const loadMore = () => {
+    $(".load-more .item").slice(0, 6).show();
 
+    $("#load-btn").on("click", function (e) {
+      e.preventDefault();
+      $(".load-more .item:hidden").slice(0, 6).slideDown();
+      if ($(".load-more .item:hidden").length == 0) {
+        $("#load-btn").fadeOut("slow");
+      }
+    });
+  }
   return (
     <section className="top-seller-area p-0">
       <div className="container">

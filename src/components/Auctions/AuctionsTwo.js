@@ -52,7 +52,7 @@ const AuctionsTwo = () => {
                       <div className="image-over">
                         <Link to={`/nft-details?${item.id}`}>
                           <img
-                            className="card-img-top"
+                            className="card-img-top image-container-nft"
                             src={`${ENV.API_URL_image}${item.image}`}
                             alt=""
                           />

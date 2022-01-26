@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 import $ from "jquery";
-
+let page = 1;
+let limit = 4;
 const HomeNft = () => {
   const initialData = {
     pre_heading: "EXCLUSIVE ASSETS",
@@ -14,23 +15,23 @@ const HomeNft = () => {
   const [nftData, setNftData] = useState();
 
   useEffect(async () => {
-    const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/`);
+    const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/?page=${page}&limit=${limit}`);
     console.log(res.data.data.results);
     setNftData(res.data.data.results);
-    loadMore();
+    //loadMore();
   }, []);
 
-  const loadMore = () => {
-    $(".load-more .item").slice(0, 4).show();
+  // const loadMore = () => {
+  //   $(".load-more .item").slice(0, 4).show();
 
-    $("#load-btn").on("click", function (e) {
-      e.preventDefault();
-      $(".load-more .item:hidden").slice(0, 4).slideDown();
-      if ($(".load-more .item:hidden").length == 0) {
-        $("#load-btn").fadeOut("slow");
-      }
-    });
-  };
+  //   $("#load-btn").on("click", function (e) {
+  //     e.preventDefault();
+  //     $(".load-more .item:hidden").slice(0, 4).slideDown();
+  //     if ($(".load-more .item:hidden").length == 0) {
+  //       $("#load-btn").fadeOut("slow");
+  //     }
+  //   });
+  // };
 
   return (
     <section className="explore-area ">

@@ -15,14 +15,15 @@ const HomeCollection = () => {
   const [collectionData, setCollectionData] = useState();
   const [categories, setCategories] = useState([]);
   const [data, setData] = useState({});
-
+  let limit = 4;
+  let page = 1;
   useEffect(async () => {
     const res = await Collection.collection(
-      `${ENV.API_URL}api/collection_list/`
+      `${ENV.API_URL}api/collection_list/?page=${page}&limit=${limit}`
     );
-    const result = await Category.category(`${ENV.API_URL}api/category_list/`);
+    // const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCollectionData(res.data.data.results);
-    setCategories(result.data.data.results);
+    // setCategories(result.data.data.results);
   }, []);
 
   return (
@@ -39,7 +40,7 @@ const HomeCollection = () => {
                   </div>
                   <div className="intro-btn">
                     <a className="btn content-btn text-left" href="collection">
-                      {data.btnText}
+                      View All
                     </a>
                   </div>
                 </div>
