@@ -17,7 +17,7 @@ const CollectionDetail = () => {
       `${ENV.API_URL}api/specific_collection/${id}/`
     );
     console.log(res.data);
-    setcollectionData(res.data);
+    setcollectionData(res.data.data);
   }, []);
 
   const sort = (col) => {
