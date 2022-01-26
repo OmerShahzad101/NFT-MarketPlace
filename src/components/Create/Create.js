@@ -436,7 +436,7 @@ class Create extends Component {
                   ) : (
                     ""
                   )}
-                  {/* <div className="col-12">
+                  <div className="col-12">
                     <button
                       disabled={loader}
                       className="btn w-100 mt-3 mt-sm-4"
@@ -445,7 +445,7 @@ class Create extends Component {
                     >
                       Create Item
                     </button>
-                  </div> */}
+                  </div>
                 </div>
               </form>
             </div>

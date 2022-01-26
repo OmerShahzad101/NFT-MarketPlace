@@ -8,11 +8,12 @@ const placeholderImg = "";
 
 const UpdateProfile = () => {
   const initialdata = {
+    file: "",
     first_name: "",
     last_name: "",
     user_profile: {
       profile_image: "",
-      banner_image:"",
+      banner_image: "",
       about: "",
       facebook_link: "",
       twitter_link: "",
@@ -54,48 +55,66 @@ const UpdateProfile = () => {
   };
 
   const onFileChange = (e) => {
-    let file = e.target.files[0];
-    let fileId = e.target.id;
-    console.log(file);
-
-    if (file)
-      if (file.type.includes("image")) {
-        updateUser = {
-          ...updateUser,
-          [e.target.name]: file,
-        };
-        setUpdateUser(
-          {
-            updateUser,
-          },
-          () => {
-            if (file) {
-              console.log(file);
-              var reader = new FileReader();
-
-              reader.onload = function (e) {
-                $(`#nft-${fileId}`).attr("src", e.target.result);
-                $("#nft-image-label").html("File selected");
-              };
-              reader.readAsDataURL(file);
-            }
-          }
-        );
-      } else {
-        $(`#nft-${fileId}`).attr("src", placeholderImg);
-        file = {};
-      }
+    //   let file = e.target.files[0];
+    //   let fileId = e.target.id;
+    //   if (file)
+    //     if (file.type.includes("image")) {
+    //       let { nft } = this.state;
+    //       nft = { ...nft, [e.target.name]: file };
+    //       this.setState(
+    //         {
+    //           nft,
+    //         },
+    //         () => {
+    //           if (file) {
+    //             var reader = new FileReader();
+    //             reader.onload = function (e) {
+    //               $(`#nft-${fileId}`).attr("src", e.target.result);
+    //               $("#nft-image-label").html("File selected");
+    //             };
+    //             reader.readAsDataURL(file);
+    //           }
+    //         }
+    //       );
+    //     } else {
+    //       $(`#nft-${fileId}`).attr("src", placeholderImg);
+    //       file = {};
+    //     }
   };
 
   const update_data = async () => {
     var formData = new FormData();
-    console.log(updateUser)
-    console.log(updateUser.user_profile.about)
-    for (const key in updateUser)
-      if (updateUser[key]) formData.append(key, updateUser[key]);
-    const res = await updateProfile.updateProfileUser(`${ENV.API_URL}api/auth/users/me/`,formData);
+    console.log(updateUser);
+    console.log(updateUser.user_profile);
+    console.log(updateUser.user_profile[0].about);
+
+    // for (const key in updateUser)
+    //   if (updateUser[key]) formData.append(key, updateUser[key]);
+    // formData.append("updateProfile.updateProfile.about",updateUser.user_profile[0].about);
+    // formData.append("updateProfile[facebook_link]",updateUser.user_profile[0].facebook_link);
+    // formData.append("updateProfile[vine_link]",updateUser.user_profile[0].vine_link);
+    // formData.append("updateProfile[twitter_link]",updateUser.user_profile[0].twitter_link);
+    // formData.append("updateProfile[google_plus_link]",updateUser.user_profile[0].google_plus_link);
+    // const res = await updateProfile.updateProfileUser(
+    //   `${ENV.API_URL}api/auth/users/me/`,
+    //   formData
+    // );
     // console.log(res);
     // console.log(updateUser);
+    // Display the key/value pairs
+
+  //   for (let key in updateUser) {
+  //     if (typeof updateUser[key] === "object") {
+  //       for (let subKey in updateUser[key]) {
+  //         formData.append(`${key}.${subKey}`, updateUser[key][subKey]);
+  //       }
+  //     } else {
+  //       formData.append(key, updateUser[key]);
+  //     }
+  //   }
+  //   for (var pair of formData.entries()) {
+  //     console.log(pair[0] + ", " + pair[1]);
+  //   }
   };
 
   return (
@@ -165,7 +184,7 @@ const UpdateProfile = () => {
                           className="custom-file-input"
                           id="inputGroupFile01"
                           name="file"
-                          onChange={() => onFileChange}
+                          onChange={onFileChange}
                         />
                         <label
                           className="custom-file-label"
@@ -184,7 +203,7 @@ const UpdateProfile = () => {
                           className="custom-file-input"
                           id="inputGroupFile01"
                           name="file"
-                          onChange={() => onFileChange}
+                          onChange={onFileChange}
                         />
                         <label
                           className="custom-file-label"
