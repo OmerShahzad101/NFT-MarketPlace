@@ -8,10 +8,11 @@ const placeholderImg = "";
 
 const UpdateProfile = () => {
   const initialdata = {
-    file: "",
     first_name: "",
     last_name: "",
     user_profile: {
+      profile_image: "",
+      banner_image:"",
       about: "",
       facebook_link: "",
       twitter_link: "",
@@ -27,6 +28,7 @@ const UpdateProfile = () => {
   useEffect(async () => {
     const res = await updateProfile.updateProfileUserGet(
       `${ENV.API_URL}api/auth/users/me/`
+      // `http://192.168.99.138:8000/api/auth/users/me/`
     );
     console.log(res);
     setUpdateUser(res);
@@ -58,7 +60,10 @@ const UpdateProfile = () => {
 
     if (file)
       if (file.type.includes("image")) {
-        updateUser = { ...updateUser, [e.target.name]: file };
+        updateUser = {
+          ...updateUser,
+          [e.target.name]: file,
+        };
         setUpdateUser(
           {
             updateUser,
@@ -84,32 +89,17 @@ const UpdateProfile = () => {
 
   const update_data = async () => {
     var formData = new FormData();
+    console.log(updateUser)
+    console.log(updateUser.user_profile.about)
     for (const key in updateUser)
       if (updateUser[key]) formData.append(key, updateUser[key]);
-    console.log(formData);
-    const res = await updateProfile.updateProfileUser(
-      `${ENV.API_URL}api/auth/users/me/`,
-      formData
-    );
-    console.log(res);
+    const res = await updateProfile.updateProfileUser(`${ENV.API_URL}api/auth/users/me/`,formData);
+    // console.log(res);
+    // console.log(updateUser);
   };
-
-  // const update_data = async () => {
-  //   const result = await updateProfile.updateProfileUser(
-  //     `${ENV.API_URL}api/auth/users/me/`,
-  //     updateUser
-  //   );
-  //   console.log(result);
-  // };
 
   return (
     <div>
-      {/* {console.log(
-        updateUser.user_profile[0]
-          ? updateUser.user_profile[0].twitter_link
-          : "",
-        "updateUserupdateUserupdateUserupdateUserupdateUser"
-      )} */}
       <section
         className="breadcrumb-area overlay-dark d-flex align-items-center"
 
@@ -144,6 +134,8 @@ const UpdateProfile = () => {
                       type="text"
                       className="form-control"
                       placeholder="Email"
+                      disabled
+                      value={updateUser ? updateUser.email : ""}
                     />
                     <div className="input-group-append">
                       <button>

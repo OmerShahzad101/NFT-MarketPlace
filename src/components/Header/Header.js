@@ -71,11 +71,11 @@ const Header = () => {
                     Help Center
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/Create-Collection" className="nav-link">
                     CreateCollection
                   </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <Link to="/favourite-nft" className="nav-link">
                     Favourite Nft

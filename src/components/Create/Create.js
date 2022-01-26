@@ -145,7 +145,7 @@ class Create extends Component {
       `${ENV.API_URL}api/specific-user-collection/${id}`
     );
 
-    console.log("speciguc");
+    console.log("collection");
     console.log(res);
     var nft = { ...this.state.nft };
 

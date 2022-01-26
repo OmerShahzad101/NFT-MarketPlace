@@ -21,7 +21,6 @@ const TopSeller = () => {
     console.log(result.data.data.top_sellers);
   }, []);
 
-
   return (
     <section className="top-seller-area p-0">
       <div className="container">
@@ -47,22 +46,22 @@ const TopSeller = () => {
                     {/* Single Seller */}
                     <div className="card no-hover">
                       <div className="single-seller d-flex align-items-center">
-                        <a href="/author">
+                        <Link to={`/author?${item.user_id}`}>
                           <img
                             className="avatar-md rounded-circle"
                             src={`${ENV.API_URL_image_media}${item.profile_image}`}
                             alt=""
                           />
-                        </a>
+                        </Link>
                         {/* Seller Info */}
                         <div className="seller-info ml-3">
                           <Link
                             className="seller mb-2"
-                            to={`/author?${item.id}`}
+                            to={`/author?${item.user_id}`}
                           >
                             {item.user_name}
                           </Link>
-                          <span>{item.price}</span>
+                          <span>${item.price}</span>
                         </div>
                       </div>
                     </div>

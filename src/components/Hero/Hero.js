@@ -1,5 +1,10 @@
 import React, { Component, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { ENV } from "../../env";
+import jwt_decode from "jwt-decode";
+
+import Collection from "../../services/collections.service";
+
 const initData = {
   pre_heading: "NetStorm",
   heading: "Discover, collect, and sell extraordinary NFTs",
@@ -12,14 +17,30 @@ class Hero extends Component {
   state = {
     data: {},
     token: null,
+    // collection: "",
   };
-  componentDidMount() {
+  componentDidMount = async () => {
     this.setState({
       data: initData,
       token: JSON.parse(localStorage.getItem("access")),
+      // collection: "",
     });
-    
-  }
+  };
+  // check = () => {
+  //   console.log(this.state.token);
+  //   let decoded = jwt_decode(this.state.token);
+  //   let id = decoded.user_id;
+  //   console.log(id);
+
+  //   Collection.collection(
+  //     `${ENV.API_URL}api/specific-user-collection/${id}`
+  //   ).then((res) => {
+  //     const result = res;
+  //     this.setState({ collection: result.data.data.user_collection });
+  //     console.log(this.state.collection);
+      
+  //   });
+  // };
 
   render() {
     return (
@@ -36,6 +57,8 @@ class Hero extends Component {
                   <i className="icon-rocket mr-2" />
                   {this.state.data.btn_1}
                 </a>
+                {/* {this.state.token ? this.check() : " "} */}
+
                 {this.state.token ? (
                   <Link className="btn btn-bordered-white" to="/create">
                     <i className="icon-note mr-2" />

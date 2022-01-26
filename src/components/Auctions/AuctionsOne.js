@@ -84,7 +84,7 @@ const AuctionsOne = () => {
 
                                 <div
                                   className="countdown d-flex justify-content-center"
-                                  data-date="2022-01-25"
+                                  data-date="2022-02-14"
                                 />
                               </div>
                               <Link to={`/nft-details?${item.id}`}>

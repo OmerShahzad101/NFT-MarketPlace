@@ -26,8 +26,6 @@ const AuctionsTwo = () => {
     script.src = "/assets/js/vendor/countdown.min.js";
     script.async = true;
 
-    
-
     document.body.appendChild(script);
   }, []);
 
@@ -66,7 +64,7 @@ const AuctionsTwo = () => {
                             {console.log()}
                             <div
                               className="countdown d-flex justify-content-center"
-                              data-date="2022-01-25"
+                              data-date="2022-02-27"
                             />
                           </div>
                           <Link to={`/nft-details?${item.id}`}>

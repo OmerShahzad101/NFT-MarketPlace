@@ -3,6 +3,7 @@ import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import Category from "../../services/category.service";
 import $ from "jquery";
+import { Link } from "react-router-dom";
 
 const initialData = {
   heading: "My Collections ",
@@ -24,9 +25,8 @@ const MyCollections = () => {
     const res = await Collection.collection(
       `${ENV.API_URL}api/specific-user-collection/${id}`
     );
-    setCollectionData(res.data.user_collection);
-
-    console.log(res.data.user_collection);
+    console.log(res.data.data.user_collection);
+    setCollectionData(res.data.data.user_collection);
   }, []);
 
   return (
@@ -39,6 +39,11 @@ const MyCollections = () => {
               <p>{initData.content}</p>
             </div>
           </div>
+        </div>
+        <div>
+          <Link to={"/create-collection"}>
+            <button>add collection</button>
+          </Link>
         </div>
         {/* <div className="row justify-content-center text-center">
           <div className="col-12">
@@ -109,7 +114,7 @@ const MyCollections = () => {
                   </div>
                 );
               })
-            : "asdasd"}
+            : "Loading ..."}
         </div>
       </div>
     </section>
