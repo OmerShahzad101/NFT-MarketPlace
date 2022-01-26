@@ -10,6 +10,9 @@ const initialData = {
   content:
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
 };
+const iddata = {
+  id = 0
+}
 
 const Collections = () => {
   const [initData, setInitData] = useState(initialData);
@@ -17,7 +20,7 @@ const Collections = () => {
   const [categories, setCategories] = useState([]);
   const [allData, setAllData] = useState([]);
   const [page, setPage] = useState(1);
-  const [payload, setpayload] = useState(0);
+  const [payload, setpayload] = useState(iddata);
 
   useEffect(async () => {
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);

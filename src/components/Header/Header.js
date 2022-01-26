@@ -146,7 +146,7 @@ const Header = () => {
               </a>
             </li>
           </ul> 
-          <ul className="navbar-nav action">
+          {/* <ul className="navbar-nav action">
             <li className="nav-item ml-3">
               <a
                 href="/wallet-connect"
@@ -156,7 +156,7 @@ const Header = () => {
                 Wallet Connect
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </nav>
     </header>

@@ -7,7 +7,6 @@ import $ from "jquery";
 const placeholderImg = "";
 
 const UpdateProfile = () => {
-
   // __ __ initial state __ __ //
   const initialdata = {
     file: "",
@@ -33,7 +32,6 @@ const UpdateProfile = () => {
     const res = await updateProfile.updateProfileUserGet(
       `${ENV.API_URL}api/auth/users/me/`
     );
-    console.log(res);
     setUpdateUser(res);
   }, []);
 
@@ -46,8 +44,8 @@ const UpdateProfile = () => {
   };
 
   /**
-   * 
-   * @param {eventObject} e 
+   *
+   * @param {eventObject} e
    */
   const handleChange2 = (e) => {
     const { name, value } = e.target;
@@ -57,39 +55,37 @@ const UpdateProfile = () => {
       ...updateUser,
       user_profile: obj,
     });
-    console.log(updateUser);
   };
 
   /**
-   * 
-   * @param {eventObject} e 
+   *
+   * @param {eventObject} e
    */
   const onFileChange = (e) => {
-      let { name } = e.target ;
-      let file = e.target.files[0];
-      let fileId = e.target.id;
-      if (file)
-        if (file.type.includes("image")) {
-          let _obj = updateUser;
-          _obj.user_profile[0][name] = file;
-          
-          setUpdateUser(_obj);
+    let { name } = e.target;
+    let file = e.target.files[0];
+    let fileId = e.target.id;
+    if (file)
+      if (file.type.includes("image")) {
+        let _obj = updateUser;
+        _obj.user_profile[0][name] = file;
 
-          // __ redner __ //
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            $(`.rounded-circle`).attr("src", e.target.result);
-            $("#nft-image-label").html("File selected");
-          };
-          reader.readAsDataURL(file);
-        } else {
-          $(`#nft-${fileId}`).attr("src", placeholderImg);
-          file = {};
-        }
+        setUpdateUser(_obj);
+
+        // __ redner __ //
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $(`.rounded-circle`).attr("src", e.target.result);
+          $("#custom-file-label").html("File selected");
+        };
+        reader.readAsDataURL(file);
+      } else {
+        $(`#nft-${fileId}`).attr("src", placeholderImg);
+        file = {};
+      }
   };
 
   const update_data = async () => {
-    
     var formData = new FormData();
     // console.log(updateUser);
     // console.log(updateUser.user_profile);
@@ -103,17 +99,15 @@ const UpdateProfile = () => {
     // formData.append("twitter_link",updateUser.user_profile[0].twitter_link);
     // formData.append("google_plus_link",updateUser.user_profile[0].google_plus_link);
 
-
     // console.log(res);
     // console.log(updateUser);
     // Display the key/value pairs
 
     for (let key in updateUser) {
       if (typeof updateUser[key] === "object") {
-
         let arr = [];
         arr.push(updateUser[key][0]);
-        formData.append(`user_profile`, JSON.stringify(arr))
+        formData.append(`user_profile`, JSON.stringify(arr));
         // for (let subKey in updateUser[key][0]) {
 
         //   formData.append(`${key}.${subKey}`, updateUser[key][0][subKey]);
@@ -123,7 +117,6 @@ const UpdateProfile = () => {
       }
     }
     for (var pair of formData.entries()) {
-      
       console.log(pair[0] + ", " + pair[1]);
     }
 
@@ -154,7 +147,7 @@ const UpdateProfile = () => {
                   <div className="author-thumb avatar-lg">
                     <img
                       className="rounded-circle"
-                      src=""
+                      // src=""
                       // src={`${ENV.API_URL_image}${updateUser.user_profile[0].profile_image})`}
                       alt=""
                     />
@@ -178,7 +171,11 @@ const UpdateProfile = () => {
                       </button>
                     </div>
                   </div>
-                  <p>Username</p>
+                  <p>
+                    {updateUser
+                      ? updateUser.first_name + " " + updateUser.last_name
+                      : "Name"}
+                  </p>
                 </div>
               </div>
             </div>

@@ -200,7 +200,6 @@ const ExploreFour = () => {
                           </div>
                           <a
                             className="btn btn-bordered-white btn-smaller mt-3"
-                            href="/wallet-connect"
                           >
                             <i className="icon-handbag mr-2" />
                             place a bid

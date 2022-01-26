@@ -57,7 +57,6 @@ class CreateCollection extends Component {
     var nft = { ...this.state.nft };
     nft.categories = res.data.data.results;
     this.setState({ nft });
-    console.log(res.data.data.results);
   };
 
   reset = () => {
@@ -72,13 +71,6 @@ class CreateCollection extends Component {
 
   submit = async (e) => {
     e.preventDefault();
-
-    console.log(
-      "this.validator.allValid(): ",
-      this.validator.allValid(),
-      this.state.nft
-    );
-
     this.setState(
       {
         isSubmitted: true,
@@ -96,14 +88,10 @@ class CreateCollection extends Component {
               var formData = new FormData();
               for (const key in nft)
                 if (nft[key]) formData.append(key, nft[key]);
-
-              // this.props.createNFT(nft)
               const res = await Collection.collectionPost(
                 `${ENV.API_URL}api/create_collection/`,
                 formData
-              );
-              console.log(res);
-          
+              );          
               if (res.status === true) {
                 notify.show("Created Succesfully!", "success", 3000);
                 window.location = "/mycollections";
@@ -139,7 +127,6 @@ class CreateCollection extends Component {
         <div className="container">
           <div className="row justify-content-between">
             <div className="col-12 col-md-4">
-              {/* <AuthorProfile createNFT_data={nft} /> */}
               <div className="card no-hover text-center">
                 <div className="image-over">
                   <img

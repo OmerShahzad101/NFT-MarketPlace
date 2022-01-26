@@ -4,7 +4,8 @@ import liveAuction from "../../services/liveAuction.service";
 import { ENV } from "../../env";
 import { Link } from "react-router-dom";
 
-const initailData = {
+// __ __ Initial Data __ __ //
+const InitialData = {
   heading: "Live Auctions",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
@@ -12,20 +13,19 @@ const initailData = {
 };
 
 const AuctionsTwo = () => {
-  const [initData, setInitData] = useState(initailData);
+  // __ __ Hook Function __ __ //
+  const [initData, setInitData] = useState(InitialData);
   const [data, setData] = useState("");
 
   useEffect(async () => {
-    const res = await liveAuction.auction(
-      `${ENV.API_URL}api/live-auction-nfts/`
-    );
-    console.log(res.data.data);
+    // __ __ API Call __ __ //
+    const res = await liveAuction.auction( `${ENV.API_URL}api/live-auction-nfts/`);
     setData(res.data.data);
-    const script = document.createElement("script");
 
+    //__ __ Reload JQuery Script __ __ //
+    const script = document.createElement("script");
     script.src = "/assets/js/vendor/countdown.min.js";
     script.async = true;
-
     document.body.appendChild(script);
   }, []);
 
@@ -41,6 +41,7 @@ const AuctionsTwo = () => {
           </div>
         </div>
         <div className="row items">
+          {/* __ __ Iteration to Display Data __  */}
           {data
             ? data.map((item, idx) => {
                 return (
@@ -61,7 +62,6 @@ const AuctionsTwo = () => {
                       <div className="card-caption col-12 p-0">
                         <div className="card-body">
                           <div className="countdown-times mb-3">
-                            {console.log()}
                             <div
                               className="countdown d-flex justify-content-center"
                               data-date="2022-02-27"
@@ -90,15 +90,8 @@ const AuctionsTwo = () => {
                   </div>
                 );
               })
-            : " "}
+            : "No NFT is on Auction"}
         </div>
-        {/* <div className="row">
-          <div className="col-12 text-center">
-            <a id="load-btn" className="btn btn-bordered-white mt-5" href="#">
-              {initData.btnText}
-            </a>
-          </div>
-        </div> */}
       </div>
     </section>
   );

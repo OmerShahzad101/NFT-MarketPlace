@@ -3,70 +3,16 @@ import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 import reportNft from "../../services/reportNf.service";
 import moment from "moment";
+import { Link } from "react-router-dom";
+import Notifications, { notify } from "react-notify-toast";
 
 const initialData = {
-  itemImg: "/img/auction_2.jpg",
-  date: "2022-03-30",
-  ownerImg: "/img/avatar_1.jpg",
-  created: "15 Jul 2021",
-
-  price_1: "1.5 ETH",
-  price_2: "$500.89",
   count: "1 of 5",
-  size: "14000 x 14000 px",
   volume: "64.1",
   highest_bid: "2.9 BNB",
   bid_count: "1 of 5",
   btnText: "Place a Bid",
 };
-
-const initialtabData_1 = [
-  {
-    id: "1",
-    img: "/img/avatar_1.jpg",
-    price: "14 ETH",
-    time: "4 hours ago",
-    author: "@arham",
-  },
-  {
-    id: "2",
-    img: "/img/avatar_2.jpg",
-    price: "10 ETH",
-    time: "8 hours ago",
-    author: "@junaid",
-  },
-  {
-    id: "3",
-    img: "/img/avatar_3.jpg",
-    price: "12 ETH",
-    time: "3 hours ago",
-    author: "@yasmin",
-  },
-];
-
-const initialtabData_2 = [
-  {
-    id: "1",
-    img: "/img/avatar_6.jpg",
-    price: "32 ETH",
-    time: "10 hours ago",
-    author: "@hasan",
-  },
-  {
-    id: "2",
-    img: "/img/avatar_7.jpg",
-    price: "24 ETH",
-    time: "6 hours ago",
-    author: "@artnox",
-  },
-  {
-    id: "3",
-    img: "/img/avatar_8.jpg",
-    price: "29 ETH",
-    time: "12 hours ago",
-    author: "@meez",
-  },
-];
 
 const ItemDetails = () => {
   const arr = window.location.href.split("?");
@@ -79,21 +25,20 @@ const ItemDetails = () => {
 
   const [initData, setInitData] = useState(initialData);
   const [nftbiddingHistory, setNftbiddingHistory] = useState();
-  const [tabData_2, settabData_2] = useState(initialtabData_2);
   const [nftData, setNftData] = useState([]);
   const [nftReport, setNftReport] = useState(initialstates);
   nftReport.nft = id;
 
   useEffect(async () => {
     const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
-    
+
     console.log(res.data.data);
     setNftData(res.data.data);
 
     const result = await NFT.nftBiddingList(
       `${ENV.API_URL}api/specific_bidding_nft/${id}/`
     );
-    console.log("nft  ")
+    console.log("nft  ");
     console.log(result);
     setNftbiddingHistory(result.data.bidding_data);
   }, []);
@@ -104,7 +49,10 @@ const ItemDetails = () => {
       `${ENV.API_URL}api/create_reported_nft/`,
       nftReport
     );
-  
+    if (result.status === true) {
+      notify.show("Reported Succesfully!", "success", 3000);
+    }
+
     console.log(result);
   };
   const handleChange = (e) => {
@@ -183,7 +131,7 @@ const ItemDetails = () => {
                                 <strong>${item.bidding_price}</strong>{" "}
                                 {moment(item.bidding_date).fromNow()} {"  "}
                                 <br />
-                                by <a href="/author">@{item.offer_by}</a>
+                                by<Link to={`/author?`}>@{item.offer_by}</Link>
                               </p>
                             </li>
                           ) : (
@@ -284,6 +232,8 @@ const ItemDetails = () => {
               >
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content reportnft-modal ">
+                    <Notifications />
+
                     <div class="modal-header">
                       <h5 class="modal-title  m-0" id="exampleModalLabel">
                         Report this item
@@ -351,17 +301,17 @@ const ItemDetails = () => {
               <p>{nftData.description}</p>
               <div className="owner d-flex align-items-center">
                 <span>Owned By</span>
-                <a
+                <Link
                   className="owner-meta d-flex align-items-center ml-3"
-                  href="/author"
+                  to={`/author?${nftData.user_id}`}
                 >
                   <img
                     className="avatar-sm rounded-circle"
-                    src={initData.ownerImg}
+                    src={`${ENV.API_URL_image}${nftData.profile_image}`}
                     alt=""
                   />
                   <h6 className="ml-2">{nftData.owner}</h6>
-                </a>
+                </Link>
               </div>
               <div className="item-info-list mt-4">
                 <ul className="list-unstyled">
@@ -392,9 +342,12 @@ const ItemDetails = () => {
                         />
                       </a>
                       <div className="seller-info ml-3">
-                        <a className="seller mb-2" href="/author">
+                        <Link
+                          className="seller mb-2"
+                          to={`/author?${nftData.user_id}`}
+                        >
                           {"@" + nftData.owner}
-                        </a>
+                        </Link>
                         <span>Creator</span>
                       </div>
                     </div>
