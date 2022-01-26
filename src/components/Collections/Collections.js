@@ -11,7 +11,7 @@ const initialData = {
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
 };
 const iddata = {
-  id = 0
+  id : 0
 }
 
 const Collections = () => {
