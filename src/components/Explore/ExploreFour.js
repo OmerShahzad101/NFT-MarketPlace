@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 import $ from "jquery";
-let page = 1;
-let limit = 4;
-
+let limit = 8;
 
 const ExploreFour = () => {
   const initialData = {
@@ -20,6 +18,7 @@ const ExploreFour = () => {
   const [togglePassword, setTogglePassword] = useState(true);
   const [order, setOrder] = useState("ASC");
   const [isFetching, setIsFetching] = useState(false);
+  const [page, setPage] = useState(1);
 
   const onToggle = (e) => {
     setTogglePassword(!togglePassword);
@@ -41,46 +40,26 @@ const ExploreFour = () => {
     }
   };
   useEffect(async () => {
-    const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/?page=${page}&limit=${limit}`);
-    console.log(res);
-    setNftData([...nftData, ...res.data.data.results]);
-    console.log(nftData);
-     console.log(nftData.length);
-page++
+    pagination();
   }, []);
 
   const pagination = async () => {
-    console.log("pagination")
     const res = await NFT.nftget(
       `${ENV.API_URL}api/nft_list/?page=${page}&limit=${limit}`
     );
-    page++;
-   setNftData([...nftData, ...res.data.data.results]);
-   console.log(nftData)
-    console.log(nftData.length);
-    
-    
-    if (res.data.data.count === nftData.length){
+    let newArr = [...nftData, ...res.data.data.results];
+    setNftData(newArr);
+
+    if (res.data.data.count === newArr.length) {
       $("#loadmorebtn").fadeOut("slow");
     }
-    console.log(res.data.data.count);
+
+    setPage(page + 1);
   };
 
-  // const loadMore = () => {
-  //   $(".load-more .item").slice(0, 4).show();
-
-  //   $("#load-btn").on("click", function (e) {
-  //     e.preventDefault();
-  //     $(".load-more .item:hidden").slice(0, 4).slideDown();
-  //     // if ($(".load-more .item:hidden").length == 0) {
-  //     //   $("#load-btn").fadeOut("slow");
-  //     // }
-  //   });
-  // };
 
   return (
     <section className="explore-area">
-      {/* <section className="explore-area load-more"> */}
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 col-lg-7">

@@ -3,8 +3,8 @@ import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import Category from "../../services/category.service";
 import $ from "jquery";
-var count = 2;
 
+let limit = 4;
 const initialData = {
   heading: "Collections ",
   content:
@@ -13,29 +13,65 @@ const initialData = {
 
 const Collections = () => {
   const [initData, setInitData] = useState(initialData);
-  const [collectionData, setCollectionData] = useState();
+  const [collectionData, setCollectionData] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [data, setData] = useState({});
+  const [allData, setAllData] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(async () => {
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCategories(result.data.data.results);
-    $("#myElement label:first").addClass("active");
-    const res = await Collection.collection(
-      `${ENV.API_URL}api/collection_list/`
-    );
-    setCollectionData(res.data.data.results);
+    console.log(result.data.data.results);
+    // all();
+    // $("#myElement label:first").addClass("active");
+    // const res = await Collection.collection(
+    //   `${ENV.API_URL}api/collection_list/`
+    // );
+    // setCollectionData(res.data.data.results);
+    pagination();
   }, []);
 
-  const pagination = async () => {
-    const paginationRes = await Collection.collection(
-      `${ENV.API_URL}api/collection_list/?page=${count}`
+  const specificCategory = async (id) => {
+    // alert(id);
+    const res = await Category.category(
+      `${ENV.API_URL}api/specific_catgory_collection-data/${id}/`
     );
-    count++;
+    console.log(res);
+    setCollectionData(res.data.data.category_data);
+  };
 
-    var newArray = collectionData.concat(paginationRes.data.data.results);
-    setCollectionData(newArray);
-    console.log(paginationRes.data.data.count); 
+  const all =  async() => {
+    setPage(page * 0 + 1);
+    setCollectionData([]);
+    // pagination();
+    const resu = await Collection.collection(
+      `${ENV.API_URL}api/collection_list/?page=${page}&limit=${limit}`
+    );
+    let newArr = [...collectionData, resu.data.data.results];
+    setCollectionData(newArr);
+    // console.log("hi");
+    // console.log(resu);
+    // console.log(newArr);
+
+    if (resu.data.data.count === newArr.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
+  };
+
+  const pagination = async () => {
+    const res = await Collection.collection(
+      `${ENV.API_URL}api/collection_list/?page=${page}&limit=${limit}`
+    );
+    let newArr = [...collectionData, ...res.data.data.results];
+    setCollectionData(newArr);
+    console.log("hi");
+    console.log(res);
+    console.log(newArr);
+
+    if (res.data.data.count === newArr.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
+    setPage(page + 1);
   };
 
   return (
@@ -58,10 +94,25 @@ const Collections = () => {
                 data-toggle="buttons"
               >
                 {console.log(categories)}
+                <label
+                  onClick={() => all()}
+                  className="btn d-table text-uppercase p-2"
+                >
+                  <input
+                    type="radio"
+                    defaultValue="All"
+                    className="explore-btn"
+                    checked
+                  />
+                  <span>All</span>
+                </label>
                 {categories
                   ? categories.map(function (category, i) {
                       return (
-                        <label className="btn d-table text-uppercase p-2">
+                        <label
+                          onClick={() => specificCategory(category.id)}
+                          className="btn d-table text-uppercase p-2"
+                        >
                           <input
                             type="radio"
                             defaultValue={category.name}
@@ -75,7 +126,7 @@ const Collections = () => {
               </div>
             </div>
           </div>
-          <div className="row items explore-items popular-collections-area">
+          <div className="row items  popular-collections-area">
             {console.log(collectionData)}
             {collectionData
               ? collectionData.map((item, idx) => {
@@ -110,7 +161,13 @@ const Collections = () => {
                         <div className="card-caption col-12 p-0">
                           <div className="card-body mt-4">
                             <a href={`/collectionDetail?${item.id}`}>
-                              <h5 className="mb-2">{item.name}</h5>
+                              <h5 className="mb-2">
+                                {item.collection_name
+                                  ? item.collection_name
+                                  : item.name}
+                              </h5>
+                              <span>{item.category}</span>
+                              <br></br>
                             </a>
                             <span>{item.description}</span>
                           </div>
@@ -126,7 +183,7 @@ const Collections = () => {
               <button
                 onClick={() => pagination()}
                 className="btn btn-bordered-white mt-5"
-                href="#"
+                id="loadmorebtn"
               >
                 Load More
               </button>
@@ -139,3 +196,7 @@ const Collections = () => {
 };
 
 export default Collections;
+
+// var newArray = collectionData.concat(paginationRes.data.data.results);
+// setCollectionData(newArray);
+// console.log(paginationRes.data.data.count);
