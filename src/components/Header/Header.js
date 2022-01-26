@@ -71,26 +71,18 @@ const Header = () => {
                     Help Center
                   </Link>
                 </li>
+             
                 {/* <li className="nav-item">
-                  <Link to="/Create-Collection" className="nav-link">
-                    CreateCollection
-                  </Link>
-                </li> */}
-                <li className="nav-item">
                   <Link to="/favourite-nft" className="nav-link">
                     Favourite Nft
                   </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <Link to="/authors" className="nav-link">
                     Authors
                   </Link>
                 </li>
-                {/* <li className="nav-item">
-                  <Link to="/author" className="nav-link">
-                    Author
-                  </Link>
-                </li> */}
+     
                 <li className="nav-item">
                   {token ? (
                     <Link to="/" className="nav-link" onClick={logout}>
@@ -142,7 +134,7 @@ const Header = () => {
             </li>
           </ul> */}
           {/* Navbar Toggler */}
-          {/* <ul className="navbar-nav toggle">
+          <ul className="navbar-nav toggle">
             <li className="nav-item">
               <a
                 href="#"
@@ -153,9 +145,8 @@ const Header = () => {
                 <i className="fas fa-bars toggle-icon m-0" />
               </a>
             </li>
-          </ul> */}
-          {/* Navbar Action Button */}
-          {/* <ul className="navbar-nav action">
+          </ul> 
+          <ul className="navbar-nav action">
             <li className="nav-item ml-3">
               <a
                 href="/wallet-connect"
@@ -165,7 +156,7 @@ const Header = () => {
                 Wallet Connect
               </a>
             </li>
-          </ul> */}
+          </ul>
         </div>
       </nav>
     </header>
