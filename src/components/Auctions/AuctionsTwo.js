@@ -4,7 +4,9 @@ import liveAuction from "../../services/liveAuction.service";
 import { ENV } from "../../env";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import $ from "jquery";
 
+let limit = 8;
 // __ __ Initial Data __ __ //
 const InitialData = {
   heading: "Live Auctions",
@@ -16,20 +18,34 @@ const InitialData = {
 const AuctionsTwo = () => {
   // __ __ Hook Function __ __ //
   const [initData, setInitData] = useState(InitialData);
-  const [data, setData] = useState("");
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
 
-  useEffect(async () => {
+  useEffect( async () => {
     // __ __ API Call __ __ //
-    const res = await liveAuction.auction( `${ENV.API_URL}api/live-auction-nfts/`);
-    setData(res.data.data.results);
-
+    // const res = await liveAuction.auction( `${ENV.API_URL}api/live-auction-nfts/?page=${page}&limit=${limit}`);
+    // setData(res.data.data.results);
+    pagination();
     //__ __ Reload JQuery Script __ __ //
     const script = document.createElement("script");
     script.src = "/assets/js/vendor/countdown.min.js";
     script.async = true;
     document.body.appendChild(script);
   }, []);
+  // useEffect(async () => {
+  //   pagination();
+  // }, []);
+  const pagination = async () => {
+    const res = await liveAuction.auction( `${ENV.API_URL}api/live-auction-nfts/?page=${page}&limit=${limit}`);
+    let newArr = [...data, ...res.data.data.results];
+    setData(newArr);
 
+    if (res.data.data.count === newArr.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
+
+    setPage(page + 1);
+  };
   return (
     <section className="live-auctions-area">
       <div className="container">
@@ -92,6 +108,17 @@ const AuctionsTwo = () => {
                 );
               })
             : "No NFT is on Auction"}
+        </div>
+        <div className="row">
+          <div className="col-12 text-center">
+            <button
+              onClick={() => pagination()}
+              className="btn btn-bordered-white mt-5"
+              id="loadmorebtn"
+            >
+              Load More
+            </button>
+          </div>
         </div>
       </div>
     </section>

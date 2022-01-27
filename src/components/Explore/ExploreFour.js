@@ -39,7 +39,7 @@ const ExploreFour = () => {
       setOrder("ASC");
     }
   };
-  useEffect(async () => {
+  useEffect( () => {
     pagination();
   }, []);
 
