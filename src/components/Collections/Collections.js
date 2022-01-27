@@ -10,9 +10,6 @@ const initialData = {
   content:
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
 };
-const iddata = {
-  id : 0
-}
 
 const Collections = () => {
   const [initData, setInitData] = useState(initialData);
@@ -20,14 +17,14 @@ const Collections = () => {
   const [categories, setCategories] = useState([]);
   const [allData, setAllData] = useState([]);
   const [page, setPage] = useState(1);
-  const [payload, setpayload] = useState(iddata);
+  const [payload, setpayload] = useState();
 
   useEffect(async () => {
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCategories(result.data.data.results);
     console.log(result.data.data.results);
     // all();
-    // $("#myElement label:first").addClass("active");
+    $("#myElement label:first").addClass("active");
     // const res = await Collection.collection(
     //   `${ENV.API_URL}api/collection_list/`
     // );
@@ -35,19 +32,19 @@ const Collections = () => {
     // pagination();
     console.log(payload)
     const res = await Category.category(
-      `${ENV.API_URL}api/specific_catgory_collection-data/`,
-      payload
+      `${ENV.API_URL}api/specific_catgory_collection-data/0`
     );
     setCollectionData(res.data.data.category_data);
-    console.log(res)
-    console.log(res.data.data.category_data)
+
+    console.log(res.data.data.category_data);
   }, []);
 
   const specificCategory = async (id) => {
     const res = await Category.category(
-      `${ENV.API_URL}api/specific_catgory_collection-data/` , id
+      `${ENV.API_URL}api/specific_catgory_collection-data/${id}`
     );
     setCollectionData(res.data.data.category_data);
+    console.log(res.data.data.category_data)
   };
 
   // const all =  async() => {
@@ -102,7 +99,6 @@ const Collections = () => {
                 className="explore-menu btn-group btn-group-toggle flex-wrap justify-content-center text-center mb-4"
                 data-toggle="buttons"
               >
-                {console.log(categories)}
                 <label
                   onClick={() => specificCategory(0)}
                   className="btn d-table text-uppercase p-2"
@@ -136,7 +132,6 @@ const Collections = () => {
             </div>
           </div>
           <div className="row items  popular-collections-area">
-            {console.log(collectionData)}
             {collectionData
               ? collectionData.map((item, idx) => {
                   return (
@@ -175,8 +170,6 @@ const Collections = () => {
                                   ? item.collection_name
                                   : item.name}
                               </h5>
-                              <span>{item.category}</span>
-                              <br></br>
                             </a>
                             <span>{item.description}</span>
                           </div>
