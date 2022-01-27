@@ -37,7 +37,6 @@ const UpdateProfile = () => {
   }, []);
 
   const handleChange = (e) => {
-    debugger;
     const { name, value } = e.target;
     setUpdateUser({
       ...updateUser,
@@ -50,13 +49,12 @@ const UpdateProfile = () => {
    * @param {eventObject} e
    */
   const handleChange2 = (e) => {
-    debugger;
     const { name, value } = e.target;
     let obj = updateUser.user_profile;
     obj[0][name] = value;
     setUpdateUser({
       ...updateUser,
-       obj,
+      user_profile: obj,
     });
   };
 
@@ -90,32 +88,12 @@ const UpdateProfile = () => {
 
   const update_data = async () => {
     var formData = new FormData();
-    // console.log(updateUser);
-    // console.log(updateUser.user_profile);
-    // console.log(updateUser.user_profile[0].about);
-
-    // for (const key in updateUser)
-    //   if (updateUser[key]) formData.append(key, updateUser[key]);
-    // formData.append("about",updateUser.user_profile[0].about);
-    // formData.append("facebook_link",updateUser.user_profile[0].facebook_link);
-    // formData.append("vine_link",updateUser.user_profile[0].vine_link);
-    // formData.append("twitter_link",updateUser.user_profile[0].twitter_link);
-    // formData.append("google_plus_link",updateUser.user_profile[0].google_plus_link);
-
-    // console.log(res);
-    // console.log(updateUser);
-    // Display the key/value pairs
 
     for (let key in updateUser) {
       if (typeof updateUser[key] === "object") {
-        let arr = [];
-        arr.push(updateUser[key][0]);
-        formData.append(`user_profile`, JSON.parse(arr));
-        console.log(JSON.parse(arr))
-        // for (let subKey in updateUser[key][0]) {
-
-        //   formData.append(`${key}.${subKey}`, updateUser[key][0][subKey]);
-        // }
+        for (let subKey in updateUser[key][0]) {
+          formData.append(`${subKey}`, updateUser[key][0][subKey]);
+        }
       } else {
         formData.append(key, updateUser[key]);
       }
@@ -123,9 +101,8 @@ const UpdateProfile = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    console.log(id);
     const res = await updateProfile.updateProfileUser(
-      `${ENV.API_URL}/update_profile/${id}/`,
+      `${ENV.API_URL}api/update_profile/${id}/`,
       formData
     );
   };
@@ -136,7 +113,7 @@ const UpdateProfile = () => {
         className="breadcrumb-area overlay-dark d-flex align-items-center"
 
         // style={{
-        //   backgroundImage: `${updateUser.user_profile[0].banner_image} ? url(${ENV.API_URL_image}${updateUser.user_profile[0].banner_image}) : "banner image "`,
+        //   backgroundImage: `${updateUser.user_profile[0].banner_image} ? url(${ENV.API_URL_image}${updateUser.user_profile[0].banner_image}) : ""`,
 
         // }}
       ></section>

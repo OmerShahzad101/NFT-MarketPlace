@@ -107,14 +107,17 @@ class Create extends Component {
                 `${ENV.API_URL}api/create_nft/`,
                 formData
               );
-              console.log(res);
-              if (res.status === true) {
-                notify.show("Created Succesfully!", "success", 3000);
-                window.location = "/marketplace";
-              } else {
-                notify.show("Failed to create!", "error", 3000);
-                this.setState({ loader: false });
+              for (var pair of formData.entries()) {
+                console.log(pair[0] + ", " + pair[1]);
               }
+              console.log(res);
+              // if (res.status === true) {
+              //   notify.show("Created Succesfully!", "success", 3000);
+              //   window.location = "/marketplace";
+              // } else {
+              //   notify.show("Failed to create!", "error", 3000);
+              //   this.setState({ loader: false });
+              // }
             }
           );
         } else {
