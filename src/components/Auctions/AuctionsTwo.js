@@ -21,24 +21,19 @@ const AuctionsTwo = () => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
 
-  useEffect( async () => {
-    // __ __ API Call __ __ //
-    // const res = await liveAuction.auction( `${ENV.API_URL}api/live-auction-nfts/?page=${page}&limit=${limit}`);
-    // setData(res.data.data.results);
+  useEffect( () => {
     pagination();
+  }, []);
+  
+  const pagination = async () => {
+    const res = await liveAuction.auction( `${ENV.API_URL}api/live-auction-nfts/?page=${page}&limit=${limit}`);
+    let newArr = [...data, ...res.data.data.results];
+    setData(newArr);
     //__ __ Reload JQuery Script __ __ //
     const script = document.createElement("script");
     script.src = "/assets/js/vendor/countdown.min.js";
     script.async = true;
     document.body.appendChild(script);
-  }, []);
-  // useEffect(async () => {
-  //   pagination();
-  // }, []);
-  const pagination = async () => {
-    const res = await liveAuction.auction( `${ENV.API_URL}api/live-auction-nfts/?page=${page}&limit=${limit}`);
-    let newArr = [...data, ...res.data.data.results];
-    setData(newArr);
 
     if (res.data.data.count === newArr.length) {
       $("#loadmorebtn").fadeOut("slow");

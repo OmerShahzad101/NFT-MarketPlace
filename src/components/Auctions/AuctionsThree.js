@@ -11,7 +11,7 @@ const AuctionThree = () => {
   // Fetch Data on component load
   useEffect(async () => {
     const res = await liveAuction.auction(`${ENV.API_URL}api/live-auction-nfts/`);
-    setData(res.data.data);
+    setData(res.data.data.results);
 
     //__ __ JQuery for Live Auction Counter __ __ //
     const script = document.createElement("script");

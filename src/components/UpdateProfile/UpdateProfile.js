@@ -63,6 +63,7 @@ const UpdateProfile = () => {
    * @param {eventObject} e
    */
   const onFileChange = (e) => {
+    debugger;
     let { name } = e.target;
     let file = e.target.files[0];
     let fileId = e.target.id;
@@ -74,11 +75,19 @@ const UpdateProfile = () => {
         setUpdateUser(_obj);
 
         // __ redner __ //
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          $(`.rounded-circle`).attr("src", e.target.result);
-          $("#custom-file-label").html("File selected");
-        };
+        if (name == "banner_image") {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $(`.img-banner_image`).attr("src", e.target.result);
+            $("#custom-file-label").html("File selected");
+          };
+        } else {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $(`.rounded-circle`).attr("src", e.target.result);
+            $("#custom-file-label").html("File selected");
+          };
+        }
         reader.readAsDataURL(file);
       } else {
         $(`#nft-${fileId}`).attr("src", placeholderImg);
@@ -109,25 +118,25 @@ const UpdateProfile = () => {
 
   return (
     <div>
-      <section
+      {/* <section
         className="breadcrumb-area overlay-dark d-flex align-items-center"
 
         // style={{
         //   backgroundImage: `${updateUser.user_profile[0].banner_image} ? url(${ENV.API_URL_image}${updateUser.user_profile[0].banner_image}) : ""`,
 
         // }}
-      ></section>
+      ></section> */}
       <div className="container author-area my-5">
         <div className="row">
           <div className="col-lg-4">
             <div className="card no-hover text-center mt-5">
               <div className="image-over">
-                <img className="card-img-top" src="{data.img}" alt="" />
+                <img className="card-img-top img-banner_image" alt="" />
 
                 <div className="author">
                   <div className="author-thumb avatar-lg">
                     <img
-                      className="rounded-circle"
+                      className="rounded-circle img-profile_image"
                       // src=""
                       // src={`${ENV.API_URL_image}${updateUser.user_profile[0].profile_image})`}
                       alt=""
