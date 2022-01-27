@@ -33,12 +33,13 @@ const Collections = () => {
     // );
     // setCollectionData(res.data.data.results);
     // pagination();
+    console.log(payload)
     const res = await Category.category(
       `${ENV.API_URL}api/specific_catgory_collection-data/`,
       payload
     );
     setCollectionData(res.data.data.category_data);
-    
+    console.log(res)
     console.log(res.data.data.category_data)
   }, []);
 

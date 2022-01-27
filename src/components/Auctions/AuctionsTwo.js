@@ -3,6 +3,7 @@ import liveAuction from "../../services/liveAuction.service";
 
 import { ENV } from "../../env";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 // __ __ Initial Data __ __ //
 const InitialData = {
@@ -20,7 +21,7 @@ const AuctionsTwo = () => {
   useEffect(async () => {
     // __ __ API Call __ __ //
     const res = await liveAuction.auction( `${ENV.API_URL}api/live-auction-nfts/`);
-    setData(res.data.data);
+    setData(res.data.data.results);
 
     //__ __ Reload JQuery Script __ __ //
     const script = document.createElement("script");
@@ -64,8 +65,8 @@ const AuctionsTwo = () => {
                           <div className="countdown-times mb-3">
                             <div
                               className="countdown d-flex justify-content-center"
-                              data-date="2022-02-27"
-                            />
+                              data-date={moment(item.expiry_date).format("YYYY-MM-DD")}
+                              />
                           </div>
                           <Link to={`/nft-details?${item.id}`}>
                             <h5 className="mb-0">{item.name}</h5>

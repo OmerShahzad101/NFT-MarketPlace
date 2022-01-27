@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useEffect, useState } from "react";
 import { ENV } from "../../env";
@@ -9,18 +10,15 @@ const placeholderImg = "";
 const UpdateProfile = () => {
   // __ __ initial state __ __ //
   const initialdata = {
-    file: "",
     first_name: "",
     last_name: "",
-    user_profile: {
-      profile_image: "",
-      banner_image: "",
-      about: "",
-      facebook_link: "",
-      twitter_link: "",
-      vine_link: "",
-      google_plus_link: "",
-    },
+    profile_image: "",
+    banner_image: "",
+    about: "",
+    facebook_link: "",
+    twitter_link: "",
+    vine_link: "",
+    google_plus_link: "",
   };
 
   //__ __ Hook functions __ __ //
@@ -33,11 +31,10 @@ const UpdateProfile = () => {
       `${ENV.API_URL}api/auth/users/me/`
     );
     setUpdateUser(res);
-    console.log(res);
+    // console.log(res);
   }, []);
 
   const handleChange = (e) => {
-    debugger;
     const { name, value } = e.target;
     setUpdateUser({
       ...updateUser,
@@ -45,25 +42,6 @@ const UpdateProfile = () => {
     });
   };
 
-  /**
-   *
-   * @param {eventObject} e
-   */
-  const handleChange2 = (e) => {
-    debugger;
-    const { name, value } = e.target;
-    let obj = updateUser.user_profile;
-    obj[0][name] = value;
-    setUpdateUser({
-      ...updateUser,
-       obj,
-    });
-  };
-
-  /**
-   *
-   * @param {eventObject} e
-   */
   const onFileChange = (e) => {
     let { name } = e.target;
     let file = e.target.files[0];
@@ -71,7 +49,7 @@ const UpdateProfile = () => {
     if (file)
       if (file.type.includes("image")) {
         let _obj = updateUser;
-        _obj.user_profile[0][name] = file;
+        _obj[name] = file;
 
         setUpdateUser(_obj);
 
@@ -90,44 +68,22 @@ const UpdateProfile = () => {
 
   const update_data = async () => {
     var formData = new FormData();
-    // console.log(updateUser);
-    // console.log(updateUser.user_profile);
-    // console.log(updateUser.user_profile[0].about);
-
-    // for (const key in updateUser)
-    //   if (updateUser[key]) formData.append(key, updateUser[key]);
-    // formData.append("about",updateUser.user_profile[0].about);
-    // formData.append("facebook_link",updateUser.user_profile[0].facebook_link);
-    // formData.append("vine_link",updateUser.user_profile[0].vine_link);
-    // formData.append("twitter_link",updateUser.user_profile[0].twitter_link);
-    // formData.append("google_plus_link",updateUser.user_profile[0].google_plus_link);
-
-    // console.log(res);
-    // console.log(updateUser);
-    // Display the key/value pairs
-
+    console.log("d" + JSON.stringify(updateUser));
     for (let key in updateUser) {
       if (typeof updateUser[key] === "object") {
         let arr = [];
         arr.push(updateUser[key][0]);
-        formData.append(`user_profile`, JSON.parse(arr));
-        console.log(JSON.parse(arr))
-        // for (let subKey in updateUser[key][0]) {
-
-        //   formData.append(`${key}.${subKey}`, updateUser[key][0][subKey]);
-        // }
+        formData.append(`user_profile`, JSON.stringify(arr));
       } else {
         formData.append(key, updateUser[key]);
       }
     }
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-    console.log(id);
+
     const res = await updateProfile.updateProfileUser(
       `${ENV.API_URL}/update_profile/${id}/`,
       formData
     );
+    console.log(res);
   };
 
   return (
@@ -287,13 +243,9 @@ const UpdateProfile = () => {
                         type="text"
                         className="form-control"
                         name="about"
-                        value={
-                          updateUser.user_profile[0]
-                            ? updateUser.user_profile[0].about
-                            : ""
-                        }
+                        value={updateUser ? updateUser.about : ""}
                         placeholder="About"
-                        onChange={handleChange2}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -303,13 +255,9 @@ const UpdateProfile = () => {
                         type="text"
                         className="form-control"
                         name="facebook_link"
-                        value={
-                          updateUser.user_profile[0]
-                            ? updateUser.user_profile[0].facebook_link
-                            : ""
-                        }
+                        value={updateUser ? updateUser.facebook_link : ""}
                         placeholder="Facebook Link"
-                        onChange={handleChange2}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -319,14 +267,10 @@ const UpdateProfile = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={
-                          updateUser.user_profile[0]
-                            ? updateUser.user_profile[0].twitter_link
-                            : ""
-                        }
+                        value={updateUser ? updateUser.twitter_link : ""}
                         name="twitter_link"
                         placeholder="Twitter Link"
-                        onChange={handleChange2}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -335,14 +279,10 @@ const UpdateProfile = () => {
                     <div className="form-group mt-3">
                       <input
                         type="text"
-                        value={
-                          updateUser.user_profile[0]
-                            ? updateUser.user_profile[0].vine_link
-                            : ""
-                        }
+                        value={updateUser ? updateUser.vine_link : ""}
                         className="form-control"
                         name="vine_link"
-                        onChange={handleChange2}
+                        onChange={handleChange}
                         placeholder="Vine Link"
                       />
                     </div>
@@ -352,12 +292,8 @@ const UpdateProfile = () => {
                     <div className="form-group mt-3">
                       <input
                         type="text"
-                        value={
-                          updateUser.user_profile[0]
-                            ? updateUser.user_profile[0].google_plus_link
-                            : ""
-                        }
-                        onChange={handleChange2}
+                        value={updateUser ? updateUser.google_plus_link : ""}
+                        onChange={handleChange}
                         className="form-control"
                         name="google_plus_link"
                         placeholder="Google + Link"

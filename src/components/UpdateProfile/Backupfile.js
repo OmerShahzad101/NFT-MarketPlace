@@ -33,11 +33,10 @@ const UpdateProfile = () => {
       `${ENV.API_URL}api/auth/users/me/`
     );
     setUpdateUser(res);
-    console.log(res);
+    console.log(res)
   }, []);
 
   const handleChange = (e) => {
-    debugger;
     const { name, value } = e.target;
     setUpdateUser({
       ...updateUser,
@@ -50,13 +49,12 @@ const UpdateProfile = () => {
    * @param {eventObject} e
    */
   const handleChange2 = (e) => {
-    debugger;
     const { name, value } = e.target;
     let obj = updateUser.user_profile;
     obj[0][name] = value;
     setUpdateUser({
       ...updateUser,
-       obj,
+      user_profile: obj,
     });
   };
 
@@ -110,8 +108,7 @@ const UpdateProfile = () => {
       if (typeof updateUser[key] === "object") {
         let arr = [];
         arr.push(updateUser[key][0]);
-        formData.append(`user_profile`, JSON.parse(arr));
-        console.log(JSON.parse(arr))
+        formData.append(`user_profile`, JSON.stringify(arr));
         // for (let subKey in updateUser[key][0]) {
 
         //   formData.append(`${key}.${subKey}`, updateUser[key][0][subKey]);
@@ -123,11 +120,11 @@ const UpdateProfile = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    console.log(id);
-    const res = await updateProfile.updateProfileUser(
-      `${ENV.API_URL}/update_profile/${id}/`,
-      formData
-    );
+console.log(id)
+    // const res = await updateProfile.updateProfileUser(
+    //   `${ENV.API_URL}/update_profile/${id}/`,
+    //   formData
+    // );
   };
 
   return (

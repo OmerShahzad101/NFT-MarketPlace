@@ -5,7 +5,9 @@ const updateProfile = {
     console.log("JSON.stringify(data)", data);
     const requestOptions = {
       method: "PUT",
-      body: JSON.stringify(data),
+      // body: JSON.stringify(data),
+      body: data,
+
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${_token}`,

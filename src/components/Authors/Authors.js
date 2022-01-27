@@ -11,11 +11,11 @@ const Authors = () => {
 
   useEffect(async () => {
     const result = await authors.authorsList(
-      `${ENV.API_URL}api/profile/get-list/`
+      `${ENV.API_URL}api/user_list-profile/`
     );
 
     setAuthorData(result.data.data.results);
-    console.log(result.data);
+    console.log(result);
     
     loadMore();
   }, []);
