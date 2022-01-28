@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import updateProfile from "../../services/updateProfile.service";
 import $ from "jquery";
+import Notifications, { notify } from "react-notify-toast";
 
 const placeholderImg = "";
 
@@ -106,47 +107,49 @@ const UpdateProfile = () => {
         formData.append(key, updateUser[key]);
       }
     }
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-    // var object = {};
-    // formData.forEach(function (value, key) {object[key] = value;});
-    // var json = JSON.stringify(object);
-    // console.log(json);
 
     const res = await updateProfile.updateProfileUser(
       `${ENV.API_URL}api/update_profile/${id}/`,
       formData
     );
-    console.log(res)
-    
+    if (res.status === true) {
+      notify.show("Updated Succesfully!", "success", 3000);
+      // window.location = "/";
+    } else {
+      notify.show("Failed to Update!", "error", 3000);
+    }
   };
 
   return (
-    <div>
-      {/* <section
-        className="breadcrumb-area overlay-dark d-flex align-items-center"
-
-        // style={{
-        //   backgroundImage: `${updateUser.user_profile[0].banner_image} ? url(${ENV.API_URL_image}${updateUser.user_profile[0].banner_image}) : ""`,
-
-        // }}
-      ></section> */}
-      <div className="container author-area my-5">
+    <section className="author-area">
+      <Notifications />
+      <div className="container my-5">
         <div className="row">
           <div className="col-lg-4">
             <div className="card no-hover text-center mt-5">
               <div className="image-over">
-                <img className="card-img-top img-banner_image" src="/img/auction_2.jpg" alt="" />
+                <img
+                  className="card-img-top img-banner_image"
+                  src="/img/auction_2.jpg"
+                  alt=""
+                />
 
                 <div className="author">
                   <div className="author-thumb avatar-lg">
-                    <img
-                      className="rounded-circle img-profile_image"
-                       src="/img/auction_2.jpg"
-                      
-                      alt=""
-                    />
+                    {updateUser.user_profile[0] ? (
+                      <img
+                        className="rounded-circle img-profile_image"
+                        src="/img/auction_2.jpg"
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        className="rounded-circle img-profile_image"
+                        // src={updateUser.user_profile[0].profile_image ? `${ENV.API_URL_image}${updateUser.user_profile[0].profile_image}` : "img/auction_2.jpg"}
+
+                        alt=""
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -154,6 +157,8 @@ const UpdateProfile = () => {
               <div className="card-caption col-12 p-0">
                 <div className="card-body mt-4">
                   <div className="input-group">
+                    {/* { console.log(updateUser.user_profile[0].about)} */}
+
                     <input
                       type="text"
                       className="form-control"
@@ -360,7 +365,7 @@ const UpdateProfile = () => {
                   <div className="col-12">
                     <button
                       className="btn w-100 mt-3 mt-sm-4"
-                      type="submit"
+                      type="button"
                       onClick={(e) => update_data()}
                     >
                       Update Profile
@@ -374,7 +379,7 @@ const UpdateProfile = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

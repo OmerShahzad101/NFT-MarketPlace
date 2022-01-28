@@ -111,13 +111,13 @@ class Create extends Component {
                 console.log(pair[0] + ", " + pair[1]);
               }
               console.log(res);
-              // if (res.status === true) {
-              //   notify.show("Created Succesfully!", "success", 3000);
-              //   window.location = "/marketplace";
-              // } else {
-              //   notify.show("Failed to create!", "error", 3000);
-              //   this.setState({ loader: false });
-              // }
+              if (res.status === true) {
+                notify.show("Created Succesfully!", "success", 3000);
+                window.location = "/marketplace";
+              } else {
+                notify.show("Failed to create!", "error", 3000);
+                this.setState({ loader: false });
+              }
             }
           );
         } else {

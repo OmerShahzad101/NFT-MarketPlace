@@ -1,21 +1,11 @@
-import axios from "axios";
 const updateProfile = {
   updateProfileUser: (url, data) => {
     var _token = JSON.parse(localStorage.getItem("access"));
   
-    console.log("JSON.stringify(data)", data);
-    var json = JSON.stringify(data);
-    console.log(json);
-
-
-
     const requestOptions = {
       method: "PUT",
-      // body: JSON.stringify(data),
-      body: data,
-
+       body: data,
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${_token}`,
       },
     };
