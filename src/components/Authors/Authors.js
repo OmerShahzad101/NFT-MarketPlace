@@ -75,7 +75,7 @@ const Authors = () => {
                     </div>
                   ) : (
                     <div className="image-over">
-                      <a href={`/author?${item.id}`}>
+                      <a href={`/author?${item.user_id}`}>
                         <img
                           className="card-img-top"
                           src="img/auction_2.jpg"
@@ -83,7 +83,7 @@ const Authors = () => {
                         />
                       </a>
 
-                      <a className="seller" href={`/author?${item.id}`}>
+                      <a className="seller" href={`/author?${item.user_id}`}>
                         <div className="seller-thumb avatar-lg">
                           <img
                             className="rounded-circle"
@@ -97,7 +97,7 @@ const Authors = () => {
 
                   <div className="card-caption col-12 p-0">
                     <div className="card-body mt-4">
-                      <a href={`/author?${item.id}`}>
+                      <a href={`/author?${item.user_id}`}>
                         <h5>
                           {item.first_name} {item.last_name}
                         </h5>

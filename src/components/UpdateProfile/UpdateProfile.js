@@ -9,7 +9,7 @@ const placeholderImg = "";
 const UpdateProfile = () => {
   // __ __ initial state __ __ //
   const initialdata = {
-    file: "",
+    // file: "",
     first_name: "",
     last_name: "",
     user_profile: {
@@ -63,7 +63,6 @@ const UpdateProfile = () => {
    * @param {eventObject} e
    */
   const onFileChange = (e) => {
-    debugger;
     let { name } = e.target;
     let file = e.target.files[0];
     let fileId = e.target.id;
@@ -95,7 +94,7 @@ const UpdateProfile = () => {
       }
   };
 
-  const update_data = async () => {
+  const update_data = async (e) => {
     var formData = new FormData();
 
     for (let key in updateUser) {
@@ -110,10 +109,17 @@ const UpdateProfile = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
+    // var object = {};
+    // formData.forEach(function (value, key) {object[key] = value;});
+    // var json = JSON.stringify(object);
+    // console.log(json);
+
     const res = await updateProfile.updateProfileUser(
       `${ENV.API_URL}api/update_profile/${id}/`,
       formData
     );
+    console.log(res)
+    
   };
 
   return (
@@ -218,7 +224,7 @@ const UpdateProfile = () => {
                     </div>
                   </div>
 
-                  <div className="col-12">
+                  {/* <div className="col-12">
                     <div className="form-group mt-3">
                       <input
                         type="email"
@@ -227,10 +233,10 @@ const UpdateProfile = () => {
                         disabled
                         value={updateUser ? updateUser.email : ""}
                         placeholder="Email"
-                        onChange={handleChange}
+                        // onChange={handleChange}
                       />
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-12">
                     <div className="form-group mt-3">
                       <input
@@ -355,7 +361,7 @@ const UpdateProfile = () => {
                     <button
                       className="btn w-100 mt-3 mt-sm-4"
                       type="submit"
-                      onClick={() => update_data()}
+                      onClick={(e) => update_data()}
                     >
                       Update Profile
                     </button>
