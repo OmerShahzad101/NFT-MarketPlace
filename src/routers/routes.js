@@ -53,8 +53,7 @@ class MyRouts extends React.Component {
             <Route exact path="/author" component={Author} />
             <Route exact path="/updateprofile" component={UpdateProfile} />
             <Route exact path="/mycollections" component={myCollections} />
-             {/* <Route exact path="/" component={ThemeOne} />
-            <Route exact path="/explore-1" component={ExploreOne} />
+            {/* <Route exact path="/explore-1" component={ExploreOne} />
             <Route exact path="/explore-3" component={ExploreThree} />
             <Route exact path="/explore-4" component={ExploreFour} />
             <Route exact path="/auctions" component={Auctions} />

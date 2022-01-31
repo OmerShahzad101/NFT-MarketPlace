@@ -8,8 +8,8 @@ const Author = () => {
   const arr = window.location.href.split("?");
   const id = arr[1];
 
-  const [authorData, setAuthorData] = useState("");
-  const [authorNft, setAuthorNft] = useState("");
+  const [authorData, setAuthorData] = useState([]);
+  const [authorNft, setAuthorNft] = useState([]);
 
   useEffect(async () => {
     const result = await authors.specificAuthor(
@@ -22,67 +22,82 @@ const Author = () => {
     );
 
     console.log(res.data.user_data);
-    setAuthorNft(res.data.user_data);
+    let nftdata = res.data.user_data;
+    setAuthorNft(nftdata);
+    console.log(nftdata);
   }, []);
 
+  {
+    console.log(authorNft);
+  }
   return (
     <section className="author-area explore-area popular-collections-area">
       <div className="container">
         <div className="row justify-content-between">
           <div className="col-12 col-md-4">
-            {authorData.user_profile ? (
+            {authorData ? (
               <div className="card no-hover text-center">
                 <div className="image-over">
-                  <img
-                    className="card-img-top"
-                    src={`${ENV.API_URL_image}${authorData.user_profile[0].banner_image}`}
-                    alt=""
-                  />
+                  {authorData.banner_image ? (
+                    <img
+                      className="card-img-top"
+                      src={`${ENV.API_URL_image_media}${authorData.banner_image}`}
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      className="card-img-top"
+                      src="/img/auction_2.jpg"
+                      alt=""
+                    />
+                  )}
                   <div className="author">
                     <div className="author-thumb avatar-lg">
-                      <img
-                        className="rounded-circle"
-                        src={`${ENV.API_URL_image}${authorData.user_profile[0].profile_image}`}
-                        alt=""
-                      />
+                      {authorData.profile_image ? (
+                        <img
+                          className="rounded-circle"
+                          src={`${ENV.API_URL_image_media}${authorData.profile_image}`}
+                          alt=""
+                        />
+                      ) : (
+                        <img
+                          className="rounded-circle"
+                          src="/img/auction_2.jpg"
+                          alt=""
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
                 <div className="card-caption col-12 p-0">
                   <div className="card-body mt-4">
                     <h5 className="mb-3">
-                      {authorData.first_name}
-                      {authorData.last_name}
+                      {authorData.first_name} {authorData.last_name}
                     </h5>
-                    <p className="my-3">{authorData.user_profile[0].about}</p>
+                    <p className="my-3">{authorData.about}</p>
+                    <p className="my-3">{authorData.email}</p>
 
                     <div className="social-icons d-flex justify-content-center my-3">
-                      {authorData.user_profile[0] ? (
-                        <a
-                          className="facebook"
-                          href={authorData.user_profile[0].facebook_link}
-                        >
+                      {authorData ? (
+                        <a className="facebook" href={authorData.facebook_link}>
                           <i className="fab fa-facebook-f" />
                           <i className="fab fa-facebook-f" />
                         </a>
                       ) : (
                         ""
                       )}
-                      {authorData.user_profile[0] ? (
-                        <a
-                          className="twitter"
-                          href={authorData.user_profile[0].twitter_link}
-                        >
+                      {authorData ? (
+                        <a className="twitter" href={authorData.twitter_link}>
                           <i className="fab fa-twitter" />
                           <i className="fab fa-twitter" />
                         </a>
                       ) : (
                         ""
                       )}
-                      {authorData.user_profile[0] ? (
+                      {authorData ? (
                         <a
                           className="google-plus"
-                          href={authorData.user_profile[0].google_plus_link}
+                          href={authorData.google_plus_link}
                         >
                           <i className="fab fa-google-plus-g" />
                           <i className="fab fa-google-plus-g" />
@@ -90,11 +105,8 @@ const Author = () => {
                       ) : (
                         ""
                       )}
-                      {authorData.user_profile[0] ? (
-                        <a
-                          className="vine"
-                          href={authorData.user_profile[0].vine_link}
-                        >
+                      {authorData ? (
+                        <a className="vine" href={authorData.vine_link}>
                           <i className="fab fa-vine" />
                           <i className="fab fa-vine" />
                         </a>
@@ -109,8 +121,11 @@ const Author = () => {
               "Loading..."
             )}
           </div>
-          <div className="col-12 col-md-8">
-            {authorNft.collection_name ? (
+          {console.log(";loikujyhtgf")}
+          {console.log(authorNft)}
+          {/* {console.log(authorNft.collection_name[0]    )} */}
+          <div className="col-12 col-md-8 ">
+            {authorNft ? (
               <div className="row items explore-items auhtor-nfts">
                 {authorNft.map((item, idx) => {
                   return (
@@ -123,7 +138,7 @@ const Author = () => {
                           <Link to={`/collectionDetail?${item.id}`}>
                             <img
                               className="card-img-top"
-                              src={`${ENV.API_URL_image}${item.collection_image}`}
+                              src={`${ENV.API_URL_image_media}${item.collection_image}`}
                               alt=""
                             />
                           </Link>
@@ -135,7 +150,7 @@ const Author = () => {
                             <div className="author-thumb avatar-lg">
                               <img
                                 className="rounded-circle"
-                                src={`${ENV.API_URL_image}${item.collection_logo}`}
+                                src={`${ENV.API_URL_image_media}${item.collection_logo}`}
                                 alt=""
                               />
                             </div>
@@ -157,7 +172,7 @@ const Author = () => {
                 })}
               </div>
             ) : (
-              "No Data to Show"
+              <div className="checking">"No collection to explore"</div>
             )}
           </div>
         </div>

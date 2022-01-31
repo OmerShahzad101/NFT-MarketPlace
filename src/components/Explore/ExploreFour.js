@@ -190,9 +190,9 @@ const ExploreFour = () => {
                           </div>
                           <div className="seller d-flex align-items-center my-3">
                             <span>Owned By</span>
-                            <a href="/author">
+                            <Link to={`/author?${item.user_id}`}>
                               <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
-                            </a>
+                            </Link>
                           </div>
                           <div className="card-bottom d-flex justify-content-between">
                             <span>{"$" + item.price}</span>

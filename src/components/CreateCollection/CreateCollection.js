@@ -56,6 +56,7 @@ class CreateCollection extends Component {
     const res = await Category.category(`${ENV.API_URL}api/category_list/`);
     var nft = { ...this.state.nft };
     nft.categories = res.data.data;
+    console.log(res)
     this.setState({ nft });
   };
 

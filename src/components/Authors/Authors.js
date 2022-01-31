@@ -13,13 +13,16 @@ const Authors = () => {
     const result = await authors.authorsList(
       `${ENV.API_URL}api/user_list-profile/`
     );
+      let newarr = result.data.data.user_profile
+    setAuthorData(newarr);
+    console.log(result.data.data);
+    console.log(authorData)
+    console.log(newarr)
 
-    setAuthorData(result.data.data.user_profile);
-    console.log(result);
-    
+
     loadMore();
   }, []);
-  
+
   const loadMore = () => {
     $(".load-more .item").slice(0, 4).show();
 
@@ -36,7 +39,6 @@ const Authors = () => {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 col-lg-7">
-          
             <div className="intro text-center">
               <span>Authors</span>
               <h3 className="mt-3 mb-0">Our Creators</h3>
@@ -49,16 +51,17 @@ const Authors = () => {
           </div>
         </div>
         <div className="row items load-more">
-          {authorData.map((item, idx) => {
+         {authorData.map((item, idx) => {
+            
             return (
               <div key={`ad_${idx}`} className="col-12 col-sm-6 col-lg-3 item">
                 <div className="card no-hover text-center">
-                  {item.user_profile[0] ? (
+                  {item[0] ? (
                     <div className="image-over">
                       <a href={`/author?${item.id}`}>
                         <img
                           className="card-img-top"
-                          src={`${ENV.API_URL_image}${item.user_profile[0].banner_image}`}
+                          src={`${ENV.API_URL_image}${item[0].banner_image}`}
                           alt="cover image"
                         />
                       </a>
@@ -67,7 +70,7 @@ const Authors = () => {
                         <div className="seller-thumb avatar-lg">
                           <img
                             className="rounded-circle"
-                            src={`${ENV.API_URL_image}${item.user_profile[0].profile_image}`}
+                            src={`${ENV.API_URL_image}${item[0].profile_image}`}
                             alt="profile image"
                           />
                         </div>
@@ -103,35 +106,47 @@ const Authors = () => {
                         </h5>
                       </a>
                       <p>
-                        {item.user_profile[0] ? item.user_profile[0].about : ""}
+                        {item[0] ? item[0].about : ""}
                       </p>
                       <div className="social-icons d-flex justify-content-center my-3">
-                        {item.user_profile[0] ? (
-                          <a className="facebook" href={item.user_profile[0].facebook_link}>
+                        {item[0] ? (
+                          <a
+                            className="facebook"
+                            href={item[0].facebook_link}
+                          >
                             <i className="fab fa-facebook-f" />
                             <i className="fab fa-facebook-f" />
                           </a>
                         ) : (
                           ""
                         )}
-                        {item.user_profile[0] ? (
-                          <a className="twitter" href={item.user_profile[0].twitter_link}>
+                        {item[0] ? (
+                          <a
+                            className="twitter"
+                            href={item[0].twitter_link}
+                          >
                             <i className="fab fa-twitter" />
                             <i className="fab fa-twitter" />
                           </a>
                         ) : (
                           ""
                         )}
-                        {item.user_profile[0] ? (
-                          <a className="google-plus" href={item.user_profile[0].google_plus_link}>
+                        {item[0] ? (
+                          <a
+                            className="google-plus"
+                            href={item[0].google_plus_link}
+                          >
                             <i className="fab fa-google-plus-g" />
                             <i className="fab fa-google-plus-g" />
                           </a>
                         ) : (
                           ""
                         )}
-                        {item.user_profile[0] ? (
-                          <a className="vine" href={item.user_profile[0].vine_link}>
+                        {item[0] ? (
+                          <a
+                            className="vine"
+                            href={item[0].vine_link}
+                          >
                             <i className="fab fa-vine" />
                             <i className="fab fa-vine" />
                           </a>
@@ -144,8 +159,8 @@ const Authors = () => {
                 </div>
               </div>
             );
-          })}
-        </div>
+          })} 
+        </div> 
         <div className="row">
           <div className="col-12 text-center">
             <a id="load-btn" className="btn btn-bordered-white mt-5" href="#">

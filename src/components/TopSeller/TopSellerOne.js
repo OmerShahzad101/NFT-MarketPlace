@@ -65,7 +65,7 @@ const TopSeller = () => {
                         <Link to={`/author?${item.user_id}`}>
                           <img
                             className="avatar-md rounded-circle"
-                            src={`${ENV.API_URL_image_media}${item.profile_image}`}
+                            src={`${ENV.API_URL_image}${item.profile_image}`}
                             alt=""
                           />
                         </Link>
@@ -75,7 +75,7 @@ const TopSeller = () => {
                             className="seller mb-2"
                             to={`/author?${item.user_id}`}
                           >
-                            {item.user_name}
+                            {item.first_name}{" "}{item.last_name}
                           </Link>
                           <span>${item.price}</span>
                         </div>
