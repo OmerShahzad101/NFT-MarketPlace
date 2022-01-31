@@ -14,7 +14,7 @@ const Authors = () => {
       `${ENV.API_URL}api/user_list-profile/`
     );
 
-    setAuthorData(result.data.data.results);
+    setAuthorData(result.data.data.user_profile);
     console.log(result);
     
     loadMore();
