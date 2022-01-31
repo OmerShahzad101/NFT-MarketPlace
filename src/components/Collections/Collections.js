@@ -21,8 +21,8 @@ const Collections = () => {
 
   useEffect(async () => {
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
-    setCategories(result.data.data.results);
-    console.log(result.data.data.results);
+    setCategories(result.data.data);
+    console.log(result.data.data);
     // all();
     $("#myElement label:first").addClass("active");
     // const res = await Collection.collection(
@@ -30,7 +30,7 @@ const Collections = () => {
     // );
     // setCollectionData(res.data.data.results);
     // pagination();
-    console.log(payload)
+    console.log(payload);
     const res = await Category.category(
       `${ENV.API_URL}api/specific_catgory_collection-data/0`
     );
@@ -44,7 +44,7 @@ const Collections = () => {
       `${ENV.API_URL}api/specific_catgory_collection-data/${id}`
     );
     setCollectionData(res.data.data.category_data);
-    console.log(res.data.data.category_data)
+    console.log(res.data.data.category_data);
   };
 
   // const all =  async() => {
@@ -166,9 +166,10 @@ const Collections = () => {
                           <div className="card-body mt-4">
                             <a href={`/collectionDetail?${item.id}`}>
                               <h5 className="mb-2">
-                                {item.collection_name
+                                {/* {item.collection_name
                                   ? item.collection_name
-                                  : item.name}
+                                  : item.name} */}
+                                {item.collection_name}
                               </h5>
                             </a>
                             <span>{item.description}</span>

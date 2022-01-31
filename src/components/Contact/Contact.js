@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Formik, Form, Field, ErrorMessage  } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import contact from "../../services/contact.service";
 import { ENV } from "../../env";
-import Notifications, {notify} from 'react-notify-toast';
+import Notifications, { notify } from "react-notify-toast";
 
 const initData = {
   heading: "Get In Touch",
@@ -41,137 +41,111 @@ const Contact = () => {
                 message: "",
               }}
               validationSchema={contactSchema}
-              onSubmit={async (values , {resetForm}) => {
+              onSubmit={async (values, { resetForm }) => {
                 console.log(values);
                 const res = await contact.contacts(
                   `${ENV.API_URL}api/contact_list/`,
-                  // `http://192.168.99.229:8000/api/contact_list/`,
                   values
                 );
-                resetForm({values: ''})
+                resetForm({ values: "" });
                 console.log(res);
-                notify.show('Your Form Submitted!' ,"success" , 3000);
-
-                // alert("Your Form Submitted")
+                notify.show("Your Form Submitted!", "success", 3000);
               }}
             >
-              {({ touched, errors, isSubmitting, values }) =>
-                // !isSubmitting ? (
-                  <Form id="contact-form" className="item-form card no-hover">
-                    <div className="row">
-                      <div className="col-12">
-                      <Notifications />
+              {({ touched, errors, values }) => (
+                <Form id="contact-form" className="item-form card no-hover">
+                  <div className="row">
+                    <div className="col-12">
+                      <Notifications  />
 
-                        <div className="form-group mt-3">
-
-                          <Field
-                            type="text"
-                            className={`form-control
+                      <div className="form-group mt-3">
+                        <Field
+                          type="text"
+                          className={`form-control
                               ${
                                 touched.name && errors.name ? "is-invalid" : ""
                               }`}
-                            name="name"
-                            placeholder="Name"
-                          />
-                          <ErrorMessage
-                            component="div"
-                            name="name"
-                            className="invalid-feedback"
-                          />
-                        </div>
+                          name="name"
+                          placeholder="Name"
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name="name"
+                          className="invalid-feedback"
+                        />
                       </div>
-                      <div className="col-12">
-                        <div className="form-group mt-3">
-                          <Field
-                            type="email"
-                            className={`form-control
+                    </div>
+                    <div className="col-12">
+                      <div className="form-group mt-3">
+                        <Field
+                          type="email"
+                          className={`form-control
                               ${
                                 touched.email && errors.email
                                   ? "is-invalid"
                                   : ""
                               }`}
-                            name="email"
-                            placeholder="Email"
-                          />
-                          <ErrorMessage
-                            component="div"
-                            name="email"
-                            className="invalid-feedback"
-                          />
-                        </div>
+                          name="email"
+                          placeholder="Email"
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name="email"
+                          className="invalid-feedback"
+                        />
                       </div>
+                    </div>
 
-                      <div className="col-12">
-                        <div className="form-group mt-3">
-                          <Field
-                            type="text"
-                            className={`form-control
+                    <div className="col-12">
+                      <div className="form-group mt-3">
+                        <Field
+                          type="text"
+                          className={`form-control
                               ${
                                 touched.subject && errors.subject
                                   ? "is-invalid"
                                   : ""
                               }`}
-                            name="subject"
-                            placeholder="Subject"
-                          />
-                          <ErrorMessage
-                            component="div"
-                            name="subject"
-                            className="invalid-feedback"
-                          />
-                        </div>
+                          name="subject"
+                          placeholder="Subject"
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name="subject"
+                          className="invalid-feedback"
+                        />
                       </div>
-                      <div className="col-12">
-                        <div className="form-group mt-3">
-                          <Field
-                            as="textarea"
-                            type="text"
-                            className={`form-control
+                    </div>
+                    <div className="col-12">
+                      <div className="form-group mt-3">
+                        <Field
+                          as="textarea"
+                          type="text"
+                          className={`form-control
                               ${
                                 touched.message && errors.message
                                   ? "is-invalid"
                                   : ""
                               }`}
-                            name="message"
-                            placeholder="Message"
-                          />
-                          <ErrorMessage
-                            component="div"
-                            name="message"
-                            className="invalid-feedback"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <button
-                          className="btn w-100 mt-3 mt-sm-4"
-                          type="submit"
-                        >
-                          <i className="icon-paper-plane mr-2" />
-                          Send Message
-                        </button>
+                          name="message"
+                          placeholder="Message"
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name="message"
+                          className="invalid-feedback"
+                        />
                       </div>
                     </div>
-                  </Form>
-                // ) : (
-                //   <div>
-                //     <h1 className="p-3 mt-5">Form Submitted</h1>
-
-                //     <div className="alert alert-success mt-3">
-                //       Thank for your connecting with us. Here's what we got from
-                //       you !
-                //     </div>
-                //     <ul className="list-group">
-                //       <li className="list-group-item">Name: {values.name}</li>
-                //       <li className="list-group-item">Email: {values.email}</li>
-                //       <li className="list-group-item">Phone: {values.phone}</li>
-                //       <li className="list-group-item">
-                //         Message: {values.message}
-                //       </li>
-                //     </ul>
-                //   </div>
-                // )
-              }
+                    <div className="col-12">
+                      <button className="btn w-100 mt-3 mt-sm-4" type="submit">
+                        <i className="icon-paper-plane mr-2" />
+                        Send Message
+                      </button>
+                    </div>
+                  </div>
+                </Form>
+              )}
             </Formik>
           </div>
         </div>
