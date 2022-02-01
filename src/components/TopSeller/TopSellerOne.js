@@ -17,8 +17,9 @@ const TopSeller = () => {
     const result = await topSellers.topSellersList(
       `${ENV.API_URL}api/top_sellers/`
     );
-    setSellerData(result.data.data.top_sellers);
-    console.log(result.data.data.top_sellers);
+    console.log(result)
+    setSellerData(result.data.data.top_seller);
+    console.log(result.data.data.top_seller);
     loadMore();
   }, []);
   const loadMore = () => {
@@ -62,7 +63,7 @@ const TopSeller = () => {
                     {/* Single Seller */}
                     <div className="card no-hover">
                       <div className="single-seller d-flex align-items-center">
-                        <Link to={`/author?${item.user_id}`}>
+                        <Link to={`/author?${item.id}`}>
                           <img
                             className="avatar-md rounded-circle"
                             src={`${ENV.API_URL_image}${item.profile_image}`}

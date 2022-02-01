@@ -50,9 +50,10 @@ const UpdateProfile = () => {
    * @param {eventObject} e
    */
   const handleChange2 = (e) => {
+    debugger;
     const { name, value } = e.target;
     let obj = updateUser.user_profile;
-    obj[0][name] = value;
+    obj[name] = value;
     setUpdateUser({
       ...updateUser,
       user_profile: obj,
@@ -64,13 +65,14 @@ const UpdateProfile = () => {
    * @param {eventObject} e
    */
   const onFileChange = (e) => {
+    debugger;
     let { name } = e.target;
     let file = e.target.files[0];
     let fileId = e.target.id;
     if (file)
       if (file.type.includes("image")) {
         let _obj = updateUser;
-        _obj.user_profile[0][name] = file;
+        _obj.user_profile[name] = file;
 
         setUpdateUser(_obj);
 
@@ -100,8 +102,8 @@ const UpdateProfile = () => {
 
     for (let key in updateUser) {
       if (typeof updateUser[key] === "object") {
-        for (let subKey in updateUser[key][0]) {
-          formData.append(`${subKey}`, updateUser[key][0][subKey]);
+        for (let subKey in updateUser[key]) {
+          formData.append(`${subKey}`, updateUser[key][subKey]);
         }
       } else {
         formData.append(key, updateUser[key]);
@@ -136,7 +138,7 @@ const UpdateProfile = () => {
 
                 <div className="author">
                   <div className="author-thumb avatar-lg">
-                    {updateUser.user_profile[0] ? (
+                    {updateUser.user_profile ? (
                       <img
                         className="rounded-circle img-profile_image"
                         src="/img/auction_2.jpg"
@@ -229,7 +231,7 @@ const UpdateProfile = () => {
                     </div>
                   </div>
 
-                  {/* <div className="col-12">
+                  <div className="col-12">
                     <div className="form-group mt-3">
                       <input
                         type="email"
@@ -241,7 +243,7 @@ const UpdateProfile = () => {
                         // onChange={handleChange}
                       />
                     </div>
-                  </div> */}
+                  </div>
                   <div className="col-12">
                     <div className="form-group mt-3">
                       <input
@@ -285,8 +287,8 @@ const UpdateProfile = () => {
                         className="form-control"
                         name="about"
                         value={
-                          updateUser.user_profile[0]
-                            ? updateUser.user_profile[0].about
+                          updateUser.user_profile
+                            ? updateUser.user_profile.about
                             : ""
                         }
                         placeholder="About"
@@ -301,8 +303,8 @@ const UpdateProfile = () => {
                         className="form-control"
                         name="facebook_link"
                         value={
-                          updateUser.user_profile[0]
-                            ? updateUser.user_profile[0].facebook_link
+                          updateUser.user_profile
+                            ? updateUser.user_profile.facebook_link
                             : ""
                         }
                         placeholder="Facebook Link"
@@ -317,8 +319,8 @@ const UpdateProfile = () => {
                         type="text"
                         className="form-control"
                         value={
-                          updateUser.user_profile[0]
-                            ? updateUser.user_profile[0].twitter_link
+                          updateUser.user_profile
+                            ? updateUser.user_profile.twitter_link
                             : ""
                         }
                         name="twitter_link"
@@ -333,8 +335,8 @@ const UpdateProfile = () => {
                       <input
                         type="text"
                         value={
-                          updateUser.user_profile[0]
-                            ? updateUser.user_profile[0].vine_link
+                          updateUser.user_profile
+                            ? updateUser.user_profile.vine_link
                             : ""
                         }
                         className="form-control"
@@ -350,8 +352,8 @@ const UpdateProfile = () => {
                       <input
                         type="text"
                         value={
-                          updateUser.user_profile[0]
-                            ? updateUser.user_profile[0].google_plus_link
+                          updateUser.user_profile
+                            ? updateUser.user_profile.google_plus_link
                             : ""
                         }
                         onChange={handleChange2}
