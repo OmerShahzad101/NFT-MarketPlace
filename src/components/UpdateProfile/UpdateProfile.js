@@ -50,7 +50,6 @@ const UpdateProfile = () => {
    * @param {eventObject} e
    */
   const handleChange2 = (e) => {
-    debugger;
     const { name, value } = e.target;
     let obj = updateUser.user_profile;
     obj[name] = value;
@@ -65,7 +64,6 @@ const UpdateProfile = () => {
    * @param {eventObject} e
    */
   const onFileChange = (e) => {
-    debugger;
     let { name } = e.target;
     let file = e.target.files[0];
     let fileId = e.target.id;
