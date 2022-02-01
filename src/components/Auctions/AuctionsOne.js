@@ -20,6 +20,7 @@ const AuctionsOne = () => {
   // Fetch Data on component load
   useEffect(async () => {
     const res = await liveAuction.auction(`${ENV.API_URL}api/live-auction-nfts/`);
+    console.log(res)
     setData(res.data.data.results);
 
     //__ __ JQuery for Live Auction Counter __ __ //
@@ -86,7 +87,7 @@ const AuctionsOne = () => {
                                 </Link>
                                 <Link
                                   className="seller d-flex align-items-center my-3"
-                                  to={`/author?${item.id}`}
+                                  to={`/author?${item.user_id}`}
                                 >
                                   <img
                                     className="avatar-sm rounded-circle"
