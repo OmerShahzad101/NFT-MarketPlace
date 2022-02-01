@@ -142,7 +142,7 @@ const AuctionsOne = () => {
                             </Link>
                             <Link
                               className="seller d-flex align-items-center my-3"
-                              to={`/author?${item.id}`}
+                              to={`/author?${item.user_id}`}
                             >
                               <img
                                 className="avatar-sm rounded-circle"

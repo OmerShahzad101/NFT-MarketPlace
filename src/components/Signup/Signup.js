@@ -151,7 +151,7 @@ const Signup = () => {
                       <div className="col-12">
                         <div className="form-group mt-3">
                           <Field
-                            type="text"
+                            type="password"
                             name="password"
                             placeholder="Password"
                             className={`form-control
@@ -172,7 +172,7 @@ const Signup = () => {
                       <div className="col-12">
                         <div className="form-group mt-3">
                           <Field
-                            type="text"
+                            type="password"
                             name="re_password"
                             placeholder="Confirm Password"
                             className={`form-control

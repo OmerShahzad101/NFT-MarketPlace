@@ -5,11 +5,12 @@ import { ENV } from "../../env";
 import AuthorProfile from "../AuthorProfile/AuthorProfile";
 import Category from "../../services/category.service";
 import SimpleReactValidator from "simple-react-validator";
-import Notifications, { notify } from "react-notify-toast";
+import Notifications, { notify } from "react-notify-toast"
+import jwt_decode from "jwt-decode";
+;
 const placeholderImg = "";
 
 class CreateCollection extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -56,7 +57,7 @@ class CreateCollection extends Component {
     const res = await Category.category(`${ENV.API_URL}api/category_list/`);
     var nft = { ...this.state.nft };
     nft.categories = res.data.data;
-    console.log(res)
+    console.log(res);
     this.setState({ nft });
   };
 
@@ -71,6 +72,9 @@ class CreateCollection extends Component {
   };
 
   submit = async (e) => {
+    const token = JSON.parse(localStorage.getItem("access"));
+    let decoded = jwt_decode(token);
+    let id = decoded.user_id;
     e.preventDefault();
     this.setState(
       {
@@ -92,17 +96,17 @@ class CreateCollection extends Component {
               const res = await Collection.collectionPost(
                 `${ENV.API_URL}api/create_collection/`,
                 formData
-              );          
+              );
+              console.log(id)
               if (res.status === true) {
                 notify.show("Created Succesfully!", "success", 3000);
-                window.location = "/mycollections";
+                window.location = `/mycollections?${id}`;
               } else {
                 notify.show("Failed to create!", "error", 3000);
                 this.setState({ loader: false });
               }
             }
           );
-
         } else {
           this.validator.showMessages();
           this.setState(
@@ -122,9 +126,8 @@ class CreateCollection extends Component {
   render() {
     const { nft, errors, loader, isSubmitted } = this.state;
     return (
-      
       <section className="author-area">
-         <Notifications />
+        <Notifications />
         <div className="container">
           <div className="row justify-content-between">
             <div className="col-12 col-md-4">
