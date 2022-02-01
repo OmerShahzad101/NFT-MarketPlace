@@ -165,6 +165,7 @@ const ExploreFour = () => {
         <div className="row items">
           {nftData
             ? nftData.map((item, id) => {
+              {console.log(item)}
                 return (
                   <div
                     key={`exf_${id}`}

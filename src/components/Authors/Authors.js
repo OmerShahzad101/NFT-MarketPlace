@@ -4,36 +4,53 @@ import { useEffect, useState } from "react/cjs/react.development";
 import { ENV } from "../../env";
 import authors from "../../services/authors.service";
 import $ from "jquery";
+let limit = 4;
 
 const Authors = () => {
   const [data, setData] = useState({});
   const [authorData, setAuthorData] = useState([]);
+  const [page, setPage] = useState(1);
+  // useEffect(async () => {
+  //   const result = await authors.authorsList(
+  //     `${ENV.API_URL}api/user_list-profile/?page=${page}&limit=${limit}`
+  //   );
 
-  useEffect(async () => {
-    const result = await authors.authorsList(
-      `${ENV.API_URL}api/user_list-profile/`
-    );
-      let newarr = result.data.data.user_profile
-    setAuthorData(newarr);
-    console.log(result.data.data);
-    console.log(authorData)
-    console.log(newarr)
+  //   setAuthorData(result.data.data.user_profile);
+  //   console.log(result.data.data.user_profile);
+  //   console.log(authorData)
 
 
-    loadMore();
+  //   loadMore();
+    
+  // }, []);
+  useEffect( () => {
+    pagination();
   }, []);
 
-  const loadMore = () => {
-    $(".load-more .item").slice(0, 4).show();
+  const pagination = async () => {
+    const result = await authors.authorsList(
+      `${ENV.API_URL}api/user_list-profile/?page=${page}&limit=${limit}`
+    );
+    let newArr = [...authorData, ...result.data.data.user_profile];
+    setAuthorData(newArr);
+    console.log(result.data.data.user_profile)
+    if (result.data.data.pagination.total === newArr.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
 
-    $("#load-btn").on("click", function (e) {
-      e.preventDefault();
-      $(".load-more .item:hidden").slice(0, 4).slideDown();
-      if ($(".load-more .item:hidden").length == 0) {
-        $("#load-btn").fadeOut("slow");
-      }
-    });
+    setPage(page + 1);
   };
+  // const loadMore = () => {
+  //   $(".load-more .item").slice(0, 4).show();
+
+  //   $("#load-btn").on("click", function (e) {
+  //     e.preventDefault();
+  //     $(".load-more .item:hidden").slice(0, 4).slideDown();
+  //     if ($(".load-more .item:hidden").length == 0) {
+  //       $("#load-btn").fadeOut("slow");
+  //     }
+  //   });
+  // };
   return (
     <section className="popular-collections-area">
       <div className="container">
@@ -50,27 +67,27 @@ const Authors = () => {
             </div>
           </div>
         </div>
-        <div className="row items load-more">
-         {authorData.map((item, idx) => {
-            
-            return (
+        <div className="row items">
+         {authorData ? authorData.map((item, idx) => {   
+          {console.log(item.banner_image)}
+          return (
               <div key={`ad_${idx}`} className="col-12 col-sm-6 col-lg-3 item">
                 <div className="card no-hover text-center">
-                  {item[0] ? (
+                  {item.banner_image ? (
                     <div className="image-over">
-                      <a href={`/author?${item.id}`}>
+                      <a href={`/author?${item.user_id}`}>
                         <img
                           className="card-img-top"
-                          src={`${ENV.API_URL_image}${item[0].banner_image}`}
+                          src={`${ENV.API_URL_image_media}${item.banner_image}`}
                           alt="cover image"
                         />
                       </a>
 
-                      <a className="seller" href={`/author?${item.id}`}>
+                      <a className="seller" href={`/author?${item.user_id}`}>
                         <div className="seller-thumb avatar-lg">
                           <img
                             className="rounded-circle"
-                            src={`${ENV.API_URL_image}${item[0].profile_image}`}
+                            src={`${ENV.API_URL_image_media}${item.profile_image}`}
                             alt="profile image"
                           />
                         </div>
@@ -97,7 +114,7 @@ const Authors = () => {
                       </a>
                     </div>
                   )}
-
+  
                   <div className="card-caption col-12 p-0">
                     <div className="card-body mt-4">
                       <a href={`/author?${item.user_id}`}>
@@ -106,13 +123,13 @@ const Authors = () => {
                         </h5>
                       </a>
                       <p>
-                        {item[0] ? item[0].about : ""}
+                        {item.about}
                       </p>
                       <div className="social-icons d-flex justify-content-center my-3">
-                        {item[0] ? (
+                        {item.facebook_link ? (
                           <a
                             className="facebook"
-                            href={item[0].facebook_link}
+                            href={item.facebook_link}
                           >
                             <i className="fab fa-facebook-f" />
                             <i className="fab fa-facebook-f" />
@@ -120,10 +137,10 @@ const Authors = () => {
                         ) : (
                           ""
                         )}
-                        {item[0] ? (
+                        {item.twitter_link ? (
                           <a
                             className="twitter"
-                            href={item[0].twitter_link}
+                            href={item.twitter_link}
                           >
                             <i className="fab fa-twitter" />
                             <i className="fab fa-twitter" />
@@ -131,10 +148,10 @@ const Authors = () => {
                         ) : (
                           ""
                         )}
-                        {item[0] ? (
+                        {item.google_plus_link ? (
                           <a
                             className="google-plus"
-                            href={item[0].google_plus_link}
+                            href={item.google_plus_link}
                           >
                             <i className="fab fa-google-plus-g" />
                             <i className="fab fa-google-plus-g" />
@@ -142,10 +159,10 @@ const Authors = () => {
                         ) : (
                           ""
                         )}
-                        {item[0] ? (
+                        {item.vine_link ? (
                           <a
                             className="vine"
-                            href={item[0].vine_link}
+                            href={item.vine_link}
                           >
                             <i className="fab fa-vine" />
                             <i className="fab fa-vine" />
@@ -159,13 +176,17 @@ const Authors = () => {
                 </div>
               </div>
             );
-          })} 
+          }):"asgi"} 
         </div> 
         <div className="row">
           <div className="col-12 text-center">
-            <a id="load-btn" className="btn btn-bordered-white mt-5" href="#">
+          <button
+              onClick={() => pagination()}
+              className="btn btn-bordered-white mt-5"
+              id="loadmorebtn"
+            >
               Load More
-            </a>
+            </button>
           </div>
         </div>
       </div>

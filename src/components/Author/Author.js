@@ -8,40 +8,40 @@ const Author = () => {
   const arr = window.location.href.split("?");
   const id = arr[1];
 
-  const [authorData, setAuthorData] = useState([]);
+  const [authorData, setAuthorData] = useState();
   const [authorNft, setAuthorNft] = useState([]);
 
   useEffect(async () => {
-    const result = await authors.specificAuthor(
-      `${ENV.API_URL}api/profile/crud/${id}`
-    );
-    console.log(result.data);
-    setAuthorData(result.data);
-    const res = await authors.specificAuthorNft(
+    // const result = await authors.specificAuthor(
+    //   `${ENV.API_URL}api/profile/crud/${id}`
+    // );
+    
+    // setAuthorData(result.data);
+
+    const res = await authors.authorsList(
       `${ENV.API_URL}api/specific_user_nft_data/${id}`
     );
 
-    console.log(res.data.user_data);
-    let nftdata = res.data.user_data;
-    setAuthorNft(nftdata);
-    console.log(nftdata);
+    // console.log(res.data.user_data);
+    setAuthorNft(res.data.data.user_data);
+    console.log(res.data.data.user_data);
   }, []);
 
   {
-    console.log(authorNft);
+    console.log(authorNft[0]);
   }
   return (
     <section className="author-area explore-area popular-collections-area">
       <div className="container">
         <div className="row justify-content-between">
-          <div className="col-12 col-md-4">
-            {authorData ? (
+        <div className="col-12 col-md-4">
+            {authorNft[0] ? (
               <div className="card no-hover text-center">
                 <div className="image-over">
-                  {authorData.banner_image ? (
+                  {authorNft[0].banner_image ? (
                     <img
                       className="card-img-top"
-                      src={`${ENV.API_URL_image_media}${authorData.banner_image}`}
+                      src={`${ENV.API_URL_image_media}${authorNft[0].banner_image}`}
                       alt=""
                     />
                   ) : (
@@ -53,10 +53,10 @@ const Author = () => {
                   )}
                   <div className="author">
                     <div className="author-thumb avatar-lg">
-                      {authorData.profile_image ? (
+                      {authorNft[0].profile_image ? (
                         <img
                           className="rounded-circle"
-                          src={`${ENV.API_URL_image_media}${authorData.profile_image}`}
+                          src={`${ENV.API_URL_image_media}${authorNft[0].profile_image}`}
                           alt=""
                         />
                       ) : (
@@ -72,32 +72,33 @@ const Author = () => {
                 <div className="card-caption col-12 p-0">
                   <div className="card-body mt-4">
                     <h5 className="mb-3">
-                      {authorData.first_name} {authorData.last_name}
+                      {/* {authorNft[0].first_name} {authorNft[0].last_name} */}
+                      {authorNft[0].user_name}
                     </h5>
-                    <p className="my-3">{authorData.about}</p>
-                    <p className="my-3">{authorData.email}</p>
+                    <p className="my-3">{authorNft[0].about !==null ? authorNft[0].about : "" }</p>
+                    <p className="my-3">{authorNft[0].user_email}</p>
 
                     <div className="social-icons d-flex justify-content-center my-3">
-                      {authorData ? (
-                        <a className="facebook" href={authorData.facebook_link}>
+                      {authorNft[0].facebook_link ? (
+                        <a className="facebook" href={authorNft[0].facebook_link}>
                           <i className="fab fa-facebook-f" />
                           <i className="fab fa-facebook-f" />
                         </a>
                       ) : (
                         ""
                       )}
-                      {authorData ? (
-                        <a className="twitter" href={authorData.twitter_link}>
+                      {authorNft[0].twitter_link ? (
+                        <a className="twitter" href={authorNft[0].twitter_link}>
                           <i className="fab fa-twitter" />
                           <i className="fab fa-twitter" />
                         </a>
                       ) : (
                         ""
                       )}
-                      {authorData ? (
+                      {authorNft[0].google_plus_link ? (
                         <a
                           className="google-plus"
-                          href={authorData.google_plus_link}
+                          href={authorNft[0].google_plus_link}
                         >
                           <i className="fab fa-google-plus-g" />
                           <i className="fab fa-google-plus-g" />
@@ -105,8 +106,8 @@ const Author = () => {
                       ) : (
                         ""
                       )}
-                      {authorData ? (
-                        <a className="vine" href={authorData.vine_link}>
+                      {authorNft[0].vine_link  ? (
+                        <a className="vine" href={authorNft[0].vine_link}>
                           <i className="fab fa-vine" />
                           <i className="fab fa-vine" />
                         </a>
@@ -121,12 +122,10 @@ const Author = () => {
               "Loading..."
             )}
           </div>
-          {console.log(";loikujyhtgf")}
           {console.log(authorNft)}
-          {/* {console.log(authorNft.collection_name[0]    )} */}
           <div className="col-12 col-md-8 ">
             {authorNft ? (
-              <div className="row items explore-items auhtor-nfts">
+              <div className="row items auhtor-nfts">
                 {authorNft.map((item, idx) => {
                   return (
                     <div
@@ -135,35 +134,39 @@ const Author = () => {
                     >
                       <div className="card no-hover text-center">
                         <div className="image-over">
-                          <Link to={`/collectionDetail?${item.id}`}>
+                          <Link to={`/nft-details?${item.nft_id}`}>
                             <img
                               className="card-img-top"
-                              src={`${ENV.API_URL_image_media}${item.collection_image}`}
+                              src={`${ENV.API_URL_image_media}${item.nft_image}`}
                               alt=""
                             />
                           </Link>
 
-                          <a
+                          {/* <a
                             className="author"
-                            href={`/collectionDetail?${item.id}`}
+                            href={`/nft-details?${item.nft_id}`}
                           >
                             <div className="author-thumb avatar-lg">
                               <img
                                 className="rounded-circle"
-                                src={`${ENV.API_URL_image_media}${item.collection_logo}`}
+                                src={`${ENV.API_URL_image_media}${item.nft_logo}`}
                                 alt=""
                               />
                             </div>
-                          </a>
+                          </a> */}
                         </div>
 
                         <div className="card-caption col-12 p-0">
                           <div className="card-body mt-4">
-                            <Link to={`/collectionDetail?${item.id}`}>
-                              <h5 className="mb-2">{item.collection_name}</h5>
+                            <Link to={`/nft-details?${item.nft_id}`}>
+                              <h5 className="mb-2">{item.nft_name}</h5>
                             </Link>
-                            <span>{item.collection_description}</span>
+                            <span>{item.nft_description}</span>
                             <hr />
+                          </div>
+                          <div className="card-bottom d-flex justify-content-between">
+                            <span>{"$" + item.nft_price}</span>
+                            <span>{item.nft_size}</span>
                           </div>
                         </div>
                       </div>
