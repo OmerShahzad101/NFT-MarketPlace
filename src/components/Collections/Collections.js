@@ -172,7 +172,7 @@ const Collections = () => {
                                   }
                               </h5>
                             </a>
-                            <span>{item.description}</span>
+                            <span className="description_trim">{item.description}</span>
                           </div>
                         </div>
                       </div>
