@@ -13,7 +13,7 @@ const initialData = {
 
 const MyCollections = () => {
   const [initData, setInitData] = useState(initialData);
-  const [collectionData, setCollectionData] = useState();
+  const [collectionData, setCollectionData] = useState([]);
   //   const [categories, setCategories] = useState([]);
 
   useEffect(async () => {
@@ -71,11 +71,12 @@ const MyCollections = () => {
             </div>
           </div>
         </div> */}
-        <div className="row items explore-items popular-collections-area">
+        <div className="row items popular-collections-area">
           {console.log(collectionData)}
           {collectionData
             ? collectionData.map((item, idx) => {
                 return (
+                  item.collection_name!==null ?
                   <div
                     key={`cd_${idx}`}
                     className="col-12 col-sm-6 col-lg-3 item"
@@ -113,6 +114,7 @@ const MyCollections = () => {
                       </div>
                     </div>
                   </div>
+                  : "No Data"
                 );
                 
               })
