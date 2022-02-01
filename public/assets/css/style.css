@@ -3429,3 +3429,12 @@ opacity: 0.8;
     justify-content: center;
     border: 1px dotted;
 }
+.description_trim{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+          line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  min-height: 50px;
+}
