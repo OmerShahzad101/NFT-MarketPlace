@@ -44,11 +44,11 @@ const Header = () => {
                 live Auction
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to="/ranking" className="nav-link">
                 Ranking
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link to="/activity" className="nav-link">
                 Activity

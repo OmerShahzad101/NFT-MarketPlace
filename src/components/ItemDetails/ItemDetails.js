@@ -74,10 +74,11 @@ const ItemDetails = () => {
                   alt="nft image"
                 />
               </div>
+              
               <div className="card no-hover countdown-times my-4">
                 <div
                   className="countdown d-flex justify-content-center"
-                  data-date="2022-2-2"
+                  data-date={moment(nftData.expiry_date).format("YYYY-MM-DD")}
                 />
               </div>
               <ul className="netstorm-tab nav nav-tabs" id="nav-tab">
@@ -111,63 +112,75 @@ const ItemDetails = () => {
                 </li>
               </ul>
               {/* Tab Content */}
-              <div className="tab-content" id="nav-tabContent">
+              <div className="tab-content py-4" id="nav-tabContent">
                 <div className="tab-pane fade show active" id="nav-home">
                   <ul className="list-unstyled">
-                    {nftbiddingHistory
-                      ? nftbiddingHistory.map((item, idx) => {
-                          return item.offer_by ? (
-                            <li
-                              key={`tdo_${idx}`}
-                              className="single-tab-list d-flex align-items-center"
-                            >
-                              <img
-                                className="avatar-sm rounded-circle mr-3"
-                                src={`${ENV.API_URL_image}${nftData.profile_image}`}
-                                alt=""
-                              />
-                              <p className="m-0">
-                                Bid listed for{" "}
-                                <strong>${item.bidding_price}</strong>{" "}
-                                {moment(item.bidding_date).fromNow()} {"  "}
-                                <br />
-                                by<Link to={`/author?`}>@{item.offer_by}</Link>
-                              </p>
-                            </li>
-                          ) : (
-                            "  No Bidding List"
-                          );
-                        })
-                      : " No Bidding List"}
+                    {nftbiddingHistory ? (
+                      nftbiddingHistory.map((item, idx) => {
+                        return item.bidding_price ? (
+                          <li
+                            key={`tdo_${idx}`}
+                            className="single-tab-list d-flex align-items-center"
+                          >
+                            <img
+                              className="avatar-sm rounded-circle mr-3"
+                              src={`${ENV.API_URL_image}${nftData.profile_image}`}
+                              alt=""
+                            />
+                            <p className="m-0">
+                              Bid listed for{" "}
+                              <strong>${item.bidding_price}</strong>{" "}
+                              {moment(item.bidding_date).fromNow()} {"  "}
+                              <br />
+                              by<Link to={`/author?`}>@{item.offer_by}</Link>
+                            </p>
+                          </li>
+                        ) : (
+                          <div className="no_data_history">
+                            <span>No Bidding List</span>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div className="no_data_history">
+                        <span>No Bidding List</span>
+                      </div>
+                    )}
                   </ul>
                 </div>
                 <div className="tab-pane fade" id="nav-profile">
                   <ul className="list-unstyled">
-                    {nftbiddingHistory
-                      ? nftbiddingHistory.map((item, idx) => {
-                          return item.offer_by ? (
-                            <li
-                              key={`tdo_${idx}`}
-                              className="single-tab-list d-flex align-items-center"
-                            >
-                              <img
-                                className="avatar-sm rounded-circle mr-3"
-                                src={`${ENV.API_URL_image}${nftData.profile_image}`}
-                                alt=""
-                              />
-                              <p className="m-0">
-                                Bid listed for{" "}
-                                <strong>${item.bidding_price}</strong>{" "}
-                                {moment(item.bidding_date).fromNow()} {"  "}
-                                <br />
-                                by <a href="/author">@{item.offer_by}</a>
-                              </p>
-                            </li>
-                          ) : (
-                            "No History Found "
-                          );
-                        })
-                      : " No History Found"}
+                    {nftbiddingHistory ? (
+                      nftbiddingHistory.map((item, idx) => {
+                        return item.bidding_price ? (
+                          <li
+                            key={`tdo_${idx}`}
+                            className="single-tab-list d-flex align-items-center"
+                          >
+                            <img
+                              className="avatar-sm rounded-circle mr-3"
+                              src={`${ENV.API_URL_image}${nftData.profile_image}`}
+                              alt=""
+                            />
+                            <p className="m-0">
+                              Bid listed for{" "}
+                              <strong>${item.bidding_price}</strong>{" "}
+                              {moment(item.bidding_date).fromNow()} {"  "}
+                              <br />
+                              by <a href="/author">@{item.offer_by}</a>
+                            </p>
+                          </li>
+                        ) : (
+                          <div className="no_data_history">
+                            <span>No History Found</span>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div className="no_data_history">
+                        <span>No History Found</span>
+                      </div>
+                    )}
                   </ul>
                 </div>
                 <div className="tab-pane fade" id="nav-contact">
@@ -317,17 +330,18 @@ const ItemDetails = () => {
                 <ul className="list-unstyled">
                   <li className="price d-flex justify-content-between">
                     <span>Current Price: {"$" + nftData.price}</span>
-                    <span>{"$" + nftData.price}</span>
-                    <span>{initData.count}</span>
+                    {/* <span>{"$" + nftData.price}</span> */}
+                    {/* <span>{initData.count}</span> */}
+                    <span></span>
                   </li>
                   <li>
                     <span>Size </span>
                     <span>{nftData.size}</span>
                   </li>
-                  <li>
+                  {/* <li>
                     <span>Volume Traded </span>
                     <span>{initData.volume}</span>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
               <div className="row items">

@@ -17,8 +17,7 @@ const FavouriteNft = () => {
   useEffect(async () => {
     const res = await favoriteNft.favoriteNftGet(`${ENV.API_URL}api/favourite-nft/`);
     console.log(res)
-    setNftData(res.data);
-    console.log(res.data)
+    setNftData(res.result);
 
   }, []);
   return (

@@ -74,10 +74,10 @@ const Authors = () => {
               <div key={`ad_${idx}`} className="col-12 col-sm-6 col-lg-3 item">
                 <div className="card no-hover text-center">
                   {item.banner_image ? (
-                    <div className="image-over">
+                    <div className="image-over ">
                       <a href={`/author?${item.user_id}`}>
                         <img
-                          className="card-img-top"
+                          className="card-img-top image-container-nft"
                           src={`${ENV.API_URL_image_media}${item.banner_image}`}
                           alt="cover image"
                         />
@@ -118,11 +118,11 @@ const Authors = () => {
                   <div className="card-caption col-12 p-0">
                     <div className="card-body mt-4">
                       <a href={`/author?${item.user_id}`}>
-                        <h5>
+                        <h5 className="name_trim">
                           {item.first_name} {item.last_name}
                         </h5>
                       </a>
-                      <p>
+                      <p className="description_trim">
                         {item.about}
                       </p>
                       <div className="social-icons d-flex justify-content-center my-3">

@@ -30,7 +30,7 @@ const Collections = () => {
     // );
     // setCollectionData(res.data.data.results);
     // pagination();
-   
+
     const res = await Category.category(
       `${ENV.API_URL}api/specific_catgory_collection-data/0`
     );
@@ -44,8 +44,8 @@ const Collections = () => {
       `${ENV.API_URL}api/specific_catgory_collection-data/${id}`
     );
     setCollectionData(res.data.data.category_data);
-  
-    console.log(res.data.data.category_data)
+
+    console.log(res.data.data.category_data);
   };
 
   // const all =  async() => {
@@ -135,8 +135,7 @@ const Collections = () => {
           <div className="row items  popular-collections-area">
             {collectionData
               ? collectionData.map((item, idx) => {
-                  return (
-                    item.collection_name !== null ?
+                  return item.collection_name !== null ? (
                     <div
                       key={`cd_${idx}`}
                       className="col-12 col-sm-6 col-lg-3 item"
@@ -146,11 +145,11 @@ const Collections = () => {
                           <a href={`/collectionDetail?${item.id}`}>
                             <img
                               className="card-img-top image-container"
-                              src={`${ENV.API_URL_image}${item.banner_image}`}
+                              src={`${ENV.API_URL_image_media}${item.banner_image}`}
                               alt=""
                             />
                           </a>
-                          
+
                           <a
                             className="seller"
                             href={`/collectionDetail?${item.id}`}
@@ -158,7 +157,7 @@ const Collections = () => {
                             <div className="seller-thumb avatar-lg">
                               <img
                                 className="rounded-circle"
-                                src={`${ENV.API_URL_image}${item.logo_image}`}
+                                src={`${ENV.API_URL_image_media}${item.logo_image}`}
                                 alt=""
                               />
                             </div>
@@ -167,17 +166,19 @@ const Collections = () => {
                         <div className="card-caption col-12 p-0">
                           <div className="card-body mt-4">
                             <a href={`/collectionDetail?${item.id}`}>
-                              <h5 className="mb-2">
-                                {item.collection_name
-                                  }
-                              </h5>
+                              <h5 className="mb-2">{item.collection_name}</h5>
                             </a>
-                            <span className="description_trim">{item.description}</span>
+                            <span className="description_trim">
+                              {item.description}
+                            </span>
                           </div>
                         </div>
                       </div>
                     </div>
-                    : "No data"
+                  ) : (
+                    <div className="no_data">
+                      <span>No Collection Found</span>
+                    </div>
                   );
                 })
               : ""}

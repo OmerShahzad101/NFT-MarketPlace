@@ -15,7 +15,7 @@ const Author = () => {
     // const result = await authors.specificAuthor(
     //   `${ENV.API_URL}api/profile/crud/${id}`
     // );
-    
+
     // setAuthorData(result.data);
 
     const res = await authors.authorsList(
@@ -34,7 +34,8 @@ const Author = () => {
     <section className="author-area explore-area popular-collections-area">
       <div className="container">
         <div className="row justify-content-between">
-        <div className="col-12 col-md-4">
+          <div className="col-12 col-md-3">
+            <div>Author</div>
             {authorNft[0] ? (
               <div className="card no-hover text-center">
                 <div className="image-over">
@@ -75,12 +76,17 @@ const Author = () => {
                       {/* {authorNft[0].first_name} {authorNft[0].last_name} */}
                       {authorNft[0].user_name}
                     </h5>
-                    <p className="my-3">{authorNft[0].about !==null ? authorNft[0].about : "" }</p>
+                    <p className="my-3">
+                      {authorNft[0].about !== null ? authorNft[0].about : ""}
+                    </p>
                     <p className="my-3">{authorNft[0].user_email}</p>
 
                     <div className="social-icons d-flex justify-content-center my-3">
                       {authorNft[0].facebook_link ? (
-                        <a className="facebook" href={authorNft[0].facebook_link}>
+                        <a
+                          className="facebook"
+                          href={authorNft[0].facebook_link}
+                        >
                           <i className="fab fa-facebook-f" />
                           <i className="fab fa-facebook-f" />
                         </a>
@@ -106,7 +112,7 @@ const Author = () => {
                       ) : (
                         ""
                       )}
-                      {authorNft[0].vine_link  ? (
+                      {authorNft[0].vine_link ? (
                         <a className="vine" href={authorNft[0].vine_link}>
                           <i className="fab fa-vine" />
                           <i className="fab fa-vine" />
@@ -123,11 +129,11 @@ const Author = () => {
             )}
           </div>
           {console.log(authorNft)}
-          <div className="col-12 col-md-8 ">
+          <div className="col-12 col-md-8 py-4">
             {authorNft ? (
               <div className="row items auhtor-nfts">
                 {authorNft.map((item, idx) => {
-                  return (
+                  return item.nft_name !== null ? (
                     <div
                       key={`eds_${idx}`}
                       className="col-12 col-md-6 item explore-item"
@@ -171,11 +177,15 @@ const Author = () => {
                         </div>
                       </div>
                     </div>
+                  ) : (
+                    <div className="no_data">
+                      <span>No item to explore</span>
+                    </div>
                   );
                 })}
               </div>
             ) : (
-              <div className="checking">"No collection to explore"</div>
+              <div className="checking">"No item to explore"</div>
             )}
           </div>
         </div>

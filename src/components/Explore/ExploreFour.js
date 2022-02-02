@@ -199,19 +199,22 @@ const ExploreFour = () => {
                             <span>{"$" + item.price}</span>
                             <span>{item.size}</span>
                           </div>
-                          <a
+                          <Link
                             className="btn btn-bordered-white btn-smaller mt-3"
+                            to="/wallet-connect"
                           >
                             <i className="icon-handbag mr-2" />
                             place a bid
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
                   </div>
                 );
               })
-            : " "}
+            :  <div className="no_data">
+            <span>No item to Explore</span>
+          </div>}
         </div>
         <div className="row">
           <div className="col-12 text-center">
