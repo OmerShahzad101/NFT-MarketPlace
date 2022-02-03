@@ -35,7 +35,10 @@ const Author = () => {
       <div className="container">
         <div className="row justify-content-between">
           <div className="col-12 col-md-3">
-            <div>Author</div>
+          <div className="intro my-3">
+              <span className="font-author">Author</span>
+            </div>
+            {/* <h4 class="footer-title">Author</h4> */}
             {authorNft[0] ? (
               <div className="card no-hover text-center">
                 <div className="image-over">
@@ -129,7 +132,11 @@ const Author = () => {
             )}
           </div>
           {console.log(authorNft)}
-          <div className="col-12 col-md-8 py-4">
+          <div className="col-12 col-md-8">
+            <div className="intro my-3">
+              <span className="font-author">Author NFT's</span>
+            </div>
+            {/* <h4 class="footer-title">Author NFT's</h4> */}
             {authorNft ? (
               <div className="row items auhtor-nfts">
                 {authorNft.map((item, idx) => {

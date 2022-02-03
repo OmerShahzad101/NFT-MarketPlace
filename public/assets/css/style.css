@@ -3469,3 +3469,6 @@ opacity: 0.8;
           line-clamp: 1; 
   -webkit-box-orient: vertical;
 }
+.font-author{
+  font-size: 19px;
+}
