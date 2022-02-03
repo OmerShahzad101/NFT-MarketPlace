@@ -20,12 +20,6 @@ import Authors from "../themes/authors";
 import Author from "../themes/author";
 import UpdateProfile from "../themes/updateProfile";
 import myCollections from "../themes/myCollections";
-
-
-// import ExploreOne from "../themes/explore-one";
-// import ExploreFour from "../themes/explore-four";
-// import Blog from "../themes/blog";
-// import BlogSingle from "../themes/blog-single";
 import WalletConnect from "../themes/wallet-connect";
 import Dashboard from "../themes/dashboard";
 class MyRouts extends React.Component {
@@ -56,17 +50,7 @@ class MyRouts extends React.Component {
             <Route exact path="/mycollections" component={myCollections} />
             <Route exact path="/wallet-connect" component={WalletConnect} />
             <Route exact path="/dashboard" component={Dashboard} />
-
-            {/* <Route exact path="/explore-1" component={ExploreOne} />
-            <Route exact path="/explore-3" component={ExploreThree} />
-            <Route exact path="/explore-4" component={ExploreFour} />
-            <Route exact path="/auctions" component={Auctions} />
-            <Route exact path="/activity" component={Activity} />
-            <Route exact path="/blog" component={Blog} />
-            <Route exact path="/blog-single" component={BlogSingle} />
-          
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />   */} 
+            
           </Switch> 
         </Router>
       </div>

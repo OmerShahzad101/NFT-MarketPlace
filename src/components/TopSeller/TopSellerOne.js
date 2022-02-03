@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react/cjs/react.development";
 import { ENV } from "../../env";
@@ -6,20 +6,19 @@ import topSellers from "../../services/topSellers.service";
 import $ from "jquery";
 
 const TopSeller = () => {
+  const [sellerData, setSellerData] = useState();
   const initData = {
     preHeading: "Creative Artists",
     heading: "Top Sellers",
   };
-  const [data, setData] = useState({});
-  const [sellerData, setSellerData] = useState();
 
-  useEffect(async () => {
-    const result = await topSellers.topSellersList(
-      `${ENV.API_URL}api/top_sellers/`
-    );
-    console.log(result)
-    setSellerData(result.data.data.top_seller);
-    console.log(result.data.data.top_seller);
+  useEffect(async() => {
+      const result = await topSellers.topSellersList(
+        `${ENV.API_URL}api/top_sellers/`
+      );
+      setSellerData(result.data.data.top_seller);
+    
+
     loadMore();
   }, []);
   const loadMore = () => {
@@ -28,11 +27,11 @@ const TopSeller = () => {
     $("#load-btn").on("click", function (e) {
       e.preventDefault();
       $(".load-more .item:hidden").slice(0, 6).slideDown();
-      if ($(".load-more .item:hidden").length == 0) {
+      if ($(".load-more .item:hidden").length === 0) {
         $("#load-btn").fadeOut("slow");
       }
     });
-  }
+  };
   return (
     <section className="top-seller-area p-0">
       <div className="container">
@@ -76,7 +75,7 @@ const TopSeller = () => {
                             className="seller mb-2"
                             to={`/author?${item.user_id}`}
                           >
-                            {item.first_name}{" "}{item.last_name}
+                            {item.first_name} {item.last_name}
                           </Link>
                           <span>${item.price}</span>
                         </div>
@@ -87,13 +86,6 @@ const TopSeller = () => {
               })
             : ""}
         </div>
-        {/* <div className="row">
-          <div className="col-12 text-center">
-            <a id="load-btn-topSellers" className="btn btn-bordered-white mt-5" href="#">
-              Load More
-            </a>
-          </div>
-        </div> */}
       </div>
     </section>
   );

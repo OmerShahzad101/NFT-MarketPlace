@@ -1,15 +1,11 @@
-import React, { Component } from "react";
 import $ from "jquery";
-import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
-import AuthorProfile from "../AuthorProfile/AuthorProfile";
+import jwt_decode from "jwt-decode";
+import React, { Component } from "react";
 import Category from "../../services/category.service";
 import SimpleReactValidator from "simple-react-validator";
-import Notifications, { notify } from "react-notify-toast"
-import jwt_decode from "jwt-decode";
-;
-const placeholderImg = "";
-
+import Notifications, { notify } from "react-notify-toast";
+import Collection from "../../services/collections.service";
 class CreateCollection extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +53,6 @@ class CreateCollection extends Component {
     const res = await Category.category(`${ENV.API_URL}api/category_list/`);
     var nft = { ...this.state.nft };
     nft.categories = res.data.data;
-    console.log(res);
     this.setState({ nft });
   };
 
@@ -97,7 +92,6 @@ class CreateCollection extends Component {
                 `${ENV.API_URL}api/create_collection/`,
                 formData
               );
-              console.log(id)
               if (res.status === true) {
                 notify.show("Created Succesfully!", "success", 3000);
                 window.location = `/mycollections?${id}`;
@@ -124,7 +118,7 @@ class CreateCollection extends Component {
   };
 
   render() {
-    const { nft, errors, loader, isSubmitted } = this.state;
+    const { nft, errors, isSubmitted } = this.state;
     return (
       <section className="author-area">
         <Notifications />

@@ -114,7 +114,7 @@ class ExploreSix extends Component {
                       </div>
                     </a>
                   </div>
-                  
+
                   {/* Card Caption */}
                   <div className="card-caption col-12 p-0">
                     {/* Card Body */}

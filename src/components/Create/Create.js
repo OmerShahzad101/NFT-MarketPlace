@@ -73,17 +73,10 @@ class Create extends Component {
     let { nft } = this.state;
     nft = { ...nft, [name]: value };
     this.setState({ nft }, () => {});
-    console.log(nft);
   }
 
   submit = (e) => {
     e.preventDefault();
-
-    console.log(
-      "this.validator.allValid(): ",
-      this.validator.allValid(),
-      this.state.nft
-    );
 
     this.setState(
       {
@@ -107,10 +100,7 @@ class Create extends Component {
                 `${ENV.API_URL}api/create_nft/`,
                 formData
               );
-              for (var pair of formData.entries()) {
-                console.log(pair[0] + ", " + pair[1]);
-              }
-              console.log(res);
+
               if (res.status === true) {
                 notify.show("Created Succesfully!", "success", 3000);
                 window.location = "/marketplace";
@@ -148,12 +138,8 @@ class Create extends Component {
       `${ENV.API_URL}api/specific-user-collection/${id}`
     );
 
-    console.log("collection");
-    console.log(res);
     var nft = { ...this.state.nft };
-
     nft.collections = res.data.data.user_collection;
-    console.log(nft);
     this.setState({ nft });
   };
 
@@ -336,12 +322,8 @@ class Create extends Component {
                       />
                     </div>
                     <span className="text-danger">
-                        {this.validator.message(
-                          "name",
-                          nft.size,
-                          "required"
-                        )}
-                      </span>
+                      {this.validator.message("name", nft.size, "required")}
+                    </span>
                   </div>
                   <div className="col-12 col-md-6">
                     <div className="form-group">
@@ -427,7 +409,7 @@ class Create extends Component {
                           onChange={(e) => this.onChange(e)}
                           defaultValue={nft.expiry_date}
                         />
-                       {/* <span className="text-danger">
+                        {/* <span className="text-danger">
                           {this.validator.message(
                             "expiry_date",
                             nft.expiry_date,

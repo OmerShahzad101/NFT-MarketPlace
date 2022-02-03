@@ -4,19 +4,21 @@ import { ENV } from "../../env";
 
 const Faq = () => {
   const initialData = {
-    // pre_heading: "FAQ",
     heading: "Frequently Asked Questions",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
   };
 
-  const [initData, setInitData] = useState(initialData);
+  const [initData] = useState(initialData);
   const [faqdata, setfaqdata] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
+
+    const fetchData = async() => {
     const res = await faqs.faq(`${ENV.API_URL}api/faq_list/`);
-    console.log(res);
     setfaqdata(res.data.data.results);
+    }
+    fetchData();
   }, []);
 
   return (
@@ -26,8 +28,7 @@ const Faq = () => {
           <div className="col-12 col-md-8 col-lg-7">
             {/* Intro */}
             <div className="intro text-center">
-              {/* <span>{initData.pre_heading}</span> */}
-              <h3 className="mt-3 mb-0">{initData.heading}</h3>
+=              <h3 className="mt-3 mb-0">{initData.heading}</h3>
               <p>{initData.content}</p>
             </div>
           </div>
@@ -47,7 +48,6 @@ const Faq = () => {
                           className="single-accordion-item p-3"
                         >
                           {/* Card Header */}
-                          {console.log(idx)}
                           <div className="card-header bg-inherit border-0 p-0">
                             <h2 className="m-0">
                               <button

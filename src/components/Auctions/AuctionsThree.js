@@ -5,12 +5,17 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 const AuctionThree = () => {
-    //__ __ Hook functions __ __ //
+  //__ __ Hook functions __ __ //
   const [data, setData] = useState("");
-  
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   // Fetch Data on component load
-  useEffect(async () => {
-    const res = await liveAuction.auction(`${ENV.API_URL}api/live-auction-nfts/`);
+  const fetchData = async () => {
+    const res = await liveAuction.auction(
+      `${ENV.API_URL}api/live-auction-nfts/`
+    );
     setData(res.data.data.results);
 
     //__ __ JQuery for Live Auction Counter __ __ //
@@ -24,7 +29,7 @@ const AuctionThree = () => {
     scriptSlider.src = "/assets/js/main.js";
     scriptSlider.async = true;
     document.body.appendChild(scriptSlider);
-  }, []);
+  };
 
   return (
     <section className="live-auctions-area">
@@ -63,7 +68,9 @@ const AuctionThree = () => {
                                 <div className="countdown-times mb-3">
                                   <div
                                     className="countdown d-flex justify-content-center"
-                                    data-date={moment(item.expiry_date).format("YYYY-MM-DD")}
+                                    data-date={moment(item.expiry_date).format(
+                                      "YYYY-MM-DD"
+                                    )}
                                   />
                                 </div>
                                 <Link to={`/nft-details?${item.id}`}>
@@ -76,7 +83,7 @@ const AuctionThree = () => {
                                   <img
                                     className="avatar-sm rounded-circle"
                                     src={`${ENV.API_URL_image}${item.profile_image}`}
-                                    alt=""
+                                    alt="Profile"
                                   />
                                   <span className="ml-2">@{item.owner}</span>
                                 </Link>
@@ -95,7 +102,7 @@ const AuctionThree = () => {
             </div>
           </div>
         ) : (
-           // __ __ Else When more then four Slides __ __}
+          // __ __ Else When more then four Slides __ __}
           <div className="row items">
             {data
               ? data.map((item, idx) => {

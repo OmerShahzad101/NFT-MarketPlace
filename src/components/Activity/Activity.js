@@ -8,11 +8,15 @@ const Activity = () => {
   //__ __Hook Function __ __ //
   const [data, setData] = useState();
 
-  useEffect(async () => {
-    // __ __ API Call to Fetch all bidding list __ __ //
+  useEffect(() => {
+    // __ Function call to fetch data __ //
+    fetchData();
+  }, []);
+  // __ __ API Call to Fetch all bidding list __ __ //
+  const fetchData = async () => {
     const res = await activity.activityGet(`${ENV.API_URL}api/bidding/`);
     setData(res.data.data.results);
-  }, []);
+  };
 
   return (
     <section className="activity-area load-more">
@@ -54,104 +58,118 @@ const Activity = () => {
             <div className="tab-content" id="nav-tabContent">
               <div className="tab-pane fade show active" id="nav-home">
                 <ul className="list-unstyled">
-                  {data
-                    ? data.map((item, idx) => {
-                        return (
-                          <li
-                            key={`ato_${idx}`}
-                            className="single-tab-list d-flex align-items-center"
-                          >
-                            <Link to={`/nft-details?${item.id}`}>
-                              <img
-                                className="avatar-lg"
-                                src={`${ENV.API_URL_image_media}${item.nft_image}`}
-                                alt=""
-                              />
-                            </Link>
-                            <div className="activity-content display-inline ml-4">
-                              <a href="/item-details">
-                                <h5 className="mt-0 mb-2">{item.nft}</h5>
-                              </a>
-                              <p className="m-0">
-                                Bid listed for <strong>${item.price}</strong>{" "}
-                                {moment(item.bidding_date).fromNow()}
-                                {item.time} by{" "}
-                                <Link to="/author">@{item.offer_by}</Link>
-                              </p>
-                            </div>
-                          </li>
-                        );
-                      })
-                    : " "}
+                  {data ? (
+                    data.map((item, idx) => {
+                      return (
+                        <li
+                          key={`ato_${idx}`}
+                          className="single-tab-list d-flex align-items-center"
+                        >
+                          <Link to={`/nft-details?${item.id}`}>
+                            <img
+                              className="avatar-lg"
+                              src={`${ENV.API_URL_image_media}${item.nft_image}`}
+                              alt=""
+                            />
+                          </Link>
+                          <div className="activity-content display-inline ml-4">
+                            <a href="/item-details">
+                              <h5 className="mt-0 mb-2">{item.nft}</h5>
+                            </a>
+                            <p className="m-0">
+                              Bid listed for <strong>${item.price}</strong>{" "}
+                              {moment(item.bidding_date).fromNow()}
+                              {item.time} by{" "}
+                              <Link to="/author">@{item.offer_by}</Link>
+                            </p>
+                          </div>
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <div className="no_data_history">
+                      <span>No Bidding List</span>
+                    </div>
+                  )}
                 </ul>
               </div>
               <div className="tab-pane fade" id="nav-profile">
                 <ul className="list-unstyled">
-                  {data
-                    ? data.map((item, idx) => {
-                        return (
-                          <li
-                            key={`ato_${idx}`}
-                            className="single-tab-list d-flex align-items-center"
-                          >
+                  {data ? (
+                    data.map((item, idx) => {
+                      return (
+                        <li
+                          key={`ato_${idx}`}
+                          className="single-tab-list d-flex align-items-center"
+                        >
+                          <a href="/item-details">
+                            <img
+                              className="avatar-lg"
+                              src={`${ENV.API_URL_image_media}${item.nft_image}`}
+                              alt=""
+                            />
+                          </a>
+                          <div className="activity-content display-inline ml-4">
                             <a href="/item-details">
-                              <img
-                                className="avatar-lg"
-                                src={`${ENV.API_URL_image_media}${item.nft_image}`}
-                                alt=""
-                              />
+                              <h5 className="mt-0 mb-2">{item.nft}</h5>
                             </a>
-                            <div className="activity-content display-inline ml-4">
-                              <a href="/item-details">
-                                <h5 className="mt-0 mb-2">{item.nft}</h5>
-                              </a>
-                              <p className="m-0">
-                                Bid listed for <strong>${item.price}</strong>{" "}
-                                {moment(item.bidding_date).fromNow()}
-                                {item.time} by{" "}
-                                <a href="/author">@{item.offer_by}</a>
-                              </p>
-                            </div>
-                          </li>
-                        );
-                      })
-                    : " "}
+                            <p className="m-0">
+                              Bid listed for <strong>${item.price}</strong>{" "}
+                              {moment(item.bidding_date).fromNow()}
+                              {item.time} by{" "}
+                              <a href="/author">@{item.offer_by}</a>
+                            </p>
+                          </div>
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <div className="no_data_history">
+                      <span>No Recent Activities</span>
+                    </div>
+                  )}
                 </ul>
               </div>
               <div className="tab-pane fade" id="nav-contact">
                 <ul className="list-unstyled">
                   {/* Single Tab List */}
-                  {data
-                    ? data.map((item, idx) => {
-                        return item.offer_by ? (
-                          <li
-                            key={`ato_${idx}`}
-                            className="single-tab-list d-flex align-items-center"
-                          >
+                  {data ? (
+                    data.map((item, idx) => {
+                      return item.offer_by ? (
+                        <li
+                          key={`ato_${idx}`}
+                          className="single-tab-list d-flex align-items-center"
+                        >
+                          <a href="/item-details">
+                            <img
+                              className="avatar-lg"
+                              src={`${ENV.API_URL_image_media}${item.nft_image}`}
+                              alt=""
+                            />
+                          </a>
+                          <div className="activity-content display-inline ml-4">
                             <a href="/item-details">
-                              <img
-                                className="avatar-lg"
-                                src={`${ENV.API_URL_image_media}${item.nft_image}`}
-                                alt=""
-                              />
+                              <h5 className="mt-0 mb-2">{item.nft}</h5>
                             </a>
-                            <div className="activity-content display-inline ml-4">
-                              <a href="/item-details">
-                                <h5 className="mt-0 mb-2">{item.nft}</h5>
-                              </a>
-                              <p className="m-0">
-                                Bid listed for <strong>${item.price}</strong>{" "}
-                                {moment(item.bidding_date).fromNow()}
-                                {item.time} by{" "}
-                                <a href="/author">@{item.offer_by}</a>
-                              </p>
-                            </div>
-                          </li>
-                        ) : (
-                          " No Bidding List"
-                        );
-                      })
-                    : " "}
+                            <p className="m-0">
+                              Bid listed for <strong>${item.price}</strong>{" "}
+                              {moment(item.bidding_date).fromNow()}
+                              {item.time} by{" "}
+                              <a href="/author">@{item.offer_by}</a>
+                            </p>
+                          </div>
+                        </li>
+                      ) : (
+                        <div className="no_data_history">
+                          <span>No Bidding List</span>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="no_data_history">
+                      <span>No Purchase List</span>
+                    </div>
+                  )}
                 </ul>
               </div>
             </div>

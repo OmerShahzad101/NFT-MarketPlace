@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import React from "react";
 import * as yup from "yup";
-import contact from "../../services/contact.service";
 import { ENV } from "../../env";
+import contact from "../../services/contact.service";
 import Notifications, { notify } from "react-notify-toast";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const initData = {
   heading: "Get In Touch",
@@ -19,7 +19,6 @@ const contactSchema = yup.object().shape({
       "Only alphabets are allowed for this field, atleast 4 alphabets"
     ),
   email: yup.string().email().required("Please provide email"),
-
   message: yup.string().required("Please write your message"),
   subject: yup.string().required("Please provied subject"),
 });
@@ -42,13 +41,11 @@ const Contact = () => {
               }}
               validationSchema={contactSchema}
               onSubmit={async (values, { resetForm }) => {
-                console.log(values);
                 const res = await contact.contacts(
                   `${ENV.API_URL}api/contact_list/`,
                   values
                 );
                 resetForm({ values: "" });
-                console.log(res);
                 notify.show("Your Form Submitted!", "success", 3000);
               }}
             >

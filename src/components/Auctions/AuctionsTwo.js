@@ -17,7 +17,7 @@ const InitialData = {
 
 const AuctionsTwo = () => {
   // __ __ Hook Function __ __ //
-  const [initData, setInitData] = useState(InitialData);
+  const [initData] = useState(InitialData);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
 

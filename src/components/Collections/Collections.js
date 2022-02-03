@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Collection from "../../services/collections.service";
+// import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import Category from "../../services/category.service";
 import $ from "jquery";
 
-let limit = 4;
+// let limit = 4;
 const initialData = {
   heading: "Collections ",
   content:
@@ -12,12 +12,12 @@ const initialData = {
 };
 
 const Collections = () => {
-  const [initData, setInitData] = useState(initialData);
+  const [initData] = useState(initialData);
   const [collectionData, setCollectionData] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [allData, setAllData] = useState([]);
-  const [page, setPage] = useState(1);
-  const [payload, setpayload] = useState();
+  // const [allData, setAllData] = useState([]);
+  // const [page, setPage] = useState(1);
+  // const [payload, setpayload] = useState();
 
   useEffect(async () => {
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
@@ -25,12 +25,6 @@ const Collections = () => {
     console.log(result.data.data);
     // all();
     $("#myElement label:first").addClass("active");
-    // const res = await Collection.collection(
-    //   `${ENV.API_URL}api/collection_list/`
-    // );
-    // setCollectionData(res.data.data.results);
-    // pagination();
-
     const res = await Category.category(
       `${ENV.API_URL}api/specific_catgory_collection-data/0`
     );
