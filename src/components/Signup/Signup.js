@@ -1,11 +1,10 @@
-import React, { Component, useState } from "react";
+import React, {  useState } from "react";
 import { ENV } from "../../env";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import auth from "../../services/auth.service";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { data } from "jquery";
 
 const initialData = {
   heading: "Create an Account",
@@ -50,7 +49,7 @@ const initialValues = {
 const Signup = () => {
   let history = useHistory();
 
-  const [initData, setInitData] = useState(initialData);
+  const [initData] = useState(initialData);
 
   return (
     <section className="author-area login-section">
@@ -65,12 +64,11 @@ const Signup = () => {
               initialValues={initialValues}
               validationSchema={signupSchema}
               onSubmit={async (values) => {
-                console.log(values);
                 const res = await auth.register(
                   `${ENV.API_URL}api/auth/users/`,
                   values
                 );
-                if(res.status == 201)
+                if(res.status === 201)
                 {
                   history.push("/login")
                 }
@@ -78,7 +76,6 @@ const Signup = () => {
                   alert("fail")
                 }
 
-                console.log(res.email);
               }}
             >
               {({ touched, errors, isSubmitting, values }) =>
@@ -131,7 +128,7 @@ const Signup = () => {
                         <div className="form-group mt-3">
                           <Field
                             type="email"
-                            className="form-control"
+                            // className="form-control"
                             name="email"
                             placeholder="Email"
                             className={`form-control

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
-import Category from "../../services/category.service";
+// import Category from "../../services/category.service";
 
 const initialData = {
   preHeading: "Exclusive Collecton",
@@ -11,10 +11,10 @@ const initialData = {
 };
 
 const HomeCollection = () => {
-  const [initData, setInitData] = useState(initialData);
+  const [initData] = useState(initialData);
   const [collectionData, setCollectionData] = useState();
-  const [categories, setCategories] = useState([]);
-  const [data, setData] = useState({});
+  // const [categories, setCategories] = useState([]);
+  // const [data, setData] = useState({});
   let limit = 4;
   let page = 1;
   useEffect(async () => {

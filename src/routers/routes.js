@@ -54,16 +54,7 @@ class MyRouts extends React.Component {
             <Route exact path="/updateprofile" component={UpdateProfile} />
             <Route exact path="/mycollections" component={myCollections} />
             <Route exact path="/wallet-connect" component={WalletConnect} />
-            {/* <Route exact path="/explore-1" component={ExploreOne} />
-            <Route exact path="/explore-3" component={ExploreThree} />
-            <Route exact path="/explore-4" component={ExploreFour} />
-            <Route exact path="/auctions" component={Auctions} />
-            <Route exact path="/activity" component={Activity} />
-            <Route exact path="/blog" component={Blog} />
-            <Route exact path="/blog-single" component={BlogSingle} />
-          
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />   */} 
+            
           </Switch> 
         </Router>
       </div>

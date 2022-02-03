@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { ENV } from "../../env";
-import NFT from "../../services/nft.service";
-import $ from "jquery";
 import { Link } from "react-router-dom";
+import NFT from "../../services/nft.service";
+import React, { useEffect, useState } from "react";
 let page = 1;
 let limit = 4;
 const HomeNft = () => {
@@ -12,31 +11,22 @@ const HomeNft = () => {
     btnText: "View All",
   };
 
-  const [initData, setInitData] = useState(initialData);
+  const [initData] = useState(initialData);
   const [nftData, setNftData] = useState();
 
-  useEffect(async () => {
-    const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/?page=${page}&limit=${limit}`);
-    console.log(res.data.data.results);
-    setNftData(res.data.data.results);
-    //loadMore();
+  useEffect(() => {
+    const FetchData = async () => {
+      const res = await NFT.nftget(
+        `${ENV.API_URL}api/nft_list/?page=${page}&limit=${limit}`
+      );
+      setNftData(res.data.data.results);
+    };
+    FetchData();
   }, []);
-
-  // const loadMore = () => {
-  //   $(".load-more .item").slice(0, 4).show();
-
-  //   $("#load-btn").on("click", function (e) {
-  //     e.preventDefault();
-  //     $(".load-more .item:hidden").slice(0, 4).slideDown();
-  //     if ($(".load-more .item:hidden").length == 0) {
-  //       $("#load-btn").fadeOut("slow");
-  //     }
-  //   });
-  // };
 
   return (
     <section className="explore-area ">
-{/* a;lsdk */}
+      {/* a;lsdk */}
       <div className="container">
         <div className="row">
           <div className="col-12">

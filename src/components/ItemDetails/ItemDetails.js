@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { ENV } from "../../env";
-import NFT from "../../services/nft.service";
-import reportNft from "../../services/reportNf.service";
 import moment from "moment";
+import { ENV } from "../../env";
 import { Link } from "react-router-dom";
+import NFT from "../../services/nft.service";
+import React, { useEffect, useState } from "react";
+import reportNft from "../../services/reportNf.service";
 import Notifications, { notify } from "react-notify-toast";
 
 const initialData = {
@@ -23,28 +23,30 @@ const ItemDetails = () => {
     nft: "",
   };
 
-  const [initData, setInitData] = useState(initialData);
+  const [initData] = useState(initialData);
   const [nftbiddingHistory, setNftbiddingHistory] = useState();
   const [nftData, setNftData] = useState([]);
   const [nftReport, setNftReport] = useState(initialstates);
   nftReport.nft = id;
 
-  useEffect(async () => {
-    const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
+  useEffect(() => {
+    const fetchNftData = async () => {
+      const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
 
-    console.log(res.data.data);
-    setNftData(res.data.data);
+      setNftData(res.data.data);
+    };
 
-    const result = await NFT.nftBiddingList(
-      `${ENV.API_URL}api/specific_bidding_nft/${id}/`
-    );
-    console.log("nft  ");
-    console.log(result);
-    setNftbiddingHistory(result.data.bidding_data);
+    const fetchNftBiddingData = async () => {
+      const result = await NFT.nftBiddingList(
+        `${ENV.API_URL}api/specific_bidding_nft/${id}/`
+      );
+      setNftbiddingHistory(result.data.bidding_data);
+    };
+    fetchNftData();
+    fetchNftBiddingData();
   }, []);
   const report = async (e) => {
     e.preventDefault();
-    console.log(nftReport);
     const result = await reportNft.reportNftItem(
       `${ENV.API_URL}api/create_reported_nft/`,
       nftReport
@@ -53,7 +55,6 @@ const ItemDetails = () => {
       notify.show("Reported Succesfully!", "success", 3000);
     }
 
-    console.log(result);
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,10 +72,10 @@ const ItemDetails = () => {
               <div className="item-thumb text-center">
                 <img
                   src={`${ENV.API_URL_image}${nftData.image}`}
-                  alt="nft image"
+                  alt="nft"
                 />
               </div>
-              
+
               <div className="card no-hover countdown-times my-4">
                 <div
                   className="countdown d-flex justify-content-center"
@@ -112,7 +113,7 @@ const ItemDetails = () => {
                 </li>
               </ul>
               {/* Tab Content */}
-              <div className="tab-content py-4" id="nav-tabContent">
+              <div className="tab-content" id="nav-tabContent">
                 <div className="tab-pane fade show active" id="nav-home">
                   <ul className="list-unstyled">
                     {nftbiddingHistory ? (
@@ -357,7 +358,7 @@ const ItemDetails = () => {
                       </a>
                       <div className="seller-info ml-3">
                         <Link
-                          className="seller mb-2"
+                          className="seller mb-2 name_trim"
                           to={`/author?${nftData.user_id}`}
                         >
                           {"@" + nftData.owner}
@@ -380,7 +381,7 @@ const ItemDetails = () => {
                       </a>
                       <div className="seller-info ml-3">
                         <a
-                          className="seller mb-2"
+                          className="seller mb-2 name_trim"
                           href={`/collectionDetail?${nftData.collection_id}`}
                         >
                           {nftData.collection}
@@ -391,7 +392,7 @@ const ItemDetails = () => {
                   </div>
                 </div>
 
-                <div className="col-12 item px-lg-2">
+                {/* <div className="col-12 item px-lg-2">
                   <div className="card no-hover">
                     <h4 className="mt-0 mb-2">Highest Bid</h4>
                     <div className="price d-flex justify-content-between align-items-center">
@@ -399,7 +400,7 @@ const ItemDetails = () => {
                       <span>{initData.bid_count}</span>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <a
                 className="d-block btn btn-bordered-white mt-4"

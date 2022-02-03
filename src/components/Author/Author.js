@@ -1,35 +1,22 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react/cjs/react.development";
 import { ENV } from "../../env";
+import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import authors from "../../services/authors.service";
 
 const Author = () => {
+  const [authorNft, setAuthorNft] = useState([]);
   const arr = window.location.href.split("?");
   const id = arr[1];
 
-  const [authorData, setAuthorData] = useState();
-  const [authorNft, setAuthorNft] = useState([]);
-
-  useEffect(async () => {
-    // const result = await authors.specificAuthor(
-    //   `${ENV.API_URL}api/profile/crud/${id}`
-    // );
-
-    // setAuthorData(result.data);
-
-    const res = await authors.authorsList(
-      `${ENV.API_URL}api/specific_user_nft_data/${id}`
-    );
-
-    // console.log(res.data.user_data);
-    setAuthorNft(res.data.data.user_data);
-    console.log(res.data.data.user_data);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await authors.authorsList(
+        `${ENV.API_URL}api/specific_user_nft_data/${id}`
+      );
+      setAuthorNft(res.data.data.user_data);
+    };
+    fetchData();
   }, []);
-
-  {
-    console.log(authorNft[0]);
-  }
   return (
     <section className="author-area explore-area popular-collections-area">
       <div className="container">
@@ -72,10 +59,7 @@ const Author = () => {
                 </div>
                 <div className="card-caption col-12 p-0">
                   <div className="card-body mt-4">
-                    <h5 className="mb-3">
-                      {/* {authorNft[0].first_name} {authorNft[0].last_name} */}
-                      {authorNft[0].user_name}
-                    </h5>
+                    <h5 className="mb-3">{authorNft[0].user_name}</h5>
                     <p className="my-3">
                       {authorNft[0].about !== null ? authorNft[0].about : ""}
                     </p>
@@ -128,7 +112,6 @@ const Author = () => {
               "Loading..."
             )}
           </div>
-          {console.log(authorNft)}
           <div className="col-12 col-md-8 py-4">
             {authorNft ? (
               <div className="row items auhtor-nfts">
@@ -147,19 +130,6 @@ const Author = () => {
                               alt=""
                             />
                           </Link>
-
-                          {/* <a
-                            className="author"
-                            href={`/nft-details?${item.nft_id}`}
-                          >
-                            <div className="author-thumb avatar-lg">
-                              <img
-                                className="rounded-circle"
-                                src={`${ENV.API_URL_image_media}${item.nft_logo}`}
-                                alt=""
-                              />
-                            </div>
-                          </a> */}
                         </div>
 
                         <div className="card-caption col-12 p-0">
@@ -185,7 +155,9 @@ const Author = () => {
                 })}
               </div>
             ) : (
-              <div className="checking">"No item to explore"</div>
+              <div className="no_data">
+                <span>No item to explore</span>
+              </div>
             )}
           </div>
         </div>

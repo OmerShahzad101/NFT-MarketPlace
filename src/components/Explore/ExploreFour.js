@@ -13,33 +13,24 @@ const ExploreFour = () => {
     btnText: "Load More",
   };
 
-  const [initData, setInitData] = useState(initialData);
+  const [initData] = useState(initialData);
   const [nftData, setNftData] = useState([]);
-  const [togglePassword, setTogglePassword] = useState(true);
-  const [order, setOrder] = useState("ASC");
-  const [isFetching, setIsFetching] = useState(false);
+  const [order, setOrder] = useState("ASC"); 
   const [page, setPage] = useState(1);
 
-  const onToggle = (e) => {
-    setTogglePassword(!togglePassword);
-  };
-
   const sort = (col) => {
-    console.log(col);
     if (order === "ASC") {
       const sorted = [...nftData].sort((a, b) => (a[col] > b[col] ? 1 : -1));
       setNftData(sorted);
-      console.log(order);
       setOrder("DSC");
     }
     if (order === "DSC") {
       const sorted = [...nftData].sort((a, b) => (a[col] < b[col] ? 1 : -1));
       setNftData(sorted);
-      console.log(order);
       setOrder("ASC");
     }
   };
-  useEffect( () => {
+  useEffect(() => {
     pagination();
   }, []);
 
@@ -56,7 +47,6 @@ const ExploreFour = () => {
 
     setPage(page + 1);
   };
-
 
   return (
     <section className="explore-area">
@@ -163,58 +153,62 @@ const ExploreFour = () => {
         </div>
 
         <div className="row items">
-          {nftData
-            ? nftData.map((item, id) => {
-              {console.log(item)}
-                return (
-                  <div
-                    key={`exf_${id}`}
-                    className="col-12 col-sm-6 col-lg-3 item"
-                  >
-                    <div className="card">
-                      <div className="image-over">
-                        <Link to={`/nft-details?${item.id}`}>
-                          <img
-                            className="card-img-top image-container-nft"
-                            src={`${ENV.API_URL_image}${item.image}`}
-                            alt=""
-                          />
-                        </Link>
-                      </div>
-                      <div className="card-caption col-12 p-0">
-                        <div className="card-body">
-                          <div className="d-flex justify-content-between">
-                            <Link to={`/nft-details?${item.id}`}>
-                              <h5 className="mb-0">{item.name}</h5>
-                            </Link>
-                            <i class="far fa-heart"></i>
-                          </div>
-                          <div className="seller d-flex align-items-center my-3">
-                            <span>Owned By</span>
-                            <Link to={`/author?${item.user_id}`}>
-                              <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
-                            </Link>
-                          </div>
-                          <div className="card-bottom d-flex justify-content-between">
-                            <span>{"$" + item.price}</span>
-                            <span>{item.size}</span>
-                          </div>
+          {nftData ? (
+            nftData.map((item, id) => {
+              return (
+                <div
+                  key={`exf_${id}`}
+                  className="col-12 col-sm-6 col-lg-3 item"
+                >
+                  <div className="card">
+                    <div className="image-over">
+                      <Link to={`/nft-details?${item.id}`}>
+                        <img
+                          className="card-img-top image-container-nft"
+                          src={`${ENV.API_URL_image}${item.image}`}
+                          alt=""
+                        />
+                      </Link>
+                    </div>
+                    <div className="card-caption col-12 p-0">
+                      <div className="card-body">
+                        <div className="d-flex justify-content-between">
+                          <Link to={`/nft-details?${item.id}`}>
+                            <h5 className="mb-0">{item.name}</h5>
+                          </Link>
+                          <i class="far fa-heart"></i>
+                        </div>
+                        <div className="seller d-flex align-items-center my-3 text-nowrap">
+                          <span>Owned By</span>
                           <Link
-                            className="btn btn-bordered-white btn-smaller mt-3"
-                            to="/wallet-connect"
+                            className="name_trim"
+                            to={`/author?${item.user_id}`}
                           >
-                            <i className="icon-handbag mr-2" />
-                            place a bid
+                            <h6 className="ml-2 mb-0 ">{"@" + item.owner}</h6>
                           </Link>
                         </div>
+                        <div className="card-bottom d-flex justify-content-between">
+                          <span>{"$" + item.price}</span>
+                          <span>{item.size}</span>
+                        </div>
+                        <Link
+                          className="btn btn-bordered-white btn-smaller mt-3"
+                          to="/wallet-connect"
+                        >
+                          <i className="icon-handbag mr-2" />
+                          place a bid
+                        </Link>
                       </div>
                     </div>
                   </div>
-                );
-              })
-            :  <div className="no_data">
-            <span>No item to Explore</span>
-          </div>}
+                </div>
+              );
+            })
+          ) : (
+            <div className="no_data">
+              <span>No item to Explore</span>
+            </div>
+          )}
         </div>
         <div className="row">
           <div className="col-12 text-center">

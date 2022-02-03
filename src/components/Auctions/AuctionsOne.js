@@ -14,13 +14,17 @@ const initailData = {
 
 const AuctionsOne = () => {
   //__ __ Hook functions __ __ //
-  const [initData, setInitData] = useState(initailData);
+  const [initData] = useState(initailData);
   const [data, setData] = useState("");
 
   // Fetch Data on component load
-  useEffect(async () => {
-    const res = await liveAuction.auction(`${ENV.API_URL}api/live-auction-nfts/`);
-    console.log(res)
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    const res = await liveAuction.auction(
+      `${ENV.API_URL}api/live-auction-nfts/`
+    );
     setData(res.data.data.results);
 
     //__ __ JQuery for Live Auction Counter __ __ //
@@ -34,7 +38,7 @@ const AuctionsOne = () => {
     scriptSlider.src = "/assets/js/main.js";
     scriptSlider.async = true;
     document.body.appendChild(scriptSlider);
-  }, []);
+  };
 
   return (
     <section className="live-auctions-area">
@@ -53,7 +57,7 @@ const AuctionsOne = () => {
               </div>
             </div>
           </div>
-        </div> 
+        </div>
         {/* Condition When Slides are less then 4 */}
         {data.length > 4 ? (
           <div className="auctions-slides">
@@ -79,7 +83,9 @@ const AuctionsOne = () => {
                                 <div className="countdown-times mb-3">
                                   <div
                                     className="countdown d-flex justify-content-center"
-                                    data-date={moment(item.expiry_date).format("YYYY-MM-DD")}
+                                    data-date={moment(item.expiry_date).format(
+                                      "YYYY-MM-DD"
+                                    )}
                                   />
                                 </div>
                                 <Link to={`/nft-details?${item.id}`}>
@@ -116,7 +122,10 @@ const AuctionsOne = () => {
             {data
               ? data.map((item, idx) => {
                   return (
-                    <div key={`auc_${idx}`}  className="col-12 col-sm-6 col-lg-3 item">
+                    <div
+                      key={`auc_${idx}`}
+                      className="col-12 col-sm-6 col-lg-3 item"
+                    >
                       <div className="card">
                         <div className="image-over">
                           <Link to={`/nft-details?${item.id}`}>

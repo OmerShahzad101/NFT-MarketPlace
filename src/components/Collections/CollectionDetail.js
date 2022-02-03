@@ -3,23 +3,21 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react/cjs/react.development";
 import { ENV } from "../../env";
 import Collection from "../../services/collections.service";
-import NFT from "../../services/nft.service";
 
 const CollectionDetail = () => {
+  const [collectionData, setcollectionData] = useState([]);
   const arr = window.location.href.split("?");
   const id = arr[1];
 
-  const [collectionData, setcollectionData] = useState([]);
-  const [order, setOrder] = useState("ASC");
-
-  useEffect(async () => {
-    const res = await Collection.collection(
-      `${ENV.API_URL}api/specific_collection/${id}/`
-    );
-    console.log(res.data);
-    setcollectionData(res.data.data);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await Collection.collection(
+        `${ENV.API_URL}api/specific_collection/${id}/`
+      );
+      setcollectionData(res.data.data);
+    };
+    fetchData();
   }, []);
-
 
   return (
     <>
@@ -47,7 +45,11 @@ const CollectionDetail = () => {
           <div className="col-lg-3 col-md-6">
             <div className="card d-flex flex-row justify-content-between">
               <div>
-              <img src="/img/auction_2.jpg" className="avatar-md rounded-circle"/>
+                <img
+                  src="/img/auction_2.jpg"
+                  className="avatar-md rounded-circle"
+                  alt=""
+                />
               </div>
               <div>
                 <h6 className="mt-0 mb-3">{collectionData.category}</h6>
@@ -58,7 +60,11 @@ const CollectionDetail = () => {
           <div className="col-lg-3 col-md-6">
             <div className="card d-flex flex-row justify-content-between">
               <div>
-              <img src="/img/auction_2.jpg" className="avatar-md rounded-circle"/>
+                <img
+                  src="/img/auction_2.jpg"
+                  className="avatar-md rounded-circle"
+                  alt=""
+                />
               </div>
               <div>
                 <h6 className="mt-0 mb-3">{collectionData.user}</h6>
@@ -69,7 +75,11 @@ const CollectionDetail = () => {
           <div className="col-lg-3 col-md-6">
             <div className="card d-flex flex-row justify-content-between">
               <div>
-                <img src="/img/auction_2.jpg" className="avatar-md rounded-circle"/>
+                <img
+                  src="/img/auction_2.jpg"
+                  className="avatar-md rounded-circle"
+                  alt="user profile"
+                />
               </div>
               <div>
                 <h6 className="mt-0 mb-3">
@@ -84,7 +94,11 @@ const CollectionDetail = () => {
           <div className="col-lg-3 col-md-6">
             <div className="card d-flex flex-row justify-content-between">
               <div>
-              <img src="/img/auction_2.jpg" className="avatar-md rounded-circle"/>
+                <img
+                  src="/img/auction_2.jpg"
+                  className="avatar-md rounded-circle"
+                  alt="user profile"
+                />
               </div>
               <div>
                 <a href={`/authors`}>
@@ -96,31 +110,6 @@ const CollectionDetail = () => {
             </div>
           </div>
         </div>
-        {/* <div className="row ">
-        <div className="col-xl-3 col-sm-6 text-right order-sm-last">
-            <div class="form-group filter-select position-relative m-0">
-              <select class="form-control " onChange={(e) => sort("price")}>
-                <option disabled selected hidden>
-                  Select price
-                </option>
-                <option>Price Low - High</option>
-                <option>Price High - Low</option>
-              </select>
-            </div>
-          </div>
-          <div className="col-sm-6 col-xl-9">
-            <button
-              className="btn px-5 my-sm-0 my-3"
-              type="button"
-              data-toggle="collapse"
-              data-target="#collapseFilter"
-              aria-expanded="false"
-              aria-controls="collapseFilter"
-            >
-              Filter
-            </button>
-          </div>
-        </div> */}
         <div className="row">
           <div className="col-12">
             <div className="collapse" id="collapseFilter">
@@ -199,7 +188,6 @@ const CollectionDetail = () => {
                           <img
                             className="card-img-top image-container-nft"
                             src={`${ENV.API_URL_image}${item.image}`}
-
                             alt=""
                           />
                         </a>

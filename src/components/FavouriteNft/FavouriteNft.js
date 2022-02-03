@@ -2,24 +2,25 @@ import React, { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import favoriteNft from "../../services/favoriteNft.service";
 
-const FavouriteNft = () => {
+const FavouriteNft = (parms) => {
   const initialData = {
     heading: "Favourite NFT",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
     btnText: "Load More",
   };
-
-  const [initData, setInitData] = useState(initialData);
+  const [initData] = useState(initialData);
   const [nftData, setNftData] = useState();
-  const [togglePassword, setTogglePassword] = useState(true);
 
-  useEffect(async () => {
-    const res = await favoriteNft.favoriteNftGet(`${ENV.API_URL}api/favourite-nft/`);
-    console.log(res)
-    setNftData(res.result);
-
-  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await favoriteNft.favoriteNftGet(
+        `${ENV.API_URL}api/favourite-nft/`
+      );
+      setNftData(res.result);
+    };
+    fetchData();
+  }, [parms]);
   return (
     <section className="explore-area load-more">
       <div className="container">
@@ -178,9 +179,9 @@ const FavouriteNft = () => {
         </div>
         <div className="row">
           <div className="col-12 text-center">
-            <a id="load-btn" className="btn btn-bordered-white mt-5" href="#">
-              Load More
-            </a>
+            {/* <a id="load-btn" className="btn btn-bordered-white mt-5" href="#"> */}
+            Load More
+            {/* </a> */}
           </div>
         </div>
       </div>

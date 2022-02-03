@@ -29,13 +29,17 @@ const UpdateProfile = () => {
   const arr = window.location.href.split("?");
   const id = arr[1];
 
-  useEffect(async () => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
     const res = await updateProfile.updateProfileUserGet(
       `${ENV.API_URL}api/auth/users/me/`
     );
     setUpdateUser(res);
-    console.log(res);
-  }, []);
+
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,14 +79,14 @@ const UpdateProfile = () => {
         setUpdateUser(_obj);
 
         // __ redner __ //
-        if (name == "banner_image") {
+        if (name === "banner_image") {
           var reader = new FileReader();
           reader.onload = function (e) {
             $(`.img-banner_image`).attr("src", e.target.result);
             $(".label-banner").html("File selected");
           };
         } else {
-          var reader = new FileReader();
+          // var reader = new FileReader();
           reader.onload = function (e) {
             $(`.rounded-circle`).attr("src", e.target.result);
             $(".label-profile").html("File selected");
@@ -157,8 +161,6 @@ const UpdateProfile = () => {
               <div className="card-caption col-12 p-0">
                 <div className="card-body mt-4">
                   <div className="input-group">
-                    {/* { console.log(updateUser.user_profile[0].about)} */}
-
                     <input
                       type="text"
                       className="form-control"

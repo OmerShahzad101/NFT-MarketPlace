@@ -12,7 +12,7 @@ const Login = () => {
     password: "",
   };
 
-  const [initData, setInitData] = useState(initialData);
+  const [initData] = useState(initialData);
   const [user, setUser] = useState(userInitialState);
 
   const handleChange = (e) => {
@@ -25,10 +25,7 @@ const Login = () => {
 
   const loginCall = async (event) => {
     event.preventDefault();
-    console.log(user.email);
-    console.log(user.password);
     const res = await auth.login(`${ENV.API_URL}api/auth/jwt/create/`, user);
-    console.log(res)
     if (res.data) {
       localStorage.setItem("access", JSON.stringify(res.data.access));
       localStorage.setItem("refresh", JSON.stringify(res.data.refresh));
