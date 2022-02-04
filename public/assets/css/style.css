@@ -3470,3 +3470,12 @@ opacity: 0.8;
           line-clamp: 1; 
   -webkit-box-orient: vertical;
 }
+.my-dashboard li a{
+  padding: 10px 30px!important;
+}
+.my-dashboard-collection section.explore-area{
+  padding: 0;
+}
+.my-dashboard-collection  .row.justify-content-center{
+ display: none;
+}

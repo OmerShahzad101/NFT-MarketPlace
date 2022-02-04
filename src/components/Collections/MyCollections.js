@@ -47,51 +47,57 @@ const MyCollections = () => {
           </Link>
         </div>
         <div className="row items popular-collections-area">
-          {collectionData
-            ? collectionData.map((item, idx) => {
-                return item.collection_name !== null ? (
-                  <div
-                    key={`cd_${idx}`}
-                    className="col-12 col-sm-6 col-lg-3 item"
-                  >
-                    <div className="card no-hover text-center">
-                      <div className="image-over">
-                        <a href={`/collectionDetail?${item.id}`}>
+          {collectionData ? (
+            collectionData.map((item, idx) => {
+              return item.collection_name !== null ? (
+                <div
+                  key={`cd_${idx}`}
+                  className="col-12 col-sm-6 col-lg-3 item"
+                >
+                  <div className="card no-hover text-center">
+                    <div className="image-over">
+                      <a href={`/collectionDetail?${item.id}`}>
+                        <img
+                          className="card-img-top image-container"
+                          src={`${ENV.API_URL_image_media}${item.banner_image}`}
+                          alt=""
+                        />
+                      </a>
+                      {/* Seller */}
+                      <a
+                        className="seller"
+                        href={`/collectionDetail?${item.id}`}
+                      >
+                        <div className="seller-thumb avatar-lg">
                           <img
-                            className="card-img-top image-container"
-                            src={`${ENV.API_URL_image_media}${item.banner_image}`}
+                            className="rounded-circle"
+                            src={`${ENV.API_URL_image_media}${item.logo_image}`}
                             alt=""
                           />
-                        </a>
-                        {/* Seller */}
-                        <a
-                          className="seller"
-                          href={`/collectionDetail?${item.id}`}
-                        >
-                          <div className="seller-thumb avatar-lg">
-                            <img
-                              className="rounded-circle"
-                              src={`${ENV.API_URL_image_media}${item.logo_image}`}
-                              alt=""
-                            />
-                          </div>
-                        </a>
-                      </div>
-                      <div className="card-caption col-12 p-0">
-                        <div className="card-body mt-4">
-                          <a href={`/collectionDetail?${item.collection_id}`}>
-                            <h5 className="mb-2">{item.collection_name}</h5>
-                          </a>
-                          <span>{item.collection_description}</span>
                         </div>
+                      </a>
+                    </div>
+                    <div className="card-caption col-12 p-0">
+                      <div className="card-body mt-4">
+                        <a href={`/collectionDetail?${item.collection_id}`}>
+                          <h5 className="mb-2">{item.collection_name}</h5>
+                        </a>
+                        <span>{item.collection_description}</span>
                       </div>
                     </div>
                   </div>
-                ) : (
-                  "No Data"
-                );
-              })
-            : "Loading ..."}
+                </div>
+              ) : (
+                <div className="no_data mt-3">
+                  <span>Create your first collection</span>
+                </div>
+              );
+            })
+          ) : (
+            <div className="no_data mt-3">
+              <span>Create your first collection</span>
+            </div>
+          )}
         </div>
       </div>
     </section>
