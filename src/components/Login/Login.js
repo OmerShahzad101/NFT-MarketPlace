@@ -3,6 +3,8 @@ import { ENV } from "../../env";
 import auth from "../../services/auth.service";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2";
 
 const Login = () => {
   let history = useHistory();
@@ -26,12 +28,26 @@ const Login = () => {
   const loginCall = async (event) => {
     event.preventDefault();
     const res = await auth.login(`${ENV.API_URL}api/auth/jwt/create/`, user);
-    if (res.data) {
-      localStorage.setItem("access", JSON.stringify(res.data.access));
-      localStorage.setItem("refresh", JSON.stringify(res.data.refresh));
-      history.push("/");
+    console.log(res)
+    if (res.access != null) {
+      localStorage.setItem("access", JSON.stringify(res.access));
+      localStorage.setItem("refresh", JSON.stringify(res.refresh));
+      const token = JSON.parse(localStorage.getItem("access"));
+      const decoded = jwt_decode(token);
+      const id = decoded.user_id;
+      history.push(`/dashboard?${id}`);
     } else {
-      console.log(res);
+      const errors = res;
+      console.log(errors);
+      for (let key in errors) {
+        let val = errors[key];
+        console.log(val);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${val}`,
+        });
+      }
     }
   };
 

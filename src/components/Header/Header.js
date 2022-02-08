@@ -65,35 +65,22 @@ const Header = () => {
                     Contact
                   </Link>
                 </li>
-
                 <li className="nav-item">
-                  <Link to="/help-center" className="nav-link">
-                    Help Center
+                  <Link to="/authors" className="nav-link">
+                    Authors
                   </Link>
                 </li>
+
+
+            
              
                 {/* <li className="nav-item">
                   <Link to="/favourite-nft" className="nav-link">
                     Favourite Nft
                   </Link>
                 </li> */}
-                <li className="nav-item">
-                  <Link to="/authors" className="nav-link">
-                    Authors
-                  </Link>
-                </li>
+           
      
-                <li className="nav-item">
-                  {token ? (
-                    <Link to="/" className="nav-link" onClick={logout}>
-                      Logout
-                    </Link>
-                  ) : (
-                    <Link to="/login" className="nav-link">
-                      Login
-                    </Link>
-                  )}
-                </li>
 
                 <li className="nav-item">
                   {token
@@ -105,6 +92,12 @@ const Header = () => {
                         </Link>
                       ))
                     : ""}
+                </li>
+
+                <li className="nav-item">
+                  <Link to="/help-center" className="nav-link">
+                    Help Center
+                  </Link>
                 </li>
                 <li className="nav-item">
                   {token
@@ -127,6 +120,18 @@ const Header = () => {
                         </Link>
                       ))
                     : ""}
+                </li>
+                
+                <li className="nav-item">
+                  {token ? (
+                    <Link to="/" className="nav-link" onClick={logout}>
+                      Logout
+                    </Link>
+                  ) : (
+                    <Link to="/login" className="nav-link">
+                      Login
+                    </Link>
+                  )}
                 </li>
               </ul>
             </li>

@@ -2,8 +2,8 @@ import React from "react";
 import * as yup from "yup";
 import { ENV } from "../../env";
 import contact from "../../services/contact.service";
-import Notifications, { notify } from "react-notify-toast";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import Swal from "sweetalert2";
 
 const initData = {
   heading: "Get In Touch",
@@ -46,15 +46,18 @@ const Contact = () => {
                   values
                 );
                 resetForm({ values: "" });
-                notify.show("Your Form Submitted!", "success", 3000);
+                Swal.fire({
+                  icon: "success",
+                  // title: "Yahoo...",
+                  text: "Your query has been submitted successfully",
+                 
+                });
               }}
             >
               {({ touched, errors, values }) => (
                 <Form id="contact-form" className="item-form card no-hover">
                   <div className="row">
                     <div className="col-12">
-                      <Notifications  />
-
                       <div className="form-group mt-3">
                         <Field
                           type="text"

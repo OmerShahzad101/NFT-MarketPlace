@@ -17,6 +17,7 @@ const TopSeller = () => {
         `${ENV.API_URL}api/top_sellers/`
       );
       setSellerData(result.data.data.top_seller);
+      console.log(result)
     
 
     loadMore();
@@ -44,7 +45,7 @@ const TopSeller = () => {
                 <h3 className="mt-3 mb-0">{initData.heading}</h3>
               </div>
               <div className="intro-btn">
-                <a className="btn content-btn" href="/marketplace">
+                <a className="btn content-btn" href="/top-seller">
                   View All
                 </a>
               </div>
@@ -73,7 +74,7 @@ const TopSeller = () => {
                         <div className="seller-info ml-3">
                           <Link
                             className="seller mb-2"
-                            to={`/author?${item.user_id}`}
+                            to={`/author?${item.id}`}
                           >
                             {item.first_name} {item.last_name}
                           </Link>

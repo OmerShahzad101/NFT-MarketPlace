@@ -22,6 +22,7 @@ import UpdateProfile from "../themes/updateProfile";
 import myCollections from "../themes/myCollections";
 import WalletConnect from "../themes/wallet-connect";
 import Dashboard from "../themes/dashboard";
+import TopSellerPage from "../themes/topSellerPage";
 class MyRouts extends React.Component {
   render() {
     return (
@@ -50,6 +51,7 @@ class MyRouts extends React.Component {
             <Route exact path="/mycollections" component={myCollections} />
             <Route exact path="/wallet-connect" component={WalletConnect} />
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/top-seller" component={TopSellerPage} />
             
           </Switch> 
         </Router>

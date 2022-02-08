@@ -37,8 +37,8 @@ const UpdateProfile = () => {
     const res = await updateProfile.updateProfileUserGet(
       `${ENV.API_URL}api/auth/users/me/`
     );
+    console.log(res);
     setUpdateUser(res);
-
   };
 
   const handleChange = (e) => {
@@ -86,7 +86,7 @@ const UpdateProfile = () => {
             $(".label-banner").html("File selected");
           };
         } else {
-          // var reader = new FileReader();
+          var reader = new FileReader();
           reader.onload = function (e) {
             $(`.rounded-circle`).attr("src", e.target.result);
             $(".label-profile").html("File selected");
@@ -132,25 +132,40 @@ const UpdateProfile = () => {
           <div className="col-lg-4">
             <div className="card no-hover text-center mt-5">
               <div className="image-over">
-                <img
-                  className="card-img-top img-banner_image"
-                  src="/img/auction_2.jpg"
-                  alt=""
-                />
+                {updateUser.user_profile ? (
+                  <img
+                    className="card-img-top img-banner_image"
+                    src={
+                      updateUser.user_profile.profile_image
+                        ? `${updateUser.user_profile.banner_image}`
+                        : "img/auction_2.jpg"
+                    }
+                    alt=""
+                  />
+                ) : (
+                  <img
+                    className="card-img-top img-banner_image"
+                    src="/img/auction_2.jpg"
+                    alt=""
+                  />
+                )}
 
                 <div className="author">
                   <div className="author-thumb avatar-lg">
                     {updateUser.user_profile ? (
                       <img
                         className="rounded-circle img-profile_image"
-                        src="/img/auction_2.jpg"
+                        src={
+                          updateUser.user_profile.profile_image
+                            ? `${updateUser.user_profile.profile_image}`
+                            : "img/auction_2.jpg"
+                        }
                         alt=""
                       />
                     ) : (
                       <img
                         className="rounded-circle img-profile_image"
-                        // src={updateUser.user_profile[0].profile_image ? `${ENV.API_URL_image}${updateUser.user_profile[0].profile_image}` : "img/auction_2.jpg"}
-
+                        src="/img/auction_2.jpg"
                         alt=""
                       />
                     )}
