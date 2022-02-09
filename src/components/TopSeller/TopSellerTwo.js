@@ -33,9 +33,9 @@ class TopSeller extends Component {
                   <h3 className="mt-3 mb-0">{this.state.data.heading}</h3>
                 </div>
                 <div className="intro-btn">
-                  <a className="btn content-btn" href="/authors">
+                  <Link className="btn content-btn" to="/authors">
                     View All
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -50,18 +50,18 @@ class TopSeller extends Component {
                   {/* Single Seller */}
                   <div className="card no-hover">
                     <div className="single-seller d-flex align-items-center">
-                      <a href="/author">
+                      <Link to="/author">
                         <img
                           className="avatar-md rounded-circle"
                           src={item.img}
                           alt=""
                         />
-                      </a>
+                      </Link>
                       {/* Seller Info */}
                       <div className="seller-info ml-3">
-                        <a className="seller mb-2" href="/author">
+                        <Link className="seller mb-2" to="/author">
                           {item.seller}
-                        </a>
+                        </Link>
                         <span>{item.price}</span>
                       </div>
                     </div>

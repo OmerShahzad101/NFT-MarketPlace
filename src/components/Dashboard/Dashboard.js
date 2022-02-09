@@ -16,9 +16,11 @@ const Dashboard = () => {
   const id = arr[1];
   useEffect(() => {
     const fetchData = async () => {
+      
       const res = await authors.authorsList(
         `${ENV.API_URL}api/specific_user_nft_data/${id}`
       );
+      console.log(res.data.data.user_data.collection_name)
       setAuthorNft(res.data.data.user_data);
     };
     fetchData();
@@ -62,11 +64,18 @@ const Dashboard = () => {
         </ul>
 
         <div className="tab-content py-4" id="nav-tabContent">
-          <div className="tab-pane fade show active my-dashboard-collection" id="nav-home">
-            <MyCollections/>
+          <div
+            className="tab-pane fade show active my-dashboard-collection"
+            id="nav-home"
+          >
+            <MyCollections />
           </div>
           <div className="tab-pane fade" id="nav-profile">
-            <div class="intro-btn text-right mr-4"><a class="btn content-btn" href="/create">Add NFT</a></div>
+            <div class="intro-btn text-right mr-4">
+              <a class="btn content-btn" href="/create">
+                Add NFT
+              </a>
+            </div>
             {authorNft ? (
               <div className="row items">
                 {authorNft.map((item, idx) => {
@@ -92,7 +101,6 @@ const Dashboard = () => {
                               <h5 className="mb-2">{item.nft_name}</h5>
                             </Link>
                             <span>{item.nft_description}</span>
-            
                           </div>
                           <div className="card-bottom d-flex justify-content-between">
                             <span>{"$" + item.nft_price}</span>
@@ -113,9 +121,6 @@ const Dashboard = () => {
                 <span>No item to explore</span>
               </div>
             )}
-          </div>
-          <div className="tab-pane fade" id="nav-contact">
-            asdfghjk
           </div>
         </div>
       </div>

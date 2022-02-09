@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import updateProfile from "../../services/updateProfile.service";
 import $ from "jquery";
-import Notifications, { notify } from "react-notify-toast";
+import Swal from "sweetalert2";
 
 const placeholderImg = "";
 
@@ -37,8 +37,8 @@ const UpdateProfile = () => {
     const res = await updateProfile.updateProfileUserGet(
       `${ENV.API_URL}api/auth/users/me/`
     );
+    console.log(res);
     setUpdateUser(res);
-
   };
 
   const handleChange = (e) => {
@@ -86,7 +86,7 @@ const UpdateProfile = () => {
             $(".label-banner").html("File selected");
           };
         } else {
-          // var reader = new FileReader();
+          var reader = new FileReader();
           reader.onload = function (e) {
             $(`.rounded-circle`).attr("src", e.target.result);
             $(".label-profile").html("File selected");
@@ -117,40 +117,67 @@ const UpdateProfile = () => {
       formData
     );
     if (res.status === true) {
-      notify.show("Updated Succesfully!", "success", 3000);
-      // window.location = "/";
+      Swal.fire({
+        icon: "success",
+        title: "Yeah...",
+        text: "Profile updated successfully!",
+      }); // window.location = "/";
     } else {
-      notify.show("Failed to Update!", "error", 3000);
+      const errors = res.data;
+      console.log(errors);
+      for (let key in errors) {
+        let val = errors[key];
+        console.log(val);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${val}`,
+        });
+      }
     }
   };
 
   return (
     <section className="author-area">
-      <Notifications />
       <div className="container my-5">
         <div className="row">
           <div className="col-lg-4">
             <div className="card no-hover text-center mt-5">
               <div className="image-over">
-                <img
-                  className="card-img-top img-banner_image"
-                  src="/img/auction_2.jpg"
-                  alt=""
-                />
+                {updateUser.user_profile ? (
+                  <img
+                    className="card-img-top img-banner_image"
+                    src={
+                      updateUser.user_profile.profile_image
+                        ? `${updateUser.user_profile.banner_image}`
+                        : "img/auction_2.jpg"
+                    }
+                    alt=""
+                  />
+                ) : (
+                  <img
+                    className="card-img-top img-banner_image"
+                    src="/img/auction_2.jpg"
+                    alt=""
+                  />
+                )}
 
                 <div className="author">
                   <div className="author-thumb avatar-lg">
                     {updateUser.user_profile ? (
                       <img
                         className="rounded-circle img-profile_image"
-                        src="/img/auction_2.jpg"
+                        src={
+                          updateUser.user_profile.profile_image
+                            ? `${updateUser.user_profile.profile_image}`
+                            : "img/auction_2.jpg"
+                        }
                         alt=""
                       />
                     ) : (
                       <img
                         className="rounded-circle img-profile_image"
-                        // src={updateUser.user_profile[0].profile_image ? `${ENV.API_URL_image}${updateUser.user_profile[0].profile_image}` : "img/auction_2.jpg"}
-
+                        src="/img/auction_2.jpg"
                         alt=""
                       />
                     )}

@@ -1,10 +1,11 @@
-import React, {  useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import auth from "../../services/auth.service";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const initialData = {
   heading: "Create an Account",
@@ -14,7 +15,15 @@ const signupSchema = yup.object().shape({
     .string()
     .required("Please provide first name")
     .matches(
-      /^([aA-zZ\s]{4,15})$/,
+      /^([aA-zZ\s]{3,15})$/,
+      "Only alphabets are allowed for this field, atleast 4 alphabets"
+    ),
+
+  username: yup
+    .string()
+    .required("Please provide User name")
+    .matches(
+      /^([aA-zZ\s]{3,15})$/,
       "Only alphabets are allowed for this field, atleast 4 alphabets"
     ),
 
@@ -22,7 +31,7 @@ const signupSchema = yup.object().shape({
     .string()
     .required("Please provide last Name")
     .matches(
-      /^([aA-zZ\s]{4,15})$/,
+      /^([aA-zZ\s]{3,15})$/,
       "Only alphabets are allowed for this field, atleast 4 alphabets"
     ),
   email: yup.string().email().required("Please provide email"),
@@ -30,7 +39,7 @@ const signupSchema = yup.object().shape({
     .string()
     .required("Please Enter your password")
     .matches(
-      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/,
       "Must Contain 6 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
     ),
   re_password: yup
@@ -39,6 +48,7 @@ const signupSchema = yup.object().shape({
 });
 
 const initialValues = {
+  username: "",
   first_name: "",
   last_name: "",
   email: "",
@@ -48,7 +58,6 @@ const initialValues = {
 
 const Signup = () => {
   let history = useHistory();
-
   const [initData] = useState(initialData);
 
   return (
@@ -68,20 +77,55 @@ const Signup = () => {
                   `${ENV.API_URL}api/auth/users/`,
                   values
                 );
-                if(res.status === 201)
-                {
-                  history.push("/login")
-                }
-                else{
-                  alert("fail")
-                }
 
+                // console.log(res)
+                if (res.id != null) {
+                  Swal.fire({
+                    icon: "success",
+                    title: "Yeah...",
+                    text: "Registerd Sucessfully!",
+                  });
+                  history.push("/login");
+                } else {
+                  const errors = res;
+                  console.log(errors);
+                  for (let key in errors) {
+                    let val = errors[key];
+                    console.log(val);
+                    Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: `${val}`,
+                    });
+                  }
+                }
               }}
             >
               {({ touched, errors, isSubmitting, values }) =>
                 !isSubmitting ? (
-                  <Form className="item-form card no-hover">
+                  <Form className="item-form card no-hover" autoComplete="off">
                     <div className="row">
+                      <div className="col-12">
+                        <div className="form-group mt-3">
+                          <Field
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            className={`form-control
+                              ${
+                                touched.username && errors.username
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                          />
+                          <ErrorMessage
+                            component="div"
+                            name="username"
+                            className="invalid-feedback"
+                          />
+                        </div>
+                      </div>
+
                       <div className="col-12">
                         <div className="form-group mt-3">
                           <Field
@@ -128,7 +172,6 @@ const Signup = () => {
                         <div className="form-group mt-3">
                           <Field
                             type="email"
-                            // className="form-control"
                             name="email"
                             placeholder="Email"
                             className={`form-control

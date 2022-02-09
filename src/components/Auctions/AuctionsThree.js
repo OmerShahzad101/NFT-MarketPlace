@@ -49,54 +49,58 @@ const AuctionThree = () => {
             <div className="swiper-container slider-mid items">
               <div className="swiper-wrapper">
                 {/* __ __ Iteration to show data __ __ */}
-                {data
-                  ? data.map((item, idx) => {
-                      return (
-                        <div key={`auc_${idx}`} className="swiper-slide item">
-                          <div className="card">
-                            <div className="image-over">
-                              <Link to={`/nft-details?${item.id}`}>
-                                <img
-                                  className="card-img-top image-container-nft"
-                                  src={`${ENV.API_URL_image}${item.image}`}
-                                  alt=""
+                {data ? (
+                  data.map((item, idx) => {
+                    return (
+                      <div key={`auc_${idx}`} className="swiper-slide item">
+                        <div className="card">
+                          <div className="image-over">
+                            <Link to={`/nft-details?${item.id}`}>
+                              <img
+                                className="card-img-top image-container-nft"
+                                src={`${ENV.API_URL_image}${item.image}`}
+                                alt=""
+                              />
+                            </Link>
+                          </div>
+                          <div className="card-caption col-12 p-0">
+                            <div className="card-body">
+                              <div className="countdown-times mb-3">
+                                <div
+                                  className="countdown d-flex justify-content-center"
+                                  data-date={moment(item.expiry_date).format(
+                                    "YYYY-MM-DD"
+                                  )}
                                 />
+                              </div>
+                              <Link to={`/nft-details?${item.id}`}>
+                                <h5 className="mb-0">{item.name}</h5>
                               </Link>
-                            </div>
-                            <div className="card-caption col-12 p-0">
-                              <div className="card-body">
-                                <div className="countdown-times mb-3">
-                                  <div
-                                    className="countdown d-flex justify-content-center"
-                                    data-date={moment(item.expiry_date).format(
-                                      "YYYY-MM-DD"
-                                    )}
-                                  />
-                                </div>
-                                <Link to={`/nft-details?${item.id}`}>
-                                  <h5 className="mb-0">{item.name}</h5>
-                                </Link>
-                                <Link
-                                  className="seller d-flex align-items-center my-3"
-                                  to={`/nft-details?${item.id}`}
-                                >
-                                  <img
-                                    className="avatar-sm rounded-circle"
-                                    src={`${ENV.API_URL_image}${item.profile_image}`}
-                                    alt="Profile"
-                                  />
-                                  <span className="ml-2">@{item.owner}</span>
-                                </Link>
-                                <div className="card-bottom d-flex justify-content-between">
-                                  <span>${item.price}</span>
-                                </div>
+                              <Link
+                                className="seller d-flex align-items-center my-3"
+                                to={`/nft-details?${item.id}`}
+                              >
+                                <img
+                                  className="avatar-sm rounded-circle"
+                                  src={`${ENV.API_URL_image}${item.profile_image}`}
+                                  alt="Profile"
+                                />
+                                <span className="ml-2">@{item.owner}</span>
+                              </Link>
+                              <div className="card-bottom d-flex justify-content-between">
+                                <span>${item.price}</span>
                               </div>
                             </div>
                           </div>
                         </div>
-                      );
-                    })
-                  : "No NFT is on Auction"}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="no_data">
+                    <span>No NFT is on Auction</span>
+                  </div>
+                )}
               </div>
               <div className="swiper-pagination" />
             </div>
@@ -104,55 +108,59 @@ const AuctionThree = () => {
         ) : (
           // __ __ Else When more then four Slides __ __}
           <div className="row items">
-            {data
-              ? data.map((item, idx) => {
-                  return (
-                    <div
-                      key={`auc_${idx}`}
-                      className="col-12 col-sm-6 col-lg-3 item"
-                    >
-                      <div className="card">
-                        <div className="image-over">
+            {data ? (
+              data.map((item, idx) => {
+                return (
+                  <div
+                    key={`auc_${idx}`}
+                    className="col-12 col-sm-6 col-lg-3 item"
+                  >
+                    <div className="card">
+                      <div className="image-over">
+                        <Link to={`/nft-details?${item.id}`}>
+                          <img
+                            className="card-img-top image-container-nft"
+                            src={`${ENV.API_URL_image}${item.image}`}
+                            alt=""
+                          />
+                        </Link>
+                      </div>
+                      <div className="card-caption col-12 p-0">
+                        <div className="card-body">
+                          <div className="countdown-times mb-3">
+                            <div
+                              className="countdown d-flex justify-content-center"
+                              data-date="2022-5-25"
+                            />
+                          </div>
                           <Link to={`/nft-details?${item.id}`}>
+                            <h5 className="mb-0">{item.name}</h5>
+                          </Link>
+                          <Link
+                            className="seller d-flex align-items-center my-3"
+                            to={`/nft-details?${item.id}`}
+                          >
                             <img
-                              className="card-img-top image-container-nft"
-                              src={`${ENV.API_URL_image}${item.image}`}
+                              className="avatar-sm rounded-circle"
+                              src={`${ENV.API_URL_image}${item.profile_image}`}
                               alt=""
                             />
+                            <span className="ml-2">@{item.owner}</span>
                           </Link>
-                        </div>
-                        <div className="card-caption col-12 p-0">
-                          <div className="card-body">
-                            <div className="countdown-times mb-3">
-                              <div
-                                className="countdown d-flex justify-content-center"
-                                data-date="2022-5-25"
-                              />
-                            </div>
-                            <Link to={`/nft-details?${item.id}`}>
-                              <h5 className="mb-0">{item.name}</h5>
-                            </Link>
-                            <Link
-                              className="seller d-flex align-items-center my-3"
-                              to={`/nft-details?${item.id}`}
-                            >
-                              <img
-                                className="avatar-sm rounded-circle"
-                                src={`${ENV.API_URL_image}${item.profile_image}`}
-                                alt=""
-                              />
-                              <span className="ml-2">@{item.owner}</span>
-                            </Link>
-                            <div className="card-bottom d-flex justify-content-between">
-                              <span>${item.price}</span>
-                            </div>
+                          <div className="card-bottom d-flex justify-content-between">
+                            <span>${item.price}</span>
                           </div>
                         </div>
                       </div>
                     </div>
-                  );
-                })
-              : "No NFT is on Auction"}
+                  </div>
+                );
+              })
+            ) : (
+              <div className="no_data">
+                <span>No NFT is on Auction</span>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -6,6 +6,7 @@ import AuthorProfile from "../AuthorProfile/AuthorProfile";
 import SimpleReactValidator from "simple-react-validator";
 import Collection from "../../services/collections.service";
 import jwt_decode from "jwt-decode";
+
 import Notifications, { notify } from "react-notify-toast";
 const placeholderImg = "";
 
@@ -103,7 +104,10 @@ class Create extends Component {
 
               if (res.status === true) {
                 notify.show("Created Succesfully!", "success", 3000);
-                window.location = "/marketplace";
+                const token = JSON.parse(localStorage.getItem("access"));
+                const decoded = jwt_decode(token);
+                const id = decoded.user_id;
+                window.location = `/dashboard?${id}`;
               } else {
                 notify.show("Failed to create!", "error", 3000);
                 this.setState({ loader: false });

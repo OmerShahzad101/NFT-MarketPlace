@@ -56,13 +56,13 @@ const MyCollections = () => {
                 >
                   <div className="card no-hover text-center">
                     <div className="image-over">
-                      <a href={`/collectionDetail?${item.id}`}>
+                      <Link to={`/collectionDetail?${item.id}`}>
                         <img
                           className="card-img-top image-container"
                           src={`${ENV.API_URL_image_media}${item.banner_image}`}
                           alt=""
                         />
-                      </a>
+                      </Link>
                       {/* Seller */}
                       <a
                         className="seller"
@@ -79,9 +79,9 @@ const MyCollections = () => {
                     </div>
                     <div className="card-caption col-12 p-0">
                       <div className="card-body mt-4">
-                        <a href={`/collectionDetail?${item.collection_id}`}>
+                        <Link to={`/collectionDetail?${item.collection_id}`}>
                           <h5 className="mb-2">{item.collection_name}</h5>
-                        </a>
+                        </Link>
                         <span>{item.collection_description}</span>
                       </div>
                     </div>

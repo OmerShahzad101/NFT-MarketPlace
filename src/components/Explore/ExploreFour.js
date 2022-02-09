@@ -15,7 +15,7 @@ const ExploreFour = () => {
 
   const [initData] = useState(initialData);
   const [nftData, setNftData] = useState([]);
-  const [order, setOrder] = useState("ASC"); 
+  const [order, setOrder] = useState("ASC");
   const [page, setPage] = useState(1);
 
   const sort = (col) => {
@@ -41,7 +41,7 @@ const ExploreFour = () => {
     console.log(res);
     let newArr = [...nftData, ...res.data.data.results];
     setNftData(newArr);
-
+    console.log(newArr);
     if (res.data.data.count === newArr.length) {
       $("#loadmorebtn").fadeOut("slow");
     }
