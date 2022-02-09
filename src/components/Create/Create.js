@@ -6,6 +6,7 @@ import AuthorProfile from "../AuthorProfile/AuthorProfile";
 import SimpleReactValidator from "simple-react-validator";
 import Collection from "../../services/collections.service";
 import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2";
 
 import Notifications, { notify } from "react-notify-toast";
 const placeholderImg = "";
@@ -143,8 +144,11 @@ class Create extends Component {
     );
     if (res.data.data.user_collection[0].collection_name === null) {
       Swal.fire({
-        title: "There isn't any collection assosiated with this account. Kindly create a collection!",
-        confirmButtonText: '<a href="/create-collection">Create Collection</a>',
+        icon: "info",
+        title: "Oops..",
+        html: "<div>There isn't any collection associated with this user.</div>" + "<strong> Kindly create a collection! </strong>"  ,
+        confirmButtonText: '<a class="text-white" href="/create-collection">Create Collection</a>',
+        allowOutsideClick : false
       })
     } else {
       var nft = { ...this.state.nft };
