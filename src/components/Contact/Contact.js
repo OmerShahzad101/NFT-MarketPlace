@@ -48,7 +48,7 @@ const Contact = () => {
                 resetForm({ values: "" });
                 Swal.fire({
                   icon: "success",
-                  // title: "Yahoo...",
+                  title: "Hurray...",
                   text: "Your query has been submitted successfully",
                  
                 });
