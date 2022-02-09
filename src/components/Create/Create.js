@@ -6,6 +6,7 @@ import AuthorProfile from "../AuthorProfile/AuthorProfile";
 import SimpleReactValidator from "simple-react-validator";
 import Collection from "../../services/collections.service";
 import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2";
 
 import Notifications, { notify } from "react-notify-toast";
 const placeholderImg = "";
@@ -141,12 +142,29 @@ class Create extends Component {
     const res = await Collection.collection(
       `${ENV.API_URL}api/specific-user-collection/${id}`
     );
-
-    var nft = { ...this.state.nft };
-    nft.collections = res.data.data.user_collection;
-    this.setState({ nft });
+    if (res.data.data.user_collection[0].collection_name === null) {
+      Swal.fire({
+        icon: "info",
+        title: "Oops..",
+        html: "<div>There isn't any collection associated with this user.</div>" + "<strong> Kindly create a collection! </strong>"  ,
+        confirmButtonText: '<a class="text-white" href="/create-collection">Create Collection</a>',
+        allowOutsideClick : false
+      })
+    } else {
+      var nft = { ...this.state.nft };
+      nft.collections = res.data.data.user_collection;
+      this.setState({ nft });
+    }
   };
+  dateCheck = () => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0");
+    var yyyy = today.getFullYear();
 
+    today = yyyy + "-" + mm + "-" + dd;
+    $("#date_picker").attr("min", today);
+  };
   render() {
     const { nft, errors, loader, isSubmitted } = this.state;
 
@@ -412,6 +430,8 @@ class Create extends Component {
                           required="required"
                           onChange={(e) => this.onChange(e)}
                           defaultValue={nft.expiry_date}
+                          onClick={this.dateCheck}
+                          id="date_picker"
                         />
                         {/* <span className="text-danger">
                           {this.validator.message(

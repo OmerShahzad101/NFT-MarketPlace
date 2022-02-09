@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 import $ from "jquery";
-let limit = 8;
+let limit = 2;
 
 const ExploreFour = () => {
   const initialData = {
@@ -38,6 +38,7 @@ const ExploreFour = () => {
     const res = await NFT.nftget(
       `${ENV.API_URL}api/nft_list/?page=${page}&limit=${limit}`
     );
+    console.log(res);
     let newArr = [...nftData, ...res.data.data.results];
     setNftData(newArr);
     console.log(newArr);
