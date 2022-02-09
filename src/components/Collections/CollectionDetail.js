@@ -14,6 +14,7 @@ const CollectionDetail = () => {
       const res = await Collection.collection(
         `${ENV.API_URL}api/specific_collection/${id}/`
       );
+      console.log(res)
       setcollectionData(res.data.data);
     };
     fetchData();
