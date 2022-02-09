@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ENV } from "../../env";
 import updateProfile from "../../services/updateProfile.service";
 import $ from "jquery";
-import Notifications, { notify } from "react-notify-toast";
+import Swal from "sweetalert2";
 
 const placeholderImg = "";
 
@@ -117,16 +117,28 @@ const UpdateProfile = () => {
       formData
     );
     if (res.status === true) {
-      notify.show("Updated Succesfully!", "success", 3000);
-      // window.location = "/";
+      Swal.fire({
+        icon: "success",
+        title: "Yeah...",
+        text: "Profile updated successfully!",
+      }); // window.location = "/";
     } else {
-      notify.show("Failed to Update!", "error", 3000);
+      const errors = res.data;
+      console.log(errors);
+      for (let key in errors) {
+        let val = errors[key];
+        console.log(val);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${val}`,
+        });
+      }
     }
   };
 
   return (
     <section className="author-area">
-      <Notifications />
       <div className="container my-5">
         <div className="row">
           <div className="col-lg-4">

@@ -98,38 +98,38 @@ class ExploreFive extends Component {
                     <div key={`exfi_${idx}`} className="swiper-slide item">
                       <div className="card">
                         <div className="image-over">
-                          <a href="/item-details">
+                          <Link to="/item-details">
                             <img
                               className="card-img-top"
                               src={item.img}
                               alt=""
                             />
-                          </a>
+                          </Link>
                         </div>
                         {/* Card Caption */}
                         <div className="card-caption col-12 p-0">
                           {/* Card Body */}
                           <div className="card-body">
-                            <a href="/item-details">
+                            <Link to="/item-details">
                               <h5 className="mb-0">{item.title}</h5>
-                            </a>
+                            </Link>
                             <div className="seller d-flex align-items-center my-3">
                               <span>Owned By</span>
-                              <a href="/author">
+                              <Link to="/author">
                                 <h6 className="ml-2 mb-0">{item.owner}</h6>
-                              </a>
+                              </Link>
                             </div>
                             <div className="card-bottom d-flex justify-content-between">
                               <span>{item.price}</span>
                               <span>{item.count}</span>
                             </div>
-                            <a
+                            <Link
                               className="btn btn-bordered-white btn-smaller mt-3"
-                              href="/create"
+                              to="/create"
                             >
                               <i className="icon-handbag mr-2" />
                               {item.btnText}
-                            </a>
+                            </Link>
                           </div>
                         </div>
                       </div>

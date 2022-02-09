@@ -101,9 +101,9 @@ const CollectionDetail = () => {
                 />
               </div>
               <div>
-                <a href={`/authors`}>
+                <Link to={`/authors`}>
                   <h6 className="mt-0 mb-3">Name</h6>
-                </a>
+                </Link>
 
                 <p className="m-0">Owners</p>
               </div>
@@ -184,20 +184,20 @@ const CollectionDetail = () => {
                   <div className="col-lg-3 col-md-6 p-3">
                     <div className="card">
                       <div className="image-over">
-                        <a href={`/nft-details?${item.id}`}>
+                        <Link to={`/nft-details?${item.id}`}>
                           <img
                             className="card-img-top image-container-nft"
                             src={`${ENV.API_URL_image}${item.image}`}
                             alt=""
                           />
-                        </a>
+                        </Link>
                       </div>
 
                       <div className="card-caption col-12 p-0">
                         <div className="card-body">
-                          <a href={`/nft-details?${item.id}`}>
+                          <Link to={`/nft-details?${item.id}`}>
                             <h5 className="mb-0">{item.name}</h5>
-                          </a>
+                          </Link>
                           <div className="seller d-flex align-items-center my-3">
                             <span>Owned By</span>
                             <Link to={`/author?${item.user_id}`}>

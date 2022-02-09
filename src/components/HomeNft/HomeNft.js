@@ -45,63 +45,60 @@ const HomeNft = () => {
           </div>
         </div>
         <div className="row items ">
-          {nftData
-            ? nftData.map((item, id) => {
-                return (
-                  <div
-                    key={`exf_${id}`}
-                    className="col-12 col-sm-6 col-lg-3 item"
-                  >
-                    <div className="card">
-                      <div className="image-over">
-                        <a href={`/nft-details?${item.id}`}>
-                          <img
-                            className="card-img-top image-container-nft"
-                            src={`${ENV.API_URL_image}${item.image}`}
-                            alt=""
-                          />
-                        </a>
-                      </div>
-                      <div className="card-caption col-12 p-0">
-                        <div className="card-body">
-                          <div className="d-flex justify-content-between">
-                            <a href={`/nft-details?${item.id}`}>
-                              <h5 className="mb-0">{item.name}</h5>
-                            </a>
-                            <i class="far fa-heart"></i>
-                          </div>
-                          <div className="seller d-flex align-items-center my-3">
-                            <span>Owned By</span>
-                            <a href="/author">
-                              <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
-                            </a>
-                          </div>
-                          <div className="card-bottom d-flex justify-content-between">
-                            <span>{"$" + item.price}</span>
-                            <span>{item.size}</span>
-                          </div>
-                          <a
-                            className="btn btn-bordered-white btn-smaller mt-3"
-                            href="/login"
-                          >
-                            <i className="icon-handbag mr-2" />
-                            place a bid
-                          </a>
+          {nftData ? (
+            nftData.map((item, id) => {
+              return (
+                <div
+                  key={`exf_${id}`}
+                  className="col-12 col-sm-6 col-lg-3 item"
+                >
+                  <div className="card">
+                    <div className="image-over">
+                      <Link to={`/nft-details?${item.id}`}>
+                        <img
+                          className="card-img-top image-container-nft"
+                          src={`${ENV.API_URL_image}${item.image}`}
+                          alt=""
+                        />
+                      </Link>
+                    </div>
+                    <div className="card-caption col-12 p-0">
+                      <div className="card-body">
+                        <div className="d-flex justify-content-between">
+                          <Link to={`/nft-details?${item.id}`}>
+                            <h5 className="mb-0">{item.name}</h5>
+                          </Link>
+                          <i class="far fa-heart"></i>
                         </div>
+                        <div className="seller d-flex align-items-center my-3">
+                          <span>Owned By</span>
+                          <Link to="/author">
+                            <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
+                          </Link>
+                        </div>
+                        <div className="card-bottom d-flex justify-content-between">
+                          <span>{"$" + item.price}</span>
+                          <span>{item.size}</span>
+                        </div>
+                        <a
+                          className="btn btn-bordered-white btn-smaller mt-3"
+                          href="/login"
+                        >
+                          <i className="icon-handbag mr-2" />
+                          place a bid
+                        </a>
                       </div>
                     </div>
                   </div>
-                );
-              })
-            : " "}
+                </div>
+              );
+            })
+          ) : (
+            <div className="no_data">
+              <span>No item to Explore</span>
+            </div>
+          )}
         </div>
-        {/* <div className="row">
-          <div className="col-12 text-center">
-            <a id="load-btn" className="btn btn-bordered-white mt-5" href="#">
-              Load More
-            </a>
-          </div>
-        </div> */}
       </div>
     </section>
   );

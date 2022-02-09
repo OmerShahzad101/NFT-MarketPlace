@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
+import { Link } from "react-router-dom";
 // import Category from "../../services/category.service";
 
 const initialData = {
@@ -56,13 +57,13 @@ const HomeCollection = () => {
                     >
                       <div className="card no-hover text-center">
                         <div className="image-over">
-                          <a href={`/collectionDetail?${item.id}`}>
+                          <Link to={`/collectionDetail?${item.id}`}>
                             <img
                               className="card-img-top image-container"
                               src={`${ENV.API_URL_image}${item.banner_image}`}
                               alt=""
                             />
-                          </a>
+                          </Link>
                           {/* Seller */}
                           <a
                             className="seller"
@@ -79,9 +80,9 @@ const HomeCollection = () => {
                         </div>
                         <div className="card-caption col-12 p-0">
                           <div className="card-body mt-4">
-                            <a href={`/collectionDetail?${item.id}`}>
+                            <Link to={`/collectionDetail?${item.id}`}>
                               <h5 className="mb-2">{item.name}</h5>
-                            </a>
+                            </Link>
                             <span className="description_trim">
                               {item.description}
                             </span>

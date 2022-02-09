@@ -82,7 +82,7 @@ const Signup = () => {
                 if (res.id != null) {
                   Swal.fire({
                     icon: "success",
-                    title: "Yahoo...",
+                    title: "Yeah...",
                     text: "Registerd Sucessfully!",
                   });
                   history.push("/login");

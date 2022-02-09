@@ -168,7 +168,7 @@ const ItemDetails = () => {
                               <strong>${item.bidding_price}</strong>{" "}
                               {moment(item.bidding_date).fromNow()} {"  "}
                               <br />
-                              by <a href="/author">@{item.offer_by}</a>
+                              by <Link to="/author">@{item.offer_by}</Link>
                             </p>
                           </li>
                         ) : (
@@ -349,13 +349,13 @@ const ItemDetails = () => {
                 <div className="col-12 col-md-6 item px-lg-2">
                   <div className="card no-hover">
                     <div className="single-seller d-flex align-items-center">
-                      <a href="/author">
+                      <Link to="/author">
                         <img
                           className="avatar-md rounded-circle"
                           src={`${ENV.API_URL_image}${nftData.profile_image}`}
                           alt=""
                         />
-                      </a>
+                      </Link>
                       <div className="seller-info ml-3">
                         <Link
                           className="seller mb-2 name_trim"
@@ -372,13 +372,13 @@ const ItemDetails = () => {
                 <div className="col-12 col-md-6 item px-lg-2">
                   <div className="card no-hover">
                     <div className="single-seller d-flex align-items-center">
-                      <a href="/author">
+                      <Link to="/author">
                         <img
                           className="avatar-md rounded-circle"
                           src={`${ENV.API_URL_image_media}${nftData.banner_image}`}
                           alt=""
                         />
-                      </a>
+                      </Link>
                       <div className="seller-info ml-3">
                         <a
                           className="seller mb-2 name_trim"

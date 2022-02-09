@@ -2,6 +2,7 @@ import $ from "jquery";
 import { ENV } from "../../env";
 import React, { useEffect, useState } from "react";
 import authors from "../../services/authors.service";
+import { Link } from "react-router-dom";
 let limit = 4;
 
 const Authors = () => {
@@ -51,13 +52,13 @@ const Authors = () => {
                     <div className="card no-hover text-center">
                       {item.banner_image ? (
                         <div className="image-over ">
-                          <a href={`/author?${item.user_id}`}>
+                          <Link to={`/author?${item.user_id}`}>
                             <img
                               className="card-img-top image-container-nft"
                               src={`${ENV.API_URL_image_media}${item.banner_image}`}
                               alt="cover"
                             />
-                          </a>
+                          </Link>
 
                           <a
                             className="seller"
@@ -74,13 +75,13 @@ const Authors = () => {
                         </div>
                       ) : (
                         <div className="image-over">
-                          <a href={`/author?${item.user_id}`}>
+                          <Link to={`/author?${item.user_id}`}>
                             <img
                               className="card-img-top"
                               src="img/auction_2.jpg"
                               alt="cover "
                             />
-                          </a>
+                          </Link>
 
                           <a
                             className="seller"
@@ -99,11 +100,11 @@ const Authors = () => {
 
                       <div className="card-caption col-12 p-0">
                         <div className="card-body mt-4">
-                          <a href={`/author?${item.user_id}`}>
+                          <Link to={`/author?${item.user_id}`}>
                             <h5 className="name_trim">
                               {item.first_name} {item.last_name}
                             </h5>
-                          </a>
+                          </Link>
                           <p className="description_trim">{item.about}</p>
                           <div className="social-icons d-flex justify-content-center my-3">
                             {item.facebook_link ? (

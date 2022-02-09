@@ -73,9 +73,9 @@ const Activity = () => {
                             />
                           </Link>
                           <div className="activity-content display-inline ml-4">
-                            <a href="/item-details">
+                            <Link to="/item-details">
                               <h5 className="mt-0 mb-2">{item.nft}</h5>
-                            </a>
+                            </Link>
                             <p className="m-0">
                               Bid listed for <strong>${item.price}</strong>{" "}
                               {moment(item.bidding_date).fromNow()}
@@ -102,22 +102,22 @@ const Activity = () => {
                           key={`ato_${idx}`}
                           className="single-tab-list d-flex align-items-center"
                         >
-                          <a href="/item-details">
+                          <Link to="/item-details">
                             <img
                               className="avatar-lg"
                               src={`${ENV.API_URL_image_media}${item.nft_image}`}
                               alt=""
                             />
-                          </a>
+                          </Link>
                           <div className="activity-content display-inline ml-4">
-                            <a href="/item-details">
+                            <Link to="/item-details">
                               <h5 className="mt-0 mb-2">{item.nft}</h5>
-                            </a>
+                            </Link>
                             <p className="m-0">
                               Bid listed for <strong>${item.price}</strong>{" "}
                               {moment(item.bidding_date).fromNow()}
                               {item.time} by{" "}
-                              <a href="/author">@{item.offer_by}</a>
+                              <Link to="/author">@{item.offer_by}</Link>
                             </p>
                           </div>
                         </li>
@@ -140,22 +140,22 @@ const Activity = () => {
                           key={`ato_${idx}`}
                           className="single-tab-list d-flex align-items-center"
                         >
-                          <a href="/item-details">
+                          <Link to="/item-details">
                             <img
                               className="avatar-lg"
                               src={`${ENV.API_URL_image_media}${item.nft_image}`}
                               alt=""
                             />
-                          </a>
+                          </Link>
                           <div className="activity-content display-inline ml-4">
-                            <a href="/item-details">
+                            <Link to="/item-details">
                               <h5 className="mt-0 mb-2">{item.nft}</h5>
-                            </a>
+                            </Link>
                             <p className="m-0">
                               Bid listed for <strong>${item.price}</strong>{" "}
                               {moment(item.bidding_date).fromNow()}
                               {item.time} by{" "}
-                              <a href="/author">@{item.offer_by}</a>
+                              <Link to="/author">@{item.offer_by}</Link>
                             </p>
                           </div>
                         </li>
