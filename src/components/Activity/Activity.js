@@ -65,7 +65,7 @@ const Activity = () => {
                           key={`ato_${idx}`}
                           className="single-tab-list d-flex align-items-center"
                         >
-                          <Link to={`/nft-details?${item.id}`}>
+                            <Link to={`/nft-details?${item.nft_id}`}>
                             <img
                               className="avatar-lg"
                               src={`${ENV.API_URL_image_media}${item.nft_image}`}
@@ -73,14 +73,14 @@ const Activity = () => {
                             />
                           </Link>
                           <div className="activity-content display-inline ml-4">
-                            <Link to="/item-details">
+                          <Link to={`/nft-details?${item.nft_id}`}>
                               <h5 className="mt-0 mb-2">{item.nft}</h5>
                             </Link>
                             <p className="m-0">
                               Bid listed for <strong>${item.price}</strong>{" "}
                               {moment(item.bidding_date).fromNow()}
                               {item.time} by{" "}
-                              <Link to="/author">@{item.offer_by}</Link>
+                              <Link to={`/author?${item.user_id}`}>@{item.offer_by}</Link>
                             </p>
                           </div>
                         </li>
@@ -102,7 +102,7 @@ const Activity = () => {
                           key={`ato_${idx}`}
                           className="single-tab-list d-flex align-items-center"
                         >
-                          <Link to="/item-details">
+                            <Link to={`/nft-details?${item.nft_id}`}>
                             <img
                               className="avatar-lg"
                               src={`${ENV.API_URL_image_media}${item.nft_image}`}
@@ -110,14 +110,14 @@ const Activity = () => {
                             />
                           </Link>
                           <div className="activity-content display-inline ml-4">
-                            <Link to="/item-details">
+                          <Link to={`/nft-details?${item.nft_id}`}>
                               <h5 className="mt-0 mb-2">{item.nft}</h5>
                             </Link>
                             <p className="m-0">
                               Bid listed for <strong>${item.price}</strong>{" "}
                               {moment(item.bidding_date).fromNow()}
                               {item.time} by{" "}
-                              <Link to="/author">@{item.offer_by}</Link>
+                              <Link to={`/author?${item.user_id}`}>@{item.offer_by}</Link>
                             </p>
                           </div>
                         </li>
@@ -140,7 +140,7 @@ const Activity = () => {
                           key={`ato_${idx}`}
                           className="single-tab-list d-flex align-items-center"
                         >
-                          <Link to="/item-details">
+                            <Link to={`/nft-details?${item.nft_id}`}>
                             <img
                               className="avatar-lg"
                               src={`${ENV.API_URL_image_media}${item.nft_image}`}
@@ -148,14 +148,14 @@ const Activity = () => {
                             />
                           </Link>
                           <div className="activity-content display-inline ml-4">
-                            <Link to="/item-details">
+                            <Link to={`/nft-details?${item.nft_id}`}>
                               <h5 className="mt-0 mb-2">{item.nft}</h5>
                             </Link>
                             <p className="m-0">
                               Bid listed for <strong>${item.price}</strong>{" "}
                               {moment(item.bidding_date).fromNow()}
                               {item.time} by{" "}
-                              <Link to="/author">@{item.offer_by}</Link>
+                              <Link to={`/author?${item.user_id}`}>@{item.offer_by}</Link>
                             </p>
                           </div>
                         </li>

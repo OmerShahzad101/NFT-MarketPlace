@@ -133,7 +133,7 @@ const ItemDetails = () => {
                               <strong>${item.bidding_price}</strong>{" "}
                               {moment(item.bidding_date).fromNow()} {"  "}
                               <br />
-                              by<Link to={`/author?`}>@{item.offer_by}</Link>
+                              by<Link to={`/author?${item.user_id}`}>@{item.offer_by}</Link>
                             </p>
                           </li>
                         ) : (
@@ -168,7 +168,7 @@ const ItemDetails = () => {
                               <strong>${item.bidding_price}</strong>{" "}
                               {moment(item.bidding_date).fromNow()} {"  "}
                               <br />
-                              by <Link to="/author">@{item.offer_by}</Link>
+                              by<Link to={`/author?${item.user_id}`}>@{item.offer_by}</Link>
                             </p>
                           </li>
                         ) : (
