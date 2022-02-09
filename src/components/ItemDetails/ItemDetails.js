@@ -5,7 +5,7 @@ import NFT from "../../services/nft.service";
 import React, { useEffect, useState } from "react";
 import reportNft from "../../services/reportNf.service";
 import Notifications, { notify } from "react-notify-toast";
-
+import $ from "jquery"
 const initialData = {
   count: "1 of 5",
   volume: "64.1",
@@ -30,9 +30,9 @@ const ItemDetails = () => {
   nftReport.nft = id;
 
   useEffect(() => {
+    $('html,body').animate({scrollTop: 0}, 'slow');
     const fetchNftData = async () => {
       const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
-
       setNftData(res.data.data);
     };
 
