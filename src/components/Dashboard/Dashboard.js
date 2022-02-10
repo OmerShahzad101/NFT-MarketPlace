@@ -3,7 +3,8 @@ import { ENV } from "../../env";
 import MyCollections from "../Collections/MyCollections";
 import authors from "../../services/authors.service";
 import { Link } from "react-router-dom";
-
+import $ from "jquery";
+let limit = 4;
 const Dashboard = () => {
   const initialData = {
     heading: "Dashboard",
@@ -12,19 +13,25 @@ const Dashboard = () => {
   };
   const [initData] = useState(initialData);
   const [authorNft, setAuthorNft] = useState([]);
+  const [page, setPage] = useState(1);
   const arr = window.location.href.split("?");
   const id = arr[1];
   useEffect(() => {
-    const fetchData = async () => {
-      
-      const res = await authors.authorsList(
-        `${ENV.API_URL}api/specific_user_nft_data/${id}`
-      );
-      console.log(res.data.data.user_data.collection_name)
-      setAuthorNft(res.data.data.user_data);
-    };
     fetchData();
   }, []);
+  const fetchData = async () => {
+    const res = await authors.authorsList(
+      `${ENV.API_URL}api/specific_user_nft_data/${id}?limit=${limit}&page=${page}`
+    );
+
+    let newArr = [...authorNft, ...res.data.data.user_data];
+    setAuthorNft(newArr);
+    if (res.data.data.pagination.total === newArr.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
+
+    setPage(page + 1);
+  };
 
   return (
     <section className="explore-area">
@@ -121,6 +128,17 @@ const Dashboard = () => {
                 <span>No item to explore</span>
               </div>
             )}
+            <div className="row">
+              <div className="col-12 text-center">
+                <button
+                  onClick={() => fetchData()}
+                  className="btn btn-bordered-white mt-5"
+                  id="loadmorebtn"
+                >
+                  Load More
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
