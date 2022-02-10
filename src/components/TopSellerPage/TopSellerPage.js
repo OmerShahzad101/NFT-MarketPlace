@@ -17,6 +17,7 @@ const TopSellerPage = () => {
   };
 
   useEffect(() => {
+    $("html,body").animate({ scrollTop: 0 }, "slow");
     pagination();
   }, []);
 

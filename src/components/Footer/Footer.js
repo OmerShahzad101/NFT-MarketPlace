@@ -1,134 +1,125 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ENV } from "../../env";
+import footer from "../../services/footer.service";
 
-const BASE_URL =
-  "https://my-json-server.typicode.com/themeland/netstorm-json-2/footer";
+const Footer = () => {
+  const [data, setData] = useState();
 
-class Footer extends Component {
-  state = {
-    data: {},
-    socialData: [],
-    widgetData_1: [],
-    widgetData_2: [],
+  useEffect(() => {
+    fetchData();
+  }, []);
+  // Fetch Data on component load
+  const fetchData = async () => {
+    const res = await footer.footerlink(`${ENV.API_URL}api/settings/social/`);
+    // console.log(res.data.facebook);
+    setData(res.data);
+    console.log(data.facebook);
   };
-  componentDidMount() {
-    axios
-      .get(`${BASE_URL}`)
-      .then((res) => {
-        this.setState({
-          data: res.data,
-          socialData: res.data.socialData,
-          widgetData_1: res.data.widgetData_1,
-          widgetData_2: res.data.widgetData_2,
-        });
-      })
-      .catch((err) => console.log(err));
-  }
-  render() {
-    return (
-      <footer className="footer-area">
-        {/* Footer Top */}
-        <div className="footer-top">
-          <div className="container">
-            <div className="row">
-              <div className="col-12 col-sm-6 col-lg-3 res-margin">
-                {/* Footer Items */}
-                <div className="footer-items">
-                  {/* Logo */}
-                  <a className="navbar-brand" href="/">
-                    <img src={this.state.data.img} alt="" />
-                  </a>
-                  <p>{this.state.data.content}</p>
-                  {/* Social Icons */}
-                  <div className="social-icons d-flex">
-                    {this.state.socialData.map((item, idx) => {
-                      return (
-                        <a key={`sd_${idx}`} className={item.link} href="#">
-                          <i className={item.icon} />
-                          <i className={item.icon} />
-                        </a>
-                      );
-                    })}
-                  </div>
-                </div>
+  return (
+    <footer className="footer-area">
+      <div className="footer-top">
+        <div className="container">
+          <div className="row">
+            <div className="col-12 col-sm-6 col-lg-3 res-margin">
+              <div className="footer-items">
+                <a className="navbar-brand" href="/">
+                  <img src="/img/logo.png" alt="" />
+                </a>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis
+                  non, fugit totam vel laboriosam vitae.
+                </p>
               </div>
-              <div className="col-12 col-sm-6 col-lg-3 res-margin">
-                {/* Footer Items */}
-                <div className="footer-items">
-                  {/* Footer Title */}
-                  <h4 className="footer-title">{this.state.data.widget_1}</h4>
-                  <ul>
-                    {this.state.widgetData_1.map((item, idx) => {
-                      return (
-                        <li key={`wdo_${idx}`}>
-                          <a href="#">{item.text}</a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
+            </div>
+            <div className="col-12 col-sm-6 col-lg-3 res-margin">
+              <div className="footer-items">
+                <h4 className="footer-title">Useful Links</h4>
+                <ul>
+                  <li>
+                    <Link to="/marketplace">Marketplace</Link>
+                  </li>
+                  <li>
+                    <Link to="/liveAuction">Live Auction</Link>
+                  </li>
+                  <li>
+                    <Link to="collection">Collections</Link>
+                  </li>
+                  <li>
+                    <Link to="/activity">Activity</Link>
+                  </li>
+                </ul>
               </div>
-              <div className="col-12 col-sm-6 col-lg-3 res-margin">
-                {/* Footer Items */}
-                <div className="footer-items">
-                  {/* Footer Title */}
-                  <h4 className="footer-title">{this.state.data.widget_2}</h4>
-                  <ul>
-                    {this.state.widgetData_2.map((item, idx) => {
-                      return (
-                        <li key={`wdo_${idx}`}>
-                          <a href="#">{item.text}</a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
+            </div>
+            <div className="col-12 col-sm-6 col-lg-3 res-margin">
+              <div className="footer-items">
+                <h4 className="footer-title">Community</h4>
+                <ul>
+                  <li>
+                    <Link to="/help-center">Help Center</Link>
+                  </li>
+                  <li>
+                    <Link to="/contact">Contact Us</Link>
+                  </li>
+                </ul>
               </div>
-              <div className="col-12 col-sm-6 col-lg-3">
-                {/* Footer Items */}
-                <div className="footer-items">
-                  {/* Footer Title */}
-                  <h4 className="footer-title">{this.state.data.widget_3}</h4>
-                  {/* Subscribe Form */}
-                  <div className="subscribe-form d-flex align-items-center">
-                    <input
-                      type="email"
-                      className="form-control"
-                      placeholder="info@yourmail.com"
-                    />
-                    <button type="submit" className="btn">
-                      <i className="icon-paper-plane" />
-                    </button>
-                  </div>
+            </div>
+            <div className="col-12 col-sm-6 col-lg-3">
+              <div className="footer-items">
+                <h4 className="footer-title">Get In Touch</h4>
+                <div className="social-icons d-flex">
+                  {data ? (
+                    data.facebook ? (
+                      <Link to={data.facebook}>
+                        <i className={data.facebook_icon} />
+                        <i className={data.facebook_icon} />
+                      </Link>
+                    ) : (
+                      ""
+                    )
+                  ) : (
+                    ""
+                  )}
+
+                  {/* <Link to={data.twitter}>
+                    <i className={data.twitter} />
+                    <i className={data.twitter} />
+                  </Link>
+                  <Link to={data.vine}>
+                    <i className={data.vine} />
+                    <i className={data.vine} />
+                  </Link>
+                  <Link to={data.google}>
+                    <i className={data.google_plis_icon} />
+                    <i className={data.google_plis_icon} />
+                  </Link> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {/* Footer Bottom */}
-        <div className="footer-bottom">
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                {/* Copyright Area */}
-                <div className="copyright-area d-flex flex-wrap justify-content-center justify-content-sm-between text-center py-4">
-                  {/* Copyright Left */}
-                  <div className="copyright-left">
-                    ©2022 ArhamSoft, All Rights Reserved.
-                  </div>
-                  {/* Copyright Right */}
-                  <div className="copyright-right">
-                    Made with <i className="fas fa-heart" /> By{" "}
-                    <a href="#">Team MERN</a>
-                  </div>
+      </div>
+
+      <div className="footer-bottom">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <div className="copyright-area d-flex flex-wrap justify-content-center justify-content-sm-between text-center py-4">
+                <div className="copyright-left">
+                  ©2022 ArhamSoft, All Rights Reserved.
+                </div>
+
+                <div className="copyright-right">
+                  Made with <i className="fas fa-heart" /> By{" "}
+                  <a href="#">Team MERN</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </footer>
-    );
-  }
-}
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;

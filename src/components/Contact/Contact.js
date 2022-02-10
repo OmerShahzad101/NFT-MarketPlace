@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as yup from "yup";
 import { ENV } from "../../env";
 import contact from "../../services/contact.service";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Swal from "sweetalert2";
-
+import $ from "jquery"
 const initData = {
   heading: "Get In Touch",
   content:
@@ -23,6 +23,9 @@ const contactSchema = yup.object().shape({
   subject: yup.string().required("Please provied subject"),
 });
 const Contact = () => {
+  useEffect(() => {
+    $("html,body").animate({ scrollTop: 0 }, "slow");
+  });
   return (
     <section className="author-area">
       <div className="container">
@@ -50,7 +53,6 @@ const Contact = () => {
                   icon: "success",
                   title: "Hurray...",
                   text: "Your query has been submitted successfully",
-                 
                 });
               }}
             >

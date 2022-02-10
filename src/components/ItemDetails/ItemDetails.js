@@ -72,12 +72,16 @@ const ItemDetails = () => {
                 <img src={`${ENV.API_URL_image}${nftData.image}`} alt="nft" />
               </div>
 
-              <div className="card no-hover countdown-times my-4">
-                <div
-                  className="countdown d-flex justify-content-center"
-                  data-date={moment(nftData.expiry_date).format("YYYY-MM-DD")}
-                />
-              </div>
+              {nftData.expiry_date ? (
+                <div className="card no-hover countdown-times my-4">
+                  <div
+                    className="countdown d-flex justify-content-center"
+                    data-date={moment(nftData.expiry_date).format("YYYY-MM-DD")}
+                  />
+                </div>
+              ) : (
+                <div className="my-4"></div>
+              )}
               <ul className="netstorm-tab nav nav-tabs" id="nav-tab">
                 <li>
                   <a

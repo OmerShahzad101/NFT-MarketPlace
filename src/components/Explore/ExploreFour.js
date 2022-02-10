@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 import $ from "jquery";
-let limit = 2;
+let limit = 8;
 
 const ExploreFour = () => {
   const initialData = {
@@ -18,6 +18,7 @@ const ExploreFour = () => {
   const [order, setOrder] = useState("ASC");
   const [page, setPage] = useState(1);
 
+
   const sort = (col) => {
     if (order === "ASC") {
       const sorted = [...nftData].sort((a, b) => (a[col] > b[col] ? 1 : -1));
@@ -31,6 +32,8 @@ const ExploreFour = () => {
     }
   };
   useEffect(() => {
+    $("html,body").animate({ scrollTop: 0 }, "slow");
+
     pagination();
   }, []);
 
@@ -74,7 +77,7 @@ const ExploreFour = () => {
             </div>
           </div>
           <div className="col-sm-6 col-xl-9">
-            <button
+            {/* <button
               className="btn px-5 my-sm-0 my-3"
               type="button"
               data-toggle="collapse"
@@ -83,10 +86,10 @@ const ExploreFour = () => {
               aria-controls="collapseFilter"
             >
               Filter
-            </button>
+            </button> */}
           </div>
         </div>
-        <div className="row">
+        {/* <div className="row">
           <div className="col-12">
             <div className="collapse" id="collapseFilter">
               <div className="sales-type d-flex align-items-sm-center my-3">
@@ -151,7 +154,7 @@ const ExploreFour = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="row items">
           {nftData ? (
@@ -177,7 +180,7 @@ const ExploreFour = () => {
                           <Link to={`/nft-details?${item.id}`}>
                             <h5 className="mb-0">{item.name}</h5>
                           </Link>
-                          <i class="far fa-heart"></i>
+                          {/* <i class="fas fa-heart" ></i> */}
                         </div>
                         <div className="seller d-flex align-items-center my-3 text-nowrap">
                           <span>Owned By</span>

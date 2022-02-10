@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react/cjs/react.development";
 import { ENV } from "../../env";
 import Collection from "../../services/collections.service";
-import $ from "jquery"
+import $ from "jquery";
 const CollectionDetail = () => {
   const [collectionData, setcollectionData] = useState([]);
   const arr = window.location.href.split("?");
   const id = arr[1];
 
   useEffect(() => {
-    $('html,body').animate({scrollTop: 0}, 'slow');
+    $("html,body").animate({ scrollTop: 0 }, "slow");
     const fetchData = async () => {
       const res = await Collection.collection(
         `${ENV.API_URL}api/specific_collection/${id}/`
       );
-      console.log(res)
+      console.log(res);
       setcollectionData(res.data.data);
     };
     fetchData();
@@ -180,50 +180,54 @@ const CollectionDetail = () => {
         </div>
 
         <div className="row my-5">
-          {collectionData.nft_collection
-            ? collectionData.nft_collection.map((item, id) => {
-                return (
-                  <div className="col-lg-3 col-md-6 p-3">
-                    <div className="card">
-                      <div className="image-over">
-                        <Link to={`/nft-details?${item.id}`}>
-                          <img
-                            className="card-img-top image-container-nft"
-                            src={`${ENV.API_URL_image}${item.image}`}
-                            alt=""
-                          />
-                        </Link>
-                      </div>
+          {collectionData.nft_collection ? (
+            collectionData.nft_collection.map((item, id) => {
+              return (
+                <div className="col-lg-3 col-md-6 p-3">
+                  <div className="card">
+                    <div className="image-over">
+                      <Link to={`/nft-details?${item.id}`}>
+                        <img
+                          className="card-img-top image-container-nft"
+                          src={`${ENV.API_URL_image}${item.image}`}
+                          alt=""
+                        />
+                      </Link>
+                    </div>
 
-                      <div className="card-caption col-12 p-0">
-                        <div className="card-body">
-                          <Link to={`/nft-details?${item.id}`}>
-                            <h5 className="mb-0">{item.name}</h5>
+                    <div className="card-caption col-12 p-0">
+                      <div className="card-body">
+                        <Link to={`/nft-details?${item.id}`}>
+                          <h5 className="mb-0">{item.name}</h5>
+                        </Link>
+                        <div className="seller d-flex align-items-center my-3">
+                          <span>Owned By</span>
+                          <Link to={`/author?${item.user_id}`}>
+                            <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
                           </Link>
-                          <div className="seller d-flex align-items-center my-3">
-                            <span>Owned By</span>
-                            <Link to={`/author?${item.user_id}`}>
-                              <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
-                            </Link>
-                          </div>
-                          <div className="card-bottom d-flex justify-content-between">
-                            <span>{"$" + item.price}</span>
-                            <span>{item.size}</span>
-                          </div>
-                          <a
-                            className="btn btn-bordered-white btn-smaller mt-3"
-                            href="#"
-                          >
-                            <i className="icon-handbag mr-2" />
-                            place a bid
-                          </a>
                         </div>
+                        <div className="card-bottom d-flex justify-content-between">
+                          <span>{"$" + item.price}</span>
+                          <span>{item.size}</span>
+                        </div>
+                        <a
+                          className="btn btn-bordered-white btn-smaller mt-3"
+                          href="#"
+                        >
+                          <i className="icon-handbag mr-2" />
+                          place a bid
+                        </a>
                       </div>
                     </div>
                   </div>
-                );
-              })
-            : ""}
+                </div>
+              );
+            })
+          ) : (
+            <div className="no_data">
+              <span>No item to Explore</span>
+            </div>
+          )}
         </div>
       </div>
     </>

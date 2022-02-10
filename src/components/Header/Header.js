@@ -11,13 +11,16 @@ const Header = () => {
   const token = JSON.parse(localStorage.getItem("access"));
   let id = null;
   let decoded = null;
-  decoded = jwt_decode(token);
-  let exp_date = decoded.exp;
-  var dateString = moment.unix(exp_date).format("DD-MM-YYYY");
-  if (dateString == moment().fromNow()) {
-    logout();
-  } else {}
-
+  if (token) {
+    decoded = jwt_decode(token);
+    let exp_date = decoded.exp;
+    var dateString = moment.unix(exp_date).format("DD-MM-YYYY");
+    if (dateString == moment().fromNow()) {
+      logout();
+    } else {
+    }
+  } else {
+  }
   return (
     <header id="header">
       <nav

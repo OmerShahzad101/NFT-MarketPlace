@@ -2,28 +2,33 @@ import { ENV } from "../../env";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import authors from "../../services/authors.service";
-import $ from "jquery"
+import $ from "jquery";
+let limit = 4;
 const Author = () => {
   const [authorNft, setAuthorNft] = useState([]);
+  const [page, setPage] = useState(1);
+
   const arr = window.location.href.split("?");
   const id = arr[1];
 
   useEffect(() => {
-    $('html,body').animate({scrollTop: 0}, 'slow');
-    const fetchData = async () => {
-      const res = await authors.authorsList(
-        `${ENV.API_URL}api/specific_user_nft_data/${id}`
-      );
-      setAuthorNft(res.data.data.user_data);
-    };
+    $("html,body").animate({ scrollTop: 0 }, "slow");
+
     fetchData();
   }, []);
+  const fetchData = async () => {
+    const res = await authors.authorsList(
+      `${ENV.API_URL}api/specific_user_nft_data/${id}`
+    );
+    setAuthorNft(res.data.data.user_data);
+    setPage(page + 1);
+  };
   return (
     <section className="author-area explore-area popular-collections-area">
       <div className="container">
         <div className="row justify-content-between">
           <div className="col-12 col-md-3">
-          <div className="intro my-3">
+            <div className="intro my-3">
               <span className="font-author">Author</span>
             </div>
             {/* <h4 class="footer-title">Author</h4> */}
@@ -134,7 +139,7 @@ const Author = () => {
                         <div className="image-over">
                           <Link to={`/nft-details?${item.nft_id}`}>
                             <img
-                              className="card-img-top"
+                              className="card-img-top author-nft-image"
                               src={`${ENV.API_URL_image_media}${item.nft_image}`}
                               alt=""
                             />
@@ -169,6 +174,18 @@ const Author = () => {
               </div>
             )}
           </div>
+          <div className="row">
+          <div className="col-12 text-center">
+            <button
+              onClick={() => fetchData()}
+              className="btn btn-bordered-white mt-5"
+              id="loadmorebtn"
+            >
+              Load More
+            </button>
+          </div>
+        </div>
+         
         </div>
       </div>
     </section>

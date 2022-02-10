@@ -3484,3 +3484,7 @@ opacity: 0.8;
 .my-dashboard-collection  .row.justify-content-center{
  display: none;
 }
+.author-nft-image{
+  height: 290px;
+  object-fit: cover;
+}

@@ -3,7 +3,7 @@ import { ENV } from "../../env";
 import React, { useEffect, useState } from "react";
 import authors from "../../services/authors.service";
 import { Link } from "react-router-dom";
-let limit = 4;
+let limit = 8;
 
 const Authors = () => {
   const [authorData, setAuthorData] = useState([]);

@@ -83,7 +83,7 @@ const MyCollections = () => {
                         <Link to={`/collectionDetail?${item.collection_id}`}>
                           <h5 className="mb-2">{item.collection_name}</h5>
                         </Link>
-                        <span>{item.collection_description}</span>
+                        <span className="description_trim">{item.collection_description}</span>
                       </div>
                     </div>
                   </div>

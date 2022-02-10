@@ -25,6 +25,7 @@ const Collections = () => {
     setCategories(result.data.data);
     console.log(result.data.data);
     // all();
+    $("html,body").animate({ scrollTop: 0 }, "slow");
     $("#myElement label:first").addClass("active");
     const res = await Category.category(
       `${ENV.API_URL}api/specific_catgory_collection-data/0`
