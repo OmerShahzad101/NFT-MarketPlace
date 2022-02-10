@@ -9,6 +9,7 @@ const Authors = () => {
   const [authorData, setAuthorData] = useState([]);
   const [page, setPage] = useState(1);
   useEffect(() => {
+    $('html,body').animate({scrollTop: 0}, 'slow');
     pagination();
   }, []);
 

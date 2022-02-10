@@ -72,7 +72,7 @@ const HomeNft = () => {
                         </div>
                         <div className="seller d-flex align-items-center my-3">
                           <span>Owned By</span>
-                          <Link to="/author">
+                          <Link to={`/author?${item.user_id}`}>
                             <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
                           </Link>
                         </div>
@@ -80,13 +80,13 @@ const HomeNft = () => {
                           <span>{"$" + item.price}</span>
                           <span>{item.size}</span>
                         </div>
-                        <a
+                        <Link
                           className="btn btn-bordered-white btn-smaller mt-3"
-                          href="/login"
+                          to="/login"
                         >
                           <i className="icon-handbag mr-2" />
                           place a bid
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>

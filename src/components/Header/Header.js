@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import moment from "moment";
 
 const Header = () => {
   const logout = () => {
@@ -10,6 +11,12 @@ const Header = () => {
   const token = JSON.parse(localStorage.getItem("access"));
   let id = null;
   let decoded = null;
+  decoded = jwt_decode(token);
+  let exp_date = decoded.exp;
+  var dateString = moment.unix(exp_date).format("DD-MM-YYYY");
+  if (dateString == moment().fromNow()) {
+    logout();
+  } else {}
 
   return (
     <header id="header">
@@ -71,16 +78,11 @@ const Header = () => {
                   </Link>
                 </li>
 
-
-            
-             
                 {/* <li className="nav-item">
                   <Link to="/favourite-nft" className="nav-link">
                     Favourite Nft
                   </Link>
                 </li> */}
-           
-     
 
                 <li className="nav-item">
                   {token
@@ -121,7 +123,7 @@ const Header = () => {
                       ))
                     : ""}
                 </li>
-                
+
                 <li className="nav-item">
                   {token ? (
                     <Link to="/" className="nav-link" onClick={logout}>
@@ -161,7 +163,7 @@ const Header = () => {
                 <i className="fas fa-bars toggle-icon m-0" />
               </a>
             </li>
-          </ul> 
+          </ul>
           {/* <ul className="navbar-nav action">
             <li className="nav-item ml-3">
               <a

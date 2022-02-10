@@ -3,7 +3,7 @@ import liveAuction from "../../services/liveAuction.service";
 import { ENV } from "../../env";
 import { Link } from "react-router-dom";
 import moment from "moment";
-
+import $ from "jquery"
 //__ __ Initial Data of Home Live Auction__ __ //
 const initailData = {
   heading: "Live Auctions",
@@ -19,6 +19,7 @@ const AuctionsOne = () => {
 
   // Fetch Data on component load
   useEffect(() => {
+    $('html,body').animate({scrollTop: 0}, 'slow');
     fetchData();
   }, []);
   const fetchData = async () => {

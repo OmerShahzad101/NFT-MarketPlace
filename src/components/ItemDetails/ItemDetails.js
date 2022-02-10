@@ -5,7 +5,7 @@ import NFT from "../../services/nft.service";
 import React, { useEffect, useState } from "react";
 import reportNft from "../../services/reportNf.service";
 import Notifications, { notify } from "react-notify-toast";
-import $ from "jquery"
+import $ from "jquery";
 const initialData = {
   count: "1 of 5",
   volume: "64.1",
@@ -30,7 +30,7 @@ const ItemDetails = () => {
   nftReport.nft = id;
 
   useEffect(() => {
-    $('html,body').animate({scrollTop: 0}, 'slow');
+    $("html,body").animate({ scrollTop: 0 }, "slow");
     const fetchNftData = async () => {
       const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
       setNftData(res.data.data);
@@ -54,7 +54,6 @@ const ItemDetails = () => {
     if (result.status === true) {
       notify.show("Reported Succesfully!", "success", 3000);
     }
-
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,10 +69,7 @@ const ItemDetails = () => {
           <div className="col-12 col-lg-5">
             <div className="item-info">
               <div className="item-thumb text-center">
-                <img
-                  src={`${ENV.API_URL_image}${nftData.image}`}
-                  alt="nft"
-                />
+                <img src={`${ENV.API_URL_image}${nftData.image}`} alt="nft" />
               </div>
 
               <div className="card no-hover countdown-times my-4">
@@ -112,7 +108,6 @@ const ItemDetails = () => {
                   </a>
                 </li>
               </ul>
-              {/* Tab Content */}
               <div className="tab-content" id="nav-tabContent">
                 <div className="tab-pane fade show active" id="nav-home">
                   <ul className="list-unstyled">
@@ -133,7 +128,10 @@ const ItemDetails = () => {
                               <strong>${item.bidding_price}</strong>{" "}
                               {moment(item.bidding_date).fromNow()} {"  "}
                               <br />
-                              by<Link to={`/author?${item.user_id}`}>@{item.offer_by}</Link>
+                              by
+                              <Link to={`/author?${item.user_id}`}>
+                                @{item.offer_by}
+                              </Link>
                             </p>
                           </li>
                         ) : (
@@ -168,7 +166,10 @@ const ItemDetails = () => {
                               <strong>${item.bidding_price}</strong>{" "}
                               {moment(item.bidding_date).fromNow()} {"  "}
                               <br />
-                              by<Link to={`/author?${item.user_id}`}>@{item.offer_by}</Link>
+                              by
+                              <Link to={`/author?${item.user_id}`}>
+                                @{item.offer_by}
+                              </Link>
                             </p>
                           </li>
                         ) : (
@@ -187,9 +188,9 @@ const ItemDetails = () => {
                 <div className="tab-pane fade" id="nav-contact">
                   <div className="owner-meta d-flex align-items-center mt-3">
                     <span>Owner</span>
-                    <a
+                    <Link
                       className="owner d-flex align-items-center ml-2"
-                      href="/author"
+                      to={`/author?${nftData.user_id}`}
                     >
                       <img
                         className="avatar-sm rounded-circle"
@@ -197,7 +198,7 @@ const ItemDetails = () => {
                         alt=""
                       />
                       <h6 className="ml-2">{nftData.owner}</h6>
-                    </a>
+                    </Link>
                   </div>{" "}
                   <p className="mt-2">
                     Created : {moment(nftData.created_at).format("DD-MM-YYYY")}
@@ -349,7 +350,7 @@ const ItemDetails = () => {
                 <div className="col-12 col-md-6 item px-lg-2">
                   <div className="card no-hover">
                     <div className="single-seller d-flex align-items-center">
-                      <Link to="/author">
+                      <Link to={`/author?${nftData.user_id}`}>
                         <img
                           className="avatar-md rounded-circle"
                           src={`${ENV.API_URL_image}${nftData.profile_image}`}
@@ -372,7 +373,7 @@ const ItemDetails = () => {
                 <div className="col-12 col-md-6 item px-lg-2">
                   <div className="card no-hover">
                     <div className="single-seller d-flex align-items-center">
-                      <Link to="/author">
+                      <Link to={`/author?${nftData.user_id}`}>
                         <img
                           className="avatar-md rounded-circle"
                           src={`${ENV.API_URL_image_media}${nftData.banner_image}`}
@@ -402,12 +403,12 @@ const ItemDetails = () => {
                   </div>
                 </div> */}
               </div>
-              <a
+              <Link
                 className="d-block btn btn-bordered-white mt-4"
-                href="/wallet-connect"
+                to="/wallet-connect"
               >
                 {initData.btnText}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

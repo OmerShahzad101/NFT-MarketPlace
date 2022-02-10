@@ -18,6 +18,7 @@ const MyCollections = () => {
   useEffect(() => {
     // const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     // setCategories(result.data);
+    
     const fetchData = async () => {
       const arr = window.location.href.split("?");
       const id = arr[1];

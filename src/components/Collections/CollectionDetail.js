@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react/cjs/react.development";
 import { ENV } from "../../env";
 import Collection from "../../services/collections.service";
-
+import $ from "jquery"
 const CollectionDetail = () => {
   const [collectionData, setcollectionData] = useState([]);
   const arr = window.location.href.split("?");
   const id = arr[1];
 
   useEffect(() => {
+    $('html,body').animate({scrollTop: 0}, 'slow');
     const fetchData = async () => {
       const res = await Collection.collection(
         `${ENV.API_URL}api/specific_collection/${id}/`

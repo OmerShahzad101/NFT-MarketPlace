@@ -3,13 +3,15 @@ import activity from "../../services/activity.service";
 import { ENV } from "../../env";
 import moment from "moment";
 import { Link } from "react-router-dom";
-
+import $ from "jquery"
 const Activity = () => {
   //__ __Hook Function __ __ //
   const [data, setData] = useState();
 
   useEffect(() => {
     // __ Function call to fetch data __ //
+    $('html,body').animate({scrollTop: 0}, 'slow');
+
     fetchData();
   }, []);
   // __ __ API Call to Fetch all bidding list __ __ //

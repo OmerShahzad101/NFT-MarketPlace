@@ -107,6 +107,7 @@ const Collections = () => {
                   />
                   <span>All</span>
                 </label>
+                
                 {categories
                   ? categories.map(function (category, i) {
                       return (
@@ -137,7 +138,7 @@ const Collections = () => {
                     >
                       <div className="card no-hover text-center">
                         <div className="image-over">
-                          <Link to={`/collectionDetail?${item.id}`}>
+                          <Link to={item.collection_id ? `/collectionDetail?${item.collection_id}` : `/collectionDetail?${item.id}`}>
                             <img
                               className="card-img-top image-container"
                               src={`${ENV.API_URL_image_media}${item.banner_image}`}
@@ -145,10 +146,9 @@ const Collections = () => {
                             />
                           </Link>
 
-                          <a
+                          <Link
                             className="seller"
-                            href={`/collectionDetail?${item.id}`}
-                          >
+                            to={item.collection_id ? `/collectionDetail?${item.collection_id}` : `/collectionDetail?${item.id}`}>
                             <div className="seller-thumb avatar-lg">
                               <img
                                 className="rounded-circle"
@@ -156,11 +156,11 @@ const Collections = () => {
                                 alt=""
                               />
                             </div>
-                          </a>
+                          </Link>
                         </div>
                         <div className="card-caption col-12 p-0">
                           <div className="card-body mt-4">
-                            <Link to={`/collectionDetail?${item.id}`}>
+                            <Link to={item.collection_id ? `/collectionDetail?${item.collection_id}` : `/collectionDetail?${item.id}`}>
                               <h5 className="mb-2">{item.collection_name}</h5>
                             </Link>
                             <span className="description_trim">

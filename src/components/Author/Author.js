@@ -2,13 +2,14 @@ import { ENV } from "../../env";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import authors from "../../services/authors.service";
-
+import $ from "jquery"
 const Author = () => {
   const [authorNft, setAuthorNft] = useState([]);
   const arr = window.location.href.split("?");
   const id = arr[1];
 
   useEffect(() => {
+    $('html,body').animate({scrollTop: 0}, 'slow');
     const fetchData = async () => {
       const res = await authors.authorsList(
         `${ENV.API_URL}api/specific_user_nft_data/${id}`
