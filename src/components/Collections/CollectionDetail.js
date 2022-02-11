@@ -70,7 +70,7 @@ const CollectionDetail = () => {
               </div>
               <div>
                 <h6 className="mt-0 mb-3">{collectionData.user}</h6>
-                <p className="m-0">Creater</p>
+                <p className="m-0">Creator</p>
               </div>
             </div>
           </div>

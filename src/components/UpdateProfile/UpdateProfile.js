@@ -57,6 +57,7 @@ const UpdateProfile = () => {
     const { name, value } = e.target;
     let obj = updateUser.user_profile;
     obj[name] = value;
+    console.log(updateUser);
     setUpdateUser({
       ...updateUser,
       user_profile: obj,
@@ -68,6 +69,7 @@ const UpdateProfile = () => {
    * @param {eventObject} e
    */
   const onFileChange = (e) => {
+    e.preventDefault();
     let { name } = e.target;
     let file = e.target.files[0];
     let fileId = e.target.id;
@@ -91,8 +93,10 @@ const UpdateProfile = () => {
             $(`.rounded-circle`).attr("src", e.target.result);
             $(".label-profile").html("File selected");
           };
+          console.log(reader);
         }
         reader.readAsDataURL(file);
+        console.log(file);
       } else {
         $(`#nft-${fileId}`).attr("src", placeholderImg);
         file = {};
@@ -100,6 +104,7 @@ const UpdateProfile = () => {
   };
 
   const update_data = async (e) => {
+    debugger;
     var formData = new FormData();
 
     for (let key in updateUser) {

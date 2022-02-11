@@ -37,7 +37,7 @@ const HomeNft = () => {
                 <h3 className="mt-3 mb-0">{initData.heading}</h3>
               </div>
               <div className="intro-btn">
-                <Link className="btn content-btn" to="/ranking">
+                <Link className="btn content-btn" to="/marketplace">
                   {initData.btnText}
                 </Link>
               </div>

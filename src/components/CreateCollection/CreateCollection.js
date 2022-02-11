@@ -6,6 +6,8 @@ import Category from "../../services/category.service";
 import SimpleReactValidator from "simple-react-validator";
 import Notifications, { notify } from "react-notify-toast";
 import Collection from "../../services/collections.service";
+import Swal from "sweetalert2";
+
 class CreateCollection extends Component {
   constructor(props) {
     super(props);
@@ -93,8 +95,19 @@ class CreateCollection extends Component {
                 formData
               );
               if (res.status === true) {
-                notify.show("Created Succesfully!", "success", 3000);
-                window.location = `/mycollections?${id}`;
+                Swal.fire({
+                  title: "Hurray .....",
+                  text: "Collection Created Sucessfully!",
+                  icon: "success",
+                  confirmButtonText: "Go to Dashboard",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    const token = JSON.parse(localStorage.getItem("access"));
+                    const decoded = jwt_decode(token);
+                    const id = decoded.user_id;
+                    window.location = `/dashboard?${id}`;
+                  }
+                });
               } else {
                 notify.show("Failed to create!", "error", 3000);
                 this.setState({ loader: false });
