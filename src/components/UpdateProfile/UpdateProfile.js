@@ -22,10 +22,14 @@ const UpdateProfile = () => {
       vine_link: "",
       google_plus_link: "",
     },
+    banner_img: "",
+    profile_img: "",
   };
 
   //__ __ Hook functions __ __ //
   const [updateUser, setUpdateUser] = useState(initialdata);
+  const [profile, setProfile] = useState(true);
+  const [banner, setBanner] = useState(true);
   const arr = window.location.href.split("?");
   const id = arr[1];
 
@@ -69,7 +73,6 @@ const UpdateProfile = () => {
    * @param {eventObject} e
    */
   const onFileChange = (e) => {
-    e.preventDefault();
     let { name } = e.target;
     let file = e.target.files[0];
     let fileId = e.target.id;
@@ -82,15 +85,17 @@ const UpdateProfile = () => {
 
         // __ redner __ //
         if (name === "banner_image") {
+          setBanner(!banner);
           var reader = new FileReader();
           reader.onload = function (e) {
-            $(`.img-banner_image`).attr("src", e.target.result);
+            $(`.bob`).attr("src", e.target.result);
             $(".label-banner").html("File selected");
           };
         } else {
+          setProfile(!profile);
           var reader = new FileReader();
           reader.onload = function (e) {
-            $(`.rounded-circle`).attr("src", e.target.result);
+            $(`.display`).attr("src", e.target.result);
             $(".label-profile").html("File selected");
           };
           console.log(reader);
@@ -104,7 +109,6 @@ const UpdateProfile = () => {
   };
 
   const update_data = async (e) => {
-    debugger;
     var formData = new FormData();
 
     for (let key in updateUser) {
@@ -149,46 +153,78 @@ const UpdateProfile = () => {
           <div className="col-lg-4">
             <div className="card no-hover text-center mt-5">
               <div className="image-over">
-                {updateUser.user_profile ? (
-                  <img
-                    className="card-img-top img-banner_image"
-                    src={
-                      updateUser.user_profile.profile_image
-                        ? `${updateUser.user_profile.banner_image}`
-                        : "img/auction_2.jpg"
-                    }
-                    alt=""
-                  />
-                ) : (
-                  <img
-                    className="card-img-top img-banner_image"
-                    src="/img/auction_2.jpg"
-                    alt=""
-                  />
-                )}
-
-                <div className="author">
-                  <div className="author-thumb avatar-lg">
+                {banner ? (
+                  <div>
                     {updateUser.user_profile ? (
                       <img
-                        className="rounded-circle img-profile_image"
+                        className="card-img-top img-banner_image"
                         src={
                           updateUser.user_profile.profile_image
-                            ? `${updateUser.user_profile.profile_image}`
+                            ? `${updateUser.user_profile.banner_image}`
                             : "img/auction_2.jpg"
                         }
                         alt=""
                       />
                     ) : (
                       <img
-                        className="rounded-circle img-profile_image"
+                        className="card-img-top img-banner_image"
                         src="/img/auction_2.jpg"
                         alt=""
                       />
                     )}
                   </div>
-                </div>
+                ) : (
+                  <div>
+                    <img
+                      className="card-img-top bob img-banner_image"
+                      src={""}
+                      alt=""
+                    />
+                  </div>
+                )}
+                {/* -----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+----------------------------------------------------------------------- */}
+                {profile ? (
+                  <div className="author">
+                    <div className="author-thumb avatar-lg">
+                      {updateUser.user_profile ? (
+                        <img
+                          className="rounded-circle img-profile_image"
+                          src={
+                            updateUser.user_profile.profile_image
+                              ? `${updateUser.user_profile.profile_image}`
+                              : "img/auction_2.jpg"
+                          }
+                          alt=""
+                        />
+                      ) : (
+                        <img
+                          className="rounded-circle img-profile_image"
+                          src="/img/auction_2.jpg"
+                          alt=""
+                        />
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="author">
+                    <div className="author-thumb avatar-lg">
+                      <img
+                        className="rounded-circle display img-profile_image"
+                        src={""}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
+
+              {/* 
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+----------------------------------------------------------------------- */}
 
               <div className="card-caption col-12 p-0">
                 <div className="card-body mt-4">

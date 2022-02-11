@@ -69,9 +69,9 @@ class CreateCollection extends Component {
   };
 
   submit = async (e) => {
-    const token = JSON.parse(localStorage.getItem("access"));
-    let decoded = jwt_decode(token);
-    let id = decoded.user_id;
+    // const token = JSON.parse(localStorage.getItem("access"));
+    // let decoded = jwt_decode(token);
+    // let id = decoded.user_id;
     e.preventDefault();
     this.setState(
       {

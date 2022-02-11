@@ -26,8 +26,11 @@ const Dashboard = () => {
 
     let newArr = [...authorNft, ...res.data.data.user_data];
     setAuthorNft(newArr);
+    console.log(res.data.data.pagination.total)
+    console.log(newArr.length)
     if (res.data.data.pagination.total === newArr.length) {
       $("#loadmorebtn").fadeOut("slow");
+      alert("hii")
     }
 
     setPage(page + 1);

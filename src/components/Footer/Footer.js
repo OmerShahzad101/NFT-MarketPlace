@@ -14,7 +14,6 @@ const Footer = () => {
     const res = await footer.footerlink(`${ENV.API_URL}api/settings/social/`);
     // console.log(res.data.facebook);
     setData(res.data);
-    console.log(data.facebook);
   };
   return (
     <footer className="footer-area">
@@ -80,19 +79,42 @@ const Footer = () => {
                   ) : (
                     ""
                   )}
-
-                  {/* <Link to={data.twitter}>
-                    <i className={data.twitter} />
-                    <i className={data.twitter} />
-                  </Link>
-                  <Link to={data.vine}>
-                    <i className={data.vine} />
-                    <i className={data.vine} />
-                  </Link>
-                  <Link to={data.google}>
-                    <i className={data.google_plis_icon} />
-                    <i className={data.google_plis_icon} />
-                  </Link> */}
+                  {data ? (
+                    data.twitter ? (
+                      <Link to={data.twitter}>
+                        <i className={data.twitter_icon} />
+                        <i className={data.twitter_icon} />
+                      </Link>
+                    ) : (
+                      ""
+                    )
+                  ) : (
+                    ""
+                  )}
+                  {data ? (
+                    data.vine ? (
+                      <Link to={data.vine}>
+                        <i className={data.vine_icon} />
+                        <i className={data.vine_icon} />
+                      </Link>
+                    ) : (
+                      ""
+                    )
+                  ) : (
+                    ""
+                  )}
+                  {data ? (
+                    data.google ? (
+                      <Link to={data.google}>
+                        <i className={data.google_plus_icon} />
+                        <i className={data.google_plus_icon} />
+                      </Link>
+                    ) : (
+                      ""
+                    )
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>
