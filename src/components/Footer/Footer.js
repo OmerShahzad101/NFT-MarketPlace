@@ -14,7 +14,7 @@ const Footer = () => {
     const res = await footer.footerlink(`${ENV.API_URL}api/settings/social/`);
     // console.log(res.data.facebook);
     setData(res.data);
-    console.log(data.facebook);
+
   };
   return (
     <footer className="footer-area">
