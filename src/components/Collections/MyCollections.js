@@ -3,34 +3,38 @@ import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 // import Category from "../../services/category.service";
 import { Link } from "react-router-dom";
+import $ from "jquery"
 
 const initialData = {
   heading: "My Collections ",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
 };
-
+let limit = 4;
 const MyCollections = () => {
   const [initData] = useState(initialData);
   const [collectionData, setCollectionData] = useState([]);
+  const [page, setPage] = useState(1);
   //   const [categories, setCategories] = useState([]);
-
+  const arr = window.location.href.split("?");
+  const id = arr[1];
   useEffect(() => {
     // const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     // setCategories(result.data);
-    
-    const fetchData = async () => {
-      const arr = window.location.href.split("?");
-      const id = arr[1];
 
-      const res = await Collection.collection(
-        `${ENV.API_URL}api/specific-user-collection/${id}`
-      );
-      setCollectionData(res.data.data.user_collection);
-    };
     fetchData();
   }, []);
-
+  const fetchData = async () => {
+    const res = await Collection.collection(
+      `${ENV.API_URL}api/specific-user-collection/${id}?limit=${limit}&page=${page}`
+    );
+    let newArr = [...collectionData, ...res.data.data.user_collection];
+    setCollectionData(newArr);
+    if (res.data.data.pagination.total === newArr.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
+    setPage(page + 1);
+  };
   return (
     <section className="explore-area">
       <div className="container">
@@ -83,7 +87,9 @@ const MyCollections = () => {
                         <Link to={`/collectionDetail?${item.collection_id}`}>
                           <h5 className="mb-2">{item.collection_name}</h5>
                         </Link>
-                        <span className="description_trim">{item.collection_description}</span>
+                        <span className="description_trim">
+                          {item.collection_description}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -99,6 +105,17 @@ const MyCollections = () => {
               <span>Create your first collection</span>
             </div>
           )}
+        </div>
+        <div className="row">
+          <div className="col-12 text-center">
+            <button
+              onClick={() => fetchData()}
+              className="btn btn-bordered-white mt-5"
+              id="loadmorebtn"
+            >
+              Load More
+            </button>
+          </div>
         </div>
       </div>
     </section>

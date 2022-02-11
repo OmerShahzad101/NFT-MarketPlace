@@ -18,9 +18,13 @@ const Author = () => {
   }, []);
   const fetchData = async () => {
     const res = await authors.authorsList(
-      `${ENV.API_URL}api/specific_user_nft_data/${id}`
+      `${ENV.API_URL}api/specific_user_nft_data/${id}?limit=${limit}&page=${page}`
     );
-    setAuthorNft(res.data.data.user_data);
+    let newArr = [...authorNft, ...res.data.data.user_data];
+    setAuthorNft(newArr);
+    if (res.data.data.pagination.total === newArr.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
     setPage(page + 1);
   };
   return (
@@ -173,19 +177,18 @@ const Author = () => {
                 <span>No item to explore</span>
               </div>
             )}
+            <div className="row">
+              <div className="col-12 text-center">
+                <button
+                  onClick={() => fetchData()}
+                  className="btn btn-bordered-white mt-5"
+                  id="loadmorebtn"
+                >
+                  Load More
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="row">
-          <div className="col-12 text-center">
-            <button
-              onClick={() => fetchData()}
-              className="btn btn-bordered-white mt-5"
-              id="loadmorebtn"
-            >
-              Load More
-            </button>
-          </div>
-        </div>
-         
         </div>
       </div>
     </section>
