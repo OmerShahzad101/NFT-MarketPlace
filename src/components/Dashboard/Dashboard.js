@@ -4,7 +4,7 @@ import MyCollections from "../Collections/MyCollections";
 import authors from "../../services/authors.service";
 import { Link } from "react-router-dom";
 import $ from "jquery";
-let limit = 4;
+let limit = 16;
 const Dashboard = () => {
   const initialData = {
     heading: "Dashboard",
@@ -27,7 +27,7 @@ const Dashboard = () => {
     let newArr = [...authorNft, ...res.data.data.user_data];
     setAuthorNft(newArr);
     if (res.data.data.pagination.total === newArr.length) {
-      $("#loadmorebtn").fadeOut("slow");
+      $("#loadmorebtnnft").fadeOut("slow");
     }
 
     setPage(page + 1);
@@ -133,7 +133,7 @@ const Dashboard = () => {
                 <button
                   onClick={() => fetchData()}
                   className="btn btn-bordered-white mt-5"
-                  id="loadmorebtn"
+                  id="loadmorebtnnft"
                 >
                   Load More
                 </button>
