@@ -53,7 +53,7 @@ const Activity = () => {
               </li>
               <li>
                 <a id="nav-contact-tab" data-toggle="pill" href="#nav-contact">
-                  <h5 className="m-0">Purchase</h5>
+                  <h5 className="m-0">Bids</h5>
                 </a>
               </li>
             </ul>
