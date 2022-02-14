@@ -48,14 +48,22 @@ const ItemDetails = () => {
     fetchNftBiddingData();
   }, []);
   const report = async (e) => {
+    
     e.preventDefault();
     const result = await reportNft.reportNftItem(
       `${ENV.API_URL}api/create_reported_nft/`,
       nftReport
-    );
-    if (result.status === true) {
-      notify.show("Reported Succesfully!", "success", 3000);
+      );
+      if (result.status === true) {
+        notify.show("Reported Succesfully!", "success", 3000);
+        $(".modal-footer button").attr("data-dismiss", "modal");
+        
+        setTimeout(function(){
+          $(".modal-footer button")[0].click();
+          $(".modal-footer button").removeAttr("data-dismiss", "modal");
+       }, 1000);
     }
+    
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
