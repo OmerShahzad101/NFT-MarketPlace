@@ -104,13 +104,31 @@ class Create extends Component {
               );
 
               if (res.status === true) {
-                notify.show("Created Succesfully!", "success", 3000);
-                const token = JSON.parse(localStorage.getItem("access"));
-                const decoded = jwt_decode(token);
-                const id = decoded.user_id;
-                window.location = `/dashboard?${id}`;
-              } else {
-                notify.show("Failed to create!", "error", 3000);
+                Swal.fire({
+                  title: "Hurray .....",
+                  text: "NFT Created Sucessfully!",
+                  icon: "success",
+                  // confirmButtonColor: "#3085d6",
+                  confirmButtonText: "Go to Dashboard",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    const token = JSON.parse(localStorage.getItem("access"));
+                    const decoded = jwt_decode(token);
+                    const id = decoded.user_id;
+                    window.location = `/dashboard?${id}`;
+                  }
+                });
+              } 
+              else {
+                const errors = res.data;
+                console.log(errors);
+                for (let key in errors) {
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: `Enter a Valid ${key}`,
+                  });
+                }
                 this.setState({ loader: false });
               }
             }
@@ -146,10 +164,13 @@ class Create extends Component {
       Swal.fire({
         icon: "info",
         title: "Oops..",
-        html: "<div>There isn't any collection associated with this user.</div>" + "<strong> Kindly create a collection! </strong>"  ,
-        confirmButtonText: '<a class="text-white" href="/create-collection">Create Collection</a>',
-        allowOutsideClick : false
-      })
+        html:
+          "<div>There isn't any collection associated with this user.</div>" +
+          "<strong> Kindly create a collection! </strong>",
+        confirmButtonText:
+          '<a class="text-white" href="/create-collection">Create Collection</a>',
+        allowOutsideClick: false,
+      });
     } else {
       var nft = { ...this.state.nft };
       nft.collections = res.data.data.user_collection;

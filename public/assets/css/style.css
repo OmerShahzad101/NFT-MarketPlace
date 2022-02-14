@@ -3321,7 +3321,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 {
   /* width: 214.5px !important; */
   height: 143px !important;
-  object-fit: fill;
+  object-fit: cover;
 }
 .image-container-nft
 {

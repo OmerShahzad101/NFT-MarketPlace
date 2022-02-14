@@ -35,12 +35,13 @@ const ItemDetails = () => {
       const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
       setNftData(res.data.data);
     };
-
+    
     const fetchNftBiddingData = async () => {
       const result = await NFT.nftBiddingList(
         `${ENV.API_URL}api/specific_bidding_nft/${id}/`
-      );
-      setNftbiddingHistory(result.data.bidding_data);
+        );
+        setNftbiddingHistory(result.data.bidding_data);
+        console.log(result.data.bidding_data)
     };
     fetchNftData();
     fetchNftBiddingData();
@@ -130,9 +131,10 @@ const ItemDetails = () => {
                             key={`tdo_${idx}`}
                             className="single-tab-list d-flex align-items-center"
                           >
+                            {console.log(`${nftData.profile_image}`)}
                             <img
                               className="avatar-sm rounded-circle mr-3"
-                              src={`${ENV.API_URL_image}${nftData.profile_image}`}
+                              src={`${ENV.API_URL_image_media}${item.profile_image}`}
                               alt=""
                             />
                             <p className="m-0">
@@ -170,7 +172,7 @@ const ItemDetails = () => {
                           >
                             <img
                               className="avatar-sm rounded-circle mr-3"
-                              src={`${ENV.API_URL_image}${nftData.profile_image}`}
+                              src={`${ENV.API_URL_image_media}${item.profile_image}`}
                               alt=""
                             />
                             <p className="m-0">
