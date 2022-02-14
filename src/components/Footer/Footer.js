@@ -69,10 +69,10 @@ const Footer = () => {
                 <div className="social-icons d-flex">
                   {data ? (
                     data.facebook ? (
-                      <Link to={data.facebook}>
+                      <a href={data.facebook}>
                         <i className={data.facebook_icon} />
                         <i className={data.facebook_icon} />
-                      </Link>
+                      </a>
                     ) : (
                       ""
                     )
@@ -81,10 +81,10 @@ const Footer = () => {
                   )}
                   {data ? (
                     data.twitter ? (
-                      <Link to={data.twitter}>
+                      <a href={`${data.twitter}`}>
                         <i className={data.twitter_icon} />
                         <i className={data.twitter_icon} />
-                      </Link>
+                      </a>
                     ) : (
                       ""
                     )
@@ -93,10 +93,10 @@ const Footer = () => {
                   )}
                   {data ? (
                     data.vine ? (
-                      <Link to={data.vine}>
+                      <a href={data.vine}>
                         <i className={data.vine_icon} />
                         <i className={data.vine_icon} />
-                      </Link>
+                      </a>
                     ) : (
                       ""
                     )
@@ -105,10 +105,10 @@ const Footer = () => {
                   )}
                   {data ? (
                     data.google ? (
-                      <Link to={data.google}>
+                      <a href={data.google}>
                         <i className={data.google_plus_icon} />
                         <i className={data.google_plus_icon} />
-                      </Link>
+                      </a>
                     ) : (
                       ""
                     )

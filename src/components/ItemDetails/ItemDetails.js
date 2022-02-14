@@ -22,6 +22,7 @@ const ItemDetails = () => {
     report_type: " ",
     nft: "",
   };
+  const token = JSON.parse(localStorage.getItem("access"));
 
   const [initData] = useState(initialData);
   const [nftbiddingHistory, setNftbiddingHistory] = useState();
@@ -35,13 +36,13 @@ const ItemDetails = () => {
       const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
       setNftData(res.data.data);
     };
-    
+
     const fetchNftBiddingData = async () => {
       const result = await NFT.nftBiddingList(
         `${ENV.API_URL}api/specific_bidding_nft/${id}/`
-        );
-        setNftbiddingHistory(result.data.bidding_data);
-        console.log(result.data.bidding_data)
+      );
+      setNftbiddingHistory(result.data.bidding_data);
+      console.log(result.data.bidding_data);
     };
     fetchNftData();
     fetchNftBiddingData();
@@ -218,16 +219,20 @@ const ItemDetails = () => {
               <div className="d-flex justify-content-between">
                 <h3 className="m-0">{nftData.name}</h3>
                 <div class="btn-group  dropleft">
-                  <button
-                    className="report_nft_dropdown "
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i class="fas fa-ellipsis-v"></i>
-                  </button>
+                  {token ? (
+                    <button
+                      className="report_nft_dropdown "
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                  ) : (
+                    ""
+                  )}
                   <div
                     class="dropdown-menu"
                     aria-labelledby="dropdownMenuButton"

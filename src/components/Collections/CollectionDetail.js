@@ -210,13 +210,13 @@ const CollectionDetail = () => {
                           <span>{"$" + item.price}</span>
                           <span>{item.size}</span>
                         </div>
-                        <a
+                        <Link
                           className="btn btn-bordered-white btn-smaller mt-3"
-                          href="#"
+                          to="/login"
                         >
                           <i className="icon-handbag mr-2" />
                           place a bid
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>

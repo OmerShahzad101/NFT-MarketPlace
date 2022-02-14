@@ -15,7 +15,7 @@ const Header = () => {
     decoded = jwt_decode(token);
     let exp_date = decoded.exp;
     var dateString = moment.unix(exp_date).format("DD-MM-YYYY");
-    if (dateString == moment().fromNow()) {
+    if (dateString <= moment().format("DD-MM-YYYY")) {
       logout();
     } else {
     }
