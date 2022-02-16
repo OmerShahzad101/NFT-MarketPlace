@@ -3487,9 +3487,11 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   background: none;
   padding: 0;
   border: none;
+ 
+}
+heart_color{
   color: red
 }
-
 .set:focus {
   outline: none;
 }

@@ -17,7 +17,7 @@ const ExploreFour = () => {
   };
   const favoriteNftInitialValues = {
     user: "",
-    is_favorite: "",
+    is_favorite: false,
     nft: "",
   };
 
@@ -26,17 +26,37 @@ const ExploreFour = () => {
   const [order, setOrder] = useState("ASC");
   const [page, setPage] = useState(1);
   const [fvtNFTData, setFvtNFTData] = useState(favoriteNftInitialValues);
+  const [remove, setRemove] = useState([]);
 
-  const favnftSet = (nftid , userid) => {
-    setFvtNFTData({
-      user: userid,
-      is_favorite: true,
-      nft: nftid,
-    });
-    favt_nft();
+
+
+  const favnftSet = async (nftid, userid) => {
+    const result = await favoriteNft.favoriteNftGet(`${ENV.API_URL}api/favourite-nft/`);
+    console.log(result)
+    const newArray = result.data.results;
+    console.log(newArray);
+    let toddlers = newArray.filter(
+      (newArray) => newArray.nft_id == nftid && newArray.user_id == userid
+    );
+    console.log("new data ", toddlers);
+
+    if (toddlers.length > 0) {
+      setFvtNFTData({
+        user: userid,
+        is_favorite: false,
+        nft: nftid,
+      });
+      favt_nft();
+    } else {
+      setFvtNFTData({
+        user: userid,
+        is_favorite: true,
+        nft: nftid,
+      });
+      favt_nft();
+    }
   };
   const favt_nft = async () => {
-    debugger;
     const result = await favoriteNft.favoriteNftPost(
       `${ENV.API_URL}api/favourite-nft/`,
       fvtNFTData
@@ -45,6 +65,7 @@ const ExploreFour = () => {
       alert(result.message);
     }
   };
+
   const sort = (col) => {
     if (order === "ASC") {
       const sorted = [...nftData].sort((a, b) => (a[col] > b[col] ? 1 : -1));
@@ -206,7 +227,10 @@ const ExploreFour = () => {
                           <Link to={`/nft-details?${item.id}`}>
                             <h5 className="mb-0">{item.name}</h5>
                           </Link>
-                          <button onClick={() => favnftSet(item.id , item.user_id)} class="set">
+                          <button
+                            onClick={() => favnftSet(item.id, item.user_id)}
+                            className="set"
+                          >
                             <i class="fas fa-heart "></i>
                           </button>
                         </div>
