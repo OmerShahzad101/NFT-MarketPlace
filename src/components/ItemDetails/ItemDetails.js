@@ -35,6 +35,7 @@ const ItemDetails = () => {
     const fetchNftData = async () => {
       const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
       setNftData(res.data.data);
+      console.log(res.data.data);
     };
 
     const fetchNftBiddingData = async () => {
@@ -42,7 +43,7 @@ const ItemDetails = () => {
         `${ENV.API_URL}api/specific_bidding_nft/${id}/`
       );
       setNftbiddingHistory(result.data.bidding_data);
-      console.log(result.data.bidding_data);
+     
     };
     fetchNftData();
     fetchNftBiddingData();

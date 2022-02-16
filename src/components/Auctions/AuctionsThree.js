@@ -19,10 +19,12 @@ const AuctionThree = () => {
     setData(res.data.data.results);
 
     //__ __ JQuery for Live Auction Counter __ __ //
-    const script = document.createElement("script");
-    script.src = "/assets/js/vendor/countdown.min.js";
-    script.async = true;
-    document.body.appendChild(script);
+    setTimeout(function () {
+      const script = document.createElement("script");
+      script.src = "/assets/js/vendor/countdown.min.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }, 1000);
 
     //__ __ JQuery for Live Auction Slider __ __ //
     const scriptSlider = document.createElement("script");
@@ -52,7 +54,6 @@ const AuctionThree = () => {
                 {data ? (
                   data.map((item, idx) => {
                     return (
-                      
                       <div key={`auc_${idx}`} className="swiper-slide item">
                         <div className="card">
                           <div className="image-over">
@@ -72,7 +73,7 @@ const AuctionThree = () => {
                                   data-date={moment(item.expiry_date).format(
                                     "YYYY-MM-DD"
                                   )}
-                                  />
+                                />
                               </div>
                               <Link to={`/nft-details?${item.id}`}>
                                 <h5 className="mb-0">{item.name}</h5>
@@ -142,7 +143,7 @@ const AuctionThree = () => {
                           <Link
                             className="seller d-flex align-items-center my-3"
                             to={`/author?${item.user_id}`}
-                            >
+                          >
                             <img
                               className="avatar-sm rounded-circle"
                               src={`${ENV.API_URL_image}${item.profile_image}`}
