@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { ENV } from "../../env";
 import NFT from "../../services/nft.service";
 import $ from "jquery";
+import favoriteNft from "../../services/favoriteNft.service";
+import jwt_decode from "jwt-decode";
+
 let limit = 8;
 
 const ExploreFour = () => {
@@ -12,13 +15,36 @@ const ExploreFour = () => {
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
     btnText: "Load More",
   };
+  const favoriteNftInitialValues = {
+    user: "",
+    is_favorite: "",
+    nft: "",
+  };
 
   const [initData] = useState(initialData);
   const [nftData, setNftData] = useState([]);
   const [order, setOrder] = useState("ASC");
   const [page, setPage] = useState(1);
+  const [fvtNFTData, setFvtNFTData] = useState(favoriteNftInitialValues);
 
-
+  const favnftSet = (nftid , userid) => {
+    setFvtNFTData({
+      user: userid,
+      is_favorite: true,
+      nft: nftid,
+    });
+    favt_nft();
+  };
+  const favt_nft = async () => {
+    debugger;
+    const result = await favoriteNft.favoriteNftPost(
+      `${ENV.API_URL}api/favourite-nft/`,
+      fvtNFTData
+    );
+    if (result.status == true) {
+      alert(result.message);
+    }
+  };
   const sort = (col) => {
     if (order === "ASC") {
       const sorted = [...nftData].sort((a, b) => (a[col] > b[col] ? 1 : -1));
@@ -77,7 +103,7 @@ const ExploreFour = () => {
             </div>
           </div>
           <div className="col-sm-6 col-xl-9">
-            {/* <button
+            <button
               className="btn px-5 my-sm-0 my-3"
               type="button"
               data-toggle="collapse"
@@ -86,10 +112,10 @@ const ExploreFour = () => {
               aria-controls="collapseFilter"
             >
               Filter
-            </button> */}
+            </button>
           </div>
         </div>
-        {/* <div className="row">
+        <div className="row">
           <div className="col-12">
             <div className="collapse" id="collapseFilter">
               <div className="sales-type d-flex align-items-sm-center my-3">
@@ -154,7 +180,7 @@ const ExploreFour = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
 
         <div className="row items">
           {nftData ? (
@@ -180,7 +206,9 @@ const ExploreFour = () => {
                           <Link to={`/nft-details?${item.id}`}>
                             <h5 className="mb-0">{item.name}</h5>
                           </Link>
-                          {/* <i class="fas fa-heart" ></i> */}
+                          <button onClick={() => favnftSet(item.id , item.user_id)} class="set">
+                            <i class="fas fa-heart "></i>
+                          </button>
                         </div>
                         <div className="seller d-flex align-items-center my-3 text-nowrap">
                           <span>Owned By</span>

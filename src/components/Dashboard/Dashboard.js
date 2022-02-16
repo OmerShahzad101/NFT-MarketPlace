@@ -65,11 +65,11 @@ const Dashboard = () => {
               <h5 className="m-0">NFT's</h5>
             </a>
           </li>
-          {/* <li>
+          <li>
             <a id="nav-contact-tab" data-toggle="pill" href="#nav-contact">
-              <h5 className="m-0">Details</h5>
+              <h5 className="m-0">Favourite NFT's</h5>
             </a>
-          </li> */}
+          </li>
         </ul>
 
         <div className="tab-content py-4" id="nav-tabContent">

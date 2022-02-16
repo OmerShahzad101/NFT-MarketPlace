@@ -14,7 +14,6 @@ import Contact from "../themes/contact";
 import ItemDetails from "../themes/item-details";
 import HelpCenter from "../themes/help-center";
 import CreateCollection from "../themes/createCollection";
-import FavouriteNft from "../themes/favouriteNft";
 import CollectionDetail from "../themes/collectionDetail";
 import Authors from "../themes/authors";
 import Author from "../themes/author";
@@ -23,6 +22,7 @@ import myCollections from "../themes/myCollections";
 import WalletConnect from "../themes/wallet-connect";
 import Dashboard from "../themes/dashboard";
 import TopSellerPage from "../themes/topSellerPage";
+import FavouriteNft from "../themes/favouriteNft";
 class MyRouts extends React.Component {
   render() {
     return (
@@ -51,7 +51,8 @@ class MyRouts extends React.Component {
             <Route exact path="/mycollections" component={myCollections} />
             <Route exact path="/wallet-connect" component={WalletConnect} />
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/top-seller" component={TopSellerPage} />      
+            <Route exact path="/top-seller" component={TopSellerPage} />    
+              
           </Switch> 
         </Router>
       </div>
