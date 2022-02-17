@@ -29,8 +29,7 @@ const ExploreFour = () => {
   const [fvtNFTData, setFvtNFTData] = useState(favoriteNftInitialValues);
   const [remove, setRemove] = useState([]);
 
-  const test = async (nftid, userid) => {
-   
+  const test = async (nftid) => {
     debugger;
     const result = await favoriteNft.favoriteNftGet(
       `${ENV.API_URL}api/favourite-nft/`
@@ -38,28 +37,20 @@ const ExploreFour = () => {
     console.log(result);
     const newArray = result.data.results;
     console.log(newArray);
+
+    const token = JSON.parse(localStorage.getItem("access"));
+    const decoded = jwt_decode(token);
+    const id = decoded.user_id;
+
     let toddlers = newArray.filter(
-      (newArray) => newArray.nft_id == nftid && newArray.user_id == userid
+      (newArray) => newArray.nft_id == nftid && newArray.user_id == id
     );
     console.log("new data ", toddlers);
     if (toddlers.length > 0) {
-      favnftSet(nftid, userid);
+      removefvt(nftid, id);
     } else {
-      removefvt(nftid, userid);
+      favnftSet(nftid, id);
     }
-  };
-
-  const favnftSet = (nftid, userid) => {
-    debugger;
-
-    const abc = {
-      user: userid,
-      is_favorite: false,
-      nft: nftid,
-    };
-    setFvtNFTData(abc);
-
-    favt_nft(abc);
   };
 
   const removefvt = (nftid, userid) => {
@@ -67,10 +58,21 @@ const ExploreFour = () => {
 
     const abc = {
       user: userid,
+      is_favorite: false,
+      nft: nftid,
+    };
+
+    favt_nft(abc);
+  };
+
+  const favnftSet = (nftid, userid) => {
+    debugger;
+
+    const abc = {
+      user: userid,
       is_favorite: true,
       nft: nftid,
     };
-    setFvtNFTData(abc);
 
     favt_nft(abc);
   };
