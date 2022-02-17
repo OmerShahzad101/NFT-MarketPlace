@@ -7,7 +7,7 @@ const FavNFT = (props) => {
   return (
     <>
       <button
-        onClick={() => favnftSet(props._NFTID, props._USERID)}
+       // onClick={() => favnftSet(props._NFTID, props._USERID)}
         className="set"
       >
         <i class="fas fa-heart fa-3x"></i>

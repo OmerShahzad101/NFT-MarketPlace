@@ -3491,7 +3491,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   font-size: 15px;
  
 }
-heart_color{
+.heart_color{
   color: red
 }
 .set:focus {
