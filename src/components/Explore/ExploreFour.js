@@ -5,6 +5,7 @@ import NFT from "../../services/nft.service";
 import $ from "jquery";
 import favoriteNft from "../../services/favoriteNft.service";
 import jwt_decode from "jwt-decode";
+import FavNFT from "./FavNFT";
 
 let limit = 8;
 
@@ -28,35 +29,53 @@ const ExploreFour = () => {
   const [fvtNFTData, setFvtNFTData] = useState(favoriteNftInitialValues);
   const [remove, setRemove] = useState([]);
 
-
-
-  const favnftSet = async (nftid, userid) => {
-    const result = await favoriteNft.favoriteNftGet(`${ENV.API_URL}api/favourite-nft/`);
-    console.log(result)
+  const test = async (nftid, userid) => {
+   
+    debugger;
+    const result = await favoriteNft.favoriteNftGet(
+      `${ENV.API_URL}api/favourite-nft/`
+    );
+    console.log(result);
     const newArray = result.data.results;
     console.log(newArray);
     let toddlers = newArray.filter(
       (newArray) => newArray.nft_id == nftid && newArray.user_id == userid
     );
     console.log("new data ", toddlers);
-
     if (toddlers.length > 0) {
-      setFvtNFTData({
-        user: userid,
-        is_favorite: false,
-        nft: nftid,
-      });
-      favt_nft();
+      favnftSet(nftid, userid);
     } else {
-      setFvtNFTData({
-        user: userid,
-        is_favorite: true,
-        nft: nftid,
-      });
-      favt_nft();
+      removefvt(nftid, userid);
     }
   };
-  const favt_nft = async () => {
+
+  const favnftSet = (nftid, userid) => {
+    debugger;
+
+    const abc = {
+      user: userid,
+      is_favorite: false,
+      nft: nftid,
+    };
+    setFvtNFTData(abc);
+
+    favt_nft(abc);
+  };
+
+  const removefvt = (nftid, userid) => {
+    debugger;
+
+    const abc = {
+      user: userid,
+      is_favorite: true,
+      nft: nftid,
+    };
+    setFvtNFTData(abc);
+
+    favt_nft(abc);
+  };
+  const favt_nft = async (fvtNFTData) => {
+    debugger;
     const result = await favoriteNft.favoriteNftPost(
       `${ENV.API_URL}api/favourite-nft/`,
       fvtNFTData
@@ -227,11 +246,12 @@ const ExploreFour = () => {
                           <Link to={`/nft-details?${item.id}`}>
                             <h5 className="mb-0">{item.name}</h5>
                           </Link>
+                          {/* <FavNFT  NFTID={item.id} USERID ={item.user_id}/> */}
                           <button
-                            onClick={() => favnftSet(item.id, item.user_id)}
+                            onClick={() => test(item.id, item.user_id)}
                             className="set"
                           >
-                            <i class="fas fa-heart "></i>
+                            <i class="fas fa-heart fa-3x"></i>
                           </button>
                         </div>
                         <div className="seller d-flex align-items-center my-3 text-nowrap">
