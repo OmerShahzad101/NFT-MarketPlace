@@ -140,7 +140,7 @@ const ExploreFour = () => {
     );
    
     setNftData(res.data.data.results);
-    
+    {console.log(res.data.data.results)}
   };
 
   const saleType = async (value) => {
