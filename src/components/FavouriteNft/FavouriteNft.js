@@ -1,41 +1,81 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { ENV } from "../../env";
+import jwt_decode from "jwt-decode";
+import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import favoriteNft from "../../services/favoriteNft.service";
 
-const FavouriteNft = (parms) => {
-  const initialData = {
-    heading: "Favourite NFT",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.",
-    btnText: "Load More",
-  };
-  const [initData] = useState(initialData);
+const FavouriteNft = () => {
+  let newArray = [];
+  let count = true;
+  const token = JSON.parse(localStorage.getItem("access"));
+  const decoded = jwt_decode(token);
+  const loggedUser = decoded.user_id;
+  
+  const [favNFT, setFavNFT] = useState([]);
   const [nftData, setNftData] = useState();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await favoriteNft.favoriteNftGet(
-        `${ENV.API_URL}api/favourite-nft/`
-      );
-      setNftData(res.result);
-    };
-    fetchData();
-  }, [parms]);
-  return (
-    <section className="explore-area load-more">
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-12 col-md-8 col-lg-7">
-            {/* Intro */}
-            <div className="intro text-center">
-              <h3 className="mt-3 mb-0">{initData.heading}</h3>
-              <p>{initData.content}</p>
-            </div>
-          </div>
-        </div>
+  useEffect(async () => {
+    const result = await favoriteNft.favoriteNftGet(
+      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
+    );
+    let newArray = result.data.user_favourite_nft;
+    setNftData(newArray);
+  }, []);
+ 
+  const test = async (nftid) => {
+    let toddlers = favNFT.filter((arrItem) => arrItem.nft_id == nftid);
+    if (toddlers.length > 0) {
+      remove_favorite(nftid, loggedUser);
+    } else {
+      favnftSet(nftid, loggedUser);
+    }
+  };
 
-        <div className="row items ">
+  const remove_favorite = (nftid, userid) => {
+
+    const abc = {
+      user: userid,
+      is_favorite: false,
+      nft: nftid,
+    };
+
+    favt_nft(abc);
+  };
+
+  const favnftSet = (nftid, userid) => {
+
+    const abc = {
+      user: userid,
+      is_favorite: true,
+      nft: nftid,
+    };
+
+    favt_nft(abc);
+  };
+  const favt_nft = async (fvtNFTData) => {
+
+    console.log("cal" , fvtNFTData)
+    const result = await favoriteNft.favoriteNftPost(
+      `${ENV.API_URL}api/favourite-nft/`,
+      fvtNFTData
+    );
+    if (result.status == true) {
+
+      newsetting();
+    }
+  };
+  const newsetting = async () => {
+    const updatedfav = await favoriteNft.favoriteNftGet(
+      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`);
+    console.log("res", updatedfav);
+    newArray = updatedfav.data.user_favourite_nft;
+    setFavNFT(newArray);
+
+  };
+  return (
+   
+    <>
+      <div className="row items">
           {nftData ? (
             nftData.map((item, id) => {
               return (
@@ -59,12 +99,36 @@ const FavouriteNft = (parms) => {
                           <Link to={`/nft-details?${item.id}`}>
                             <h5 className="mb-0">{item.name}</h5>
                           </Link>
-                          <i class="far fa-heart"></i>
+
+                          <button
+                            onClick={() => test(item.id, item.user_id)}
+                            className="set"
+                          >
+                            {(count = true)}
+                            {favNFT
+                              ? favNFT.map((fItem, fid) => {
+                                  if (fItem.nft_id == item.id) {
+                                    count = false;
+                                    return (
+                                      <i className="fas fa-heart fa-2x heart_color" />
+                                    );
+                                  }
+                                })
+                              : ""}
+                            {count == true ? (
+                              <i className="fas fa-heart  fa-2x" />
+                            ) : (
+                              ""
+                            )}
+                          </button>
                         </div>
-                        <div className="seller d-flex align-items-center my-3">
+                        <div className="seller d-flex align-items-center my-3 text-nowrap">
                           <span>Owned By</span>
-                          <Link to={`/author?${item.user_id}`}>
-                            <h6 className="ml-2 mb-0">{"@" + item.owner}</h6>
+                          <Link
+                            className="name_trim"
+                            to={`/author?${item.user_id}`}
+                          >
+                            <h6 className="ml-2 mb-0 ">{"@" + item.owner}</h6>
                           </Link>
                         </div>
                         <div className="card-bottom d-flex justify-content-between">
@@ -73,7 +137,7 @@ const FavouriteNft = (parms) => {
                         </div>
                         <Link
                           className="btn btn-bordered-white btn-smaller mt-3"
-                          to="/login"
+                          to="/wallet-connect"
                         >
                           <i className="icon-handbag mr-2" />
                           place a bid
@@ -90,8 +154,11 @@ const FavouriteNft = (parms) => {
             </div>
           )}
         </div>
-      </div>
-    </section>
+       
+    </>
+       
+
+
   );
 };
 
