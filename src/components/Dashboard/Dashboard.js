@@ -3,7 +3,11 @@ import { ENV } from "../../env";
 import MyCollections from "../Collections/MyCollections";
 import authors from "../../services/authors.service";
 import { Link } from "react-router-dom";
+import favoriteNft from "../../services/favoriteNft.service";
+import jwt_decode from "jwt-decode";
+
 import $ from "jquery";
+import FavouriteNft from "../FavouriteNft/FavouriteNft";
 let limit = 16;
 const Dashboard = () => {
   const initialData = {
@@ -16,8 +20,19 @@ const Dashboard = () => {
   const [page, setPage] = useState(1);
   const arr = window.location.href.split("?");
   const id = arr[1];
-  useEffect(() => {
-    fetchData();
+  const [nftData, setNftData] = useState();
+  const token = JSON.parse(localStorage.getItem("access"));
+  const decoded = jwt_decode(token);
+  const loggedUser = decoded.user_id;
+  useEffect(async() => {
+    
+    const result = await favoriteNft.favoriteNftGet(
+      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
+      );
+      let newArray = result.data.user_favourite_nft;
+      console.log(newArray)
+      setNftData(newArray);
+      fetchData();
   }, []);
   const fetchData = async () => {
     const res = await authors.authorsList(
@@ -66,7 +81,7 @@ const Dashboard = () => {
             </a>
           </li>
           <li>
-            <a id="nav-contact-tab" data-toggle="pill" href="#nav-contact">
+            <a id="nav-contact-tab" data-toggle="pill" href="#nav-favourite">
               <h5 className="m-0">Favourite NFT's</h5>
             </a>
           </li>
@@ -142,6 +157,67 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+
+
+         {/* --------------------------------------------- */}
+
+
+         <div className="tab-pane fade" id="nav-favourite">
+          <FavouriteNft/>
+            {/* {nftData ? (
+              <div className="row items">
+                {nftData.map((item, idx) => {
+                  return item.nft_name !== null ? (
+                    <div
+                      key={`eds_${idx}`}
+                      className="col-12 col-sm-6 col-lg-3 item explore-item"
+                    >
+                      <div className="card no-hover text-center">
+                        <div className="image-over">
+                          <Link to={`/nft-details?${item.nft_id}`}>
+                            <img
+                              className="card-img-top image-container-nft"
+                              src={`${ENV.API_URL_image_media}${item.nft_image}`}
+                              alt=""
+                            />
+                          </Link>
+                        </div>
+
+                        <div className="card-caption col-12 p-0">
+                          <div className="card-body mb-4">
+                            <Link to={`/nft-details?${item.nft_id}`}>
+                              <h5 className="mb-2">{item.nft_name}</h5>
+                            </Link>
+                            <span>{item.nft_description}</span>
+                          </div>
+                          <div className="card-bottom d-flex justify-content-between">
+                            <span>{"$" + item.nft_price}</span>
+                            <span>{item.nft_size}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="no_data mt-3">
+                      <span>No item to explore</span>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="no_data mt-3">
+                <span>No item to explore</span>
+              </div>
+            )} */}
+            </div>
+
+
+
+
+
+         {/* -------------------------------------------------- */}
+
+  
         </div>
       </div>
     </section>
