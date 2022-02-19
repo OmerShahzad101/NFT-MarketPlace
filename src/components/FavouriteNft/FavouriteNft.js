@@ -21,6 +21,7 @@ const FavouriteNft = () => {
   const check_favourite = async (nftid) => {
     alert(nftid)
     let toddlers = favNFT.filter((arrItem) => arrItem.nft_id == nftid);
+    console.log(toddlers)
     if (toddlers.length > 0) {remove_favorite(nftid, loggedUser)} 
     else { add_favourite(nftid, loggedUser)}
   };
@@ -35,7 +36,6 @@ const FavouriteNft = () => {
   };
   const add_favourite = (nftid, userid) => {
     alert("add")
-
     const favourite_payload = {
       user: userid,
       is_favorite: true,
@@ -47,6 +47,7 @@ const FavouriteNft = () => {
     const result = await favoriteNft.favoriteNftPost(`${ENV.API_URL}api/favourite-nft/`,favourite_payload);
     if (result.status == true) {
       alert(result.mssage)
+      console.log(result)
       update_favourite();
     }
   };
@@ -60,7 +61,7 @@ const FavouriteNft = () => {
       <div className="row items">
           {nftData ? (
             nftData.map((item, id) => {
-              return (
+              return item.nft_name !== null ? (
                 <div key={`exf_${id}`} className="col-12 col-sm-6 col-lg-3 item">
                   <div className="card">
                     <div className="image-over">
@@ -86,7 +87,7 @@ const FavouriteNft = () => {
                         <div className="seller d-flex align-items-center my-3 text-nowrap">
                           <span>Owned By</span>
                           <Link className="name_trim" to={`/author?${item.owner_id}`}>
-                            <h6 className="ml-2 mb-0 ">{"@" + item.owner}</h6>
+                            <h6 className="ml-2 mb-0 ">{"@" + item.owner_name}</h6>
                           </Link>
                         </div>
                         <div className="card-bottom d-flex justify-content-between">
@@ -100,11 +101,15 @@ const FavouriteNft = () => {
                     </div>
                   </div>
                 </div>
-              );
+              ) :(
+              <div className="no_data">
+                <span>No Favourite Nft Added</span>
+              </div>
+            )
             })
           ) : (
             <div className="no_data">
-              <span>No item to Explore</span>
+              <span>No Favourite Nft Added</span>
             </div>
           )}
       </div>
