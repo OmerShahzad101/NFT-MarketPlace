@@ -121,17 +121,25 @@ const ExploreFour = () => {
     setPage(page + 1);
   };
   const resetFilter = async (no) => {
-    $("#loadmorebtn").show();
+    $(".collection_filter_label label").removeClass("active")
+    $(".saletype_filter_label label").removeClass("active")
+    
+    
     const res = await NFT.nftget(
       `${ENV.API_URL}api/nft_list/?page=${no}&limit=${limit}`
     );
     setNftData(res.data.data.results);
+    $("#loadmorebtn").show();
+    if (res.data.data.count === res.data.data.results.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
     setPage(2);
   };
 
   const saleType = async (value) => {
+    $(".collection_filter_label label").removeClass("active")
     $("#loadmorebtn").hide();
-    let limit_sale = 50;
+    let limit_sale = 999;
     const nFilters = await favoriteNft.saleTypeGet(
       `${ENV.API_URL}api/nft-filters/?sale_type=${value}&limit=${limit_sale}`
     );
@@ -139,7 +147,9 @@ const ExploreFour = () => {
     setNftData(nFilters.data.data.results);
   };
   const collectionNFT = async (id) => {
-    let limit_collection = 50;
+    $(".saletype_filter_label label").removeClass("active")
+    $("#loadmorebtn").hide();
+    let limit_collection = 999;
     const res = await Collection.collection(
       `${ENV.API_URL}api/specific_collection/${id}/?limit=${limit_collection}`
     );
@@ -185,34 +195,68 @@ const ExploreFour = () => {
         <div className="row">
           <div className="col-12">
             <div className="collapse" id="collapseFilter">
-              <div className="sales-type d-flex align-items-sm-center my-3">
+              <div className="sales-type d-flex align-items-sm-center my-4">
                 <h6 className="mr-5">Sale Types</h6>
-                <div className="d-sm-flex">
-                  <span
-                    className="mr-4"
+                <div
+                  id="myElement"
+                  className="explore-menu btn-group btn-group-toggle saletype_filter_label"
+                  data-toggle="buttons"
+                >
+                  <label
                     onClick={() => saleType("fixed_price")}
+                    className="btn d-table mr-5 p-0"
                   >
-                    Fixed Price
-                  </span>
-                  <span className="mr-4" onClick={() => saleType("on_auction")}>
-                    Live Auction
-                  </span>
-                  <span className="mr-4" onClick={() => saleType("recent")}>
-                    Recently Added
-                  </span>
+                    <input
+                      type="radio"
+                      defaultValue="Fixed Price"
+                      className="explore-btn"
+                    />
+                    <span>Fixed Price</span>
+                  </label>
+                  <label
+                    onClick={() => saleType("on_auction")}
+                    className="btn d-table mr-5 p-0"
+                  >
+                    <input
+                      type="radio"
+                      defaultValue="Live Auction"
+                      className="explore-btn"
+                    />
+                    <span>Live Auction</span>
+                  </label>
+                  <label
+                    onClick={() => saleType("recent")}
+                    className="btn d-table mr-5 p-0"
+                  >
+                    <input
+                      type="radio"
+                      defaultValue="Recently Added"
+                      className="explore-btn"
+                    />
+                    <span>Recently Added</span>
+                  </label>
                 </div>
               </div>
-              <div className="sales-type d-flex align-items-sm-center my-3">
+              <div className="sales-type d-flex my-4">
                 <h6 className="mr-5">Collections</h6>
-                <div className="d-sm-flex filter-collection-list">
+                <div
+                  id="myElement"
+                  className="filter-collection-list explore-menu btn-group btn-group-toggle collection_filter_label"
+                  data-toggle="buttons"
+                >
                   {collectionData
                     ? collectionData.map((cItem, id) => (
-                        <span
-                          className="mr-4"
+                        <label
                           onClick={() => collectionNFT(cItem.id)}
+                          className="btn d-table mr-5 p-0"
                         >
-                          {cItem.collection_name}
-                        </span>
+                          <input
+                            type="radio"
+                            defaultValue={cItem.collection_name}
+                            className="explore-btn"
+                          />
+                          <span>{cItem.collection_name}</span>
+                        </label>
                       ))
                     : ""}
                 </div>
