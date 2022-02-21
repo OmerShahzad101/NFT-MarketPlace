@@ -1,4 +1,4 @@
-import React , { useEffect, useState }  from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ENV } from "../../env";
 import Collection from "../../services/collections.service";
@@ -102,8 +102,8 @@ const CollectionDetail = () => {
                 />
               </div>
               <div>
-                <Link to={`/authors`}>
-                  <h6 className="mt-0 mb-3">Name</h6>
+                <Link to={`/author?${collectionData.user_id}`}>
+                  <h6 className="mt-0 mb-3">{collectionData.user}</h6>
                 </Link>
 
                 <p className="m-0">Owners</p>
@@ -111,75 +111,10 @@ const CollectionDetail = () => {
             </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-12">
-            <div className="collapse" id="collapseFilter">
-              <div className="sales-type d-flex align-items-sm-center my-3">
-                <h6 className="mr-5">Sale Types</h6>
-                <div className="d-sm-flex">
-                  <span className="mr-4">Fixed Price</span>
-                  <span className="mr-4">Live Auction</span>
-                </div>
-              </div>
-              <div className="currency-form d-flex align-items-lg-center my-3">
-                <h6 className="mr-5">Currencies</h6>
-                <form className="d-lg-flex align-items-center justify-content-between">
-                  <div className="d-lg-flex">
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="bnb"
-                        value="option1"
-                      />
-                      <label class="form-check-label" for="bnb">
-                        Binance (BNB)
-                      </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="usd"
-                        value="option1"
-                      />
-                      <label class="form-check-label" for="usd">
-                        Dollar (USD)
-                      </label>
-                    </div>
-                    <div className="d-sm-flex my-3 my-lg-0 justify-content-between">
-                      <input
-                        class="form-control"
-                        type="text"
-                        placeholder="Min"
-                      />
-                      <span> - </span>
-                      <input
-                        class="form-control"
-                        type="text"
-                        placeholder="Max"
-                      />
-                      <button
-                        type="submit"
-                        className="btn btn-bordered-white ml-sm-3 mt-3 mt-sm-0"
-                      >
-                        Apply
-                      </button>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="reset-filter">Reset</span>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+    
 
-        <div className="row my-5">
-          {collectionData.nft_collection ? (
+        <div className="row my-5"> 
+          {collectionData.nft_collection && collectionData.nft_collection.length > 0 ? (
             collectionData.nft_collection.map((item, id) => {
               return (
                 <div className="col-lg-3 col-md-6 p-3">
