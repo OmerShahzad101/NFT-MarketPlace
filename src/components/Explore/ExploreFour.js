@@ -108,7 +108,7 @@ const ExploreFour = () => {
   };
   const filterCollectionList = async () => {
     const res = await Collection.collection(
-      `${ENV.API_URL}api/specific_catgory_collection-data/0`
+      `${ENV.API_URL}api/specific_catgory_collection-data/0?limit=1000`
     );
     setCollectionData(res.data.data.category_data);
   };
@@ -207,7 +207,7 @@ const ExploreFour = () => {
               </div>
               <div className="sales-type d-flex align-items-sm-center my-3">
                 <h6 className="mr-5">Collections</h6>
-                <div className="d-sm-flex">
+                <div className="d-sm-flex filter-collection-list">
                   {collectionData
                     ? collectionData.map((cItem, id) => (
                         <span
@@ -221,8 +221,8 @@ const ExploreFour = () => {
                 </div>
               </div>
 
-              <div className="d-flex justify-content-end pointer">
-                <h6 onClick={() => resetFilter(1)}>Reset Filters</h6>
+              <div className="d-flex justify-content-end">
+                <h6 className="mb-0 mt-3 pointer" onClick={() => resetFilter(1)}>Reset Filters</h6>
               </div>
             </div>
           </div>
