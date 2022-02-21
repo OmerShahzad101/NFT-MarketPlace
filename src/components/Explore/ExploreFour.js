@@ -3,11 +3,11 @@ import $ from "jquery";
 import FavNFT from "./FavNFT";
 import { ENV } from "../../env";
 import jwt_decode from "jwt-decode";
-import { Link } from "react-router-dom";
 import NFT from "../../services/nft.service";
 import Category from "../../services/category.service";
 import Collection from "../../services/collections.service";
 import favoriteNft from "../../services/favoriteNft.service";
+import NftCard from "./NftCard";
 
 let limit = 8;
 let count = true;
@@ -23,48 +23,48 @@ const ExploreFour = () => {
   const [nftData, setNftData] = useState([]);
   const [order, setOrder] = useState("ASC");
   const [page, setPage] = useState(1);
-  const [favNFT, setFavNFT] = useState();
+  const [favNFT, setFavNFT] = useState([]);
   const [collectionData, setCollectionData] = useState([]);
-  let token = JSON.parse(localStorage.getItem("access"));
+  const token = JSON.parse(localStorage.getItem("access"));
+  const decoded = jwt_decode(token);
+  const loggedUser = decoded.user_id;
 
   useEffect(async () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
+    Get_Favourite_Updated();
     pagination();
     filterCollectionList();
-    let token = JSON.parse(localStorage.getItem("access"));
-    if (token) {
-      const decoded = jwt_decode(token);
-      const loggedUser = decoded.user_id;
-      Get_Favourite_Updated(loggedUser);
-    }
   }, []);
   const check_favourite = async (nftid) => {
-    let token = JSON.parse(localStorage.getItem("access"));
-    const decoded = jwt_decode(token);
-    const loggedUser = decoded.user_id;
-
-    let filtered_data = favNFT.filter((arrItem) => arrItem.nft_id == nftid);
+    let filtered_data = favNFT.filter((arrItem) => arrItem?.nft_id == nftid);
     if (filtered_data.length > 0) {
       remove_favourite(nftid, loggedUser);
     } else {
       add_favourite(nftid, loggedUser);
     }
   };
-  const remove_favourite = (nftid, userid) => {
+  const remove_favourite = async (nftid, userid) => {
     const favourite_payload = {
       user: userid,
       is_favorite: false,
       nft: nftid,
     };
-    favouriteCall(favourite_payload);
+    await favouriteCall(favourite_payload);
+    // if (result.status == true) {
+    //   setFavNFT((prev) => prev.filter((item) => item?.nft_id !== nftid));
+    // }
   };
-  const add_favourite = (nftid, userid) => {
+  const add_favourite = async (nftid, userid) => {
     const favourite_payload = {
       user: userid,
       is_favorite: true,
       nft: nftid,
     };
-    favouriteCall(favourite_payload);
+    await favouriteCall(favourite_payload);
+    debugger;
+    // if (result.status == true) {
+    //   setFavNFT((prev) => [...prev, result.data]);
+    // }
   };
   const favouriteCall = async (fvtNFTData) => {
     const result = await favoriteNft.favoriteNftPost(
@@ -72,7 +72,6 @@ const ExploreFour = () => {
       fvtNFTData
     );
     if (result.status == true) {
-      alert(result.message);
       Get_Favourite_Updated();
     }
   };
@@ -88,16 +87,16 @@ const ExploreFour = () => {
       setOrder("ASC");
     }
   };
-  const Get_Favourite_Updated = async (loggedUser) => {
-    const result = await favoriteNft.favoriteNftGet(
-      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
-    );
-    newArray = result.data.user_favourite_nft;
-    console.log(newArray);
-    setFavNFT(result.data.user_favourite_nft);
+  const Get_Favourite_Updated = async () => {
+    try {
+      const result = await favoriteNft.favoriteNftGet(
+        `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
+      );
+      newArray = result.data.user_favourite_nft;
+      setFavNFT(result.data.user_favourite_nft);
+    } catch (error) {}
   };
   const filterCollectionList = async () => {
-    $("#myElement label:first").addClass("active");
     const res = await Collection.collection(
       `${ENV.API_URL}api/specific_catgory_collection-data/0`
     );
@@ -121,11 +120,9 @@ const ExploreFour = () => {
     setNftData(res.data.data.results);
   };
   const saleType = async (value) => {
-    $("#myElement").addClass("active");
-    const nFilters = await favoriteNft.saleTyeGet(
+    const nFilters = await favoriteNft.favoriteNftGet(
       `${ENV.API_URL}api/nft-filters/?sale_type=${value}?page=${page}&limit=${limit}`
     );
-    console.log(nFilters)
     setNftData(nFilters.data.results);
   };
   const collectionNFT = async (id) => {
@@ -133,6 +130,11 @@ const ExploreFour = () => {
       `${ENV.API_URL}api/specific_collection/${id}/?page=${page}&limit=${limit}`
     );
     setNftData(res.data.data.nft_collection);
+  };
+  const checkFav = (data) => {
+    const index = favNFT.findIndex((x) => x.nft_id == data.id);
+    if (index > -1) return <i className="fas fa-heart fa-2x heart_color" />;
+    else return <i className="fas fa-heart fa-2x" />;
   };
   return (
     <section className="explore-area">
@@ -170,7 +172,7 @@ const ExploreFour = () => {
             </button>
           </div>
         </div>
-        <div className="row " id="myElement"> 
+        <div className="row">
           <div className="col-12">
             <div className="collapse" id="collapseFilter">
               <div className="sales-type d-flex align-items-sm-center my-3">
@@ -205,7 +207,7 @@ const ExploreFour = () => {
                     : ""}
                 </div>
               </div>
-              {/* <div className="currency-form d-flex align-items-lg-center my-3">
+              <div className="currency-form d-flex align-items-lg-center my-3">
                 <h6 className="mr-5">Currencies</h6>
                 <form className="d-lg-flex align-items-center justify-content-between">
                   <div className="d-lg-flex">
@@ -257,8 +259,8 @@ const ExploreFour = () => {
                     <span className="reset-filter">Reset</span>
                   </div>
                 </form>
-              </div> */}
-              <div  className="d-flex justify-content-end pointer">
+              </div>
+              <div>
                 <h6 onClick={() => resetFilter(1)}>Reset Filters</h6>
               </div>
             </div>
@@ -266,81 +268,15 @@ const ExploreFour = () => {
         </div>
 
         <div className="row items">
-          {nftData ? (
+          {nftData?.length > 0 ? (
             nftData.map((item, id) => {
               return (
-                <div
-                  key={`exf_${id}`}
-                  className="col-12 col-sm-6 col-lg-3 item"
-                >
-                  <div className="card">
-                    <div className="image-over">
-                      <Link to={`/nft-details?${item.id}`}>
-                        <img
-                          className="card-img-top image-container-nft"
-                          src={`${ENV.API_URL_image}${item.image}`}
-                          alt=""
-                        />
-                      </Link>
-                    </div>
-                    <div className="card-caption col-12 p-0">
-                      <div className="card-body">
-                        <div className="d-flex justify-content-between">
-                          <Link to={`/nft-details?${item.id}`}>
-                            <h5 className="mb-0">{item.name}</h5>
-                          </Link>
-                          {token ? (
-                            <button
-                              onClick={() =>
-                                check_favourite(item.id, item.user_id)
-                              }
-                              className="set"
-                            >
-                              {(count = true)}
-                              {favNFT
-                                ? favNFT.map((fItem, fid) => {
-                                    if (fItem.nft_id == item.id) {
-                                      count = false;
-                                      return (
-                                        <i className="fas fa-heart fa-2x heart_color" />
-                                      );
-                                    }
-                                  })
-                                : ""}
-                              {count == true ? (
-                                <i className="fas fa-heart fa-2x" />
-                              ) : (
-                                ""
-                              )}
-                            </button>
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                        <div className="seller d-flex align-items-center my-3 text-nowrap">
-                          <span>Owned By</span>
-                          <Link
-                            className="name_trim"
-                            to={`/author?${item.user_id}`}
-                          >
-                            <h6 className="ml-2 mb-0 ">{"@" + item.owner}</h6>
-                          </Link>
-                        </div>
-                        <div className="card-bottom d-flex justify-content-between">
-                          <span>{"$" + item.price}</span>
-                          <span>{item.size}</span>
-                        </div>
-                        <Link
-                          className="btn btn-bordered-white btn-smaller mt-3"
-                          to="/wallet-connect"
-                        >
-                          <i className="icon-handbag mr-2" />
-                          place a bid
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <NftCard
+                  id={id}
+                  item={item}
+                  favNFT={favNFT}
+                  check_favourite={check_favourite}
+                />
               );
             })
           ) : (
