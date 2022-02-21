@@ -81,10 +81,10 @@ const HomeNft = () => {
                         </div>
                         <Link
                           className="btn btn-bordered-white btn-smaller mt-3"
-                          to="/login"
+                          to="/wallet-connect"
                         >
                           <i className="icon-handbag mr-2" />
-                          place a bid
+                          Place a bid
                         </Link>
                       </div>
                     </div>
