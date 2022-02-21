@@ -213,6 +213,9 @@ const ExploreFour = () => {
               <div className="d-flex justify-content-end pointer">
                 <h6 onClick={() => resetFilter(1)}>Reset Filters</h6>
               </div>
+              <div>
+                <h6 onClick={() => resetFilter(1)}>Reset Filters</h6>
+              </div>
             </div>
           </div>
         </div>
