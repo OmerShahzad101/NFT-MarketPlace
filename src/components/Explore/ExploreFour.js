@@ -125,7 +125,7 @@ const ExploreFour = () => {
   
   const saleType = async (value) => {
     limit = 50;
-    const nFilters = await favoriteNft.favoriteNftGet(
+    const nFilters = await favoriteNft.saleTyeGet(
       `${ENV.API_URL}api/nft-filters/?sale_type=${value}&limit=${limit}`
     );
     setNftData(nFilters.data.results);
@@ -213,9 +213,7 @@ const ExploreFour = () => {
               <div className="d-flex justify-content-end pointer">
                 <h6 onClick={() => resetFilter(1)}>Reset Filters</h6>
               </div>
-              <div>
-                <h6 onClick={() => resetFilter(1)}>Reset Filters</h6>
-              </div>
+             
             </div>
           </div>
         </div>
