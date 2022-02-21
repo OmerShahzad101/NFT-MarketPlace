@@ -5,8 +5,9 @@ import { ENV } from "../../env";
 import topSellers from "../../services/topSellers.service";
 import $ from "jquery";
 
-const TopSeller = () => {
-  const [sellerData, setSellerData] = useState();
+export const TopSeller = () => {
+  const [sellerData, setSellerData] = useState()
+  
   const initData = {
     preHeading: "Creative Artists",
     heading: "Top Sellers",
@@ -15,7 +16,10 @@ const TopSeller = () => {
   useEffect(async () => {
     const result = await topSellers.topSellersList(
       `${ENV.API_URL}api/top_sellers/`
-    );
+    )
+
+
+    ;
     setSellerData(result.data.data.top_seller);
     console.log(result);
 
@@ -92,4 +96,4 @@ const TopSeller = () => {
   );
 };
 
-export default TopSeller;
+// export default TopSeller;

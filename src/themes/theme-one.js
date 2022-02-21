@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Header from '../components/Header/Header';
 import Hero from '../components/Hero/Hero';
 import Auctions from '../components/Auctions/AuctionsOne';
-import TopSeller from '../components/TopSeller/TopSellerOne';
+import { TopSeller } from '../components/TopSeller/TopSellerOne';
 import HomeCollection from '../components/HomeCollection/HomeCollection';
 import Work from '../components/Work/Work';
 import Footer from '../components/Footer/Footer';
