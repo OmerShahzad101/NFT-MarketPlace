@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ENV } from "../../env";
 
 const NftCard = ({ id, item, check_favourite, favNFT }) => {
+  console.log(id)
   const [isFavorite, setIsFavorite] = useState(false);
   const token = JSON.parse(localStorage.getItem("access"));
   useEffect(() => {
@@ -14,8 +15,6 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
           let b = nft.nft_id;
           let c = true;
           setIsFavorite(c);
-          console.log(c);
-          console.log(c);
         } else setIsFavorite(false);
       });
     }
