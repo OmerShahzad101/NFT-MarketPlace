@@ -15,6 +15,7 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
           let c = true;
           setIsFavorite(c);
           console.log(c);
+          console.log(c);
         } else setIsFavorite(false);
       });
     }
