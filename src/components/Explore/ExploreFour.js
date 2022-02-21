@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
 import $ from "jquery";
-import FavNFT from "./FavNFT";
-import { ENV } from "../../env";
 import jwt_decode from "jwt-decode";
-import NFT from "../../services/nft.service";
-import Category from "../../services/category.service";
+import React, { useEffect, useState } from "react";
+import { ENV } from "../../env";
 import Collection from "../../services/collections.service";
 import favoriteNft from "../../services/favoriteNft.service";
+import NFT from "../../services/nft.service";
 import NftCard from "./NftCard";
 
 let limit = 8;
@@ -28,7 +26,6 @@ const ExploreFour = () => {
   const token = JSON.parse(localStorage.getItem("access"));
   const decoded = jwt_decode(token);
   const loggedUser = decoded.user_id;
-
   useEffect(async () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
     Get_Favourite_Updated();
@@ -36,6 +33,7 @@ const ExploreFour = () => {
     filterCollectionList();
   }, []);
   const check_favourite = async (nftid) => {
+    debugger;
     let filtered_data = favNFT.filter((arrItem) => arrItem?.nft_id == nftid);
     if (filtered_data.length > 0) {
       remove_favourite(nftid, loggedUser);
@@ -50,9 +48,6 @@ const ExploreFour = () => {
       nft: nftid,
     };
     await favouriteCall(favourite_payload);
-    // if (result.status == true) {
-    //   setFavNFT((prev) => prev.filter((item) => item?.nft_id !== nftid));
-    // }
   };
   const add_favourite = async (nftid, userid) => {
     const favourite_payload = {
@@ -61,10 +56,6 @@ const ExploreFour = () => {
       nft: nftid,
     };
     await favouriteCall(favourite_payload);
-    debugger;
-    // if (result.status == true) {
-    //   setFavNFT((prev) => [...prev, result.data]);
-    // }
   };
   const favouriteCall = async (fvtNFTData) => {
     const result = await favoriteNft.favoriteNftPost(
@@ -108,6 +99,7 @@ const ExploreFour = () => {
     );
     let newArr = [...nftData, ...res.data.data.results];
     setNftData(newArr);
+    // updateNftData();
     if (res.data.data.count === newArr.length) {
       $("#loadmorebtn").fadeOut("slow");
     }
@@ -130,11 +122,6 @@ const ExploreFour = () => {
       `${ENV.API_URL}api/specific_collection/${id}/?page=${page}&limit=${limit}`
     );
     setNftData(res.data.data.nft_collection);
-  };
-  const checkFav = (data) => {
-    const index = favNFT.findIndex((x) => x.nft_id == data.id);
-    if (index > -1) return <i className="fas fa-heart fa-2x heart_color" />;
-    else return <i className="fas fa-heart fa-2x" />;
   };
   return (
     <section className="explore-area">
@@ -269,13 +256,16 @@ const ExploreFour = () => {
 
         <div className="row items">
           {nftData?.length > 0 ? (
-            nftData.map((item, id) => {
+            nftData.map((item, index) => {
+              debugger;
+              const favindex = favNFT.findIndex((x) => x.nft_id == item.id);
               return (
                 <NftCard
-                  id={id}
+                  key={item?.id}
                   item={item}
                   favNFT={favNFT}
                   check_favourite={check_favourite}
+                  isFav={favindex > -1 ? true : false}
                 />
               );
             })
