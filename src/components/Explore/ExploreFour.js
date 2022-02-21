@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import $ from "jquery";
-import FavNFT from "./FavNFT";
 import { ENV } from "../../env";
 import jwt_decode from "jwt-decode";
 import NFT from "../../services/nft.service";
@@ -26,7 +25,6 @@ const ExploreFour = () => {
   const [page, setPage] = useState(1);
   const [favNFT, setFavNFT] = useState([]);
   const [collectionData, setCollectionData] = useState([]);
-  let token = JSON.parse(localStorage.getItem("access"));
 
   useEffect(async () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");

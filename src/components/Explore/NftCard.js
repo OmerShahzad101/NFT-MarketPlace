@@ -11,12 +11,11 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
         if (item.id == nft.nft_id) {
           debugger;
           let a = item.id;
-          let b =  nft.nft_id
-          let c  = true
+          let b = nft.nft_id;
+          let c = true;
           setIsFavorite(c);
-          console.log(c)
-        } 
-        else setIsFavorite(false);
+          console.log(c);
+        } else setIsFavorite(false);
       });
     }
   }, []);
@@ -38,24 +37,20 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
               <Link to={`/nft-details?${item.id}`}>
                 <h5 className="mb-0">{item.name}</h5>
               </Link>
-              {token ?
-              <button
-                onClick={() => check_favourite(item.id, item.user_id)}
-                className="set"
-              >
-                {/* {isFavorite ? (
-
-                  <i className="fas fa-heart fa-2x heart_color"></i>
-                ) : (
-                  <i className="fas fa-heart fa-2x "></i>
-                )} */}
-                <i
-                  className={`fas fa-heart fa-2x ${
-                    isFavorite === true ? "heart_color" : ""
-                  }`}
-                />
-              </button>
-              : " "} 
+              {token ? (
+                <button
+                  onClick={() => check_favourite(item.id, item.user_id)}
+                  className="set"
+                >
+                  <i
+                    className={`fas fa-heart fa-2x ${
+                      isFavorite === true ? "heart_color" : ""
+                    }`}
+                  />
+                </button>
+              ) : (
+                <Link to={"/login"}><i className="fas fa-heart fa-2x color"></i></Link>
+              )}
             </div>
             <div className="seller d-flex align-items-center my-3 text-nowrap">
               <span>Owned By</span>

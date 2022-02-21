@@ -3495,7 +3495,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   color: red
 }
 .color{
-  color: white;
+  color: grey;
 }
 .set:focus {
   outline: none;
