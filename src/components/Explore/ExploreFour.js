@@ -25,17 +25,24 @@ const ExploreFour = () => {
   const [page, setPage] = useState(1);
   const [favNFT, setFavNFT] = useState();
   const [collectionData, setCollectionData] = useState([]);
-  const token = JSON.parse(localStorage.getItem("access"));
-  const decoded = jwt_decode(token);
-  const loggedUser = decoded.user_id;
-  
+  let token = null;
+
   useEffect(async () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
     pagination();
     filterCollectionList();
-    Get_Favourite_Updated();
+    let token = JSON.parse(localStorage.getItem("access"));
+    if (token) {
+      const decoded = jwt_decode(token);
+      const loggedUser = decoded.user_id;
+      Get_Favourite_Updated(loggedUser);
+    }
   }, []);
   const check_favourite = async (nftid) => {
+    let token = JSON.parse(localStorage.getItem("access"));
+    const decoded = jwt_decode(token);
+    const loggedUser = decoded.user_id;
+
     let filtered_data = favNFT.filter((arrItem) => arrItem.nft_id == nftid);
     if (filtered_data.length > 0) {
       remove_favourite(nftid, loggedUser);
@@ -81,12 +88,12 @@ const ExploreFour = () => {
       setOrder("ASC");
     }
   };
-  const Get_Favourite_Updated = async () => {
+  const Get_Favourite_Updated = async (loggedUser) => {
     const result = await favoriteNft.favoriteNftGet(
       `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
     );
     newArray = result.data.user_favourite_nft;
-    console.log(newArray)
+    console.log(newArray);
     setFavNFT(result.data.user_favourite_nft);
   };
   const filterCollectionList = async () => {
@@ -96,7 +103,9 @@ const ExploreFour = () => {
     setCollectionData(res.data.data.category_data);
   };
   const pagination = async () => {
-    const res = await NFT.nftget( `${ENV.API_URL}api/nft_list/?page=${page}&limit=${limit}`);
+    const res = await NFT.nftget(
+      `${ENV.API_URL}api/nft_list/?page=${page}&limit=${limit}`
+    );
     let newArr = [...nftData, ...res.data.data.results];
     setNftData(newArr);
     if (res.data.data.count === newArr.length) {
@@ -105,15 +114,22 @@ const ExploreFour = () => {
     setPage(page + 1);
   };
   const resetFilter = async (no) => {
-    const res = await NFT.nftget(`${ENV.API_URL}api/nft_list/?page=${no}&limit=${limit}`);
+    const res = await NFT.nftget(
+      `${ENV.API_URL}api/nft_list/?page=${no}&limit=${limit}`
+    );
     setNftData(res.data.data.results);
   };
   const saleType = async (value) => {
-    const nFilters = await favoriteNft.favoriteNftGet(`${ENV.API_URL}api/nft-filters/?sale_type=${value}?page=${page}&limit=${limit}`);
+    const nFilters = await favoriteNft.saleTyeGet(
+      `${ENV.API_URL}api/nft-filters/?sale_type=${value}?page=${page}&limit=${limit}`
+    );
+    console.log(nFilters)
     setNftData(nFilters.data.results);
   };
   const collectionNFT = async (id) => {
-    const res = await Collection.collection(`${ENV.API_URL}api/specific_collection/${id}/?page=${page}&limit=${limit}`);
+    const res = await Collection.collection(
+      `${ENV.API_URL}api/specific_collection/${id}/?page=${page}&limit=${limit}`
+    );
     setNftData(res.data.data.nft_collection);
   };
   return (
@@ -271,28 +287,33 @@ const ExploreFour = () => {
                           <Link to={`/nft-details?${item.id}`}>
                             <h5 className="mb-0">{item.name}</h5>
                           </Link>
-                          
-                          <button
-                            onClick={() => check_favourite(item.id, item.user_id)}
-                            className="set"
-                          >
-                            {(count = true)}
-                            {favNFT
-                              ? favNFT.map((fItem, fid) => {
-                                  if (fItem.nft_id == item.id) {
-                                    count = false;
-                                    return (
-                                      <i className="fas fa-heart fa-2x heart_color" />
-                                    );
-                                  }
-                                })
-                              : ""}
-                            {count == true ? (
-                              <i className="fas fa-heart fa-2x" />
-                            ) : (
-                              ""
-                            )}
-                          </button>
+                          {token ? (
+                            <button
+                              onClick={() =>
+                                check_favourite(item.id, item.user_id)
+                              }
+                              className="set"
+                            >
+                              {(count = true)}
+                              {favNFT
+                                ? favNFT.map((fItem, fid) => {
+                                    if (fItem.nft_id == item.id) {
+                                      count = false;
+                                      return (
+                                        <i className="fas fa-heart fa-2x heart_color" />
+                                      );
+                                    }
+                                  })
+                                : ""}
+                              {count == true ? (
+                                <i className="fas fa-heart fa-2x" />
+                              ) : (
+                                ""
+                              )}
+                            </button>
+                          ) : (
+                            ""
+                          )}
                         </div>
                         <div className="seller d-flex align-items-center my-3 text-nowrap">
                           <span>Owned By</span>

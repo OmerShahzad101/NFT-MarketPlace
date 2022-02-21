@@ -1,3 +1,4 @@
+import axios from "axios";
 const favoriteNft = {
   favoriteNftGet: (url, data) => {
     var _token = JSON.parse(localStorage.getItem("access"));
@@ -27,6 +28,11 @@ const favoriteNft = {
     console.log(requestOptions);
     const _data = fetch(`${url}`, requestOptions).then((res) => res.json());
     return _data;
+  },
+
+  saleTyeGet: (url, data) => {
+    console.log(data)
+    return axios.get(url, data);
   },
 };
 export default favoriteNft;
