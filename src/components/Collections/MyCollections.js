@@ -61,7 +61,7 @@ const MyCollections = () => {
                 >
                   <div className="card no-hover text-center">
                     <div className="image-over">
-                      <Link to={`/collectionDetail?${item.id}`}>
+                      <Link to={`/collectionDetail?${item.collection_id}`}>
                         <img
                           className="card-img-top image-container"
                           src={`${ENV.API_URL_image_media}${item.banner_image}`}
