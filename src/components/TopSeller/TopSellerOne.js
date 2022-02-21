@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react/cjs/react.development";
 import { ENV } from "../../env";
 import topSellers from "../../services/topSellers.service";
 import $ from "jquery";
 
 export const TopSeller = () => {
-  const [sellerData, setSellerData] = useState()
-  
+  const [sellerData, setSellerData] = useState();
+
   const initData = {
     preHeading: "Creative Artists",
     heading: "Top Sellers",
@@ -16,10 +15,8 @@ export const TopSeller = () => {
   useEffect(async () => {
     const result = await topSellers.topSellersList(
       `${ENV.API_URL}api/top_sellers/`
-    )
+    );
 
-
-    ;
     setSellerData(result.data.data.top_seller);
     console.log(result);
 
