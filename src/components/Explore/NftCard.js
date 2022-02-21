@@ -9,9 +9,12 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
     if (favNFT.length > 0) {
       favNFT.forEach((nft) => {
         if (item.id == nft.nft_id) {
-          console.log(isFavorite);
-          setIsFavorite(true);
-          console.log(isFavorite);
+          debugger;
+          let a = item.id;
+          let b =  nft.nft_id
+          let c  = true
+          setIsFavorite(c);
+          console.log(c)
         } 
         else setIsFavorite(false);
       });
@@ -40,16 +43,17 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
                 onClick={() => check_favourite(item.id, item.user_id)}
                 className="set"
               >
-                {isFavorite ? (
+                {/* {isFavorite ? (
+
                   <i className="fas fa-heart fa-2x heart_color"></i>
                 ) : (
                   <i className="fas fa-heart fa-2x "></i>
-                )}
-                {/* <i
+                )} */}
+                <i
                   className={`fas fa-heart fa-2x ${
                     isFavorite === true ? "heart_color" : ""
                   }`}
-                /> */}
+                />
               </button>
               : " "} 
             </div>
