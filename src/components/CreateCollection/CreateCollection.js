@@ -69,9 +69,6 @@ class CreateCollection extends Component {
   };
 
   submit = async (e) => {
-    // const token = JSON.parse(localStorage.getItem("access"));
-    // let decoded = jwt_decode(token);
-    // let id = decoded.user_id;
     e.preventDefault();
     this.setState(
       {
@@ -94,7 +91,21 @@ class CreateCollection extends Component {
                 `${ENV.API_URL}api/create_collection/`,
                 formData
               );
-              if (res.status === true) {
+              console.log(res);
+              // Swal.fire({
+              //   title: "Hurray .....",
+              //   text: "Collection Created Sucessfully!",
+              //   icon: "success",
+              //   confirmButtonText: "Go to Dashboard",
+              // }).then((result) => {
+              //   if (result.isConfirmed) {
+              //     const token = JSON.parse(localStorage.getItem("access"));
+              //     const decoded = jwt_decode(token);
+              //     const id = decoded.user_id;
+              //     window.location = `/dashboard?${id}`;
+              //   }
+              // });
+              if (res.status == true) {
                 Swal.fire({
                   title: "Hurray .....",
                   text: "Collection Created Sucessfully!",
@@ -109,7 +120,11 @@ class CreateCollection extends Component {
                   }
                 });
               } else {
-                notify.show("Failed to create!", "error", 3000);
+                Swal.fire({
+                  title: "Opps .....",
+                  text: `${res.message}`,
+                  icon: "error",
+                })
                 this.setState({ loader: false });
               }
             }

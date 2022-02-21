@@ -25,7 +25,9 @@ const ExploreFour = () => {
   const [page, setPage] = useState(1);
   const [favNFT, setFavNFT] = useState([]);
   const [collectionData, setCollectionData] = useState([]);
-
+  let token = JSON.parse(localStorage.getItem("access"));
+  const decoded = jwt_decode(token);
+  const loggedUser = decoded.user_id;
   useEffect(async () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
     let token = JSON.parse(localStorage.getItem("access"));
@@ -282,6 +284,7 @@ const ExploreFour = () => {
                   id={id}
                   item={item}
                   favNFT={favNFT}
+                  loggedUser={loggedUser}
                   check_favourite={check_favourite}
                 />
               );

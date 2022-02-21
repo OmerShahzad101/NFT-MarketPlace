@@ -51,7 +51,7 @@ const Header = () => {
             </li>
             <li className="nav-item">
               <Link to="/liveAuction" className="nav-link">
-                live Auction
+                Live Auction
               </Link>
             </li>
             {/* <li className="nav-item">

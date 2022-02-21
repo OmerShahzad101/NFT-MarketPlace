@@ -3,18 +3,19 @@ import jwt_decode from "jwt-decode";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import favoriteNft from "../../services/favoriteNft.service";
+import $ from "jquery"
 
 const FavouriteNft = () => {
-  let newArray = [];
-  let count = true;
   const token = JSON.parse(localStorage.getItem("access"));
   const decoded = jwt_decode(token);
   const loggedUser = decoded.user_id;
   const [favNFT, setFavNFT] = useState([]);
-  const [nftData, setNftData] = useState();
+  const [nftData, setNftData] = useState([]);
+  const [page, setPage] = useState(1);
 
+  let limit = 2;
   useEffect(async () => {
-    updated_favourite_list();
+    updated_favourite_list(limit);
   }, []);
   const check_favourite = async (nftid, loggedUser) => {
     const favourite_payload = {
@@ -23,13 +24,20 @@ const FavouriteNft = () => {
       nft: nftid,
     };
     favouriteCall(favourite_payload);
+    
   };
   const updated_favourite_list = async () => {
     const result = await favoriteNft.favoriteNftGet(
-      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
+      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}?limit=${limit}&page=${page}`
     );
-    let newArray = result.data.user_favourite_nft;
+    let newArray = [...nftData, ...result.data.user_favourite_nft];
     setNftData(newArray);
+    console.log(result.data.pagination.total)
+    console.log(newArray.length)
+    if (result.data.pagination.total === newArray.length) {
+      $("#loadmorebtnfav").fadeOut("slow");
+    }
+    setPage(page + 1);
   };
   const favouriteCall = async (favourite_payload) => {
     const result = await favoriteNft.favoriteNftPost(
@@ -113,6 +121,17 @@ const FavouriteNft = () => {
           </div>
         )}
       </div>
+      <div className="row">
+          <div className="col-12 text-center">
+            <button
+              onClick={() => updated_favourite_list()}
+              className="btn btn-bordered-white mt-5"
+              id="loadmorebtnfav"
+            >
+              Load More
+            </button>
+          </div>
+        </div>
     </>
   );
 };

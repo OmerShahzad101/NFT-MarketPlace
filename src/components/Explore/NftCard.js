@@ -3,19 +3,15 @@ import { Link } from "react-router-dom";
 import { ENV } from "../../env";
 
 const NftCard = ({ id, item, check_favourite, favNFT }) => {
-  console.log(id)
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState();
   const token = JSON.parse(localStorage.getItem("access"));
   useEffect(() => {
     if (favNFT.length > 0) {
       favNFT.forEach((nft) => {
         if (item.id == nft.nft_id) {
-          debugger;
-          let a = item.id;
-          let b = nft.nft_id;
-          let c = true;
-          setIsFavorite(c);
-        } else setIsFavorite(false);
+          console.log(item.id == nft.nft_id);
+          setIsFavorite(true);
+        }
       });
     }
   }, []);
@@ -42,6 +38,7 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
                   onClick={() => check_favourite(item.id, item.user_id)}
                   className="set"
                 >
+                  {console.log(isFavorite)}
                   <i
                     className={`fas fa-heart fa-2x ${
                       isFavorite === true ? "heart_color" : ""
@@ -49,7 +46,9 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
                   />
                 </button>
               ) : (
-                <Link to={"/login"}><i className="fas fa-heart fa-2x color"></i></Link>
+                <Link to={"/login"}>
+                  <i className="fas fa-heart fa-2x color"></i>
+                </Link>
               )}
             </div>
             <div className="seller d-flex align-items-center my-3 text-nowrap">
