@@ -27,7 +27,7 @@ const Collections = () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
     $("#myElement label:first").addClass("active");
     const res = await Category.category(
-      `${ENV.API_URL}api/specific_catgory_collection-data/0?limit=1000`
+      `${ENV.API_URL}api/specific_catgory_collection-data/0?limit=999`
     );
     setCollectionData(res.data.data.category_data);
     console.log(res.data.data.category_data);
@@ -35,7 +35,7 @@ const Collections = () => {
 
   const specificCategory = async (id) => {
     const res = await Category.category(
-      `${ENV.API_URL}api/specific_catgory_collection-data/${id}?limit=1000`
+      `${ENV.API_URL}api/specific_catgory_collection-data/${id}?limit=999`
     );
     setCollectionData(res.data.data.category_data);
     console.log(res.data.data.category_data);

@@ -3529,3 +3529,6 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 	border-radius: 10px;
   background-image: linear-gradient( 150deg, #57048a 0%, var(--primary-color) 78% );
 }
+.collection_filter_label .active::after, .saletype_filter_label .active::after{
+  display: none;
+}
