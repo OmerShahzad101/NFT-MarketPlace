@@ -27,7 +27,6 @@ const ExploreFour = () => {
   const [collectionData, setCollectionData] = useState([]);
   let token = JSON.parse(localStorage.getItem("access"));
 
-  
   useEffect(async () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
     let token = JSON.parse(localStorage.getItem("access"));
@@ -45,7 +44,6 @@ const ExploreFour = () => {
     const loggedUser = decoded.user_id;
     let filtered_data = favNFT.filter((arrItem) => arrItem?.nft_id == nftid);
     if (filtered_data.length > 0) {
-
       remove_favourite(nftid, loggedUser);
     } else {
       add_favourite(nftid, loggedUser);
@@ -77,7 +75,6 @@ const ExploreFour = () => {
     }
   };
   const Get_Favourite_Updated = async (loggedUser) => {
-    
     try {
       const result = await favoriteNft.favoriteNftGet(
         `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
@@ -116,24 +113,25 @@ const ExploreFour = () => {
     setPage(page + 1);
   };
   const resetFilter = async (no) => {
-    limit = 2;
+    limit = 50;
     const res = await NFT.nftget(
       `${ENV.API_URL}api/nft_list/?page=${no}&limit=${limit}`
     );
     setNftData(res.data.data.results);
   };
-  
+
   const saleType = async (value) => {
-    limit = 50;
-    const nFilters = await favoriteNft.saleTyeGet(
+    let limit = 50;
+    const nFilters = await favoriteNft.saleTypeGet(
       `${ENV.API_URL}api/nft-filters/?sale_type=${value}&limit=${limit}`
     );
-    setNftData(nFilters.data.results);
+    console.log(nFilters)
+    setNftData(nFilters.data.data.results);
   };
   const collectionNFT = async (id) => {
     limit = 50;
     const res = await Collection.collection(
-      `${ENV.API_URL}api/specific_collection/${id}/?limit=${limit}`
+      `${ENV.API_URL}api/specific_collection/${id}/&limit=${limit}`
     );
     setNftData(res.data.data.nft_collection);
   };
@@ -213,7 +211,6 @@ const ExploreFour = () => {
               <div className="d-flex justify-content-end pointer">
                 <h6 onClick={() => resetFilter(1)}>Reset Filters</h6>
               </div>
-             
             </div>
           </div>
         </div>

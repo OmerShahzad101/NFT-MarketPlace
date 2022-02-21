@@ -30,9 +30,9 @@ const favoriteNft = {
     return _data;
   },
 
-  saleTyeGet: (url, data) => {
-    console.log(data)
+  saleTypeGet: (url, data) => {
     return axios.get(url, data);
+    console.log(data)
   },
 };
 export default favoriteNft;
