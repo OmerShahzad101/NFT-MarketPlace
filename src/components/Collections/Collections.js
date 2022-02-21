@@ -40,7 +40,6 @@ const Collections = () => {
       `${ENV.API_URL}api/specific_catgory_collection-data/${id}`
     );
     setCollectionData(res.data.data.category_data);
-
     console.log(res.data.data.category_data);
   };
 

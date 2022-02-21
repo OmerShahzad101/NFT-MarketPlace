@@ -97,6 +97,7 @@ const ExploreFour = () => {
     setFavNFT(result.data.user_favourite_nft);
   };
   const filterCollectionList = async () => {
+    $("#myElement label:first").addClass("active");
     const res = await Collection.collection(
       `${ENV.API_URL}api/specific_catgory_collection-data/0`
     );
@@ -120,6 +121,7 @@ const ExploreFour = () => {
     setNftData(res.data.data.results);
   };
   const saleType = async (value) => {
+    $("#myElement").addClass("active");
     const nFilters = await favoriteNft.saleTyeGet(
       `${ENV.API_URL}api/nft-filters/?sale_type=${value}?page=${page}&limit=${limit}`
     );
@@ -168,7 +170,7 @@ const ExploreFour = () => {
             </button>
           </div>
         </div>
-        <div className="row">
+        <div className="row " id="myElement"> 
           <div className="col-12">
             <div className="collapse" id="collapseFilter">
               <div className="sales-type d-flex align-items-sm-center my-3">
