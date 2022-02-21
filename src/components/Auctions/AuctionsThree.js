@@ -57,13 +57,13 @@ const AuctionThree = () => {
                       <div key={`auc_${idx}`} className="swiper-slide item">
                         <div className="card">
                           <div className="image-over">
-                            <Link to={`/nft-details?${item.id}`}>
+                            <a href={`/nft-details?${item.id}`}>
                               <img
                                 className="card-img-top image-container-nft"
                                 src={`${ENV.API_URL_image}${item.image}`}
                                 alt=""
                               />
-                            </Link>
+                            </a>
                           </div>
                           <div className="card-caption col-12 p-0">
                             <div className="card-body">
@@ -75,9 +75,9 @@ const AuctionThree = () => {
                                   )}
                                 />
                               </div>
-                              <Link to={`/nft-details?${item.id}`}>
+                              <a href={`/nft-details?${item.id}`}>
                                 <h5 className="mb-0">{item.name}</h5>
-                              </Link>
+                              </a>
                               <Link
                                 className="seller d-flex align-items-center my-3"
                                 to={`/author?${item.user_id}`}
@@ -119,13 +119,13 @@ const AuctionThree = () => {
                   >
                     <div className="card">
                       <div className="image-over">
-                        <Link to={`/nft-details?${item.id}`}>
+                        <a href={`/nft-details?${item.id}`}>
                           <img
                             className="card-img-top image-container-nft"
                             src={`${ENV.API_URL_image}${item.image}`}
                             alt=""
                           />
-                        </Link>
+                        </a>
                       </div>
                       <div className="card-caption col-12 p-0">
                         <div className="card-body">
@@ -137,9 +137,9 @@ const AuctionThree = () => {
                               )}
                             />
                           </div>
-                          <Link to={`/nft-details?${item.id}`}>
+                          <a href={`/nft-details?${item.id}`}>
                             <h5 className="mb-0">{item.name}</h5>
-                          </Link>
+                          </a>
                           <Link
                             className="seller d-flex align-items-center my-3"
                             to={`/author?${item.user_id}`}

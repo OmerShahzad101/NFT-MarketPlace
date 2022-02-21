@@ -70,7 +70,7 @@ const ExploreFour = () => {
       fvtNFTData
     );
     if (result.status == true) {
-      Get_Favourite_Updated();
+      Get_Favourite_Updated(userid);
       Swal.fire({
         title: "Done... ",
         text: `${result.message}`,
@@ -84,13 +84,12 @@ const ExploreFour = () => {
     }
   };
   const Get_Favourite_Updated = async (loggedUser) => {
-    try {
-      const result = await favoriteNft.favoriteNftGet(
-        `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
-      );
-      newArray = result.data.user_favourite_nft;
-      setFavNFT(newArray);
-    } catch (error) {}
+    const result = await favoriteNft.favoriteNftGet(
+      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
+    );
+    newArray = result.data.user_favourite_nft;
+    setFavNFT(newArray);
+    return(setFavNFT)
   };
   const sort = (col) => {
     if (order === "ASC") {
