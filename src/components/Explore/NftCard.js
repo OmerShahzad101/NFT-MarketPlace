@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ENV } from "../../env";
 
 const NftCard = ({ id, item, check_favourite, favNFT }) => {
-  const [isFavorite, setIsFavorite] = React.useState(false);
-  React.useEffect(() => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  console.log(item);
+  useEffect(() => {
     if (favNFT.length > 0) {
       favNFT.forEach((nft) => {
+        console.log(item.id);
+        console.log(nft.nft_id);
         if (item.id === nft.nft_id) {
-          setIsFavorite(true);
-        } else setIsFavorite(false);
+          setIsFavorite(!isFavorite);
+          console.log(isFavorite);
+        } 
+        else setIsFavorite(false);
       });
     }
-  }, [favNFT]);
+  }, []);
   return (
     <div className="col-12 col-sm-6 col-lg-3 item">
       <div className="card">
@@ -31,32 +36,20 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
               <Link to={`/nft-details?${item.id}`}>
                 <h5 className="mb-0">{item.name}</h5>
               </Link>
-
               <button
                 onClick={() => check_favourite(item.id, item.user_id)}
                 className="set"
               >
-                {/* {(count = true)}
-              {favNFT
-                ? favNFT?.map((fItem, fid) => {
-                    if (fItem?.nft_id == item?.id) {
-                      count = false;
-                      return (
-                        <i className="fas fa-heart fa-2x heart_color" />
-                      );
-                    }
-                  })
-                : ""}
-              {count == true ? (
-                <i className="fas fa-heart fa-2x" />
-              ) : (
-                ""
-              )} */}
-                <i
+                {isFavorite ? (
+                  <i className="fas fa-heart fa-2x heart_color"></i>
+                ) : (
+                  <i className="fas fa-heart fa-2x "></i>
+                )}
+                {/* <i
                   className={`fas fa-heart fa-2x ${
                     isFavorite === true ? "heart_color" : ""
                   }`}
-                />
+                /> */}
               </button>
             </div>
             <div className="seller d-flex align-items-center my-3 text-nowrap">

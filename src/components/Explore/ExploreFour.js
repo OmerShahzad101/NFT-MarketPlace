@@ -9,7 +9,7 @@ import Collection from "../../services/collections.service";
 import favoriteNft from "../../services/favoriteNft.service";
 import NftCard from "./NftCard";
 
-let limit = 8;
+let limit = 2;
 let count = true;
 const ExploreFour = () => {
   const initialData = {
@@ -35,7 +35,7 @@ const ExploreFour = () => {
     pagination();
     filterCollectionList();
   }, []);
-  const check_favourite = async (nftid) => {
+  const check_favourite = (nftid) => {
     let filtered_data = favNFT.filter((arrItem) => arrItem?.nft_id == nftid);
     if (filtered_data.length > 0) {
       remove_favourite(nftid, loggedUser);
@@ -43,28 +43,21 @@ const ExploreFour = () => {
       add_favourite(nftid, loggedUser);
     }
   };
-  const remove_favourite = async (nftid, userid) => {
+  const remove_favourite = (nftid, userid) => {
     const favourite_payload = {
       user: userid,
       is_favorite: false,
       nft: nftid,
     };
-    await favouriteCall(favourite_payload);
-    // if (result.status == true) {
-    //   setFavNFT((prev) => prev.filter((item) => item?.nft_id !== nftid));
-    // }
+    favouriteCall(favourite_payload);
   };
-  const add_favourite = async (nftid, userid) => {
+  const add_favourite = (nftid, userid) => {
     const favourite_payload = {
       user: userid,
       is_favorite: true,
       nft: nftid,
     };
-    await favouriteCall(favourite_payload);
-    debugger;
-    // if (result.status == true) {
-    //   setFavNFT((prev) => [...prev, result.data]);
-    // }
+    favouriteCall(favourite_payload);
   };
   const favouriteCall = async (fvtNFTData) => {
     const result = await favoriteNft.favoriteNftPost(
@@ -74,6 +67,16 @@ const ExploreFour = () => {
     if (result.status == true) {
       Get_Favourite_Updated();
     }
+  };
+  const Get_Favourite_Updated = async () => {
+    
+    try {
+      const result = await favoriteNft.favoriteNftGet(
+        `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
+      );
+      newArray = result.data.user_favourite_nft;
+      setFavNFT(newArray);
+    } catch (error) {}
   };
   const sort = (col) => {
     if (order === "ASC") {
@@ -86,15 +89,6 @@ const ExploreFour = () => {
       setNftData(sorted);
       setOrder("ASC");
     }
-  };
-  const Get_Favourite_Updated = async () => {
-    try {
-      const result = await favoriteNft.favoriteNftGet(
-        `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
-      );
-      newArray = result.data.user_favourite_nft;
-      setFavNFT(result.data.user_favourite_nft);
-    } catch (error) {}
   };
   const filterCollectionList = async () => {
     const res = await Collection.collection(
@@ -114,28 +108,28 @@ const ExploreFour = () => {
     setPage(page + 1);
   };
   const resetFilter = async (no) => {
+    limit = 2;
     const res = await NFT.nftget(
       `${ENV.API_URL}api/nft_list/?page=${no}&limit=${limit}`
     );
     setNftData(res.data.data.results);
   };
+  
   const saleType = async (value) => {
+    limit = 50;
     const nFilters = await favoriteNft.favoriteNftGet(
-      `${ENV.API_URL}api/nft-filters/?sale_type=${value}?page=${page}&limit=${limit}`
+      `${ENV.API_URL}api/nft-filters/?sale_type=${value}&limit=${limit}`
     );
     setNftData(nFilters.data.results);
   };
   const collectionNFT = async (id) => {
+    limit = 50;
     const res = await Collection.collection(
-      `${ENV.API_URL}api/specific_collection/${id}/?page=${page}&limit=${limit}`
+      `${ENV.API_URL}api/specific_collection/${id}/?limit=${limit}`
     );
     setNftData(res.data.data.nft_collection);
   };
-  const checkFav = (data) => {
-    const index = favNFT.findIndex((x) => x.nft_id == data.id);
-    if (index > -1) return <i className="fas fa-heart fa-2x heart_color" />;
-    else return <i className="fas fa-heart fa-2x" />;
-  };
+
   return (
     <section className="explore-area">
       <div className="container">
@@ -207,60 +201,8 @@ const ExploreFour = () => {
                     : ""}
                 </div>
               </div>
-              <div className="currency-form d-flex align-items-lg-center my-3">
-                <h6 className="mr-5">Currencies</h6>
-                <form className="d-lg-flex align-items-center justify-content-between">
-                  <div className="d-lg-flex">
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="bnb"
-                        value="option1"
-                      />
-                      <label class="form-check-label" for="bnb">
-                        Binance (BNB)
-                      </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="usd"
-                        value="option1"
-                      />
-                      <label class="form-check-label" for="usd">
-                        Dollar (USD)
-                      </label>
-                    </div>
-                    <div className="d-sm-flex my-3 my-lg-0 justify-content-between">
-                      <input
-                        class="form-control"
-                        type="text"
-                        placeholder="Min"
-                      />
-                      <span> - </span>
-                      <input
-                        class="form-control"
-                        type="text"
-                        placeholder="Max"
-                      />
-                      <button
-                        type="submit"
-                        className="btn btn-bordered-white ml-sm-3 mt-3 mt-sm-0"
-                      >
-                        Apply
-                      </button>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="reset-filter">Reset</span>
-                  </div>
-                </form>
-              </div>
-              <div>
+
+              <div className="d-flex justify-content-end pointer">
                 <h6 onClick={() => resetFilter(1)}>Reset Filters</h6>
               </div>
             </div>
