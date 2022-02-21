@@ -25,7 +25,7 @@ const ExploreFour = () => {
   const [page, setPage] = useState(1);
   const [favNFT, setFavNFT] = useState();
   const [collectionData, setCollectionData] = useState([]);
-  let token = null;
+  let token = JSON.parse(localStorage.getItem("access"));
 
   useEffect(async () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
@@ -203,7 +203,7 @@ const ExploreFour = () => {
                     : ""}
                 </div>
               </div>
-              <div className="currency-form d-flex align-items-lg-center my-3">
+              {/* <div className="currency-form d-flex align-items-lg-center my-3">
                 <h6 className="mr-5">Currencies</h6>
                 <form className="d-lg-flex align-items-center justify-content-between">
                   <div className="d-lg-flex">
@@ -255,8 +255,8 @@ const ExploreFour = () => {
                     <span className="reset-filter">Reset</span>
                   </div>
                 </form>
-              </div>
-              <div>
+              </div> */}
+              <div  className="d-flex justify-content-end pointer">
                 <h6 onClick={() => resetFilter(1)}>Reset Filters</h6>
               </div>
             </div>
