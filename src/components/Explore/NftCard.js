@@ -4,12 +4,10 @@ import { ENV } from "../../env";
 
 const NftCard = ({ id, item, check_favourite, favNFT }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  console.log(item);
+  const token = JSON.parse(localStorage.getItem("access"));
   useEffect(() => {
     if (favNFT.length > 0) {
       favNFT.forEach((nft) => {
-        console.log(item.id);
-        console.log(nft.nft_id);
         if (item.id === nft.nft_id) {
           setIsFavorite(!isFavorite);
           console.log(isFavorite);
@@ -36,6 +34,7 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
               <Link to={`/nft-details?${item.id}`}>
                 <h5 className="mb-0">{item.name}</h5>
               </Link>
+              {token ?
               <button
                 onClick={() => check_favourite(item.id, item.user_id)}
                 className="set"
@@ -51,6 +50,7 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
                   }`}
                 /> */}
               </button>
+              : " "} 
             </div>
             <div className="seller d-flex align-items-center my-3 text-nowrap">
               <span>Owned By</span>

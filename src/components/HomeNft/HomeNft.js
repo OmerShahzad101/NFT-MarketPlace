@@ -68,7 +68,6 @@ const HomeNft = () => {
                           <Link to={`/nft-details?${item.id}`}>
                             <h5 className="mb-0">{item.name}</h5>
                           </Link>
-                          <i class="far fa-heart"></i>
                         </div>
                         <div className="seller d-flex align-items-center my-3">
                           <span>Owned By</span>

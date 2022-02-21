@@ -9,7 +9,7 @@ import Collection from "../../services/collections.service";
 import favoriteNft from "../../services/favoriteNft.service";
 import NftCard from "./NftCard";
 
-let limit = 2;
+let limit = 8;
 let count = true;
 const ExploreFour = () => {
   const initialData = {
@@ -25,19 +25,27 @@ const ExploreFour = () => {
   const [page, setPage] = useState(1);
   const [favNFT, setFavNFT] = useState([]);
   const [collectionData, setCollectionData] = useState([]);
-  const token = JSON.parse(localStorage.getItem("access"));
-  const decoded = jwt_decode(token);
-  const loggedUser = decoded.user_id;
+  let token = JSON.parse(localStorage.getItem("access"));
 
+  
   useEffect(async () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
-    Get_Favourite_Updated();
+    let token = JSON.parse(localStorage.getItem("access"));
+    if (token) {
+      const decoded = jwt_decode(token);
+      const loggedUser = decoded.user_id;
+      Get_Favourite_Updated(loggedUser);
+    }
     pagination();
     filterCollectionList();
   }, []);
   const check_favourite = (nftid) => {
+    let token = JSON.parse(localStorage.getItem("access"));
+    const decoded = jwt_decode(token);
+    const loggedUser = decoded.user_id;
     let filtered_data = favNFT.filter((arrItem) => arrItem?.nft_id == nftid);
     if (filtered_data.length > 0) {
+
       remove_favourite(nftid, loggedUser);
     } else {
       add_favourite(nftid, loggedUser);
@@ -68,7 +76,7 @@ const ExploreFour = () => {
       Get_Favourite_Updated();
     }
   };
-  const Get_Favourite_Updated = async () => {
+  const Get_Favourite_Updated = async (loggedUser) => {
     
     try {
       const result = await favoriteNft.favoriteNftGet(
