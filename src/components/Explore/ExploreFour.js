@@ -8,8 +8,9 @@ import Category from "../../services/category.service";
 import Collection from "../../services/collections.service";
 import favoriteNft from "../../services/favoriteNft.service";
 import NftCard from "./NftCard";
+import Swal from "sweetalert2";
 
-let limit = 2;
+let limit = 8;
 let count = true;
 const ExploreFour = () => {
   const initialData = {
@@ -55,7 +56,7 @@ const ExploreFour = () => {
       is_favorite: false,
       nft: nftid,
     };
-    favouriteCall(favourite_payload);
+    favouriteCall(favourite_payload, userid);
   };
   const add_favourite = (nftid, userid) => {
     const favourite_payload = {
@@ -63,15 +64,25 @@ const ExploreFour = () => {
       is_favorite: true,
       nft: nftid,
     };
-    favouriteCall(favourite_payload);
+    favouriteCall(favourite_payload , userid);
   };
-  const favouriteCall = async (fvtNFTData) => {
+  const favouriteCall = async (fvtNFTData, userid) => {
     const result = await favoriteNft.favoriteNftPost(
       `${ENV.API_URL}api/favourite-nft/`,
       fvtNFTData
     );
     if (result.status == true) {
       Get_Favourite_Updated();
+      Swal.fire({
+        title: "Done... ",
+        text: `${result.message}`,
+        icon: "success",
+        confirmButtonText: "Go to Dashboard",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = `/dashboard?${userid}`;
+        }
+      });
     }
   };
   const Get_Favourite_Updated = async (loggedUser) => {
@@ -113,7 +124,7 @@ const ExploreFour = () => {
     setPage(page + 1);
   };
   const resetFilter = async (no) => {
-    $("#loadmorebtn").show()
+    $("#loadmorebtn").show();
     const res = await NFT.nftget(
       `${ENV.API_URL}api/nft_list/?page=${no}&limit=${limit}`
     );
@@ -122,12 +133,12 @@ const ExploreFour = () => {
   };
 
   const saleType = async (value) => {
-    $("#loadmorebtn").hide()
+    $("#loadmorebtn").hide();
     let limit_sale = 50;
     const nFilters = await favoriteNft.saleTypeGet(
       `${ENV.API_URL}api/nft-filters/?sale_type=${value}&limit=${limit_sale}`
     );
-    console.log(nFilters)
+    console.log(nFilters);
     setNftData(nFilters.data.data.results);
   };
   const collectionNFT = async (id) => {

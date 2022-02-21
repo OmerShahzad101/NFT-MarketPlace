@@ -71,7 +71,7 @@ const MyCollections = () => {
                       {/* Seller */}
                       <a
                         className="seller"
-                        href={`/collectionDetail?${item.id}`}
+                        href={`/collectionDetail?${item.collection_id}`}
                       >
                         <div className="seller-thumb avatar-lg">
                           <img

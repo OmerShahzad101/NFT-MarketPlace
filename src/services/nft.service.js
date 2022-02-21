@@ -17,7 +17,7 @@ const NFT = {
   },
 
   nftget: (url, data) => {
-    console.log(data)
+   // console.log(data)
     return axios.get(url, data);
   },
 

@@ -8,8 +8,9 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
   useEffect(() => {
     if (favNFT.length > 0) {
       favNFT.forEach((nft) => {
-        if (item.id === nft.nft_id) {
-          setIsFavorite(!isFavorite);
+        if (item.id == nft.nft_id) {
+          console.log(isFavorite);
+          setIsFavorite(true);
           console.log(isFavorite);
         } 
         else setIsFavorite(false);

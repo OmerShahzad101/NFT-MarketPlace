@@ -5,7 +5,6 @@ import Category from "../../services/category.service";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 
-// let limit = 4;
 const initialData = {
   heading: "Collections ",
   content:
@@ -28,7 +27,7 @@ const Collections = () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
     $("#myElement label:first").addClass("active");
     const res = await Category.category(
-      `${ENV.API_URL}api/specific_catgory_collection-data/0`
+      `${ENV.API_URL}api/specific_catgory_collection-data/0?limit=1000`
     );
     setCollectionData(res.data.data.category_data);
 
@@ -37,7 +36,7 @@ const Collections = () => {
 
   const specificCategory = async (id) => {
     const res = await Category.category(
-      `${ENV.API_URL}api/specific_catgory_collection-data/${id}`
+      `${ENV.API_URL}api/specific_catgory_collection-data/${id}?limit=1000`
     );
     setCollectionData(res.data.data.category_data);
     console.log(res.data.data.category_data);
