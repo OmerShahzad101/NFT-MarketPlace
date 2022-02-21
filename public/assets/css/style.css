@@ -3500,4 +3500,6 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 .set:focus {
   outline: none;
 }
-
+.pointer{
+  cursor: pointer;
+}
