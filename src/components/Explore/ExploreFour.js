@@ -9,7 +9,7 @@ import Collection from "../../services/collections.service";
 import favoriteNft from "../../services/favoriteNft.service";
 import NftCard from "./NftCard";
 
-let limit = 8;
+let limit = 2;
 let count = true;
 const ExploreFour = () => {
   const initialData = {
@@ -113,25 +113,27 @@ const ExploreFour = () => {
     setPage(page + 1);
   };
   const resetFilter = async (no) => {
-    limit = 50;
+    $("#loadmorebtn").show()
     const res = await NFT.nftget(
       `${ENV.API_URL}api/nft_list/?page=${no}&limit=${limit}`
     );
     setNftData(res.data.data.results);
+    setPage(2);
   };
 
   const saleType = async (value) => {
-    let limit = 50;
+    $("#loadmorebtn").hide()
+    let limit_sale = 50;
     const nFilters = await favoriteNft.saleTypeGet(
-      `${ENV.API_URL}api/nft-filters/?sale_type=${value}&limit=${limit}`
+      `${ENV.API_URL}api/nft-filters/?sale_type=${value}&limit=${limit_sale}`
     );
     console.log(nFilters)
     setNftData(nFilters.data.data.results);
   };
   const collectionNFT = async (id) => {
-    limit = 50;
+    let limit_collection = 50;
     const res = await Collection.collection(
-      `${ENV.API_URL}api/specific_collection/${id}/&limit=${limit}`
+      `${ENV.API_URL}api/specific_collection/${id}/?limit=${limit_collection}`
     );
     setNftData(res.data.data.nft_collection);
   };
