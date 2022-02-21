@@ -29,13 +29,13 @@ const Header = () => {
         className="navbar navbar-expand"
       >
         <div className="container header">
-          <a className="navbar-brand" href="/">
+          <Link className="navbar-brand" to="/">
             <img
               className="navbar-brand-sticky"
               src="img/logo.png"
               alt="sticky brand-logo"
             />
-          </a>
+          </Link>
           <div className="ml-auto" />
           {/* Navbar */}
           <ul className="navbar-nav items ">
