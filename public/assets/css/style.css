@@ -3533,3 +3533,6 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 .outline-heart:hover path{
   fill: #dc3545;
 }
+.author-card-height{
+  min-height: 443px;
+}

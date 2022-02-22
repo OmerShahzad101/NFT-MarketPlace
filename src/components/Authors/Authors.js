@@ -50,7 +50,7 @@ const Authors = () => {
                     key={`ad_${idx}`}
                     className="col-12 col-sm-6 col-lg-3 item"
                   >
-                    <div className="card no-hover text-center">
+                    <div className="card no-hover text-center author-card-height">
                       {item.banner_image ? (
                         <div className="image-over ">
                           <Link to={`/author?${item.user_id}`}>
