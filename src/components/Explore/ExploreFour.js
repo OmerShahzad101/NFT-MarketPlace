@@ -7,7 +7,6 @@ import Collection from "../../services/collections.service";
 import favoriteNft from "../../services/favoriteNft.service";
 import NftCard from "./NftCard";
 
-
 let limit = 8;
 const ExploreFour = () => {
   const initialData = {
@@ -23,7 +22,7 @@ const ExploreFour = () => {
   const [page, setPage] = useState(1);
   const [favNFT, setFavNFT] = useState([]);
   const [collectionData, setCollectionData] = useState([]);
-
+  const [loader, setLoader] = useState(false);
   useEffect(async () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
     let token = JSON.parse(localStorage.getItem("access"));
@@ -32,6 +31,7 @@ const ExploreFour = () => {
       const loggedUser = decoded.user_id;
       Get_Favourite_Updated(loggedUser);
     }
+    setLoader(true);
     pagination();
     filterCollectionList();
   }, []);
@@ -107,7 +107,9 @@ const ExploreFour = () => {
       $("#loadmorebtn").fadeOut("slow");
     }
     setPage(page + 1);
+    setLoader(false);
   };
+
   const resetFilter = async (no) => {
     $(".collection_filter_label label").removeClass("active");
     $(".saletype_filter_label label").removeClass("active");
@@ -143,158 +145,173 @@ const ExploreFour = () => {
   };
 
   return (
-    <section className="explore-area">
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-12 col-md-8 col-lg-7">
-            <div className="intro text-center">
-              <h3 className="mt-3 mb-0">{initData.heading}</h3>
-              <p>{initData.content}</p>
-            </div>
+    <>
+      {loader ? (
+        <div className="fullpage-loader-holder">
+          <div className="fullpage-loader">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
           </div>
         </div>
-        <div className="row ">
-          <div className="col-xl-3 col-sm-6 text-right order-sm-last">
-            <div class="form-group filter-select position-relative m-0">
-              <select class="form-control " onChange={(e) => sort("price")}>
-                <option disabled selected hidden>
-                  Select price
-                </option>
-                <option>Price Low - High</option>
-                <option>Price High - Low</option>
-              </select>
-            </div>
-          </div>
-          <div className="col-sm-6 col-xl-9">
-            <button
-              className="btn px-5 my-sm-0 my-3"
-              type="button"
-              data-toggle="collapse"
-              data-target="#collapseFilter"
-              aria-expanded="false"
-              aria-controls="collapseFilter"
-            >
-              Filter
-            </button>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12">
-            <div className="collapse" id="collapseFilter">
-              <div className="sales-type d-sm-flex align-items-sm-baseline my-4">
-                <h6 className="mr-5 mb-sm-0 mb-3">Sale Types</h6>
-                <div
-                  id="myElement"
-                  className="explore-menu btn-group btn-group-toggle saletype_filter_label"
-                  data-toggle="buttons"
-                >
-                  <label
-                    onClick={() => saleType("fixed_price")}
-                    className="btn d-table mr-5 p-0"
-                  >
-                    <input
-                      type="radio"
-                      defaultValue="Fixed Price"
-                      className="explore-btn"
-                    />
-                    <span>Fixed Price</span>
-                  </label>
-                  <label
-                    onClick={() => saleType("on_auction")}
-                    className="btn d-table mr-5 p-0"
-                  >
-                    <input
-                      type="radio"
-                      defaultValue="Live Auction"
-                      className="explore-btn"
-                    />
-                    <span>Live Auction</span>
-                  </label>
-                  <label
-                    onClick={() => saleType("recent")}
-                    className="btn d-table mr-5 p-0"
-                  >
-                    <input
-                      type="radio"
-                      defaultValue="Recently Added"
-                      className="explore-btn"
-                    />
-                    <span>Recently Added</span>
-                  </label>
+      ) : (
+        <section className="explore-area">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-12 col-md-8 col-lg-7">
+                <div className="intro text-center">
+                  <h3 className="mt-3 mb-0">{initData.heading}</h3>
+                  <p>{initData.content}</p>
                 </div>
               </div>
-              <div className="sales-type d-sm-flex my-4 align-items-sm-baseline">
-                <h6 className="mr-5 mb-sm-0 mb-3">Collections</h6>
-                <div
-                  id="myElement"
-                  className="filter-collection-list d-flex w-100 explore-menu btn-group-toggle collection_filter_label"
-                  data-toggle="buttons"
-                >
-                  {collectionData
-                    ? collectionData.map((cItem, id) => (
-                        <label
-                          onClick={() => collectionNFT(cItem.id)}
-                          className="btn d-table mr-5 p-0"
-                        >
-                          <input
-                            type="radio"
-                            defaultValue={cItem.collection_name}
-                            className="explore-btn"
-                          />
-                          <span>{cItem.collection_name}</span>
-                        </label>
-                      ))
-                    : ""}
+            </div>
+            <div className="row ">
+              <div className="col-xl-3 col-sm-6 text-right order-sm-last">
+                <div class="form-group filter-select position-relative m-0">
+                  <select class="form-control " onChange={(e) => sort("price")}>
+                    <option disabled selected hidden>
+                      Select price
+                    </option>
+                    <option>Price Low - High</option>
+                    <option>Price High - Low</option>
+                  </select>
                 </div>
               </div>
-
-              <div className="d-flex justify-content-end">
-                <h6
-                  className="mb-0 mt-3 pointer"
-                  onClick={() => resetFilter(1)}
+              <div className="col-sm-6 col-xl-9">
+                <button
+                  className="btn px-5 my-sm-0 my-3"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseFilter"
+                  aria-expanded="false"
+                  aria-controls="collapseFilter"
                 >
-                  Reset Filters
-                </h6>
+                  Filter
+                </button>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12">
+                <div className="collapse" id="collapseFilter">
+                  <div className="sales-type d-sm-flex align-items-sm-baseline my-4">
+                    <h6 className="mr-5 mb-sm-0 mb-3">Sale Types</h6>
+                    <div
+                      id="myElement"
+                      className="explore-menu btn-group btn-group-toggle saletype_filter_label"
+                      data-toggle="buttons"
+                    >
+                      <label
+                        onClick={() => saleType("fixed_price")}
+                        className="btn d-table mr-5 p-0"
+                      >
+                        <input
+                          type="radio"
+                          defaultValue="Fixed Price"
+                          className="explore-btn"
+                        />
+                        <span>Fixed Price</span>
+                      </label>
+                      <label
+                        onClick={() => saleType("on_auction")}
+                        className="btn d-table mr-5 p-0"
+                      >
+                        <input
+                          type="radio"
+                          defaultValue="Live Auction"
+                          className="explore-btn"
+                        />
+                        <span>Live Auction</span>
+                      </label>
+                      <label
+                        onClick={() => saleType("recent")}
+                        className="btn d-table mr-5 p-0"
+                      >
+                        <input
+                          type="radio"
+                          defaultValue="Recently Added"
+                          className="explore-btn"
+                        />
+                        <span>Recently Added</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div className="sales-type d-sm-flex my-4 align-items-sm-baseline">
+                    <h6 className="mr-5 mb-sm-0 mb-3">Collections</h6>
+                    <div
+                      id="myElement"
+                      className="filter-collection-list d-flex w-100 explore-menu btn-group-toggle collection_filter_label"
+                      data-toggle="buttons"
+                    >
+                      {collectionData
+                        ? collectionData.map((cItem, id) => (
+                            <label
+                              onClick={() => collectionNFT(cItem.id)}
+                              className="btn d-table mr-5 p-0"
+                            >
+                              <input
+                                type="radio"
+                                defaultValue={cItem.collection_name}
+                                className="explore-btn"
+                              />
+                              <span>{cItem.collection_name}</span>
+                            </label>
+                          ))
+                        : ""}
+                    </div>
+                  </div>
+
+                  <div className="d-flex justify-content-end">
+                    <h6
+                      className="mb-0 mt-3 pointer"
+                      onClick={() => resetFilter(1)}
+                    >
+                      Reset Filters
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="row items">
+              {nftData?.length > 0 ? (
+                nftData.map((item, id) => {
+                  const favindex = favNFT.findIndex((x) => x.nft_id == item.id);
+
+                  return (
+                    <NftCard
+                      key={item?.id}
+                      item={item}
+                      favNFT={favNFT}
+                      //loggedUser={loggedUser}
+                      check_favourite={check_favourite}
+                      isFav={favindex > -1 ? true : false}
+                    />
+                  );
+                })
+              ) : (
+                <div className="no_data">
+                  <span>No item to Explore</span>
+                </div>
+              )}
+            </div>
+            <div className="row">
+              <div className="col-12 text-center">
+                <button
+                  onClick={() => pagination()}
+                  className="btn btn-bordered-white mt-5"
+                  id="loadmorebtn"
+                >
+                  Load More
+                </button>
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="row items">
-          {nftData?.length > 0 ? (
-            nftData.map((item, id) => {
-              const favindex = favNFT.findIndex((x) => x.nft_id == item.id);
-              
-              return (
-                <NftCard
-                  key={item?.id}
-                  item={item}
-                  favNFT={favNFT}
-                  //loggedUser={loggedUser}
-                  check_favourite={check_favourite}
-                  isFav={favindex > -1 ? true : false}
-                />
-              );
-            })
-          ) : (
-            <div className="no_data">
-              <span>No item to Explore</span>
-            </div>
-          )}
-        </div>
-        <div className="row">
-          <div className="col-12 text-center">
-            <button
-              onClick={() => pagination()}
-              className="btn btn-bordered-white mt-5"
-              id="loadmorebtn"
-            >
-              Load More
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      )}
+    </>
   );
 };
 
