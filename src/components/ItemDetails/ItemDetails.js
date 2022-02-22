@@ -393,7 +393,7 @@ const ItemDetails = () => {
                 <div className="col-12 col-md-6 item px-lg-2">
                   <div className="card no-hover">
                     <div className="single-seller d-flex align-items-center">
-                      <Link to={`/author?${nftData.user_id}`}>
+                      <Link to={`/collectionDetail?${nftData.collection_id}`}>
                         <img
                           className="avatar-md rounded-circle"
                           src={`${ENV.API_URL_image_media}${nftData.banner_image}`}
