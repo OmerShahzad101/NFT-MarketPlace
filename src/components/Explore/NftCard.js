@@ -1,24 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ENV } from "../../env";
+import Heart from "../../assets/heart";
+import FillHeart from "../../assets/fillHeart";
+import jwt_decode from "jwt-decode";
 
-const NftCard = ({ id, item, check_favourite, favNFT }) => {
-  console.log(id)
-  const [isFavorite, setIsFavorite] = useState(false);
+const NftCard = ({ isFav, id, item, check_favourite, favNFT }) => {
   const token = JSON.parse(localStorage.getItem("access"));
+  const [isFavorite, setIsFavorite] = useState(isFav);
   useEffect(() => {
-    if (favNFT.length > 0) {
-      favNFT.forEach((nft) => {
-        if (item.id == nft.nft_id) {
-          debugger;
-          let a = item.id;
-          let b = nft.nft_id;
-          let c = true;
-          setIsFavorite(c);
-        } else setIsFavorite(false);
-      });
-    }
-  }, []);
+    const token = JSON.parse(localStorage.getItem("access"));
+    token && setIsFavorite(isFav)
+  }, [isFav]);
   return (
     <div className="col-12 col-sm-6 col-lg-3 item">
       <div className="card">
@@ -42,14 +35,12 @@ const NftCard = ({ id, item, check_favourite, favNFT }) => {
                   onClick={() => check_favourite(item.id, item.user_id)}
                   className="set"
                 >
-                  <i
-                    className={`fas fa-heart fa-2x ${
-                      isFavorite === true ? "heart_color" : ""
-                    }`}
-                  />
+                  {isFavorite ? <FillHeart /> : <Heart />}
                 </button>
               ) : (
-                <Link to={"/login"}><i className="fas fa-heart fa-2x color"></i></Link>
+                <Link to={"/login"}>
+                  <Heart />
+                </Link>
               )}
             </div>
             <div className="seller d-flex align-items-center my-3 text-nowrap">

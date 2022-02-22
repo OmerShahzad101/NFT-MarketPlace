@@ -36,6 +36,7 @@ const ExploreFour = () => {
       const decoded = jwt_decode(token);
       const loggedUser = decoded.user_id;
       Get_Favourite_Updated(loggedUser);
+      
     }
   }, []);
   const check_favourite = async (nftid) => {
@@ -43,7 +44,7 @@ const ExploreFour = () => {
     const decoded = jwt_decode(token);
     const loggedUser = decoded.user_id;
 
-    let filtered_data = favNFT.filter((arrItem) => arrItem.nft_id == nftid);
+    5
     if (filtered_data.length > 0) {
       remove_favourite(nftid, loggedUser);
     } else {

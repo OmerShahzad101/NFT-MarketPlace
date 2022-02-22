@@ -3,14 +3,12 @@ import $ from "jquery";
 import { ENV } from "../../env";
 import jwt_decode from "jwt-decode";
 import NFT from "../../services/nft.service";
-import Category from "../../services/category.service";
 import Collection from "../../services/collections.service";
 import favoriteNft from "../../services/favoriteNft.service";
 import NftCard from "./NftCard";
 import Swal from "sweetalert2";
 
 let limit = 8;
-let count = true;
 const ExploreFour = () => {
   const initialData = {
     heading: "Exclusive Digital Assets",
@@ -275,12 +273,16 @@ const ExploreFour = () => {
         <div className="row items">
           {nftData?.length > 0 ? (
             nftData.map((item, id) => {
+              const favindex = favNFT.findIndex((x) => x.nft_id == item.id);
+              
               return (
                 <NftCard
-                  id={id}
+                  key={item?.id}
                   item={item}
                   favNFT={favNFT}
+                  l//oggedUser={loggedUser}
                   check_favourite={check_favourite}
+                  isFav={favindex > -1 ? true : false}
                 />
               );
             })
