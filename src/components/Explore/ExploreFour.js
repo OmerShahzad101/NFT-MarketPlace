@@ -109,7 +109,6 @@ const ExploreFour = () => {
     setPage(page + 1);
     setLoader(false);
   };
-
   const resetFilter = async (no) => {
     $(".collection_filter_label label").removeClass("active");
     $(".saletype_filter_label label").removeClass("active");
@@ -123,7 +122,6 @@ const ExploreFour = () => {
     }
     setPage(2);
   };
-
   const saleType = async (value) => {
     $(".collection_filter_label label").removeClass("active");
     $("#loadmorebtn").hide();
@@ -147,7 +145,7 @@ const ExploreFour = () => {
   return (
     <>
       {loader ? (
-        <div className="fullpage-loader-holder">
+        <div className="fullpage-loader-holder height">
           <div className="fullpage-loader">
             <div class="circle"></div>
             <div class="circle"></div>

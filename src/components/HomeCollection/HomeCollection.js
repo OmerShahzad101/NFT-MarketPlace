@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import { Link } from "react-router-dom";
-// import Category from "../../services/category.service";
 
 const initialData = {
   preHeading: "Exclusive Collecton",
@@ -14,17 +13,13 @@ const initialData = {
 const HomeCollection = () => {
   const [initData] = useState(initialData);
   const [collectionData, setCollectionData] = useState();
-  // const [categories, setCategories] = useState([]);
-  // const [data, setData] = useState({});
   let limit = 4;
   let page = 1;
   useEffect(async () => {
     const res = await Collection.collection(
       `${ENV.API_URL}api/collection_list/?page=${page}&limit=${limit}`
     );
-    // const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCollectionData(res.data.data.results);
-    // setCategories(result.data.data.results);
   }, []);
 
   return (
@@ -40,9 +35,9 @@ const HomeCollection = () => {
                     <h3 className="mt-3 mb-0">{initData.heading}</h3>
                   </div>
                   <div className="intro-btn">
-                    <a className="btn content-btn text-left" href="collection">
+                    <Link className="btn content-btn text-left" to="collection">
                       View All
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

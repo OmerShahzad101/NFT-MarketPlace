@@ -59,228 +59,250 @@ const initialValues = {
 const Signup = () => {
   let history = useHistory();
   const [initData] = useState(initialData);
+  const [loader, setLoader] = useState(false);
 
   return (
-    <section className="author-area login-section">
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-12 col-md-8 col-lg-6">
-            <div className="intro text-center">
-              <h3 className="mt-3 mb-0">{initData.heading}</h3>
-              <p>{initData.content}</p>
-            </div>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={signupSchema}
-              onSubmit={async (values) => {
-                const res = await auth.register(
-                  `${ENV.API_URL}api/auth/users/`,
-                  values
-                );
+    <>
+      {loader ? (
+        <div className="fullpage-loader-holder height">
+          <div className="fullpage-loader">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+          </div>
+        </div>
+      ) : (
+        <section className="author-area login-section">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-12 col-md-8 col-lg-6">
+                <div className="intro text-center">
+                  <h3 className="mt-3 mb-0">{initData.heading}</h3>
+                  <p>{initData.content}</p>
+                </div>
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={signupSchema}
+                  onSubmit={async (values) => {
+                    setLoader(true);
+                    const res = await auth.register(
+                      `${ENV.API_URL}api/auth/users/`,
 
-                // console.log(res)
-                if (res.id != null) {
-                  Swal.fire({
-                    icon: "success",
-                    title: "Yeah...",
-                    text: "Registerd Sucessfully!",
-                  });
-                  history.push("/login");
-                } else {
-                  const errors = res;
-                  console.log(errors);
-                  for (let key in errors) {
-                    let val = errors[key];
-                    console.log(val);
-                    Swal.fire({
-                      icon: "error",
-                      title: "Oops...",
-                      text: `${val}`,
-                    });
-                  }
-                }
-              }}
-            >
-              {({ touched, errors, isSubmitting, values }) =>
-                !isSubmitting ? (
-                  <Form className="item-form card no-hover" autoComplete="off">
-                    <div className="row">
-                      <div className="col-12">
-                        <div className="form-group mt-3">
-                          <Field
-                            type="text"
-                            name="username"
-                            placeholder="Username"
-                            className={`form-control
+                      values
+                    );
+                    if (res.id != null) {
+                      setLoader(false);
+                      Swal.fire({
+                        icon: "success",
+                        title: "Yeah...",
+                        text: "Registerd Sucessfully!",
+                      });
+                      history.push("/login");
+                    } else {
+                      const errors = res;
+                      console.log(errors);
+                      for (let key in errors) {
+                        let val = errors[key];
+                        console.log(val);
+                        Swal.fire({
+                          icon: "error",
+                          title: "Oops...",
+                          text: `${val}`,
+                        });
+                      }
+                    }
+                  }}
+                >
+                  {({ touched, errors, isSubmitting, values }) =>
+                    !isSubmitting ? (
+                      <Form
+                        className="item-form card no-hover"
+                        autoComplete="off"
+                      >
+                        <div className="row">
+                          <div className="col-12">
+                            <div className="form-group mt-3">
+                              <Field
+                                type="text"
+                                name="username"
+                                placeholder="Username"
+                                className={`form-control
                               ${
                                 touched.username && errors.username
                                   ? "is-invalid"
                                   : ""
                               }`}
-                          />
-                          <ErrorMessage
-                            component="div"
-                            name="username"
-                            className="invalid-feedback"
-                          />
-                        </div>
-                      </div>
+                              />
+                              <ErrorMessage
+                                component="div"
+                                name="username"
+                                className="invalid-feedback"
+                              />
+                            </div>
+                          </div>
 
-                      <div className="col-12">
-                        <div className="form-group mt-3">
-                          <Field
-                            type="text"
-                            name="first_name"
-                            placeholder="First Name"
-                            className={`form-control
+                          <div className="col-12">
+                            <div className="form-group mt-3">
+                              <Field
+                                type="text"
+                                name="first_name"
+                                placeholder="First Name"
+                                className={`form-control
                               ${
                                 touched.first_name && errors.first_name
                                   ? "is-invalid"
                                   : ""
                               }`}
-                          />
-                          <ErrorMessage
-                            component="div"
-                            name="first_name"
-                            className="invalid-feedback"
-                          />
-                        </div>
-                      </div>
+                              />
+                              <ErrorMessage
+                                component="div"
+                                name="first_name"
+                                className="invalid-feedback"
+                              />
+                            </div>
+                          </div>
 
-                      <div className="col-12">
-                        <div className="form-group mt-3">
-                          <Field
-                            type="text"
-                            name="last_name"
-                            placeholder="Last Name"
-                            className={`form-control
+                          <div className="col-12">
+                            <div className="form-group mt-3">
+                              <Field
+                                type="text"
+                                name="last_name"
+                                placeholder="Last Name"
+                                className={`form-control
                               ${
                                 touched.last_name && errors.last_name
                                   ? "is-invalid"
                                   : ""
                               }`}
-                          />
-                          <ErrorMessage
-                            component="div"
-                            name="last_name"
-                            className="invalid-feedback"
-                          />
-                        </div>
-                      </div>
+                              />
+                              <ErrorMessage
+                                component="div"
+                                name="last_name"
+                                className="invalid-feedback"
+                              />
+                            </div>
+                          </div>
 
-                      <div className="col-12">
-                        <div className="form-group mt-3">
-                          <Field
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            className={`form-control
+                          <div className="col-12">
+                            <div className="form-group mt-3">
+                              <Field
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                className={`form-control
                               ${
                                 touched.email && errors.email
                                   ? "is-invalid"
                                   : ""
                               }`}
-                          />
-                          <ErrorMessage
-                            component="div"
-                            name="email"
-                            className="invalid-feedback"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <div className="form-group mt-3">
-                          <Field
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            className={`form-control
+                              />
+                              <ErrorMessage
+                                component="div"
+                                name="email"
+                                className="invalid-feedback"
+                              />
+                            </div>
+                          </div>
+                          <div className="col-12">
+                            <div className="form-group mt-3">
+                              <Field
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                className={`form-control
                               ${
                                 touched.password && errors.password
                                   ? "is-invalid"
                                   : ""
                               }`}
-                          />
-                          <ErrorMessage
-                            component="div"
-                            name="password"
-                            className="invalid-feedback"
-                          />
-                        </div>
-                      </div>
+                              />
+                              <ErrorMessage
+                                component="div"
+                                name="password"
+                                className="invalid-feedback"
+                              />
+                            </div>
+                          </div>
 
-                      <div className="col-12">
-                        <div className="form-group mt-3">
-                          <Field
-                            type="password"
-                            name="re_password"
-                            placeholder="Confirm Password"
-                            className={`form-control
+                          <div className="col-12">
+                            <div className="form-group mt-3">
+                              <Field
+                                type="password"
+                                name="re_password"
+                                placeholder="Confirm Password"
+                                className={`form-control
                               ${
                                 touched.re_password && errors.re_password
                                   ? "is-invalid"
                                   : ""
                               }`}
-                          />
-                          <ErrorMessage
-                            component="div"
-                            name="re_password"
-                            className="invalid-feedback"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <div className="form-group mt-3">
-                          <div className="form-check form-check-inline">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="inlineRadioOptions"
-                              id="inlineRadio1"
-                              checked
-                              defaultValue="option1"
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="inlineRadio1"
+                              />
+                              <ErrorMessage
+                                component="div"
+                                name="re_password"
+                                className="invalid-feedback"
+                              />
+                            </div>
+                          </div>
+                          <div className="col-12">
+                            <div className="form-group mt-3">
+                              <div className="form-check form-check-inline">
+                                <input
+                                  className="form-check-input"
+                                  type="radio"
+                                  name="inlineRadioOptions"
+                                  id="inlineRadio1"
+                                  checked
+                                  defaultValue="option1"
+                                />
+                                <label
+                                  className="form-check-label"
+                                  htmlFor="inlineRadio1"
+                                >
+                                  I agree to <a href="#">Privacy Policy</a>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-12">
+                            <button
+                              className="btn w-100 mt-3 mt-sm-4"
+                              type="submit"
                             >
-                              I agree to <a href="#">Privacy Policy</a>
-                            </label>
+                              Sign Up
+                            </button>
+                          </div>
+                          <div className="col-12">
+                            <hr />
+                            <div className="other-option">
+                              <span className="d-block text-center mb-4">
+                                Or
+                              </span>
+                              <strong className="signup_link d-block text-center">
+                                Already have an account?{" "}
+                                <Link to="/login">Login</Link>
+                              </strong>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="col-12">
-                        <button
-                          className="btn w-100 mt-3 mt-sm-4"
-                          type="submit"
-                        >
-                          Sign Up
-                        </button>
-                      </div>
-                      <div className="col-12">
-                        <hr />
-                        <div className="other-option">
-                          <span className="d-block text-center mb-4">Or</span>
-                          <strong className="signup_link d-block text-center">
-                            Already have an account?{" "}
-                            <Link to="/login">Login</Link>
-                          </strong>
-                        </div>
-                      </div>
-                    </div>
-                  </Form>
-                ) : (
-                  // <div>
-                  //   <h1 className="p-3 mt-5">Form Submitted</h1>
-                  // </div>
-                  ""
-                )
-              }
-            </Formik>
+                      </Form>
+                    ) : (
+                      // <div>
+                      //   <h1 className="p-3 mt-5">Form Submitted</h1>
+                      // </div>
+                      ""
+                    )
+                  }
+                </Formik>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      )}
+    </>
   );
 };
 

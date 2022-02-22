@@ -8,6 +8,7 @@ let limit = 6;
 const TopSellerPage = () => {
   const [sellerData, setSellerData] = useState([]);
   const [page, setPage] = useState(1);
+  const [loader, setLoader] = useState(false);
 
   const initData = {
     preHeading: "Creative Artists",
@@ -17,6 +18,7 @@ const TopSellerPage = () => {
   };
 
   useEffect(() => {
+    setLoader(true)
     $("html,body").animate({ scrollTop: 0 }, "slow");
     pagination();
   }, []);
@@ -31,11 +33,25 @@ const TopSellerPage = () => {
     if (result.data.data.pagination.total == newArr.length) {
       $("#loadmorebtn").fadeOut("slow");
     }
+    setLoader(false)
 
     setPage(page + 1);
   };
 
   return (
+    <>
+    {loader ? (
+      <div className="fullpage-loader-holder height">
+        <div className="fullpage-loader">
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="shadow"></div>
+          <div class="shadow"></div>
+          <div class="shadow"></div>
+        </div>
+      </div>
+    ) : (
     <section className="explore-area">
       <div className="container">
         <div className="container">
@@ -97,7 +113,8 @@ const TopSellerPage = () => {
         </div>
       </div>
     </section>
+      )}
+    </>
   );
 };
-
 export default TopSellerPage;
