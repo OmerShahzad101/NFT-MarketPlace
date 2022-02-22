@@ -3490,12 +3490,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   cursor: pointer;
   font-size: 15px;
 }
-.heart_color {
-  color: red;
-}
-.color {
-  color: grey;
-}
+
 .set:focus {
   outline: none;
 }
@@ -3534,4 +3529,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
 .collection_filter_label .active::after,
 .saletype_filter_label .active::after {
   display: none;
+}
+.outline-heart:hover path{
+  fill: #dc3545;
 }

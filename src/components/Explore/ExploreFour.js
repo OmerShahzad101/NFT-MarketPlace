@@ -6,7 +6,7 @@ import NFT from "../../services/nft.service";
 import Collection from "../../services/collections.service";
 import favoriteNft from "../../services/favoriteNft.service";
 import NftCard from "./NftCard";
-import Swal from "sweetalert2";
+
 
 let limit = 8;
 const ExploreFour = () => {
@@ -69,16 +69,6 @@ const ExploreFour = () => {
     );
     if (result.status == true) {
       Get_Favourite_Updated(userid);
-      Swal.fire({
-        title: "Done... ",
-        text: `${result.message}`,
-        icon: "success",
-        confirmButtonText: "Go to Dashboard",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location = `/dashboard?${userid}`;
-        }
-      });
     }
   };
   const Get_Favourite_Updated = async (loggedUser) => {
@@ -280,7 +270,7 @@ const ExploreFour = () => {
                   key={item?.id}
                   item={item}
                   favNFT={favNFT}
-                  l//oggedUser={loggedUser}
+                  //loggedUser={loggedUser}
                   check_favourite={check_favourite}
                   isFav={favindex > -1 ? true : false}
                 />
