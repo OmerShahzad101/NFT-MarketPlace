@@ -7,13 +7,9 @@ import jwt_decode from "jwt-decode";
 
 const NftCard = ({ isFav, id, item, check_favourite, favNFT }) => {
   const token = JSON.parse(localStorage.getItem("access"));
-
   const [isFavorite, setIsFavorite] = useState(isFav);
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("access"));
-    // if (token) {
-    //   setIsFavorite(isFav);
-    // }
     token && setIsFavorite(isFav)
   }, [isFav]);
   return (
