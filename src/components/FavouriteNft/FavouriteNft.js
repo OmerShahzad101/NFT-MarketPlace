@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import favoriteNft from "../../services/favoriteNft.service";
 import $ from "jquery"
+import FillHeart from "../../assets/fillHeart";
 
 const FavouriteNft = () => {
   const token = JSON.parse(localStorage.getItem("access"));
@@ -80,7 +81,7 @@ const FavouriteNft = () => {
                           }
                           className="set"
                         >
-                          <i className="fas fa-heart fa-2x heart_color" />
+                          <FillHeart/>
                         </button>
                       </div>
                       <div className="seller d-flex align-items-center my-3 text-nowrap">
@@ -103,7 +104,7 @@ const FavouriteNft = () => {
                         to="/wallet-connect"
                       >
                         <i className="icon-handbag mr-2" />
-                        place a bid
+                        Place a bid
                       </Link>
                     </div>
                   </div>
