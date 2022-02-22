@@ -104,7 +104,7 @@ const FavouriteNft = () => {
                         to="/wallet-connect"
                       >
                         <i className="icon-handbag mr-2" />
-                        place a bid
+                        Place a bid
                       </Link>
                     </div>
                   </div>
