@@ -25,7 +25,7 @@ const Dashboard = () => {
   const decoded = jwt_decode(token);
   const loggedUser = decoded.user_id;
   useEffect(async() => {
-    
+    $("html,body").animate({ scrollTop: 0 }, "slow");
     const result = await favoriteNft.favoriteNftGet(
       `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
       );
