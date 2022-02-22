@@ -149,7 +149,7 @@ const CollectionDetail = () => {
                           to="/login"
                         >
                           <i className="icon-handbag mr-2" />
-                          place a bid
+                          Place a bid
                         </Link>
                       </div>
                     </div>
