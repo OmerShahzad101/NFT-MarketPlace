@@ -50,6 +50,7 @@ const TopSellerPage = () => {
           <div class="shadow"></div>
           <div class="shadow"></div>
         </div>
+        <body></body>
       </div>
     ) : (
     <section className="explore-area">

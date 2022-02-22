@@ -35,6 +35,7 @@ const Faq = () => {
             <div class="shadow"></div>
             <div class="shadow"></div>
           </div>
+          <body></body>
         </div>
       ) : (
         <section className="faq-area pt-130 mt-10 ">

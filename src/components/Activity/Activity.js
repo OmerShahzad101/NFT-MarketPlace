@@ -27,7 +27,7 @@ const Activity = () => {
   return (
     <>
       {loader ? (
-        <div className="fullpage-loader-holder height">
+        <div className="fullpage-loader-holder ">
           <div className="fullpage-loader">
             <div class="circle"></div>
             <div class="circle"></div>
@@ -36,6 +36,7 @@ const Activity = () => {
             <div class="shadow"></div>
             <div class="shadow"></div>
           </div>
+          <body></body>
         </div>
       ) : (
         <section className="activity-area load-more">

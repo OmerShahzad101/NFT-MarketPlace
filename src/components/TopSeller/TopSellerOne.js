@@ -46,6 +46,7 @@ export const TopSeller = () => {
             <div class="shadow"></div>
             <div class="shadow"></div>
           </div>
+          <body></body>
         </div>
       ) : (
         <section className="top-seller-area p-0">

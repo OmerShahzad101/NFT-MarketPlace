@@ -59,6 +59,8 @@ const AuctionsTwo = () => {
             <div class="shadow"></div>
             <div class="shadow"></div>
           </div>
+          <body></body>
+
         </div>
       ) : (
         <section className="live-auctions-area">

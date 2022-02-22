@@ -84,6 +84,7 @@ const ItemDetails = () => {
             <div class="shadow"></div>
             <div class="shadow"></div>
           </div>
+          <body></body>
         </div>
       ) : (
         <section className="item-details-area">

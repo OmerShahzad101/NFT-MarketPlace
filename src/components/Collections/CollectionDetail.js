@@ -35,6 +35,7 @@ const CollectionDetail = () => {
             <div class="shadow"></div>
             <div class="shadow"></div>
           </div>
+          <body></body>
         </div>
       ) : (
         <>

@@ -38,6 +38,7 @@ class Activity extends Component {
               <div class="shadow"></div>
               <div class="shadow"></div>
             </div>
+            <body></body>
           </div>
         ) : (
           <section className="wallet-connect-area">

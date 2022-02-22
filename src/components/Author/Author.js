@@ -13,7 +13,7 @@ const Author = () => {
 
   useEffect(() => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
-    setLoader(true)
+    setLoader(true);
     fetchData();
   }, []);
   const fetchData = async () => {
@@ -25,7 +25,7 @@ const Author = () => {
     if (res.data.data.pagination.total === newArr.length) {
       $("#loadmorebtn").fadeOut("slow");
     }
-    setLoader(false)
+    setLoader(false);
     setPage(page + 1);
   };
   return (
@@ -40,6 +40,7 @@ const Author = () => {
             <div class="shadow"></div>
             <div class="shadow"></div>
           </div>
+          <body></body>
         </div>
       ) : (
         <section className="author-area explore-area popular-collections-area">
