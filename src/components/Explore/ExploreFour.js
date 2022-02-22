@@ -3,11 +3,10 @@ import $ from "jquery";
 import { ENV } from "../../env";
 import jwt_decode from "jwt-decode";
 import NFT from "../../services/nft.service";
-import Category from "../../services/category.service";
 import Collection from "../../services/collections.service";
 import favoriteNft from "../../services/favoriteNft.service";
 import NftCard from "./NftCard";
-import Swal from "sweetalert2";
+
 
 let limit = 8;
 const ExploreFour = () => {
@@ -70,16 +69,6 @@ const ExploreFour = () => {
     );
     if (result.status == true) {
       Get_Favourite_Updated(userid);
-      Swal.fire({
-        title: "Done... ",
-        text: `${result.message}`,
-        icon: "success",
-        confirmButtonText: "Go to Dashboard",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location = `/dashboard?${userid}`;
-        }
-      });
     }
   };
   const Get_Favourite_Updated = async (loggedUser) => {
@@ -122,7 +111,6 @@ const ExploreFour = () => {
   const resetFilter = async (no) => {
     $(".collection_filter_label label").removeClass("active");
     $(".saletype_filter_label label").removeClass("active");
-
     const res = await NFT.nftget(
       `${ENV.API_URL}api/nft_list/?page=${no}&limit=${limit}`
     );
@@ -193,8 +181,8 @@ const ExploreFour = () => {
         <div className="row">
           <div className="col-12">
             <div className="collapse" id="collapseFilter">
-              <div className="sales-type d-flex align-items-sm-center my-4">
-                <h6 className="mr-5">Sale Types</h6>
+              <div className="sales-type d-sm-flex align-items-sm-baseline my-4">
+                <h6 className="mr-5 mb-sm-0 mb-3">Sale Types</h6>
                 <div
                   id="myElement"
                   className="explore-menu btn-group btn-group-toggle saletype_filter_label"
@@ -235,11 +223,11 @@ const ExploreFour = () => {
                   </label>
                 </div>
               </div>
-              <div className="sales-type d-flex my-4">
-                <h6 className="mr-5">Collections</h6>
+              <div className="sales-type d-sm-flex my-4 align-items-sm-baseline">
+                <h6 className="mr-5 mb-sm-0 mb-3">Collections</h6>
                 <div
                   id="myElement"
-                  className="filter-collection-list explore-menu btn-group btn-group-toggle collection_filter_label"
+                  className="filter-collection-list d-flex w-100 explore-menu btn-group-toggle collection_filter_label"
                   data-toggle="buttons"
                 >
                   {collectionData
@@ -282,7 +270,7 @@ const ExploreFour = () => {
                   key={item?.id}
                   item={item}
                   favNFT={favNFT}
-                  l//oggedUser={loggedUser}
+                  //loggedUser={loggedUser}
                   check_favourite={check_favourite}
                   isFav={favindex > -1 ? true : false}
                 />
