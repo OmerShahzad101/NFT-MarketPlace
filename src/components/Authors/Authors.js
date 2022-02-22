@@ -102,12 +102,12 @@ const Authors = () => {
                       <div className="card-caption col-12 p-0">
                         <div className="card-body mt-4">
                           <Link to={`/author?${item.user_id}`}>
-                            <h5 className="name_trim">
+                            <h5 className="name_trim m-0">
                               {item.first_name} {item.last_name}
                             </h5>
                           </Link>
-                          <p className="description_trim">{item.about}</p>
-                          <div className="social-icons d-flex justify-content-center my-3">
+                          <p className="description_trim mt-1 mb-0">{item.about}</p>
+                          <div className="social-icons d-flex justify-content-center mt-1 mb-0">
                             {item.facebook_link ? (
                               <a className="facebook" href={item.facebook_link}>
                                 <i className="fab fa-facebook-f" />

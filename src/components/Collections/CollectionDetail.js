@@ -105,14 +105,11 @@ const CollectionDetail = () => {
                 <Link to={`/author?${collectionData.user_id}`}>
                   <h6 className="mt-0 mb-3">{collectionData.user}</h6>
                 </Link>
-
                 <p className="m-0">Owners</p>
               </div>
             </div>
           </div>
         </div>
-    
-
         <div className="row my-5"> 
           {collectionData.nft_collection && collectionData.nft_collection.length > 0 ? (
             collectionData.nft_collection.map((item, id) => {
@@ -149,7 +146,7 @@ const CollectionDetail = () => {
                           to="/login"
                         >
                           <i className="icon-handbag mr-2" />
-                          place a bid
+                          Place a bid
                         </Link>
                       </div>
                     </div>
