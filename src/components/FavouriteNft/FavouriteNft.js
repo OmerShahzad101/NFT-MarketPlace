@@ -13,7 +13,7 @@ const FavouriteNft = () => {
   const [nftData, setNftData] = useState([]);
   const [page, setPage] = useState(1);
 
-  let limit = 2;
+  let limit = 999;
   useEffect(async () => {
     updated_favourite_list(limit);
   }, []);
@@ -28,16 +28,16 @@ const FavouriteNft = () => {
   };
   const updated_favourite_list = async () => {
     const result = await favoriteNft.favoriteNftGet(
-      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}?limit=${limit}&page=${page}`
+      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}?limit=${limit}`
     );
-    let newArray = [...nftData, ...result.data.user_favourite_nft];
-    setNftData(newArray);
+    let newArray = (result.data.user_favourite_nft)
+    setNftData(result.data.user_favourite_nft);
     console.log(result.data.pagination.total)
     console.log(newArray.length)
     if (result.data.pagination.total === newArray.length) {
       $("#loadmorebtnfav").fadeOut("slow");
     }
-    setPage(page + 1);
+    // setPage(page + 1);
   };
   const favouriteCall = async (favourite_payload) => {
     const result = await favoriteNft.favoriteNftPost(

@@ -10,7 +10,6 @@ import NftCard from "./NftCard";
 import Swal from "sweetalert2";
 
 let limit = 8;
-let count = true;
 const ExploreFour = () => {
   const initialData = {
     heading: "Exclusive Digital Assets",
@@ -25,9 +24,7 @@ const ExploreFour = () => {
   const [page, setPage] = useState(1);
   const [favNFT, setFavNFT] = useState([]);
   const [collectionData, setCollectionData] = useState([]);
-  let token = JSON.parse(localStorage.getItem("access"));
-  const decoded = jwt_decode(token);
-  const loggedUser = decoded.user_id;
+
   useEffect(async () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
     let token = JSON.parse(localStorage.getItem("access"));
@@ -91,7 +88,7 @@ const ExploreFour = () => {
     );
     newArray = result.data.user_favourite_nft;
     setFavNFT(newArray);
-    return(setFavNFT)
+    return setFavNFT;
   };
   const sort = (col) => {
     if (order === "ASC") {
@@ -123,10 +120,9 @@ const ExploreFour = () => {
     setPage(page + 1);
   };
   const resetFilter = async (no) => {
-    $(".collection_filter_label label").removeClass("active")
-    $(".saletype_filter_label label").removeClass("active")
-    
-    
+    $(".collection_filter_label label").removeClass("active");
+    $(".saletype_filter_label label").removeClass("active");
+
     const res = await NFT.nftget(
       `${ENV.API_URL}api/nft_list/?page=${no}&limit=${limit}`
     );
@@ -139,7 +135,7 @@ const ExploreFour = () => {
   };
 
   const saleType = async (value) => {
-    $(".collection_filter_label label").removeClass("active")
+    $(".collection_filter_label label").removeClass("active");
     $("#loadmorebtn").hide();
     let limit_sale = 999;
     const nFilters = await favoriteNft.saleTypeGet(
@@ -149,7 +145,7 @@ const ExploreFour = () => {
     setNftData(nFilters.data.data.results);
   };
   const collectionNFT = async (id) => {
-    $(".saletype_filter_label label").removeClass("active")
+    $(".saletype_filter_label label").removeClass("active");
     $("#loadmorebtn").hide();
     let limit_collection = 999;
     const res = await Collection.collection(
@@ -279,13 +275,16 @@ const ExploreFour = () => {
         <div className="row items">
           {nftData?.length > 0 ? (
             nftData.map((item, id) => {
+              const favindex = favNFT.findIndex((x) => x.nft_id == item.id);
+              
               return (
                 <NftCard
-                  id={id}
+                  key={item?.id}
                   item={item}
                   favNFT={favNFT}
-                  loggedUser={loggedUser}
+                  l//oggedUser={loggedUser}
                   check_favourite={check_favourite}
+                  isFav={favindex > -1 ? true : false}
                 />
               );
             })
