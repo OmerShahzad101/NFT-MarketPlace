@@ -3489,46 +3489,49 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   border: none;
   cursor: pointer;
   font-size: 15px;
- 
 }
-.heart_color{
-  color: red
+.heart_color {
+  color: red;
 }
-.color{
+.color {
   color: grey;
 }
 .set:focus {
   outline: none;
 }
-.pointer{
+.pointer {
   cursor: pointer;
 }
-.filter-collection-list{
+.filter-collection-list {
   overflow: hidden;
-  overflow-x: scroll;
+  overflow-x: auto;
   padding-bottom: 8px;
 }
-.filter-collection-list span{
+
+.filter-collection-list span {
   white-space: nowrap;
 }
-.filter-collection-list::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #222222;
-	border-radius: 10px;
+
+.filter-collection-list::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #222222;
+  border-radius: 10px;
 }
 
-.filter-collection-list::-webkit-scrollbar
-{
+.filter-collection-list::-webkit-scrollbar {
   height: 7px;
-	background-color: #222222;
+  background-color: #222222;
 }
 
-.filter-collection-list::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-  background-image: linear-gradient( 150deg, #57048a 0%, var(--primary-color) 78% );
+.filter-collection-list::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-image: linear-gradient(
+    150deg,
+    #57048a 0%,
+    var(--primary-color) 78%
+  );
 }
-.collection_filter_label .active::after, .saletype_filter_label .active::after{
+.collection_filter_label .active::after,
+.saletype_filter_label .active::after {
   display: none;
 }
