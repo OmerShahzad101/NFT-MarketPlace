@@ -3,8 +3,6 @@ import { ENV } from "../../env";
 import MyCollections from "../Collections/MyCollections";
 import authors from "../../services/authors.service";
 import { Link } from "react-router-dom";
-import favoriteNft from "../../services/favoriteNft.service";
-import jwt_decode from "jwt-decode";
 
 import $ from "jquery";
 import FavouriteNft from "../FavouriteNft/FavouriteNft";
