@@ -33,24 +33,25 @@ const Collections = () => {
     );
     let newArr = res.data.data.category_data;
     setCollectionData(newArr);
-    if (res.data.data.pagination.total === newArr.length) {
-      $("#loadmorebtn").fadeOut("slow");
-    }
+    
     setPage(page + 1);
     setCid(0);
     setLoader(false);
+    if (res.data.data.pagination.total === newArr.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
     $("#myElement label:first").addClass("active");
   }, []);
 
   const specificCategory = async (id, page) => {
-    setLoader(true)
+  
     setCid(id);
     const res = await Category.category(
       `${ENV.API_URL}api/specific_catgory_collection-data/${id}?page=${page}&limit=${limit}`
     );
     let newArr = res.data.data.category_data;
     setCollectionData(newArr);
-    setLoader(false);
+
     if (res.data.data.pagination.total === newArr.length) {
       $("#loadmorebtn").fadeOut("slow");
     } else {
@@ -64,7 +65,7 @@ const Collections = () => {
     const res = await Category.category(
       `${ENV.API_URL}api/specific_catgory_collection-data/${id}?page=${page}&limit=${limit}`
     );
-    //alert(id);
+
     let newArr = [...collectionData, ...res.data.data.category_data];
     setCollectionData(newArr);
 
