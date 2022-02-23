@@ -22,10 +22,11 @@ const Author = () => {
     );
     let newArr = [...authorNft, ...res.data.data.user_data];
     setAuthorNft(newArr);
+    
+    setLoader(false);
     if (res.data.data.pagination.total === newArr.length) {
       $("#loadmorebtn").fadeOut("slow");
     }
-    setLoader(false);
     setPage(page + 1);
   };
   return (

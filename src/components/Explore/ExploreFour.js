@@ -110,12 +110,13 @@ const ExploreFour = () => {
     setLoader(false);
   };
   const resetFilter = async (no) => {
-    $(".collection_filter_label label").removeClass("active");
-    $(".saletype_filter_label label").removeClass("active");
+    setLoader(true)
     const res = await NFT.nftget(
       `${ENV.API_URL}api/nft_list/?page=${no}&limit=${limit}`
     );
     setNftData(res.data.data.results);
+    setLoader(false)
+   
     $("#loadmorebtn").show();
     if (res.data.data.count === res.data.data.results.length) {
       $("#loadmorebtn").fadeOut("slow");
