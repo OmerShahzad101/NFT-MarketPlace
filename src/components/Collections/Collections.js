@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import Collection from "../../services/collections.service";
 import { ENV } from "../../env";
 import Category from "../../services/category.service";
 import $ from "jquery";
@@ -16,68 +15,65 @@ const Collections = () => {
   const [collectionData, setCollectionData] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loader, setLoader] = useState(false);
+  let [cid, setCid] = useState();
 
-  // const [allData, setAllData] = useState([]);
-  // const [page, setPage] = useState(1);
-  // const [payload, setpayload] = useState();
+  const [page, setPage] = useState(1);
 
+const limit = 8;
   useEffect(async () => {
     setLoader(true)
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCategories(result.data.data);
     console.log(result.data.data);
-    // all();
+  
     $("html,body").animate({ scrollTop: 0 }, "slow");
-    $("#myElement label:first").addClass("active");
+    
     const res = await Category.category(
-      `${ENV.API_URL}api/specific_catgory_collection-data/0?limit=999`
+      `${ENV.API_URL}api/specific_catgory_collection-data/0?page=${page}&limit=${limit}`
     );
-    setCollectionData(res.data.data.category_data);
-    console.log(res.data.data.category_data);
+    let newArr = res.data.data.category_data;
+    setCollectionData(newArr);
+    if (res.data.data.pagination.total === newArr.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
+    setPage(page + 1);
+    setCid(0);
     setLoader(false)
-
+    $("#myElement label:first").addClass("active");
   }, []);
 
-  const specificCategory = async (id) => {
+  const specificCategory = async (id , page) => {
+    setCid(id)     
     const res = await Category.category(
-      `${ENV.API_URL}api/specific_catgory_collection-data/${id}?limit=999`
-    );
-    setCollectionData(res.data.data.category_data);
-    console.log(res.data.data.category_data);
+      `${ENV.API_URL}api/specific_catgory_collection-data/${id}?page=${page}&limit=${limit}`
+    )
+//alert(id)
+    let newArr = res.data.data.category_data;
+    setCollectionData(newArr);
+    if (res.data.data.pagination.total === newArr.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
+    else{
+      $("#loadmorebtn").fadeIn("slow");
+    }
+    setPage(page + 1);
   };
 
-  // const all =  async() => {
-  //   setPage(page * 0 + 1);
-  //   setCollectionData([]);
-  //   // pagination();
-  //   const resu = await Collection.collection(
-  //     `${ENV.API_URL}api/collection_list/?page=${page}&limit=${limit}`);
-  //   let newArr = [...collectionData, resu.data.data.results];
-  //   setCollectionData(newArr);
-  //   // console.log("hi");
-  //   // console.log(resu);
-  //   // console.log(newArr);
 
-  //   if (resu.data.data.count === newArr.length) {
-  //     $("#loadmorebtn").fadeOut("slow");
-  //   }
-  // };
+  const pagination = async (cid) => {
+    let id = cid 
+    const res = await Category.category(
+      `${ENV.API_URL}api/specific_catgory_collection-data/${id}?page=${page}&limit=${limit}`
+    );
+    //alert(id);
+    let newArr = [...collectionData, ...res.data.data.category_data];
+    setCollectionData(newArr);
 
-  // const pagination = async () => {
-  //   const res = await Collection.collection(
-  //     `${ENV.API_URL}api/collection_list/?page=${page}&limit=${limit}`
-  //   );
-  //   let newArr = [...collectionData, ...res.data.data.results];
-  //   setCollectionData(newArr);
-  //   console.log("hi");
-  //   console.log(res);
-  //   console.log(newArr);
-
-  //   if (res.data.data.count === newArr.length) {
-  //     $("#loadmorebtn").fadeOut("slow");
-  //   }
-  //   setPage(page + 1);
-  // };
+    if (res.data.data.pagination.total === newArr.length) {
+      $("#loadmorebtn").fadeOut("slow");
+    }
+    setPage(page + 1);
+  };
 
   return (
     <>
@@ -112,7 +108,7 @@ const Collections = () => {
                   data-toggle="buttons"
                 >
                   <label
-                    onClick={() => specificCategory(0)}
+                    onClick={() => specificCategory(0 , 1)}
                     className="btn d-table text-uppercase p-2"
                   >
                     <input
@@ -128,7 +124,7 @@ const Collections = () => {
                     ? categories.map(function (category, i) {
                         return (
                           <label
-                            onClick={() => specificCategory(category.id)}
+                            onClick={() => specificCategory(category.id, 1)}
                             className="btn d-table text-uppercase p-2"
                           >
                             <input
@@ -211,17 +207,17 @@ const Collections = () => {
                   })
                 : ""}
             </div>
-            {/* <div className="row">
+            <div className="row">
             <div className="col-12 text-center">
               <button
-                onClick={() => pagination()}
+                onClick={() => pagination(cid)}
                 className="btn btn-bordered-white mt-5"
                 id="loadmorebtn"
               >
                 Load More
               </button>
             </div>
-          </div> */}
+          </div>
           </div>
         </section>
       )}
