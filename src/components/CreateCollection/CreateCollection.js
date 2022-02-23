@@ -74,6 +74,7 @@ class CreateCollection extends Component {
       {
         isSubmitted: true,
         formValid: this.validator.allValid() ? true : false,
+        loader: true,
       },
       () => {
         const { formValid } = this.state;
@@ -92,19 +93,7 @@ class CreateCollection extends Component {
                 formData
               );
               console.log(res);
-              // Swal.fire({
-              //   title: "Hurray .....",
-              //   text: "Collection Created Sucessfully!",
-              //   icon: "success",
-              //   confirmButtonText: "Go to Dashboard",
-              // }).then((result) => {
-              //   if (result.isConfirmed) {
-              //     const token = JSON.parse(localStorage.getItem("access"));
-              //     const decoded = jwt_decode(token);
-              //     const id = decoded.user_id;
-              //     window.location = `/dashboard?${id}`;
-              //   }
-              // });
+              this.setState({ loader: false });
               if (res.status == true) {
                 Swal.fire({
                   title: "Hurray .....",
@@ -124,7 +113,7 @@ class CreateCollection extends Component {
                   title: "Opps .....",
                   text: `${res.message}`,
                   icon: "error",
-                })
+                });
                 this.setState({ loader: false });
               }
             }
@@ -148,229 +137,249 @@ class CreateCollection extends Component {
   render() {
     const { nft, errors, isSubmitted } = this.state;
     return (
-      <section className="author-area">
-        <Notifications />
-        <div className="container">
-          <div className="row justify-content-between">
-            <div className="col-12 col-md-4">
-              <div className="card no-hover text-center">
-                <div className="image-over">
-                  <img
-                    id="banner-placeholder"
-                    className={
-                      nft.banner_imageUrl
-                        ? "card-img-top"
-                        : "card-img-top create-nft-placeholder"
-                    }
-                    src={
-                      nft.banner_imageUrl
-                        ? nft.banner_imageUrl
-                        : "/img/auction_2.jpg"
-                    }
-                    alt=""
-                  />
-
-                  <div className="author">
-                    <div className="author-thumb avatar-lg">
+      <>
+        {this.state.loader ? (
+          <div className="fullpage-loader-holder height">
+            <div className="fullpage-loader">
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="shadow"></div>
+              <div class="shadow"></div>
+              <div class="shadow"></div>
+            </div>
+            <body></body>
+          </div>
+        ) : (
+          <section className="author-area">
+            <Notifications />
+            <div className="container">
+              <div className="row justify-content-between">
+                <div className="col-12 col-md-4">
+                  <div className="card no-hover text-center">
+                    <div className="image-over">
                       <img
-                        id="logo-placeholder"
+                        id="banner-placeholder"
                         className={
-                          nft.logo_imageUrl
-                            ? "rounded-circle"
-                            : "rounded-circle create-nft-placeholder"
+                          nft.banner_imageUrl
+                            ? "card-img-top"
+                            : "card-img-top create-nft-placeholder"
                         }
                         src={
-                          nft.logo_imageUrl
-                            ? nft.logo_imageUrl
+                          nft.banner_imageUrl
+                            ? nft.banner_imageUrl
                             : "/img/auction_2.jpg"
                         }
                         alt=""
                       />
+
+                      <div className="author">
+                        <div className="author-thumb avatar-lg">
+                          <img
+                            id="logo-placeholder"
+                            className={
+                              nft.logo_imageUrl
+                                ? "rounded-circle"
+                                : "rounded-circle create-nft-placeholder"
+                            }
+                            src={
+                              nft.logo_imageUrl
+                                ? nft.logo_imageUrl
+                                : "/img/auction_2.jpg"
+                            }
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="card-caption col-12 p-0">
+                      <div className="card-body mt-4">
+                        <h5 className="mb-3">
+                          {this.state.nft.name === ""
+                            ? "Collection name"
+                            : this.state.nft.name}
+                        </h5>
+                        <p className="my-3">
+                          {this.state.nft.description === ""
+                            ? "Description"
+                            : this.state.nft.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div className="card-caption col-12 p-0">
-                  <div className="card-body mt-4">
-                    <h5 className="mb-3">
-                      {this.state.nft.name === ""
-                        ? "Collection name"
-                        : this.state.nft.name}
-                    </h5>
-                    <p className="my-3">
-                      {this.state.nft.description === ""
-                        ? "Description"
-                        : this.state.nft.description}
-                    </p>
+                <div className="col-12 col-md-7">
+                  <div className="mt-5 mt-lg-0 mb-4 mb-lg-5">
+                    <div className="intro">
+                      <div className="intro-content">
+                        <span>Get Started</span>
+                        <h3 className="mt-3 mb-0">Create Collection</h3>
+                      </div>
+                    </div>
                   </div>
+                  {isSubmitted && errors && (
+                    <div className="row">
+                      <div className="col-12">
+                        <span id="create-nft-err" className="text-danger">
+                          {errors}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <form id="create-nft" className="item-form card no-hover">
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="input-group form-group">
+                          <div className="custom-file">
+                            <input
+                              type="file"
+                              className="custom-file-input"
+                              id="banner_image"
+                              accept=".png,.jpeg,.jpg"
+                              onChange={(e) => this.onFileChange(e)}
+                              name="banner_image"
+                            />
+                            <label
+                              id="nft-banner_image-label"
+                              className="custom-file-label"
+                              htmlFor="banner_image"
+                            >
+                              Choose Banner File *
+                            </label>
+                          </div>
+                        </div>
+                        <span className="text-danger">
+                          {this.validator.message(
+                            "image",
+                            nft.banner_image,
+                            "required"
+                          )}
+                        </span>
+                      </div>
+
+                      <div className="col-12">
+                        <div className="input-group form-group mt-3">
+                          <div className="custom-file">
+                            <input
+                              type="file"
+                              className="custom-file-input"
+                              id="logo_image"
+                              accept=".png,.jpeg,.jpg"
+                              onChange={(e) => this.onFileChange(e)}
+                              name="logo_image"
+                            />
+                            <label
+                              id="nft-logo_image-label"
+                              className="custom-file-label"
+                              htmlFor="logo_image"
+                            >
+                              Choose Logo File *
+                            </label>
+                          </div>
+                        </div>
+                        <span className="text-danger">
+                          {this.validator.message(
+                            "image",
+                            nft.logo_image,
+                            "required"
+                          )}
+                        </span>
+                      </div>
+                      <div className="col-12">
+                        <div className="form-group mt-3">
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="name"
+                            placeholder="Collection Name *"
+                            required="required"
+                            onChange={(e) => this.onChange(e)}
+                            defaultValue={nft.name}
+                          />
+                          <span className="text-danger">
+                            {this.validator.message(
+                              "name",
+                              nft.name,
+                              "required"
+                            )}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="col-12 col-md-12">
+                        <div class="form-group select-collection position-relative">
+                          <select
+                            className="form-control"
+                            name="category"
+                            onChange={(e) => this.onChange(e)}
+                            required
+                          >
+                            <option
+                              value=""
+                              selected="selected"
+                              hidden="hidden"
+                              required
+                            >
+                              Choose Category *
+                            </option>
+                            {nft.categories
+                              ? nft.categories.map(function (category, i) {
+                                  return (
+                                    <option value={category.id}>
+                                      {category.name}
+                                    </option>
+                                  );
+                                })
+                              : ""}
+                          </select>
+                          <span className="text-danger">
+                            {this.validator.message(
+                              "name",
+                              nft.category,
+                              "required"
+                            )}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="col-12">
+                        <div className="form-group">
+                          <textarea
+                            className="form-control"
+                            name="description"
+                            placeholder="Description *"
+                            cols={30}
+                            rows={3}
+                            onChange={(e) => this.onChange(e)}
+                            defaultValue={nft.description}
+                          />
+                          <span className="text-danger">
+                            {this.validator.message(
+                              "description",
+                              nft.description,
+                              "required"
+                            )}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="col-12">
+                        <button
+                          className="btn w-100 mt-3 mt-sm-4"
+                          type="button"
+                          onClick={(e) => this.submit(e)}
+                        >
+                          Create collection
+                        </button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-7">
-              <div className="mt-5 mt-lg-0 mb-4 mb-lg-5">
-                <div className="intro">
-                  <div className="intro-content">
-                    <span>Get Started</span>
-                    <h3 className="mt-3 mb-0">Create Collection</h3>
-                  </div>
-                </div>
-              </div>
-              {isSubmitted && errors && (
-                <div className="row">
-                  <div className="col-12">
-                    <span id="create-nft-err" className="text-danger">
-                      {errors}
-                    </span>
-                  </div>
-                </div>
-              )}
-              <form id="create-nft" className="item-form card no-hover">
-                <div className="row">
-                  <div className="col-12">
-                    <div className="input-group form-group">
-                      <div className="custom-file">
-                        <input
-                          type="file"
-                          className="custom-file-input"
-                          id="banner_image"
-                          accept=".png,.jpeg,.jpg"
-                          onChange={(e) => this.onFileChange(e)}
-                          name="banner_image"
-                        />
-                        <label
-                          id="nft-banner_image-label"
-                          className="custom-file-label"
-                          htmlFor="banner_image"
-                        >
-                          Choose Banner File *
-                        </label>
-                      </div>
-                    </div>
-                    <span className="text-danger">
-                      {this.validator.message(
-                        "image",
-                        nft.banner_image,
-                        "required"
-                      )}
-                    </span>
-                  </div>
-
-                  <div className="col-12">
-                    <div className="input-group form-group mt-3">
-                      <div className="custom-file">
-                        <input
-                          type="file"
-                          className="custom-file-input"
-                          id="logo_image"
-                          accept=".png,.jpeg,.jpg"
-                          onChange={(e) => this.onFileChange(e)}
-                          name="logo_image"
-                        />
-                        <label
-                          id="nft-logo_image-label"
-                          className="custom-file-label"
-                          htmlFor="logo_image"
-                        >
-                          Choose Logo File *
-                        </label>
-                      </div>
-                    </div>
-                    <span className="text-danger">
-                      {this.validator.message(
-                        "image",
-                        nft.logo_image,
-                        "required"
-                      )}
-                    </span>
-                  </div>
-                  <div className="col-12">
-                    <div className="form-group mt-3">
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="name"
-                        placeholder="Collection Name *"
-                        required="required"
-                        onChange={(e) => this.onChange(e)}
-                        defaultValue={nft.name}
-                      />
-                      <span className="text-danger">
-                        {this.validator.message("name", nft.name, "required")}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="col-12 col-md-12">
-                    <div class="form-group select-collection position-relative">
-                      <select
-                        className="form-control"
-                        name="category"
-                        onChange={(e) => this.onChange(e)}
-                        required
-                      >
-                        <option
-                          value=""
-                          selected="selected"
-                          hidden="hidden"
-                          required
-                        >
-                          Choose Category *
-                        </option>
-                        {nft.categories
-                          ? nft.categories.map(function (category, i) {
-                              return (
-                                <option value={category.id}>
-                                  {category.name}
-                                </option>
-                              );
-                            })
-                          : ""}
-                      </select>
-                      <span className="text-danger">
-                        {this.validator.message(
-                          "name",
-                          nft.category,
-                          "required"
-                        )}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-12">
-                    <div className="form-group">
-                      <textarea
-                        className="form-control"
-                        name="description"
-                        placeholder="Description *"
-                        cols={30}
-                        rows={3}
-                        onChange={(e) => this.onChange(e)}
-                        defaultValue={nft.description}
-                      />
-                      <span className="text-danger">
-                        {this.validator.message(
-                          "description",
-                          nft.description,
-                          "required"
-                        )}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="col-12">
-                    <button
-                      className="btn w-100 mt-3 mt-sm-4"
-                      type="button"
-                      onClick={(e) => this.submit(e)}
-                    >
-                      Create collection
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        )}
+      </>
     );
   }
 }
