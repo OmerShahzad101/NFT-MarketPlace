@@ -3,7 +3,6 @@ import jwt_decode from "jwt-decode";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import favoriteNft from "../../services/favoriteNft.service";
-import $ from "jquery"
 import FillHeart from "../../assets/fillHeart";
 
 const FavouriteNft = () => {
@@ -12,7 +11,6 @@ const FavouriteNft = () => {
   const loggedUser = decoded.user_id;
   const [favNFT, setFavNFT] = useState([]);
   const [nftData, setNftData] = useState([]);
-  //const [page, setPage] = useState(1);
 
   let limit = 999;
   useEffect(async () => {
@@ -31,15 +29,9 @@ const FavouriteNft = () => {
     const result = await favoriteNft.favoriteNftGet(
       `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}?limit=${limit}`
     );
-    //let newArray = (result.data.user_favourite_nft)
     setNftData(result.data.user_favourite_nft);
-    // console.log(result.data.pagination.total)
-    // console.log(newArray.length)
-    // if (result.data.pagination.total === newArray.length) {
-    //   $("#loadmorebtnfav").fadeOut("slow");
-    // }
-    // setPage(page + 1);
   };
+
   const favouriteCall = async (favourite_payload) => {
     const result = await favoriteNft.favoriteNftPost(
       `${ENV.API_URL}api/favourite-nft/`,
@@ -122,17 +114,6 @@ const FavouriteNft = () => {
           </div>
         )}
       </div>
-      {/* <div className="row">
-          <div className="col-12 text-center">
-            <button
-              onClick={() => updated_favourite_list()}
-              className="btn btn-bordered-white mt-5"
-              id="loadmorebtnfav"
-            >
-              Load More
-            </button>
-          </div>
-        </div> */}
     </>
   );
 };
