@@ -19,15 +19,15 @@ const Collections = () => {
 
   const [page, setPage] = useState(1);
 
-const limit = 8;
+  const limit = 8;
   useEffect(async () => {
-    setLoader(true)
+    setLoader(true);
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCategories(result.data.data);
     console.log(result.data.data);
-  
+
     $("html,body").animate({ scrollTop: 0 }, "slow");
-    
+
     const res = await Category.category(
       `${ENV.API_URL}api/specific_catgory_collection-data/0?page=${page}&limit=${limit}`
     );
@@ -38,30 +38,29 @@ const limit = 8;
     }
     setPage(page + 1);
     setCid(0);
-    setLoader(false)
+    setLoader(false);
     $("#myElement label:first").addClass("active");
   }, []);
 
-  const specificCategory = async (id , page) => {
-    setCid(id)     
+  const specificCategory = async (id, page) => {
+    setLoader(true)
+    setCid(id);
     const res = await Category.category(
       `${ENV.API_URL}api/specific_catgory_collection-data/${id}?page=${page}&limit=${limit}`
-    )
-//alert(id)
+    );
     let newArr = res.data.data.category_data;
     setCollectionData(newArr);
+    setLoader(false);
     if (res.data.data.pagination.total === newArr.length) {
       $("#loadmorebtn").fadeOut("slow");
-    }
-    else{
+    } else {
       $("#loadmorebtn").fadeIn("slow");
     }
     setPage(page + 1);
   };
 
-
   const pagination = async (cid) => {
-    let id = cid 
+    let id = cid;
     const res = await Category.category(
       `${ENV.API_URL}api/specific_catgory_collection-data/${id}?page=${page}&limit=${limit}`
     );
@@ -108,7 +107,7 @@ const limit = 8;
                   data-toggle="buttons"
                 >
                   <label
-                    onClick={() => specificCategory(0 , 1)}
+                    onClick={() => specificCategory(0, 1)}
                     className="btn d-table text-uppercase p-2"
                   >
                     <input
@@ -208,16 +207,16 @@ const limit = 8;
                 : ""}
             </div>
             <div className="row">
-            <div className="col-12 text-center">
-              <button
-                onClick={() => pagination(cid)}
-                className="btn btn-bordered-white mt-5"
-                id="loadmorebtn"
-              >
-                Load More
-              </button>
+              <div className="col-12 text-center">
+                <button
+                  onClick={() => pagination(cid)}
+                  className="btn btn-bordered-white mt-5"
+                  id="loadmorebtn"
+                >
+                  Load More
+                </button>
+              </div>
             </div>
-          </div>
           </div>
         </section>
       )}
@@ -225,7 +224,3 @@ const limit = 8;
   );
 };
 export default Collections;
-
-// var newArray = collectionData.concat(paginationRes.data.data.results);
-// setCollectionData(newArray);
-// console.log(paginationRes.data.data.count);
