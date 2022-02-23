@@ -27,10 +27,11 @@ const MyCollections = () => {
     );
     let newArr = [...collectionData, ...res.data.data.user_collection];
     setCollectionData(newArr);
+    setLoader(false);
     if (res.data.data.pagination.total === newArr.length) {
       $("#loadmorebtn").fadeOut("slow");
     }
-    setLoader(false);
+    
     setPage(page + 1);
   };
   return (

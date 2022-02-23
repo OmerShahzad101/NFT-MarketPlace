@@ -20,21 +20,11 @@ const Dashboard = () => {
   const [page, setPage] = useState(1);
   const arr = window.location.href.split("?");
   const id = arr[1];
-  const [nftData, setNftData] = useState();
   const [loader, setLoader] = useState(false);
 
-  const token = JSON.parse(localStorage.getItem("access"));
-  const decoded = jwt_decode(token);
-  const loggedUser = decoded.user_id;
   useEffect(async () => {
     $("html,body").animate({ scrollTop: 0 }, "slow");
     setLoader(true);
-    const result = await favoriteNft.favoriteNftGet(
-      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
-    );
-    let newArray = result.data.user_favourite_nft;
-    console.log(newArray);
-    setNftData(newArray);
     fetchData();
     
   }, []);
@@ -44,12 +34,11 @@ const Dashboard = () => {
     );
     let newArr = [...authorNft, ...res.data.data.user_data];
     setAuthorNft(newArr);
-    console.log(res.data.data.pagination.total);
-    console.log(newArr.length);
+    setLoader(false)
     if (res.data.data.pagination.total === newArr.length) {
       $("#loadmorebtnnft").fadeOut("slow");
     }
-    setLoader(false)
+ 
     setPage(page + 1);
   };
 

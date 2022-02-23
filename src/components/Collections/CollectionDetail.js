@@ -163,7 +163,7 @@ const CollectionDetail = () => {
                             </div>
                             <Link
                               className="btn btn-bordered-white btn-smaller mt-3"
-                              to="/login"
+                              to="/wallet-connect"
                             >
                               <i className="icon-handbag mr-2" />
                               Place a bid

@@ -73,7 +73,7 @@ const ExploreFour = () => {
   };
   const Get_Favourite_Updated = async (loggedUser) => {
     const result = await favoriteNft.favoriteNftGet(
-      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/`
+      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}/?limit=999`
     );
     newArray = result.data.user_favourite_nft;
     setFavNFT(newArray);
@@ -93,7 +93,7 @@ const ExploreFour = () => {
   };
   const filterCollectionList = async () => {
     const res = await Collection.collection(
-      `${ENV.API_URL}api/specific_catgory_collection-data/0?limit=1000`
+      `${ENV.API_URL}api/specific_catgory_collection-data/0?limit=999`
     );
     setCollectionData(res.data.data.category_data);
   };

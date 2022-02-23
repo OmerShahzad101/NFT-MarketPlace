@@ -12,11 +12,11 @@ const FavouriteNft = () => {
   const loggedUser = decoded.user_id;
   const [favNFT, setFavNFT] = useState([]);
   const [nftData, setNftData] = useState([]);
-  //const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1);
 
-  let limit = 999;
+  let limit = 2;
   useEffect(async () => {
-    updated_favourite_list(limit);
+    updated_favourite_list();
   }, []);
   const check_favourite = async (nftid, loggedUser) => {
     const favourite_payload = {
@@ -24,33 +24,51 @@ const FavouriteNft = () => {
       is_favorite: false,
       nft: nftid,
     };
+
     favouriteCall(favourite_payload);
     
   };
   const updated_favourite_list = async () => {
     const result = await favoriteNft.favoriteNftGet(
-      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}?limit=${limit}`
+      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}?page=${page}&limit=${limit}`
     );
-    //let newArray = (result.data.user_favourite_nft)
-    setNftData(result.data.user_favourite_nft);
+    let newArray = [...nftData ,...result.data.user_favourite_nft]
+    setNftData(newArray);
     // console.log(result.data.pagination.total)
     // console.log(newArray.length)
-    // if (result.data.pagination.total === newArray.length) {
-    //   $("#loadmorebtnfav").fadeOut("slow");
-    // }
-    // setPage(page + 1);
+    if (result.data.pagination.total === newArray.length) {
+      $("#loadmorebtnfav").fadeOut("slow");
+    }
+    setPage(page + 1);
   };
   const favouriteCall = async (favourite_payload) => {
+    
     const result = await favoriteNft.favoriteNftPost(
       `${ENV.API_URL}api/favourite-nft/`,
       favourite_payload
     );
     console.log(result);
-    if (result.status == true) {
-      updated_favourite_list();
+    if (result.status === true) {
+      debugger
+      let abc = 1
+      setPage(abc)
+      
+      updated_favourite_list_1(abc);
     }
   };
-
+  const updated_favourite_list_1 = async (abc) => {
+    
+    const result = await favoriteNft.favoriteNftGet(
+      `${ENV.API_URL}api/users-favourtie-nft/${loggedUser}?page=${abc}&limit=${limit}`
+    );
+    let newArray = result.data.user_favourite_nft
+    setNftData(newArray);
+   
+    result.data.pagination.total === newArray.length ? $("#loadmorebtnfav").fadeOut("slow") :  $("#loadmorebtnfav").fadeIn("slow")
+      
+    
+    setPage(page + 1);
+  };
   return (
     <>
       <div className="row items">
@@ -122,7 +140,7 @@ const FavouriteNft = () => {
           </div>
         )}
       </div>
-      {/* <div className="row">
+      <div className="row">
           <div className="col-12 text-center">
             <button
               onClick={() => updated_favourite_list()}
@@ -132,7 +150,7 @@ const FavouriteNft = () => {
               Load More
             </button>
           </div>
-        </div> */}
+        </div>
     </>
   );
 };
