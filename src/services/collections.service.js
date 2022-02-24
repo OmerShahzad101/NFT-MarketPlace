@@ -11,7 +11,6 @@ const Collection = {
       method: "POST",
       body: data,
       headers: {
-        // "Content-Type": "application/json",
         Authorization: `Bearer ${_token}`,
       },
     };

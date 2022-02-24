@@ -3537,15 +3537,14 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   min-height: 443px;
 }
 
-
-.fullpage-loader  {
+.fullpage-loader {
   width: 112px;
   height: 112px;
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .fullpage-loader-holder {
@@ -3571,7 +3570,7 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   height: 20px;
   position: absolute;
   border-radius: 50%;
-  background-color: #57048a;;
+  background-color: #57048a;
   left: 15%;
   -webkit-transform-origin: 50%;
   transform-origin: 50%;
@@ -3694,22 +3693,18 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   left: 15%;
 }
 
-::-webkit-scrollbar-track
-{
-	border: 1px solid #000;
-	background-color: #000;
+::-webkit-scrollbar-track {
+  border: 1px solid #000;
+  background-color: #000;
   border-radius: 15px;
 }
 
-::-webkit-scrollbar
-{
-	width: 10px;
-	background-color: #000000;
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #000000;
 }
 
-::-webkit-scrollbar-thumb
-{
-	background-color: #57048a;	
+::-webkit-scrollbar-thumb {
+  background-color: #57048a;
   border-radius: 15px;
 }
- 
