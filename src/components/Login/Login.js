@@ -30,7 +30,6 @@ const Login = () => {
     setLoader(true)
     event.preventDefault();
     const res = await auth.login(`${ENV.API_URL}api/auth/jwt/create/`, user);
-    console.log(res);
     setLoader(false)
     if (res.access != null) {
       localStorage.setItem("access", JSON.stringify(res.access));

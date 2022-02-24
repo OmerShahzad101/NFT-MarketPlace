@@ -19,7 +19,6 @@ export const TopSeller = () => {
       `${ENV.API_URL}api/top_sellers/`
     );
     setSellerData(result.data.data.top_seller);
-    console.log(result);
     setLoader(false);
     loadMore();
   }, []);

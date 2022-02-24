@@ -12,7 +12,6 @@ const Footer = () => {
   // Fetch Data on component load
   const fetchData = async () => {
     const res = await footer.footerlink(`${ENV.API_URL}api/settings/social/`);
-    // console.log(res.data.facebook);
     setData(res.data);
   };
   return (

@@ -19,7 +19,6 @@ class Activity extends Component {
           walletData: res.data.walletData,
           loader: false,
         });
-        // console.log(this.state.data)
       })
       .catch((err) => console.log(err));
   }

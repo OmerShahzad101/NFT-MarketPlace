@@ -19,7 +19,6 @@ class Sidebar extends Component {
                     widgetData_2: res.data.widgetData_2,
                     widgetData_3: res.data.widgetData_3
                 })
-                // console.log(this.state.data)
             })
         .catch(err => console.log(err))
     }

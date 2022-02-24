@@ -64,8 +64,6 @@ const Faq = () => {
                                 key={`fd_${idx}`}
                                 className="single-accordion-item p-3"
                               >
-                                {console.log(item.title)}
-                                {/* Card Header */}
                                 <div className="card-header bg-inherit border-0 p-0">
                                   <h2 className="m-0">
                                     <button

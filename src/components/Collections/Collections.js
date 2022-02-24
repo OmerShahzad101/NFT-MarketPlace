@@ -24,8 +24,6 @@ const Collections = () => {
     setLoader(true);
     const result = await Category.category(`${ENV.API_URL}api/category_list/`);
     setCategories(result.data.data);
-    console.log(result.data.data);
-
     $("html,body").animate({ scrollTop: 0 }, "slow");
 
     const res = await Category.category(

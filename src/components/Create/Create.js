@@ -122,7 +122,6 @@ class Create extends Component {
                 });
               } else {
                 const errors = res.data;
-                console.log(errors);
                 for (let key in errors) {
                   Swal.fire({
                     icon: "error",

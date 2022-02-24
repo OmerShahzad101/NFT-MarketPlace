@@ -31,7 +31,6 @@ const FavouriteNft = () => {
       `${ENV.API_URL}api/favourite-nft/`,
       favourite_payload
     );
-    console.log(result);
     if (result.status == true) {
       updated_favourite_list();
     }

@@ -36,7 +36,6 @@ const ItemDetails = () => {
     const fetchNftData = async () => {
       const res = await NFT.nftget(`${ENV.API_URL}api/specific_nft/${id}/`);
       setNftData(res.data.data);
-      console.log(res.data.data);
     };
 
     const fetchNftBiddingData = async () => {
@@ -151,7 +150,6 @@ const ItemDetails = () => {
                                 key={`tdo_${idx}`}
                                 className="single-tab-list d-flex align-items-center"
                               >
-                                {console.log(`${nftData.profile_image}`)}
                                 <img
                                   className="avatar-sm rounded-circle mr-3"
                                   src={`${ENV.API_URL_image_media}${item.profile_image}`}

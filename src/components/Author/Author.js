@@ -143,7 +143,6 @@ const Author = () => {
                   "Loading..."
                 )}
               </div>
-              {console.log(authorNft)}
               <div className="col-12 col-md-8">
                 <div className="intro my-3">
                   <span className="font-author">Author NFT's</span>

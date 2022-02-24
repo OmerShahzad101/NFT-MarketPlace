@@ -130,7 +130,6 @@ const ExploreFour = () => {
     const nFilters = await favoriteNft.saleTypeGet(
       `${ENV.API_URL}api/nft-filters/?sale_type=${value}&limit=${limit_sale}`
     );
-    console.log(nFilters);
     setNftData(nFilters.data.data.results);
   };
   const collectionNFT = async (id) => {

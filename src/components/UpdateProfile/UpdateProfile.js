@@ -42,7 +42,6 @@ const UpdateProfile = () => {
     const res = await updateProfile.updateProfileUserGet(
       `${ENV.API_URL}api/auth/users/me/`
     );
-    console.log(res);
     setUpdateUser(res);
     setLoader(false)
   };
@@ -63,7 +62,6 @@ const UpdateProfile = () => {
     const { name, value } = e.target;
     let obj = updateUser.user_profile;
     obj[name] = value;
-    console.log(updateUser);
     setUpdateUser({
       ...updateUser,
       user_profile: obj,
@@ -100,10 +98,8 @@ const UpdateProfile = () => {
             $(`.display`).attr("src", e.target.result);
             $(".label-profile").html("File selected");
           };
-          console.log(reader);
         }
         reader.readAsDataURL(file);
-        console.log(file);
       } else {
         $(`#nft-${fileId}`).attr("src", placeholderImg);
         file = {};
@@ -132,13 +128,11 @@ const UpdateProfile = () => {
         icon: "success",
         title: "Yeah...",
         text: "Profile updated successfully!",
-      }); // window.location = "/";
+      }); 
     } else {
       const errors = res.data;
-      console.log(errors);
       for (let key in errors) {
         let val = errors[key];
-        console.log(val);
         Swal.fire({
           icon: "error",
           title: "Oops...",

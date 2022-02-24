@@ -25,13 +25,3 @@ const AuthService = {
 };
 export default AuthService;
 
-// import axios from "axios";
-// register: (url, user) => {
-//   console.log(user)
-//   return axios.post(url, user);
-// },
-
-// login: (url, user) => {
-//   console.log(user);
-//   return axios.post(url, user);
-// },

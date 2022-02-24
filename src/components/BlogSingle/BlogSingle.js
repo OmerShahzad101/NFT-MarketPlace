@@ -16,7 +16,6 @@ class BlogSingle extends Component {
         this.setState({
           data: res.data,
         });
-        // console.log(this.state.data)
       })
       .catch((err) => console.log(err));
   }

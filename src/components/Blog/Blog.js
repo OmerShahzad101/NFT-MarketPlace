@@ -13,7 +13,6 @@ class Blog extends Component {
                 this.setState({
                     data: res.data.blogData
                 })
-                // console.log(this.state.data)
             })
         .catch(err => console.log(err))
     }

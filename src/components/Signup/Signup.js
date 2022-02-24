@@ -103,10 +103,8 @@ const Signup = () => {
                       history.push("/login");
                     } else {
                       const errors = res;
-                      console.log(errors);
                       for (let key in errors) {
                         let val = errors[key];
-                        console.log(val);
                         Swal.fire({
                           icon: "error",
                           title: "Oops...",

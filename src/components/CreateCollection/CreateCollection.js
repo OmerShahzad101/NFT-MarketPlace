@@ -92,7 +92,6 @@ class CreateCollection extends Component {
                 `${ENV.API_URL}api/create_collection/`,
                 formData
               );
-              console.log(res);
               this.setState({ loader: false });
               if (res.status == true) {
                 Swal.fire({

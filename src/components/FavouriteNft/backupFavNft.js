@@ -34,8 +34,6 @@ const FavouriteNft = () => {
     );
     let newArray = [...nftData ,...result.data.user_favourite_nft]
     setNftData(newArray);
-    // console.log(result.data.pagination.total)
-    // console.log(newArray.length)
     if (result.data.pagination.total === newArray.length) {
       $("#loadmorebtnfav").fadeOut("slow");
     }
@@ -47,7 +45,6 @@ const FavouriteNft = () => {
       `${ENV.API_URL}api/favourite-nft/`,
       favourite_payload
     );
-    console.log(result);
     if (result.status === true) {
       debugger
       let abc = 1
