@@ -3704,7 +3704,8 @@ header .navbar-expand .dropdown:hover > .dropdown-menu {
   background-color: #000000;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: #57048a;
-  border-radius: 15px;
+::-webkit-scrollbar-thumb
+{
+	background-color: #57048a;	
+  border-radius: 15px 0px 0px 15px;
 }
