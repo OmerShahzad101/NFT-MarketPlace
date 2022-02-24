@@ -3,7 +3,6 @@ import React, { Component } from "react";
 class AuthorProfile extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       data: {},
       socialData: [],

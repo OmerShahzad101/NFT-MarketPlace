@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Header from '../components/Header/Header';
 import ItemDetail from '../components/ItemDetails/ItemDetails';
 import LiveAuctions from '../components/Auctions/AuctionsThree';

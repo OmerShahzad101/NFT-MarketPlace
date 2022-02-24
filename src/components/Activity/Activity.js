@@ -9,23 +9,22 @@ const Activity = () => {
   const [data, setData] = useState();
   const [loader, setLoader] = useState(false);
 
-
   useEffect(() => {
     // __ Function call to fetch data __ //
     setLoader(true)
     $("html,body").animate({ scrollTop: 0 }, "slow");
     fetchData();
   }, []);
-  // __ __ API Call to Fetch all bidding list __ __ //
+  // --- API Call to Fetch all bidding list --- //
   const fetchData = async () => {
     const res = await activity.activityGet(`${ENV.API_URL}api/bidding/`);
     setData(res.data.data.results);
     setLoader(false)
 
   };
-
   return (
     <>
+      {/* // --- Loader --- // */}
       {loader ? (
         <div className="fullpage-loader-holder ">
           <div className="fullpage-loader">
@@ -39,6 +38,7 @@ const Activity = () => {
           <body></body>
         </div>
       ) : (
+        // --- when loader is false ---
         <section className="activity-area load-more">
           <div className="container">
             <div className="row">

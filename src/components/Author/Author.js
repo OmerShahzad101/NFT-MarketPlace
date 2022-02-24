@@ -17,9 +17,7 @@ const Author = () => {
     fetchData();
   }, []);
   const fetchData = async () => {
-    const res = await authors.authorsList(
-      `${ENV.API_URL}api/specific_user_nft_data/${id}?limit=${limit}&page=${page}`
-    );
+    const res = await authors.authorsList(`${ENV.API_URL}api/specific_user_nft_data/${id}?limit=${limit}&page=${page}`);
     let newArr = [...authorNft, ...res.data.data.user_data];
     setAuthorNft(newArr);
     
@@ -51,7 +49,6 @@ const Author = () => {
                 <div className="intro my-3">
                   <span className="font-author">Author</span>
                 </div>
-                {/* <h4 class="footer-title">Author</h4> */}
                 {authorNft[0] ? (
                   <div className="card no-hover text-center">
                     <div className="image-over">

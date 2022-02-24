@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Header from '../components/Header/Header';
 import Explore from '../components/Explore/ExploreFour';
 import Footer from '../components/Footer/Footer';

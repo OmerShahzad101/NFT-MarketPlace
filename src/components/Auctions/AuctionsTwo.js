@@ -40,11 +40,11 @@ const AuctionsTwo = () => {
     script.src = "/assets/js/vendor/countdown.min.js";
     script.async = true;
     document.body.appendChild(script);
+    setLoader(false);
 
     if (res.data.data.count === newArr.length) {
       $("#loadmorebtn").fadeOut("slow");
     }
-    setLoader(false);
     setPage(page + 1);
   };
   return (

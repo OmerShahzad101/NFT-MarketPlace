@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Header from '../components/Header/Header';
 import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import Explore from '../components/Explore/ExploreFive';

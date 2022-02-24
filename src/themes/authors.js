@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Header from '../components/Header/Header';
 import Author from '../components/Authors/Authors';
 import Footer from '../components/Footer/Footer';

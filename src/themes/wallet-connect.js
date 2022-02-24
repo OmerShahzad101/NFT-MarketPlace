@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Header from '../components/Header/Header';
 import Wallet from '../components/Wallet/Wallet';
 import Footer from '../components/Footer/Footer';

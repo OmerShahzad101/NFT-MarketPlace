@@ -4,7 +4,7 @@ import { ENV } from "../../env";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import $ from "jquery"
-//__ __ Initial Data of Home Live Auction__ __ //
+// --- Initial Data of Home Live Auction//
 const initailData = {
   heading: "Live Auctions",
   content:
@@ -13,11 +13,11 @@ const initailData = {
 };
 
 const AuctionsOne = () => {
-  //__ __ Hook functions __ __ //
+  //--- Hook functions --- //
   const [initData] = useState(initailData);
   const [data, setData] = useState("");
 
-  // Fetch Data on component load
+  //  --- Fetch Data on component load ---
   useEffect(() => {
     $('html,body').animate({scrollTop: 0}, 'slow');
     fetchData();
@@ -59,12 +59,12 @@ const AuctionsOne = () => {
             </div>
           </div>
         </div>
-        {/* Condition When Slides are less then 4 */}
+        {/* --- Condition When Slides are less then 4 --- */}
         {data.length > 4 ? (
           <div className="auctions-slides">
             <div className="swiper-container slider-mid items">
               <div className="swiper-wrapper">
-                {/* __ __ Iteration to show data __ __ */}
+                {/* --- Iteration to show data --- */}
                 {data ? (
                   data.map((item, idx) => {
                     return (
@@ -122,7 +122,7 @@ const AuctionsOne = () => {
             </div>
           </div>
         ) : (
-          // __ __ Else When more then four Slides __ __}
+          // --- Else When more then four Slides ---
           <div className="row items">
             {data ? (
               data.map((item, idx) => {
